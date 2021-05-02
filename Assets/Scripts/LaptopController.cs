@@ -16,6 +16,16 @@ public class LaptopController : MonoBehaviour
     private ChickenController chicken;
     private InventoryController inventoryController;
 
+    public static LaptopController instance;
+    [HideInInspector]
+    public GameObject laptopController;
+
+    private void Awake()
+    {
+        instance = this;
+        laptopController = gameObject;
+    }
+
     private void Start()
     {
         if (!inventoryController)
@@ -27,29 +37,29 @@ public class LaptopController : MonoBehaviour
         StartCoroutine(InRangeCheck());
     }
 
-    private void Update()
-    {
-        if (chickenInRange)
-        {
-            if (Input.GetMouseButtonDown(0) && clickActive)
-            {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
+    //private void Update()
+    //{
+    //    if (chickenInRange)
+    //    {
+    //        if (Input.GetMouseButtonDown(0) && clickActive)
+    //        {
+    //            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    //            RaycastHit hit;
 
-                if (Physics.Raycast(ray, out hit))
-                {
-                    if (hit.collider != null)
-                    {
-                        if (hit.collider.gameObject.CompareTag("Laptop"))
-                        {
-                            SetLaptopPanelActive(true);
-                            clickActive = false;
-                        }
-                    }
-                }
-            }
-        }
-    }
+    //            if (Physics.Raycast(ray, out hit))
+    //            {
+    //                if (hit.collider != null)
+    //                {
+    //                    if (hit.collider.gameObject.CompareTag("Laptop"))
+    //                    {
+    //                        SetLaptopPanelActive(true);
+    //                        clickActive = false;
+    //                    }
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
 
     IEnumerator InRangeCheck()
     {

@@ -39,36 +39,36 @@ public class DryerController : MonoBehaviour
         StartCoroutine(InRangeCheck());
     }
 
-    private void Update()
-    {
-        if (chickenInRange)
-        {
-            if (Input.GetMouseButtonDown(0) && clickActive)
-            {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
+    //private void Update()
+    //{
+    //    if (chickenInRange)
+    //    {
+    //        if (Input.GetMouseButtonDown(0) && clickActive)
+    //        {
+    //            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    //            RaycastHit hit;
 
-                if (Physics.Raycast(ray, out hit))
-                {
-                    if (hit.collider != null)
-                    {
-                        if (hit.collider.gameObject == gameObject)
-                        {
-                            if (!isDry)
-                            {
-                                SetDryerPanelActive(true);
-                                clickActive = false;
-                            }
-                            else
-                            {
-                                Harvest();
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+    //            if (Physics.Raycast(ray, out hit))
+    //            {
+    //                if (hit.collider != null)
+    //                {
+    //                    if (hit.collider.gameObject == gameObject)
+    //                    {
+    //                        if (!isDry)
+    //                        {
+    //                            SetDryerPanelActive(true);
+    //                            clickActive = false;
+    //                        }
+    //                        else
+    //                        {
+    //                            Harvest();
+    //                        }
+    //                    }
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
 
     IEnumerator InRangeCheck()
     {

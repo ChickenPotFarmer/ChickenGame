@@ -22,12 +22,6 @@ public class ToDoController : MonoBehaviour
         toDoController = gameObject;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Tab))
-            ToggleToDoPanel();
-    }
-
     public void ToggleToDoPanel()
     {
         if (isOpen)

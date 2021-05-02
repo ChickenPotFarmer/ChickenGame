@@ -8,47 +8,47 @@ public class PlanterSphere : MonoBehaviour
     public Planter planterMaster;
     public WeedPlant selectedPlant;
 
-    private void Update()
-    {
-        if (selectedPlant != null && !selectedPlant.selected && !selectedPlant.isPlanted)
-        {
-            if (Vector3.Distance(selectedPlant.transform.position, transform.position) > 2.5f)
-            {
-                selectedPlant.SetNone();
-                selectedPlant = null;
-                planterMaster.selectedPlant = null;
-            }
-        }
-    }
+    //private void Update()
+    //{
+    //    if (selectedPlant != null && !selectedPlant.selected && !selectedPlant.isPlanted)
+    //    {
+    //        if (Vector3.Distance(selectedPlant.transform.position, transform.position) > 2.5f)
+    //        {
+    //            selectedPlant.SetNone();
+    //            selectedPlant = null;
+    //            planterMaster.selectedPlant = null;
+    //        }
+    //    }
+    //}
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Weed Plant"))
-        {
-            // add if statement for if the plant has been planted
-            WeedPlant foundPlant = collision.gameObject.GetComponent<WeedPlant>();
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Weed Plant"))
+    //    {
+    //        // add if statement for if the plant has been planted
+    //        WeedPlant foundPlant = collision.gameObject.GetComponent<WeedPlant>();
 
-            if (!foundPlant.isPlanted)
-            {
-                if (selectedPlant != null)
-                {
-                    if (foundPlant != selectedPlant)
-                    {
-                        if (!selectedPlant.isPlanted)
-                            selectedPlant.SetNone();
+    //        if (!foundPlant.isPlanted)
+    //        {
+    //            if (selectedPlant != null)
+    //            {
+    //                if (foundPlant != selectedPlant)
+    //                {
+    //                    if (!selectedPlant.isPlanted)
+    //                        selectedPlant.SetNone();
 
-                        selectedPlant = foundPlant;
-                    }
-                }
-                else
-                    selectedPlant = collision.gameObject.GetComponent<WeedPlant>();
+    //                    selectedPlant = foundPlant;
+    //                }
+    //            }
+    //            else
+    //                selectedPlant = collision.gameObject.GetComponent<WeedPlant>();
 
-                planterMaster.selectedPlant = selectedPlant;
+    //            planterMaster.selectedPlant = selectedPlant;
 
-                selectedPlant.SetFullGrown();
-            }
-        }
-    }
+    //            selectedPlant.SetFullGrown();
+    //        }
+    //    }
+    //}
 
     public void MoveSphere()
     {

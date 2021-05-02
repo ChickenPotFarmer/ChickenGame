@@ -32,29 +32,29 @@ public class ChickenController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(1))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
+        //if (Input.GetMouseButtonDown(1))
+        //{
+        //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //    RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit))
-            {
-                //if (hit.collider != null)
-                //{
-                    //// Do Stuff
-                    //string optionPicked = hit.collider.gameObject.tag;
+        //    if (Physics.Raycast(ray, out hit))
+        //    {
+        //        //if (hit.collider != null)
+        //        //{
+        //            //// Do Stuff
+        //            //string optionPicked = hit.collider.gameObject.tag;
 
-                    //switch (optionPicked)
-                    //{
-                    //    case "DashBtn Battle":
-                    //        SetNewDestination(hit.point);
-                    //        break;
-                    //}
-                //}
+        //            //switch (optionPicked)
+        //            //{
+        //            //    case "DashBtn Battle":
+        //            //        SetNewDestination(hit.point);
+        //            //        break;
+        //            //}
+        //        //}
 
-                SetNewDestination(hit.point);
-            }
-        }
+        //        SetNewDestination(hit.point);
+        //    }
+        //}
 
         if (navAgent.velocity.magnitude > runThreshold)
         {

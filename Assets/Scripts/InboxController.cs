@@ -28,6 +28,7 @@ public class InboxController : MonoBehaviour
     private WeedPriceMaster priceMaster;
     private BuyerController buyerController;
     private ToDoController toDoController;
+    private LaptopController laptopController;
 
     public static InboxController instance;
     [HideInInspector]
@@ -49,6 +50,9 @@ public class InboxController : MonoBehaviour
 
         if (!toDoController)
             toDoController = ToDoController.instance.toDoController.GetComponent<ToDoController>();
+
+        if (!laptopController)
+            laptopController = LaptopController.instance.laptopController.GetComponent<LaptopController>();
 
         UpdateEmailTxt("", "", "", 0, null);
 
@@ -113,6 +117,7 @@ public class InboxController : MonoBehaviour
         buyerController.SpawnBuyer(fromName, amountRequested, totalPay, toDoController.AddOrderToDo(amountRequested, fromName));
         Destroy(currentInboxObject);
         currentInboxObject = null;
+        laptopController.clickActive = true;
         SetLaptopPanelActive(false);
     }
 

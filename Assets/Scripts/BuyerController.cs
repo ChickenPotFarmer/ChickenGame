@@ -39,39 +39,39 @@ public class BuyerController : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (hoverActive)
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
+    //private void Update()
+    //{
+    //    if (hoverActive)
+    //    {
+    //        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    //        RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit))
-            {
-                if (hit.collider != null)
-                {
-                    if (hit.collider.gameObject.CompareTag("Buyer"))
-                    {
-                        hoveringOver = hit.collider.gameObject.GetComponent<Buyer>();
-                        hoveringOver.SetHoverInfoActive(true);
+    //        if (Physics.Raycast(ray, out hit))
+    //        {
+    //            if (hit.collider != null)
+    //            {
+    //                if (hit.collider.gameObject.CompareTag("Buyer"))
+    //                {
+    //                    hoveringOver = hit.collider.gameObject.GetComponent<Buyer>();
+    //                    hoveringOver.SetHoverInfoActive(true);
 
-                        if (Input.GetMouseButtonDown(0))
-                        {
-                            hoveringOver.DeliverWeed();
-                        }
-                    }
-                    else
-                    {
-                        if (hoveringOver != null)
-                        {
-                            hoveringOver.SetHoverInfoActive(false);
-                            hoveringOver = null;
-                        }
-                    }
-                }
-            }
-        }
-    }
+    //                    if (Input.GetMouseButtonDown(0))
+    //                    {
+    //                        hoveringOver.DeliverWeed();
+    //                    }
+    //                }
+    //                else
+    //                {
+    //                    if (hoveringOver != null)
+    //                    {
+    //                        hoveringOver.SetHoverInfoActive(false);
+    //                        hoveringOver = null;
+    //                    }
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
 
     public void SpawnBuyer(string _buyerName, float _amtRequested, float _totalPay, ToDoObject _toDo)
     {
