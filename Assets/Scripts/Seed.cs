@@ -12,6 +12,21 @@ public class Seed : MonoBehaviour
     [Header("Special Traits")]
     public int traitRating;
 
+    [Header("Manual Set Traits")]
+    public bool manuallySetOnStart;
+
+    public bool smooth;
+    public bool purple;
+    public bool tasty;
+    public bool highYield;
+    public bool highOilYield;
+    public bool highKeefYield;
+
+    public bool harsh;
+    public bool lowYield;
+    public bool highStemContent;
+
+    [Header("Dictionarys")]
     public Dictionary<string, bool> goodTraits = new Dictionary<string, bool>();
     public string[] goodTraitNames;
 
@@ -25,19 +40,25 @@ public class Seed : MonoBehaviour
             goodTraits.Add(goodTraitNames[i], false);
         }
 
+        if(manuallySetOnStart)
+        {
+            manuallySetOnStart = false;
+            ManuallySetStrain();
+        }
+
     }
 
-    private void Update()
-    {
-        // TESTING
-        if (Input.GetKeyDown("x"))
-            GenerateRandomStrain();
-    }
+    //private void Update()
+    //{
+    //    // TESTING
+    //    if (Input.GetKeyDown("x"))
+    //        GenerateRandomStrain();
+    //}
 
-    public void GenerateRandomStrain()
+    public void GenerateNewTraits()
     {
 
-        ClearTraits();
+        //ClearTraits();
         if (traitRating > 0)
         {
             GenerateGoodTraits(Mathf.Abs(traitRating));
@@ -53,6 +74,20 @@ public class Seed : MonoBehaviour
         }
     }
 
+    public void ManuallySetStrain()
+    {
+        if (smooth) goodTraits["Smooth"] = true;
+        if (purple) goodTraits["Purple"] = true;
+        if (tasty) goodTraits["Tasty"] = true;
+        if (highYield) goodTraits["High Yield"] = true;
+        if (highOilYield) goodTraits["High Oil Yield"] = true;
+        if (highKeefYield) goodTraits["High Keef Yield"] = true;
+
+        if (harsh) goodTraits["Harsh"] = true;
+        if (lowYield) goodTraits["Low Yield"] = true;
+        if (highStemContent) goodTraits["High Stem Content"] = true;
+    }
+
     public void GenerateGoodTraits(int _amt)
     {
         int rand;
@@ -60,8 +95,8 @@ public class Seed : MonoBehaviour
 
         for (int i = 0; i < _amt; i++)
         {
-            do
-            {
+            //do // REMOVED DEPULCATES CHECK
+            //{
                 rand = Random.Range(0, goodTraitNames.Length);
 
                 if (!goodTraits[goodTraitNames[rand]])
@@ -72,7 +107,7 @@ public class Seed : MonoBehaviour
                 else
                     duplicates = true;
 
-            } while (duplicates);
+            //} while (duplicates);
         }
 
         print("Good traits: ");
@@ -91,8 +126,8 @@ public class Seed : MonoBehaviour
 
         for (int i = 0; i < _amt; i++)
         {
-            do
-            {
+            //do // REMOVED DUPLICATE CHECK
+            //{
                 rand = Random.Range(0, badTraitNames.Length);
 
                 if (!badTraits[badTraitNames[rand]])
@@ -103,7 +138,7 @@ public class Seed : MonoBehaviour
                 else
                     duplicates = true;
 
-            } while (duplicates);
+            //} while (duplicates);
         }
 
         print("Bad traits: ");
