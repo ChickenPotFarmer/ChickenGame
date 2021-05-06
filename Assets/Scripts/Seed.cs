@@ -25,6 +25,7 @@ public class Seed : MonoBehaviour
     public bool harsh;
     public bool lowYield;
     public bool highStemContent;
+    //high seed content
 
     [Header("Dictionarys")]
     public Dictionary<string, bool> goodTraits = new Dictionary<string, bool>();
@@ -76,6 +77,7 @@ public class Seed : MonoBehaviour
 
     public void ManuallySetStrain()
     {
+        // Good Traits
         if (smooth) goodTraits["Smooth"] = true;
         if (purple) goodTraits["Purple"] = true;
         if (tasty) goodTraits["Tasty"] = true;
@@ -83,6 +85,7 @@ public class Seed : MonoBehaviour
         if (highOilYield) goodTraits["High Oil Yield"] = true;
         if (highKeefYield) goodTraits["High Keef Yield"] = true;
 
+        // Bad Traits
         if (harsh) goodTraits["Harsh"] = true;
         if (lowYield) goodTraits["Low Yield"] = true;
         if (highStemContent) goodTraits["High Stem Content"] = true;

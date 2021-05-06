@@ -10,6 +10,7 @@ public class InputController : MonoBehaviour
     private Planter planterController;
     private ToDoController toDoController;
     private ChickenController chickenController;
+    private InventoryGUI inventoryGUI;
 
     private void Start()
     {
@@ -25,12 +26,17 @@ public class InputController : MonoBehaviour
             toDoController = ToDoController.instance.toDoController.GetComponent<ToDoController>();
         if (!chickenController)
             chickenController = ChickenController.instance.chickenController.GetComponent<ChickenController>();
+        if (!inventoryGUI)
+            inventoryGUI = InventoryGUI.instance.inventoryGUI.GetComponent<InventoryGUI>();
     }
 
     private void Update()
     {
         // Keyboard Controls
         if (Input.GetKeyDown(KeyCode.Tab))
+            inventoryGUI.ToggleInventoryPanel();
+
+        else if (Input.GetKeyDown(KeyCode.T))
             toDoController.ToggleToDoPanel();
 
         // Mouse Control
