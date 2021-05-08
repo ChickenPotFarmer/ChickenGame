@@ -22778,7 +22778,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   secsBetweenLetters: 0.05
-  endOfSentencePause: 0.4
+  endOfSentencePause: 0.5
   openDelay: 2
   dialogTxt: {fileID: 540583711}
   whoIsSpeakingImage: {fileID: 209805604}
@@ -22787,8 +22787,8 @@ MonoBehaviour:
   dax: {fileID: 0}
   builtMessage: 
   chars: 
-  testString: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-    ligula eget dolor. '
+  testString: You need to stop snitchin'. All that yip-yappin' and jaw-jackin'. If
+    you scared, go to church. You knew the job was dangerous when you took it.
 --- !u!1 &1425927824
 GameObject:
   m_ObjectHideFlags: 0
@@ -24991,7 +24991,7 @@ GameObject:
   - component: {fileID: 1555522041}
   - component: {fileID: 1555522040}
   m_Layer: 5
-  m_Name: Container
+  m_Name: Container / Animator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25007,7 +25007,7 @@ Animator:
   m_GameObject: {fileID: 1555522039}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b4f18993e513b854294ec386f6a29432, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -33626,7 +33626,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2077945284}
-  m_LocalRotation: {x: 0.16484857, y: 0.518879, z: -0.10274849, w: 0.8324857}
+  m_LocalRotation: {x: 0.16484857, y: 0.518879, z: -0.10274848, w: 0.8324856}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

@@ -89,7 +89,7 @@ public class DialogController : MonoBehaviour
         builtMessage = null;
 
         BuildCharArray(_message);
-        //dialogAnimator.Play("Enter");
+        dialogAnimator.Play("Enter");
 
         yield return new WaitForSeconds(openDelay);
 
