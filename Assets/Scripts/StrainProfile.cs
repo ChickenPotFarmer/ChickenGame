@@ -46,6 +46,14 @@ public class StrainProfile : MonoBehaviour
 
     public void GenerateTerpeneLevels()
     {
+        caryophyllene = 0;
+        limonene = 0;
+        linalool = 0;
+        myrcene = 0;
+        pinene = 0;
+        terpinolene = 0;
+
+
         float rand = Random.Range(primaryMin, primaryMax);
         SetTerpeneLevel(primaryTerpene, rand);
 
@@ -64,8 +72,9 @@ public class StrainProfile : MonoBehaviour
             float lesser = remainder * rand;
             SetTerpeneLevel(lesserTerpene, lesser);
             remainder -= lesser;
-            SetOtherTerpenes(remainder);
         }
+
+        SetOtherTerpenes(remainder);
 
 
     }
@@ -153,6 +162,94 @@ public class StrainProfile : MonoBehaviour
 
             // third one
             remainder -= first + second;
+
+            if (caryophyllene == 0)
+                caryophyllene = remainder;
+
+            else if (limonene == 0)
+                limonene = remainder;
+
+            else if (linalool == 0)
+                linalool = remainder;
+
+            else if (myrcene == 0)
+                myrcene = remainder;
+
+            else if (pinene == 0)
+                pinene = remainder;
+
+            else if (terpinolene == 0)
+                terpinolene = remainder;
+        }
+        else
+        {
+            // First one
+            float rand = Random.Range(0.15f, 0.35f);
+            first = rand * remainder;
+            if (caryophyllene == 0)
+                caryophyllene = first;
+
+            else if (limonene == 0)
+                limonene = first;
+
+            else if (linalool == 0)
+                linalool = first;
+
+            else if (myrcene == 0)
+                myrcene = first;
+
+            else if (pinene == 0)
+                pinene = first;
+
+            else if (terpinolene == 0)
+                terpinolene = first;
+
+            // Second one
+            rand = Random.Range(0.15f, 0.35f);
+            second = rand * remainder;
+
+            if (caryophyllene == 0)
+                caryophyllene = second;
+
+            else if (limonene == 0)
+                limonene = second;
+
+            else if (linalool == 0)
+                linalool = second;
+
+            else if (myrcene == 0)
+                myrcene = second;
+
+            else if (pinene == 0)
+                pinene = second;
+
+            else if (terpinolene == 0)
+                terpinolene = second;
+
+            // Third one
+            rand = Random.Range(0.15f, 0.35f);
+            third = rand * remainder;
+
+            if (caryophyllene == 0)
+                caryophyllene = third;
+
+            else if (limonene == 0)
+                limonene = third;
+
+            else if (linalool == 0)
+                linalool = third;
+
+            else if (myrcene == 0)
+                myrcene = third;
+
+            else if (pinene == 0)
+                pinene = third;
+
+            else if (terpinolene == 0)
+                terpinolene = third;
+
+            // fourth one
+            remainder -= first + second + third;
 
             if (caryophyllene == 0)
                 caryophyllene = remainder;
