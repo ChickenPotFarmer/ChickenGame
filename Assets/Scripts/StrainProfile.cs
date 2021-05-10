@@ -56,13 +56,15 @@ public class StrainProfile : MonoBehaviour
         SetTerpeneLevel(secondaryTerpene, secondary);
 
         remainder -= secondary;
-        rand = Random.Range(lesserMinRemaindar, lesserMaxRemaindar);
-
-        float lesser = remainder * rand;
 
         if (lesserTerpene != -1)
         {
+            rand = Random.Range(lesserMinRemaindar, lesserMaxRemaindar);
+
+            float lesser = remainder * rand;
             SetTerpeneLevel(lesserTerpene, lesser);
+            remainder -= lesser;
+            SetOtherTerpenes(remainder);
         }
 
 
@@ -96,5 +98,82 @@ public class StrainProfile : MonoBehaviour
                 terpinolene = _amt;
                 break;
         }
+    }
+
+    public void SetOtherTerpenes(float _remainder)
+    {
+        float remainder = _remainder;
+        float first;
+        float second;
+        float third;
+        if (lesserTerpene != -1)
+        {
+            // First one
+            float rand = Random.Range(0.25f, 0.4f);
+            first = rand * remainder;
+            if (caryophyllene == 0)
+                caryophyllene = first;
+
+            else if (limonene == 0)
+                limonene = first;
+
+            else if (linalool == 0)
+                linalool = first;
+
+            else if (myrcene == 0)
+                myrcene = first;
+
+            else if (pinene == 0)
+                pinene = first;
+
+            else if (terpinolene == 0)
+                terpinolene = first;
+
+            // Second one
+            rand = Random.Range(0.25f, 0.4f);
+            second = rand * remainder;
+
+            if (caryophyllene == 0)
+                caryophyllene = second;
+
+            else if (limonene == 0)
+                limonene = second;
+
+            else if (linalool == 0)
+                linalool = second;
+
+            else if (myrcene == 0)
+                myrcene = second;
+
+            else if (pinene == 0)
+                pinene = second;
+
+            else if (terpinolene == 0)
+                terpinolene = second;
+
+            // third one
+            remainder -= first + second;
+
+            if (caryophyllene == 0)
+                caryophyllene = remainder;
+
+            else if (limonene == 0)
+                limonene = remainder;
+
+            else if (linalool == 0)
+                linalool = remainder;
+
+            else if (myrcene == 0)
+                myrcene = remainder;
+
+            else if (pinene == 0)
+                pinene = remainder;
+
+            else if (terpinolene == 0)
+                terpinolene = remainder;
+        }
+
+
+        
     }
 }
