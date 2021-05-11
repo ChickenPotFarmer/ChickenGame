@@ -30,6 +30,10 @@ public class StrainProfile : MonoBehaviour
     [Tooltip("Terpene Int = 5")]
     public float terpinolene;
 
+    [Header("Terpene Effects / Flavors")]
+    public string primaryEffect;
+    public string secondaryEffect;
+
     [Header("Terpene Generator Settings")]
     public float primaryMin;
     public float primaryMax;
@@ -38,21 +42,25 @@ public class StrainProfile : MonoBehaviour
     public float lesserMinRemaindar;
     public float lesserMaxRemaindar;
 
-    private void Update()
+    public void GenerateTerpeneEffects()
     {
-        if (Input.GetKeyDown("b"))
-            GenerateTerpeneLevels();
+        primaryEffect = TerpeneEffects.GetRandomEffect(primaryTerpene);
+        do
+        {
+            secondaryEffect = TerpeneEffects.GetRandomEffect(secondaryTerpene);
+        } while (primaryEffect == secondaryEffect);
     }
 
     public void GenerateTerpeneLevels()
     {
-        caryophyllene = 0;
-        limonene = 0;
-        linalool = 0;
-        myrcene = 0;
-        pinene = 0;
-        terpinolene = 0;
+        ResetTerpeneLevels();
 
+        primaryEffect = TerpeneEffects.GetRandomEffect(primaryTerpene);
+
+        do
+        {
+            secondaryEffect = TerpeneEffects.GetRandomEffect(secondaryTerpene);
+        } while (primaryEffect == secondaryEffect);
 
         float rand = Random.Range(primaryMin, primaryMax);
         SetTerpeneLevel(primaryTerpene, rand);
@@ -272,5 +280,313 @@ public class StrainProfile : MonoBehaviour
 
 
         
+    }
+
+    public void ResetTerpeneLevels()
+    {
+        caryophyllene = 0;
+        limonene = 0;
+        linalool = 0;
+        myrcene = 0;
+        pinene = 0;
+        terpinolene = 0;
+    }
+
+    public string GetStrainType()
+    {
+        string type;
+        switch (strainType)
+        {
+            case 0:
+                type = "Indica";
+                break;
+
+            case 1:
+                type = "Indica Hybrid";
+                break;
+
+            case 2:
+                type = "Hybrid";
+                break;
+
+            case 3:
+                type = "Sativa Hybrid";
+                break;
+
+            case 4:
+                type = "Sativa";
+                break;
+
+
+            default:
+                type = "STRAIN TYPE ERROR";
+                break;
+        }
+
+        return type;
+    }
+
+    public string GetReaderFriendlyThcContent()
+    {
+        float thc = thcPercent * 100;
+        string readable = thc.ToString("n2") + "%";
+        return readable;
+    }
+
+    public string GetPrimaryTerpene()
+    {
+        string terpene;
+
+        switch (primaryTerpene)
+        {
+            case 0:
+                terpene = "Caryophyllene";
+                break;
+
+            case 1:
+                terpene = "Limonene";
+                break;
+
+            case 2:
+                terpene = "Linalool";
+                break;
+
+            case 3:
+                terpene = "Myrcene";
+                break;
+
+            case 4:
+                terpene = "Pinene";
+                break;
+
+            case 5:
+                terpene = "Terpinolene";
+                break;
+
+            default:
+                terpene = "PRIMARY TERPENE ERROR";
+                break;
+        }
+
+        return terpene;
+    }
+
+    public string GetSecondaryTerpene()
+    {
+        string terpene;
+
+        switch (secondaryTerpene)
+        {
+            case 0:
+                terpene = "Caryophyllene";
+                break;
+
+            case 1:
+                terpene = "Limonene";
+                break;
+
+            case 2:
+                terpene = "Linalool";
+                break;
+
+            case 3:
+                terpene = "Myrcene";
+                break;
+
+            case 4:
+                terpene = "Pinene";
+                break;
+
+            case 5:
+                terpene = "Terpinolene";
+                break;
+
+            default:
+                terpene = "SECONDARY TERPENE ERROR";
+                break;
+        }
+
+        return terpene;
+    }
+
+    public string GetLesserTerpene()
+    {
+        string terpene;
+
+        switch (lesserTerpene)
+        {
+            case 0:
+                terpene = "Caryophyllene";
+                break;
+
+            case 1:
+                terpene = "Limonene";
+                break;
+
+            case 2:
+                terpene = "Linalool";
+                break;
+
+            case 3:
+                terpene = "Myrcene";
+                break;
+
+            case 4:
+                terpene = "Pinene";
+                break;
+
+            case 5:
+                terpene = "Terpinolene";
+                break;
+
+            case -1:
+                terpene = "None";
+                break;
+
+            default:
+                terpene = "LESSER TERPENE ERROR";
+                break;
+        }
+
+        return terpene;
+    }
+
+    public string GetReaderFriendlyTerpeneLvl(int _terpene)
+    {
+        float terpeneLvl;
+
+        switch (_terpene)
+        {
+            case 0:
+                terpeneLvl = caryophyllene;
+                break;
+
+            case 1:
+                terpeneLvl = limonene;
+                break;
+
+            case 2:
+                terpeneLvl = linalool;
+                break;
+
+            case 3:
+                terpeneLvl = myrcene;
+                break;
+
+            case 4:
+                terpeneLvl = pinene;
+                break;
+
+            case 5:
+                terpeneLvl = terpinolene;
+                break;
+
+            default:
+                terpeneLvl = -1;
+                Debug.LogWarning("Terpene Levels Get Error");
+                break;
+        }
+
+        string terpeneString = (terpeneLvl * 100).ToString("n2") + "%";
+
+        return terpeneString;
+    }
+
+    public bool AddToTerpeneLvl(int _terepeneInt, float _amt)
+    {
+        bool success;
+        switch (_terepeneInt)
+        {
+            case 0:
+                if (caryophyllene + _amt <= 1 && caryophyllene - _amt > 0)
+                {
+                    success = true;
+                    caryophyllene += _amt;
+                }
+                else
+                {
+                    success = false;
+                }
+                break;
+
+            case 1:
+                if (limonene + _amt <= 1 && limonene - _amt > 0)
+                {
+                    success = true;
+                    limonene += _amt;
+                }
+                else
+                {
+                    success = false;
+                }
+                break;
+
+            case 2:
+                if (linalool + _amt <= 1 && linalool - _amt > 0)
+                {
+                    success = true;
+                    linalool += _amt;
+                }
+                else
+                {
+                    success = false;
+                }
+                break;
+
+            case 3:
+                if (myrcene + _amt <= 1 && myrcene - _amt > 0)
+                {
+                    success = true;
+                    myrcene += _amt;
+                }
+                else
+                {
+                    success = false;
+                }
+                break;
+
+            case 4:
+                if (pinene + _amt <= 1 && pinene - _amt > 0)
+                {
+                    success = true;
+                    pinene += _amt;
+                }
+                else
+                {
+                    success = false;
+                }
+                break;
+
+            case 5:
+                if (terpinolene + _amt <= 1 && terpinolene - _amt > 0)
+                {
+                    success = true;
+                    terpinolene += _amt;
+                }
+                else
+                {
+                    success = false;
+                }
+                break;
+
+            default:
+                success = false;
+                break;
+        }
+
+        return success;
+    }
+
+    public void BoostTerpene(int _terpeneBoosted, int _terpeneWeakened, float _amt)
+    {
+        if(AddToTerpeneLvl(_terpeneBoosted, _amt))
+        {
+            AddToTerpeneLvl(_terpeneWeakened, -_amt);
+
+        }
+        else
+        {
+            Debug.Log("Primary Terpene Boost Failed");
+        }
     }
 }
