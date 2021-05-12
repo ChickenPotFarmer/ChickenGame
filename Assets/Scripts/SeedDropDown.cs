@@ -33,7 +33,13 @@ public class SeedDropDown : MonoBehaviour, IPointerExitHandler
 
     public void SetStrainInfoBtn(StrainProfile _strain)
     {
-        seedInfoBtn.onClick.AddListener(delegate { strainInfoUI.SetStrainInfoActive(_strain); });
+        seedInfoBtn.onClick.AddListener(delegate { SetStrainInfoActive(_strain); });
+    }
+
+    public void SetStrainInfoActive(StrainProfile _strain)
+    {
+        strainInfoUI.SetStrainInfoActive(_strain);
+        SetDropdownActive(false);
     }
 
     public void SetDropdownActive(bool _active)

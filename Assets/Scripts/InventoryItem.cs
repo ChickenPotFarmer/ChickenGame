@@ -50,6 +50,7 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
         rectTransform.SetParent(inventoryGUI.dragParent, true);
         cg.blocksRaycasts = false;
         cg.alpha = 0.7f;
+        seedDropDown.SetDropdownActive(false);
     }
 
     public void OnDrag(PointerEventData _EventData)
