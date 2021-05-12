@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class SeedDropDown : MonoBehaviour, IPointerExitHandler
@@ -8,10 +9,13 @@ public class SeedDropDown : MonoBehaviour, IPointerExitHandler
 {
     private CanvasGroup cg;
     public bool active;
+    public Button seedInfoBtn;
 
     public static SeedDropDown instance;
     [HideInInspector]
     public GameObject seedDropDown;
+
+    private StrainInfoUI strainInfoUI;
 
     private void Awake()
     {
@@ -22,6 +26,14 @@ public class SeedDropDown : MonoBehaviour, IPointerExitHandler
     private void Start()
     {
         cg = GetComponent<CanvasGroup>();
+
+        if (!strainInfoUI)
+            strainInfoUI = StrainInfoUI.instance.strainInfoUI.GetComponent<StrainInfoUI>();
+    }
+
+    public void SetStrainInfoBtn(StrainProfile _strain)
+    {
+        seedInfoBtn.onClick.AddListener(delegate { strainInfoUI.SetStrainInfoActive(_strain); });
     }
 
     public void SetDropdownActive(bool _active)

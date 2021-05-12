@@ -111,7 +111,10 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
     public void OnPointerDown(PointerEventData eventData)
     {
         if (isSeed)
+        {
             seedDropDown.SetDropdownActive(true);
+            seedDropDown.SetStrainInfoBtn(GetComponent<StrainProfile>());
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)

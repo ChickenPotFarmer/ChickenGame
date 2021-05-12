@@ -49,13 +49,6 @@ public class Seed : MonoBehaviour
 
     }
 
-    //private void Update()
-    //{
-    //    // TESTING
-    //    if (Input.GetKeyDown("x"))
-    //        GenerateRandomStrain();
-    //}
-
     public void GenerateNewTraits()
     {
 
