@@ -23,11 +23,6 @@ public class InventoryGUI : MonoBehaviour
         inventoryGUI = gameObject;
     }
 
-    private void Update()
-    {
-        
-    }
-
     public void ToggleInventoryPanel()
     {
         if (isOpen)

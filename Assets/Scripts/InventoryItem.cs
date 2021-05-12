@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler
 {
+    [Header("Item Info")]
+    public bool isSeed;
+
     [Header("Drag Info")]
     public Transform previousParent;
     public Transform targetParent;
@@ -13,6 +16,8 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
     private Canvas inventoryCanvas;
     private RectTransform rectTransform;
     private InventoryGUI inventoryGUI;
+    private HoverInfo hoverInfo;
+    private StrainProfile strainProfile;
 
     private void Awake()
     {
@@ -24,6 +29,12 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
     {
         if (!inventoryGUI)
             inventoryGUI = InventoryGUI.instance.inventoryGUI.GetComponent<InventoryGUI>();
+
+        if (!hoverInfo)
+            hoverInfo = HoverInfo.instance.hoverInfo.GetComponent<HoverInfo>();
+
+        if (isSeed && !strainProfile)
+            strainProfile = GetComponent<StrainProfile>();
 
         inventoryCanvas = inventoryGUI.inventoryCanvas;
     }
@@ -96,5 +107,24 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
     public void OnPointerDown(PointerEventData eventData)
     {
         Debug.Log("OnPointerDown");
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (isSeed)
+            hoverInfo.SetText(strainProfile.strainName + " Seeds");
+
+        hoverInfo.SetHoverActive(true);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        hoverInfo.SetHoverActive(false);
+
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        print("OnPointerUp");
     }
 }
