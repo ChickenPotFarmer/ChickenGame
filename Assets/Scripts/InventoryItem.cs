@@ -18,6 +18,7 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
     private InventoryGUI inventoryGUI;
     private HoverInfo hoverInfo;
     private StrainProfile strainProfile;
+    private SeedDropDown seedDropDown;
 
     private void Awake()
     {
@@ -35,6 +36,9 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
 
         if (isSeed && !strainProfile)
             strainProfile = GetComponent<StrainProfile>();
+
+        if (!seedDropDown)
+            seedDropDown = SeedDropDown.instance.seedDropDown.GetComponent<SeedDropDown>();
 
         inventoryCanvas = inventoryGUI.inventoryCanvas;
     }
@@ -106,7 +110,8 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("OnPointerDown");
+        if (isSeed)
+            seedDropDown.SetDropdownActive(true);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
