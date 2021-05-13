@@ -29,6 +29,14 @@ public class BreederMaster : MonoBehaviour
     public int newSecondaryTerpene;
     public int newLesserTerpene;
 
+    private StrainInfoUI strainInfoUI;
+
+    private void Start()
+    {
+        if (!strainInfoUI)
+            strainInfoUI = StrainInfoUI.instance.strainInfoUI.GetComponent<StrainInfoUI>();
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown("b"))
@@ -71,6 +79,8 @@ public class BreederMaster : MonoBehaviour
         newStrain.lesserTerpene = newLesserTerpene;
 
         newStrain.GenerateTerpeneEffects(); // Make this more complicated. 1/3 chance for male side, 1/3 chance for female, 1/3 chance random.
+
+        strainInfoUI.SetStrainInfoActive(newStrain);
     }
 
     public void AverageTerpeneLevels()

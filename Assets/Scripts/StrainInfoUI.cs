@@ -10,6 +10,11 @@ public class StrainInfoUI : MonoBehaviour
 
     [Header("Setup")]
     public Text strainNameTxt;
+    public Text strainTypeTxt;
+    public Text thcTxt;
+    public Text terpenePercentTxt;
+    public Text primaryTerpeneTxt;
+    public Text primaryEffectsTxt;
     public CanvasGroup cg;
 
     [Header("Caryophyllene")]
@@ -49,6 +54,15 @@ public class StrainInfoUI : MonoBehaviour
     public void UpdatePanel(StrainProfile _strain)
     {
         strainNameTxt.text = _strain.strainName;
+
+        strainTypeTxt.text = _strain.GetStrainType();
+
+        thcTxt.text = "THC: " + (_strain.thcPercent * 100).ToString("n2") + "%";
+        terpenePercentTxt.text = "TERPENES: " + (_strain.totalTerpenesPercent * 100).ToString("n2") + "%";
+
+        primaryTerpeneTxt.text = _strain.GetPrimaryTerpene();
+
+        primaryEffectsTxt.text = _strain.primaryEffect + ", " + _strain.secondaryEffect;
 
         carySlider.value = _strain.caryophyllene;
         caryTxt.text = (_strain.caryophyllene * 100).ToString("n2") + "%";
