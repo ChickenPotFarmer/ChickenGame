@@ -5,8 +5,13 @@ using UnityEngine.UI;
 
 public class StrainInfoUI : MonoBehaviour
 {
+    [Header("Comparing")]
+    public CompareSlot compareSlot;
+    public ComparePanel comparePanel;
+
     [Header("Status")]
     public bool active;
+    public StrainProfile currStrain;
 
     [Header("Setup")]
     public Text strainNameTxt;
@@ -81,6 +86,8 @@ public class StrainInfoUI : MonoBehaviour
 
         terpSlider.value = _strain.terpinolene;
         terpTxt.text = (_strain.terpinolene * 100).ToString("n2") + "%";
+
+        currStrain = _strain;
     }
 
     public void ClosePanel()
