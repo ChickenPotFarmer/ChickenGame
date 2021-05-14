@@ -36,9 +36,7 @@ public class CompareSlot : MonoBehaviour, IDropHandler
                     comparePanel.SetComparePanelActive(strainInfoUI.currStrain, slotStrain);
                     slotStrain.transform.SetParent(inventoryGui.GetOpenSlot(), false);
                     slotStrain.transform.position = slotStrain.transform.parent.position;
-
                 }
-
             }
             else
                 slotFilled = false;
