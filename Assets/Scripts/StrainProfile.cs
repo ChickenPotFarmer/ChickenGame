@@ -42,6 +42,27 @@ public class StrainProfile : MonoBehaviour
     public float lesserMinRemaindar;
     public float lesserMaxRemaindar;
 
+    public void SetStrain(StrainProfile _strain)
+    {
+        strainName = _strain.strainName;
+        strainType = _strain.strainType;
+        thcPercent = _strain.thcPercent;
+        totalTerpenesPercent = _strain.totalTerpenesPercent;
+        primaryTerpene = _strain.primaryTerpene;
+        secondaryTerpene = _strain.secondaryTerpene;
+        lesserTerpene = _strain.lesserTerpene;
+
+        caryophyllene = _strain.caryophyllene;
+        limonene = _strain.limonene;
+        linalool = _strain.linalool;
+        myrcene = _strain.myrcene;
+        pinene = _strain.pinene;
+        terpinolene = _strain.terpinolene;
+
+        primaryEffect = _strain.primaryEffect;
+        secondaryEffect = _strain.secondaryEffect;
+    }
+
     public void GenerateTerpeneEffects()
     {
         primaryEffect = TerpeneEffects.GetRandomEffect(primaryTerpene);

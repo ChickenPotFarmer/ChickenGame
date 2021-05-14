@@ -20,6 +20,7 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
     private StrainProfile strainProfile;
     private SeedDropDown seedDropDown;
 
+
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -100,8 +101,16 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
         }
         else
         {
+            if (targetParent.CompareTag("Weed Plant") && _EventData.pointerDrag.CompareTag("Seed Bag"))
+            {
+                WeedPlant hoverPlant = targetParent.GetComponent<WeedPlant>();
+                StrainProfile seedStrain = _EventData.pointerDrag.GetComponent<StrainProfile>();
+
+                hoverPlant.SetConfirmPlantPanelActive(seedStrain);
+            }
+
             transform.SetParent(targetParent, false); // This currently makes the item "disappear" (I have no idea where it goes)
-                                                        // Change to true to disable disappering
+                                                        // Change to true to disable disappering (I think)
         }
     }
 

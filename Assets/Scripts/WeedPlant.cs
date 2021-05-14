@@ -31,6 +31,13 @@ public class WeedPlant : MonoBehaviour
 
     private MeshRenderer debugRenderer;
     private InventoryController inventoryController;
+    private ConfirmPlantPanel confirmPlantPanel;
+
+    private void Awake()
+    {
+        currentStrain = GetComponent<StrainProfile>();
+    }
+
     private void Start()
     {
         debugRenderer = GetComponent<MeshRenderer>();
@@ -40,11 +47,22 @@ public class WeedPlant : MonoBehaviour
 
         if (debugRenderer.enabled)
             debugRenderer.enabled = false;
+
+        if (!confirmPlantPanel)
+            confirmPlantPanel = ConfirmPlantPanel.instance.confirmPlantPanel.GetComponent<ConfirmPlantPanel>();
+    }
+
+
+    public void SetConfirmPlantPanelActive(StrainProfile _strain)
+    {
+        confirmPlantPanel.SetConfirmPanelActive(true);
+        confirmPlantPanel.potentialStrain.SetStrain(_strain);
+        confirmPlantPanel.potentialPlant = this;
     }
 
     public void SetStrainProfile(StrainProfile _strain)
     {
-        currentStrain = _strain;
+        currentStrain.SetStrain(_strain);
     }
 
     public void Plant()
