@@ -69,6 +69,10 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
                     print("weed dropped on Dryer");
                     targetParent = hit.collider.transform;
                 }
+                else if (hit.collider.gameObject.CompareTag("Weed Plant"))
+                {
+                    targetParent = hit.collider.transform;
+                }
                 else
                 {
                     targetParent = null;
@@ -93,6 +97,11 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
                 rectTransform.SetParent(previousParent, false);
                 rectTransform.anchoredPosition = new Vector2(0, 0);
             }
+        }
+        else
+        {
+            transform.SetParent(targetParent, false); // This currently makes the item "disappear" (I have no idea where it goes)
+                                                        // Change to true to disable disappering
         }
     }
 

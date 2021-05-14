@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class WeedPlant : MonoBehaviour
 {
     [Header("Info")]
+    public StrainProfile currentStrain;
     public string strain;
     public float maxYield;
     public float minYield;
@@ -39,6 +40,11 @@ public class WeedPlant : MonoBehaviour
 
         if (debugRenderer.enabled)
             debugRenderer.enabled = false;
+    }
+
+    public void SetStrainProfile(StrainProfile _strain)
+    {
+        currentStrain = _strain;
     }
 
     public void Plant()
