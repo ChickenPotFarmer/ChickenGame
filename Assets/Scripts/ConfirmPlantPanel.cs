@@ -11,6 +11,7 @@ public class ConfirmPlantPanel : MonoBehaviour
     public bool active;
     public StrainProfile potentialStrain;
     public WeedPlant potentialPlant;
+    public SeedBag seedBag;
 
     public static ConfirmPlantPanel instance;
     [HideInInspector]
@@ -53,6 +54,7 @@ public class ConfirmPlantPanel : MonoBehaviour
 
     public void ConfirmAndPlantStrain()
     {
+        seedBag.RemoveSeeds(1);
         potentialPlant.SetStrainProfile(potentialStrain);
         potentialPlant.Plant();
         SetConfirmPanelActive(false);

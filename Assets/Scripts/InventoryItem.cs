@@ -105,8 +105,11 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
             {
                 WeedPlant hoverPlant = targetParent.GetComponent<WeedPlant>();
                 StrainProfile seedStrain = _EventData.pointerDrag.GetComponent<StrainProfile>();
+                SeedBag seedBag = _EventData.pointerDrag.GetComponent<SeedBag>();
 
-                hoverPlant.SetConfirmPlantPanelActive(seedStrain);
+                hoverPlant.SetConfirmPlantPanelActive(seedStrain, seedBag);
+                rectTransform.SetParent(previousParent, false);
+                rectTransform.anchoredPosition = new Vector2(0, 0);
             }
 
             

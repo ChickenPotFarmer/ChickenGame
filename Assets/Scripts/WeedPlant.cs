@@ -53,8 +53,9 @@ public class WeedPlant : MonoBehaviour
     }
 
 
-    public void SetConfirmPlantPanelActive(StrainProfile _strain)
+    public void SetConfirmPlantPanelActive(StrainProfile _strain, SeedBag _seedBag)
     {
+        confirmPlantPanel.seedBag = _seedBag;
         confirmPlantPanel.potentialStrain.SetStrain(_strain);
         confirmPlantPanel.potentialPlant = this;
         confirmPlantPanel.SetConfirmPanelActive(true);
@@ -135,6 +136,7 @@ public class WeedPlant : MonoBehaviour
 
     public IEnumerator GrowRoutine()
     {
+        isPlanted = true;
         SetSeedling();
         yield return new WaitForSeconds(growTime / 3);
         SetSapling();

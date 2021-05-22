@@ -56,6 +56,8 @@ public class InventoryController : MonoBehaviour
         {
             wetGramsCarrying += _amt;
             UpdateChicksInventory();
+
+            // add sprites to inventory
         }
         else
         {
@@ -94,6 +96,11 @@ public class InventoryController : MonoBehaviour
         bool amountOk = true;
         moneyCarrying += _amt;
         return amountOk;
+    }
+
+    public void AddWeedToInventory()
+    {
+
     }
 
     public void UpdateChicksInventory()
