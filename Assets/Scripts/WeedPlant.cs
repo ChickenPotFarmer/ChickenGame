@@ -55,9 +55,10 @@ public class WeedPlant : MonoBehaviour
 
     public void SetConfirmPlantPanelActive(StrainProfile _strain)
     {
-        confirmPlantPanel.SetConfirmPanelActive(true);
         confirmPlantPanel.potentialStrain.SetStrain(_strain);
         confirmPlantPanel.potentialPlant = this;
+        confirmPlantPanel.SetConfirmPanelActive(true);
+
     }
 
     public void SetStrainProfile(StrainProfile _strain)

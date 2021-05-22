@@ -109,8 +109,7 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
                 hoverPlant.SetConfirmPlantPanelActive(seedStrain);
             }
 
-            transform.SetParent(targetParent, false); // This currently makes the item "disappear" (I have no idea where it goes)
-                                                        // Change to true to disable disappering (I think)
+            
         }
     }
 

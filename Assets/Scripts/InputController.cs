@@ -105,7 +105,7 @@ public class InputController : MonoBehaviour
                         {
                             if (planterController.selectedPlant != null)
                             {
-                                if (foundPlant != planterController.selectedPlant)
+                                if (foundPlant != planterController.selectedPlant && !planterController.selectedPlant.isPlanted)
                                 {
                                     planterController.selectedPlant.SetNone();
                                 }
@@ -172,7 +172,7 @@ public class InputController : MonoBehaviour
 
     public void PlanterUnhover()
     {
-        if (planterController.selectedPlant != null)
+        if (planterController.selectedPlant != null && !planterController.selectedPlant.isPlanted)
         {
             planterController.selectedPlant.SetNone();
             planterController.selectedPlant = null;
