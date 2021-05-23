@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class WeedBrick : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [Header("Contents")]
+    public float grams;
 
-    // Update is called once per frame
-    void Update()
+
+    private StrainProfile strain;
+
+    private void Awake()
     {
-        
+        if (!strain)
+            strain = GetComponent<StrainProfile>();
     }
 }

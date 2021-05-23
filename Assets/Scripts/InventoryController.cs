@@ -4,24 +4,17 @@ using UnityEngine;
 
 public class InventoryController : MonoBehaviour
 {
-    [Header("Status")]
-    public float dryGramsCarrying;
-    public float wetGramsCarrying;
-    public float totalGramsCarrying;
+    [Header("Money")]
     public float moneyCarrying;
-    public bool amountOkToAdd;
-    public float maxInventory;
-    public int bricksCarrying;
+
+    [Header("Inventory Slots")]
+    public Transform slotsParent;
+    public List<Transform> slots;
 
     [Header("Settings")]
     public float gramsPerBrick;
+    public GameObject slotPrefab;
 
-    [Header("Chicks")]
-    public ChickInventory[] chicks;
-    public int currentChick;
-    public Transform chicksParent;
-
-    private float lastInventoryUpdate;
 
     public static InventoryController instance;
     [HideInInspector]
@@ -35,121 +28,25 @@ public class InventoryController : MonoBehaviour
 
     private void Start()
     {
-        UpdateChickRefs();
-        maxInventory = chicks.Length * 3 * gramsPerBrick;
-    }
 
-    private void Update()
-    {
-        totalGramsCarrying = wetGramsCarrying + dryGramsCarrying;
-
-        if (totalGramsCarrying != lastInventoryUpdate)
-            UpdateChicksInventory();
-    }
-
-    public bool AddWetGrams(float _amt)
-    {
-        amountOkToAdd = true;
-        maxInventory = chicks.Length * 3 * gramsPerBrick;
-
-        if (wetGramsCarrying + dryGramsCarrying + _amt <= maxInventory)
+        // Intialize Slots References
+        if (slots.Count == 0)
         {
-            wetGramsCarrying += _amt;
-            UpdateChicksInventory();
-
-            // add sprites to inventory
-        }
-        else
-        {
-            amountOkToAdd = false;
-        }
-
-        return amountOkToAdd;
-    }
-
-    public void DropWetGrams()
-    {
-        wetGramsCarrying = 0;
-        UpdateChicksInventory();
-    }
-
-    public bool AddDryGrams(float _amt)
-    {
-        amountOkToAdd = true;
-        maxInventory = chicks.Length * 3 * gramsPerBrick;
-
-        if (wetGramsCarrying + dryGramsCarrying + _amt <= maxInventory)
-        {
-            dryGramsCarrying += _amt;
-            UpdateChicksInventory();
-        }
-        else
-        {
-            amountOkToAdd = false;
-        }
-
-        return amountOkToAdd;
-    }
-
-    public bool AddCash(float _amt)
-    {
-        bool amountOk = true;
-        moneyCarrying += _amt;
-        return amountOk;
-    }
-
-    public void AddWeedToInventory()
-    {
-
-    }
-
-    public void UpdateChicksInventory()
-    {
-        UpdateChickRefs();
-        currentChick = 0;
-        bricksCarrying = 0;
-        for (int i = 0; i < chicks.Length; i++)
-        {
-            chicks[i].RemoveAllBricks();
-        }
-
-        totalGramsCarrying = wetGramsCarrying + dryGramsCarrying;
-        lastInventoryUpdate = totalGramsCarrying;
-
-        float bricks = totalGramsCarrying / gramsPerBrick;
-        bricksCarrying = Mathf.RoundToInt(bricks);
-
-        for (int i = 0; i < bricksCarrying; i++)
-        {
-            if (!chicks[currentChick].slotsFull)
+            for (int i = 0; i < slotsParent.childCount; i++)
             {
-                chicks[currentChick].AddBrick();
-            }
-            else
-            {
-                currentChick++;
-                if (currentChick != chicks.Length)
-                {
-                    chicks[currentChick].AddBrick();
-                }
-                else
-                {
-                    print("INVENTORY FULL!");
-                }
-
+                slots.Add(slotsParent.GetChild(i));
             }
         }
     }
 
-    public void UpdateChickRefs()
+    public Transform[] AddInventoryChick()
     {
-        chicks = new ChickInventory[chicksParent.childCount];
-        for (int i = 0; i < chicksParent.childCount; i++)
-        {
-            chicks[i] = chicksParent.GetChild(i).GetComponent<ChickInventory>();
-        }
+        GameObject slot1 = Instantiate(slotPrefab, slotsParent);
+        GameObject slot2 = Instantiate(slotPrefab, slotsParent);
+        GameObject slot3 = Instantiate(slotPrefab, slotsParent);
+
+        Transform[] newArray = new Transform[] { slot1.transform, slot2.transform, slot3.transform };
+
+        return newArray;
     }
-
-    
-
 }

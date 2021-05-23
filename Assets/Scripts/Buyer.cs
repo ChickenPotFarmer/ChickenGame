@@ -53,20 +53,20 @@ public class Buyer : MonoBehaviour
     {
         bool amountCorrect = true;
 
-        if (inventoryController.dryGramsCarrying >= amountRequested)
-        {
-            if(inventoryController.AddCash(totalPay))
-            {
-                // REMOVE BUYER
-                inventoryController.dryGramsCarrying -= amountRequested;
-                toDoObject.Complete();
-                Destroy(gameObject);
-            }
-        }
-        else
-        {
-            amountCorrect = false;
-        }
+        //if (inventoryController.dryGramsCarrying >= amountRequested)
+        //{
+        //    if(inventoryController.AddCash(totalPay))
+        //    {
+        //        // REMOVE BUYER
+        //        inventoryController.dryGramsCarrying -= amountRequested;
+        //        toDoObject.Complete();
+        //        Destroy(gameObject);
+        //    }
+        //}
+        //else
+        //{
+        //    amountCorrect = false;
+        //}
         return amountCorrect;
     }
 }

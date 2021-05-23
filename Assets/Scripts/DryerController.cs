@@ -85,17 +85,20 @@ public class DryerController : MonoBehaviour
 
     public void Harvest()
     {
-        if (inventoryController.AddDryGrams(inventory))
-        {
-            inventory = 0;
-            isDry = false;
-            dryBar.value = 0;
-            SetDryBarActive(false);
-        }
-        else
-        {
-            Debug.LogWarning("Cannot add amount to inventory.");
-        }
+        // TO-DO: Convert to new intventory controller
+
+
+        //if (inventoryController.AddDryGrams(inventory))
+        //{
+        //    inventory = 0;
+        //    isDry = false;
+        //    dryBar.value = 0;
+        //    SetDryBarActive(false);
+        //}
+        //else
+        //{
+        //    Debug.LogWarning("Cannot add amount to inventory.");
+        //}
     }
 
     public bool AddToInventory(float _amt)
@@ -181,16 +184,16 @@ public class DryerController : MonoBehaviour
 
     public void AddWetWeed()
     {
-        if(AddToInventory(inventoryController.wetGramsCarrying))
-        {
-            inventoryController.DropWetGrams();
-            isDry = false;
-        }
-        else
-        {
-            Debug.LogWarning("Not enough room in Dryer");
-        }
-        SetDryerPanelActive(false);
-        clickActive = true;
+        //if(AddToInventory(inventoryController.wetGramsCarrying))
+        //{
+        //    inventoryController.DropWetGrams();
+        //    isDry = false;
+        //}
+        //else
+        //{
+        //    Debug.LogWarning("Not enough room in Dryer");
+        //}
+        //SetDryerPanelActive(false);
+        //clickActive = true;
     }
 }

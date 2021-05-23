@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ChickInventory : MonoBehaviour
 {
+    [Header("UI Slots")]
+    public Transform[] uiSlots;
+
     [Header("Brick Slots")]
     public Transform[] brickSlots;
     public Transform brickParent;
@@ -13,9 +16,14 @@ public class ChickInventory : MonoBehaviour
     public GameObject brickPrefab;
 
     private int nextOpenSlot;
+    private InventoryController inventoryController;
 
     private void Start()
     {
+        if (!inventoryController)
+            inventoryController = InventoryController.instance.inventoryController.GetComponent<InventoryController>();
+
+
         brickSlots = new Transform[brickParent.childCount];
         for (int i = 0; i < brickParent.childCount; i++)
         {

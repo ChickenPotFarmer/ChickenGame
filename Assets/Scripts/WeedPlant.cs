@@ -159,15 +159,15 @@ public class WeedPlant : MonoBehaviour
 
     public void Harvest()
     {
-        if (inventoryController.AddWetGrams(actualYield))
-        {
-            actualYield = 0;
-            growthBar.value = 0;
-            SetNone();
-        }
-        else
-        {
-            Debug.LogWarning("Cannot add amount to inventory.");
-        }
+        //if (inventoryController.AddWetGrams(actualYield))
+        //{
+        //    actualYield = 0;
+        //    growthBar.value = 0;
+        //    SetNone();
+        //}
+        //else
+        //{
+        //    Debug.LogWarning("Cannot add amount to inventory.");
+        //}
     }
 }

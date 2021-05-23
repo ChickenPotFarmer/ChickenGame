@@ -25,9 +25,6 @@ public class GameHudController : MonoBehaviour
     {
         do
         {
-            dryWeedTxt.text = inventoryController.dryGramsCarrying.ToString("n1");
-            wetWeedTxt.text = inventoryController.wetGramsCarrying.ToString("n1");
-            totalWeedTxt.text = inventoryController.totalGramsCarrying.ToString("n1");
             cashTxt.text = "$" + inventoryController.moneyCarrying.ToString("n2");
             yield return new WaitForSeconds(0.2f);
         } while (true);
