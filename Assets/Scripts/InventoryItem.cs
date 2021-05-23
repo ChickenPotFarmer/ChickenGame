@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler
@@ -11,14 +12,19 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
     [Header("Drag Info")]
     public Transform previousParent;
     public Transform targetParent;
-    private CanvasGroup cg;
 
+    [Header("UI Text")]
+    public Text uiName;
+    public Text uiAmount;
+
+    private CanvasGroup cg;
     private Canvas inventoryCanvas;
     private RectTransform rectTransform;
     private InventoryGUI inventoryGUI;
     private HoverInfo hoverInfo;
     private StrainProfile strainProfile;
     private SeedDropDown seedDropDown;
+    private InventoryController inventoryController;
 
 
     private void Awake()
@@ -41,12 +47,14 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
         if (!seedDropDown)
             seedDropDown = SeedDropDown.instance.seedDropDown.GetComponent<SeedDropDown>();
 
+        if (!inventoryController)
+            inventoryController = InventoryController.instance.inventoryController.GetComponent<InventoryController>();
+
         inventoryCanvas = inventoryGUI.inventoryCanvas;
     }
 
     public void OnBeginDrag(PointerEventData _EventData)
     {
-        Debug.Log("OnBeginDrag");
         previousParent = transform.parent;
         rectTransform.SetParent(inventoryGUI.dragParent, true);
         cg.blocksRaycasts = false;
@@ -85,8 +93,6 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
 
     public void OnEndDrag(PointerEventData _EventData)
     {
-        Debug.Log("OnEndDrag");
-
         cg.blocksRaycasts = true;
         cg.alpha = 1;
 
@@ -101,7 +107,7 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
         }
         else
         {
-            if (targetParent.CompareTag("Weed Plant") && _EventData.pointerDrag.CompareTag("Seed Bag"))
+            if (targetParent.CompareTag("Weed Plant") && _EventData.pointerDrag.CompareTag("UI Seed Bag"))
             {
                 WeedPlant hoverPlant = targetParent.GetComponent<WeedPlant>();
                 StrainProfile seedStrain = _EventData.pointerDrag.GetComponent<StrainProfile>();
@@ -114,6 +120,9 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
 
             
         }
+
+        inventoryController.UpdateDecoChicks();
+
     }
 
     public void EndDragRoutine()

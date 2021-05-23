@@ -7,6 +7,11 @@ public class InventoryController : MonoBehaviour
     [Header("Money")]
     public float moneyCarrying;
 
+    [Header("Inventory Chicks")]
+    public GameObject chickPrefab;
+    public Transform chicksParent;
+    public List<ChickInventory> chicks;
+
     [Header("Inventory Slots")]
     public Transform slotsParent;
     public List<Transform> slots;
@@ -26,6 +31,13 @@ public class InventoryController : MonoBehaviour
         inventoryController = gameObject;
     }
 
+    // TESTING
+    private void Update()
+    {
+        if (Input.GetKeyDown("n"))
+            AddInventoryChick();
+    }
+
     private void Start()
     {
 
@@ -39,14 +51,46 @@ public class InventoryController : MonoBehaviour
         }
     }
 
-    public Transform[] AddInventoryChick()
+    public void AddInventoryChick()
     {
+        // Add and setup new ChickInventory
+        GameObject newChick = Instantiate(chickPrefab, chicksParent);
+
+        ChickInventory newChickInventory = newChick.GetComponent<ChickInventory>();
+        chicks.Add(newChickInventory);
+
         GameObject slot1 = Instantiate(slotPrefab, slotsParent);
         GameObject slot2 = Instantiate(slotPrefab, slotsParent);
         GameObject slot3 = Instantiate(slotPrefab, slotsParent);
 
         Transform[] newArray = new Transform[] { slot1.transform, slot2.transform, slot3.transform };
 
-        return newArray;
+        newChickInventory.uiSlots = newArray;
+    }
+
+    public void AddInventoryChick(Transform _pos)
+    {
+        // Add and setup new ChickInventory
+        GameObject newChick = Instantiate(chickPrefab, chicksParent);
+        newChick.transform.position = _pos.position;
+
+        ChickInventory newChickInventory = newChick.GetComponent<ChickInventory>();
+        chicks.Add(newChickInventory);
+
+        GameObject slot1 = Instantiate(slotPrefab, slotsParent);
+        GameObject slot2 = Instantiate(slotPrefab, slotsParent);
+        GameObject slot3 = Instantiate(slotPrefab, slotsParent);
+
+        Transform[] newArray = new Transform[] { slot1.transform, slot2.transform, slot3.transform };
+
+        newChickInventory.uiSlots = newArray;
+    }
+
+    public void UpdateDecoChicks()
+    {
+        for (int i = 0; i < chicks.Count; i++)
+        {
+            chicks[i].UpdateDecoSlots();
+        }
     }
 }

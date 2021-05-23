@@ -787,11 +787,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 090f01f94f5fd1649b12c78778a74371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brickSlots: []
+  uiSlots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  decoSlots: []
   brickParent: {fileID: 788343076029177034}
   slotsFull: 0
   brickPrefab: {fileID: 2693511972376669591, guid: 384aa8c41846c1b4eadc3991c6ff4234,
     type: 3}
+  seedPrefab: {fileID: 1947216925010022, guid: 7482e26d21c702344ac7795f06772f1c, type: 3}
 --- !u!1 &790061053933436034
 GameObject:
   m_ObjectHideFlags: 0

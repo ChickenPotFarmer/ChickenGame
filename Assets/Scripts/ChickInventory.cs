@@ -8,12 +8,13 @@ public class ChickInventory : MonoBehaviour
     public Transform[] uiSlots;
 
     [Header("Brick Slots")]
-    public Transform[] brickSlots;
+    public Transform[] decoSlots;
     public Transform brickParent;
     public bool slotsFull;
 
-    [Header("Brick Prefab")]
+    [Header("Deco Prefabs")]
     public GameObject brickPrefab;
+    public GameObject seedPrefab;
 
     private int nextOpenSlot;
     private InventoryController inventoryController;
@@ -24,19 +25,21 @@ public class ChickInventory : MonoBehaviour
             inventoryController = InventoryController.instance.inventoryController.GetComponent<InventoryController>();
 
 
-        brickSlots = new Transform[brickParent.childCount];
+        decoSlots = new Transform[brickParent.childCount];
         for (int i = 0; i < brickParent.childCount; i++)
         {
-            brickSlots[i] = brickParent.GetChild(i);
+            decoSlots[i] = brickParent.GetChild(i);
         }
+
+        UpdateDecoSlots();
     }
 
     public void AddBrick()
     {
-        GameObject newBrick = Instantiate(brickPrefab, brickSlots[nextOpenSlot]);
-        newBrick.transform.position = brickSlots[nextOpenSlot].position;
+        GameObject newBrick = Instantiate(brickPrefab, decoSlots[nextOpenSlot]);
+        newBrick.transform.position = decoSlots[nextOpenSlot].position;
         nextOpenSlot++;
-        if (nextOpenSlot == brickSlots.Length)
+        if (nextOpenSlot == decoSlots.Length)
             slotsFull = true;
     }
 
@@ -44,9 +47,9 @@ public class ChickInventory : MonoBehaviour
     {
         try
         {
-            for (int i = 0; i < brickSlots.Length; i++)
+            for (int i = 0; i < decoSlots.Length; i++)
             {
-                Destroy(brickSlots[i].GetChild(0).gameObject);
+                Destroy(decoSlots[i].GetChild(0).gameObject);
             }
         }
         catch
@@ -56,5 +59,33 @@ public class ChickInventory : MonoBehaviour
 
         slotsFull = false;
         nextOpenSlot = 0;
+    }
+
+    public void UpdateDecoSlots()
+    {
+        for (int i = 0; i < decoSlots.Length; i++)
+        {
+            if (decoSlots[i].childCount != 0)
+                Destroy(decoSlots[i].GetChild(0).gameObject);
+        }
+
+        for (int i = 0; i < uiSlots.Length; i++)
+        {
+            if (uiSlots[i].childCount != 0)
+            {
+                string childTag = uiSlots[i].GetChild(0).tag;
+
+                switch (childTag)
+                {
+                    case "UI Seed Bag":
+                        Instantiate(seedPrefab, decoSlots[i]);
+                        break;
+
+                    case "UI Weed Brick":
+                        Instantiate(brickPrefab, decoSlots[i]);
+                        break;
+                }
+            }
+        }
     }
 }

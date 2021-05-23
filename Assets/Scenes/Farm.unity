@@ -2018,10 +2018,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moneyCarrying: 4.2
-  slotsParent: {fileID: 0}
+  chickPrefab: {fileID: 789966633152222880, guid: a224c06ce68f56242880bb10e0952f4f,
+    type: 3}
+  chicksParent: {fileID: 490140471}
+  chicks:
+  - {fileID: 1767664597405744}
+  slotsParent: {fileID: 1161429984}
   slots: []
   gramsPerBrick: 0
-  slotPrefab: {fileID: 0}
+  slotPrefab: {fileID: 8243952756387746898, guid: d34a54be90712da43b5425db07714352,
+    type: 3}
   inventoryController: {fileID: 0}
 --- !u!1001 &93340391
 PrefabInstance:
@@ -13812,9 +13818,11 @@ GameObject:
   - component: {fileID: 635249254}
   - component: {fileID: 635249257}
   - component: {fileID: 635249256}
+  - component: {fileID: 635249258}
+  - component: {fileID: 635249259}
   m_Layer: 5
   m_Name: Weed Brick
-  m_TagString: Untagged
+  m_TagString: UI Weed Brick
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13923,6 +13931,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grams: 0
+--- !u!114 &635249258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 635249252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a70dc5932bc6ae4ca8601131fd9acc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSeed: 0
+  previousParent: {fileID: 0}
+  targetParent: {fileID: 0}
+  uiName: {fileID: 689609557}
+  uiAmount: {fileID: 1709402099}
+--- !u!225 &635249259
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 635249252}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!4 &640172383 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 747c18c64e37bf24d82b55949a0a763f,
@@ -37516,7 +37553,7 @@ GameObject:
   - component: {fileID: 1684731882}
   m_Layer: 5
   m_Name: Seed_Blue Dream
-  m_TagString: Seed Bag
+  m_TagString: UI Seed Bag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37627,6 +37664,8 @@ MonoBehaviour:
   isSeed: 1
   previousParent: {fileID: 0}
   targetParent: {fileID: 0}
+  uiName: {fileID: 1211613788}
+  uiAmount: {fileID: 348500032}
 --- !u!225 &1684731881
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -37651,6 +37690,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b232718bc941024880d03205a71c35c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seedsName: 
   seeds: 10
 --- !u!1001 &1684863486
 PrefabInstance:
@@ -44670,7 +44710,7 @@ GameObject:
   - component: {fileID: 2018665308}
   m_Layer: 5
   m_Name: Seed_Gorilla Glue
-  m_TagString: Seed Bag
+  m_TagString: UI Seed Bag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44781,6 +44821,8 @@ MonoBehaviour:
   isSeed: 1
   previousParent: {fileID: 0}
   targetParent: {fileID: 0}
+  uiName: {fileID: 715390754}
+  uiAmount: {fileID: 1099993323}
 --- !u!225 &2018665307
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -44805,6 +44847,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b232718bc941024880d03205a71c35c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seedsName: 
   seeds: 10
 --- !u!4 &2019905351 stripped
 Transform:
@@ -46555,7 +46598,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2077945284}
-  m_LocalRotation: {x: 0.16484857, y: 0.518879, z: -0.10274849, w: 0.8324856}
+  m_LocalRotation: {x: 0.1648486, y: 0.51887906, z: -0.10274851, w: 0.83248556}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -47574,6 +47617,18 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 1.547, z: 0.13100001}
   m_TimeToStationary: 0.5
+--- !u!114 &1767664597405744 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 789966633152222909, guid: a224c06ce68f56242880bb10e0952f4f,
+    type: 3}
+  m_PrefabInstance: {fileID: 788343076117153421}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 090f01f94f5fd1649b12c78778a74371, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &4429103210250445 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 792490491179386432, guid: a224c06ce68f56242880bb10e0952f4f,
