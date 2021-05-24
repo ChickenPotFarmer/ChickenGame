@@ -54,12 +54,12 @@ public class InputController : MonoBehaviour
                 switch (tagId)
                 {
                     case "Buyer":
-                        buyerController.hoveringOver = hit.collider.gameObject.GetComponent<Buyer>();
+                        buyerController.hoveringOver = hit.collider.gameObject.GetComponentInParent<Buyer>();
                         buyerController.hoveringOver.SetHoverInfoActive(true);
 
                         if (Input.GetButtonDown("Interact"))
                         {
-                            buyerController.hoveringOver.DeliverWeed();
+                            buyerController.hoveringOver.OpenBuyerPanel();
                         }
 
                         PlanterUnhover();
@@ -68,16 +68,8 @@ public class InputController : MonoBehaviour
                     case "Dryer Pile":
                         if (Input.GetButtonDown("Interact") && dryerController.clickActive)
                         {
-
-                            if (!dryerController.isDry)
-                            {
-                                dryerController.SetDryerPanelActive(true);
-                                dryerController.clickActive = false;
-                            }
-                            else
-                            {
-                                dryerController.Harvest();
-                            }
+                            dryerController.SetDryerPanelActive(true);
+                            dryerController.clickActive = false;
                         }
 
                         PlanterUnhover();

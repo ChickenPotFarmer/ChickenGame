@@ -118,7 +118,7 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
                 rectTransform.anchoredPosition = new Vector2(0, 0);
             }
 
-            
+
         }
 
         inventoryController.UpdateDecoChicks();

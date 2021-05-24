@@ -136,7 +136,7 @@ public class DryerController : MonoBehaviour
             {
                 if (slots[i].childCount != 0)
                 {
-                    slots[i].GetChild(i).GetComponent<WeedBrick>().SetDry(true);
+                    slots[i].GetChild(0).GetComponent<WeedBrick>().SetDry(true);
                 }
             }
         }

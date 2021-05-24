@@ -6,14 +6,22 @@ using UnityEngine.EventSystems;
 public class ItemSlot : MonoBehaviour, IDropHandler
 {
     [Header("Settings")]
+    public bool isBuyerSlot;
     public bool acceptsAll;
     public string[] tagsAccepted;
 
     private RectTransform rectTransform;
+    private Buyer buyer;
 
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
+    }
+
+    private void Start()
+    {
+        if (isBuyerSlot && !buyer)
+            buyer = GetComponentInParent<Buyer>();
     }
     public void OnDrop (PointerEventData _eventData)
     {
@@ -22,11 +30,38 @@ public class ItemSlot : MonoBehaviour, IDropHandler
         {
             if (CheckTags(_eventData.pointerDrag.tag) || acceptsAll)
             {
+                if (isBuyerSlot)
+                {
+                    WeedBrick weedBrick = _eventData.pointerDrag.GetComponent<WeedBrick>();
 
-                RectTransform dragObjTransform = _eventData.pointerDrag.GetComponent<RectTransform>();
-                dragObjTransform.SetParent(transform, false);
-                dragObjTransform.anchoredPosition = new Vector2(0, 0);
-                _eventData.pointerDrag.GetComponent<InventoryItem>().targetParent = transform;
+                    float remainder = buyer.DropOffWeed(weedBrick.grams);
+                    if (remainder != 0)
+                    {
+                        float diff = weedBrick.grams - remainder;
+                        weedBrick.grams = remainder;
+
+                        RectTransform dragObjTransform = _eventData.pointerDrag.GetComponent<RectTransform>();
+                        dragObjTransform.SetParent(_eventData.pointerDrag.GetComponent<InventoryItem>().previousParent, false);
+                        dragObjTransform.anchoredPosition = new Vector2(0, 0);
+                        _eventData.pointerDrag.GetComponent<InventoryItem>().targetParent = _eventData.pointerDrag.GetComponent<InventoryItem>().previousParent;
+
+
+                        GameObject cloneBrick = Instantiate(_eventData.pointerDrag, transform);
+                        dragObjTransform = cloneBrick.GetComponent<RectTransform>();
+                        dragObjTransform.SetParent(transform, false);
+                        dragObjTransform.anchoredPosition = new Vector2(0, 0);
+                        cloneBrick.GetComponent<InventoryItem>().targetParent = transform;
+                        weedBrick = cloneBrick.GetComponent<WeedBrick>();
+                        weedBrick.grams = diff;
+                    }
+                }
+                else
+                {
+                    RectTransform dragObjTransform = _eventData.pointerDrag.GetComponent<RectTransform>();
+                    dragObjTransform.SetParent(transform, false);
+                    dragObjTransform.anchoredPosition = new Vector2(0, 0);
+                    _eventData.pointerDrag.GetComponent<InventoryItem>().targetParent = transform;
+                }
             }
         }
     }
