@@ -6,18 +6,24 @@ using UnityEngine.UI;
 
 public class DryerController : MonoBehaviour
 {
-    public float inventory;
-    public float maxInventory;
-    public bool isDry;
+    [Header("Settings")]
     public float dryTime;
-    public Slider dryBar;
-    public CanvasGroup dryBarCg;
-    public CanvasGroup dryerPanel;
     public bool clickActive;
     public bool chickenInRange;
 
+    [Header("Setup")]
+    public Slider dryBarWorld;
+    public Slider dryBarUI;
+    public CanvasGroup dryBarCg;
+    public CanvasGroup dryerPanel;
+
+    [Header("Inventory Slots")]
+    public Transform slotsParent;
+    public List<Transform> slots;
+
     private ChickenController chicken;
     private InventoryController inventoryController;
+    private InventoryGUI inventoryGUI;
 
     public static DryerController instance;
     [HideInInspector]
@@ -36,6 +42,17 @@ public class DryerController : MonoBehaviour
 
         if (!chicken)
             chicken = ChickenController.instance.chickenController.GetComponent<ChickenController>();
+
+        if (!inventoryGUI)
+            inventoryGUI = InventoryGUI.instance.inventoryGUI.GetComponent<InventoryGUI>();
+
+        if (slots.Count == 0)
+        {
+            for (int i = 0; i < slotsParent.childCount; i++)
+            {
+                slots.Add(slotsParent.GetChild(i));
+            }
+        }
 
         StartCoroutine(InRangeCheck());
     }
@@ -101,23 +118,6 @@ public class DryerController : MonoBehaviour
         //}
     }
 
-    public bool AddToInventory(float _amt)
-    {
-        bool amtOk = true;
-
-        if (inventory + _amt <= maxInventory)
-        {
-            inventory += _amt;
-        }
-        else
-        {
-            amtOk = false;
-            print("Failed to add to dryer inventory");
-        }
-
-        return amtOk;
-    }
-
     public void BeginDrying()
     {
         StartCoroutine(DryBarUpdate());
@@ -130,16 +130,30 @@ public class DryerController : MonoBehaviour
     {
         SetDryBarActive(true);
         yield return new WaitForSeconds(dryTime);
-        isDry = true;
+
+        {
+            for (int i = 0; i < slots.Count; i++)
+            {
+                if (slots[i].childCount != 0)
+                {
+                    slots[i].GetChild(i).GetComponent<WeedBrick>().SetDry(true);
+                }
+            }
+        }
     }
 
     public IEnumerator DryBarUpdate()
     {
-        dryBar.value = 0;
-        dryBar.maxValue = dryTime + 1;
+        dryBarWorld.value = 0;
+        dryBarUI.value = 0;
+
+        dryBarWorld.maxValue = dryTime + 1;
+        dryBarUI.maxValue = dryTime + 1;
+
         for (int i = 0; i < dryTime + 1; i++)
         {
-            dryBar.value++;
+            dryBarWorld.value++;
+            dryBarUI.value++;
             yield return new WaitForSeconds(1);
         }
     }
@@ -167,6 +181,10 @@ public class DryerController : MonoBehaviour
             dryerPanel.alpha = 1;
             dryerPanel.interactable = true;
             dryerPanel.blocksRaycasts = true;
+
+            if (!inventoryGUI.isOpen)
+                inventoryGUI.ToggleInventoryPanel();
+
         }
         else
         {
@@ -182,18 +200,4 @@ public class DryerController : MonoBehaviour
         clickActive = true;
     }
 
-    public void AddWetWeed()
-    {
-        //if(AddToInventory(inventoryController.wetGramsCarrying))
-        //{
-        //    inventoryController.DropWetGrams();
-        //    isDry = false;
-        //}
-        //else
-        //{
-        //    Debug.LogWarning("Not enough room in Dryer");
-        //}
-        //SetDryerPanelActive(false);
-        //clickActive = true;
-    }
 }
