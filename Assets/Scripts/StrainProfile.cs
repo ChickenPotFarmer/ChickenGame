@@ -9,6 +9,7 @@ public class StrainProfile : MonoBehaviour
     [Tooltip("Indica = 0,\nIndica Hybrid = 1,\nHybrid = 2,\nSativa Hybrid = 3,\nSativa = 4")]
     public int strainType;
     public float thcPercent;
+    public string strainID;
 
     [Header("Terpenes Basic Info")]
     public float totalTerpenesPercent;
@@ -42,6 +43,17 @@ public class StrainProfile : MonoBehaviour
     public float lesserMinRemaindar;
     public float lesserMaxRemaindar;
 
+    private UniqueIdMaster uniqueIdMaster;
+
+    private void Start()
+    {
+        if (!uniqueIdMaster)
+            uniqueIdMaster = UniqueIdMaster.instance.uniqueIdMaster.GetComponent<UniqueIdMaster>();
+
+        if (strainID == "")
+            GenerateUniqueID();
+    }
+
     public void SetStrain(StrainProfile _strain)
     {
         strainName = _strain.strainName;
@@ -61,6 +73,11 @@ public class StrainProfile : MonoBehaviour
 
         primaryEffect = _strain.primaryEffect;
         secondaryEffect = _strain.secondaryEffect;
+    }
+
+    public void GenerateUniqueID()
+    {
+        strainID = UniqueIdMaster.instance.uniqueIdMaster.GetComponent<UniqueIdMaster>().GetID();
     }
 
     public void GenerateTerpeneEffects()

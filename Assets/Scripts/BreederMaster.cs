@@ -51,6 +51,7 @@ public class BreederMaster : MonoBehaviour
         GameObject newStrainObj = new GameObject();
         newStrainObj.AddComponent<StrainProfile>();
         newStrain = newStrainObj.GetComponent<StrainProfile>();
+        newStrain.GenerateUniqueID();
 
         // THC Percent
         newStrain.thcPercent = (male.thcPercent + female.thcPercent) / 2; // add random factor to increase / decrease

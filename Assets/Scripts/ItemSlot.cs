@@ -30,11 +30,20 @@ public class ItemSlot : MonoBehaviour, IDropHandler
         {
             if (CheckTags(_eventData.pointerDrag.tag) || acceptsAll)
             {
+                // check to see if slot has something in it
+                // if it does, check to see what kind of item it is
+                // if it does, check to see if the icon is full
+                // if not, return itemMaxAmt - currentAmt, max slot out
+
+
                 if (isBuyerSlot)
                 {
                     WeedBrick weedBrick = _eventData.pointerDrag.GetComponent<WeedBrick>();
 
-                    float remainder = buyer.DropOffWeed(weedBrick.grams);
+                    float remainder = buyer.DropOffWeed(weedBrick.grams); // change this to send the entire WeedBrick to test if correct
+                                                                            // start with laptop script, establish means to confirm correct strain
+                                                                            // move to buyer script, adjust weeddropoff method so it takes in full plant and can compare them
+                                                                            // add UI function so items can be stacked and split
                     if (remainder != 0)
                     {
                         float diff = weedBrick.grams - remainder;
