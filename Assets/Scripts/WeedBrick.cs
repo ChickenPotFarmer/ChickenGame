@@ -6,12 +6,11 @@ public class WeedBrick : MonoBehaviour
 {
     [Header("Contents")]
     public bool isDry;
-    public float grams;
 
     [Header("Setup")]
     public GameObject wetIndicator;
 
-
+    private InventoryItem inventoryItem;
     private StrainProfile strain;
 
     private void Awake()
@@ -22,6 +21,9 @@ public class WeedBrick : MonoBehaviour
 
     private void Start()
     {
+        if (!inventoryItem)
+            inventoryItem = GetComponent<InventoryItem>();
+
         if (!isDry)
             wetIndicator.SetActive(true);
         else

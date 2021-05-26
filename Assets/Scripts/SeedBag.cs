@@ -6,7 +6,6 @@ public class SeedBag : MonoBehaviour
 {
     [Header("Info")]
     public string seedsName;
-    public int seeds = 10;
 
     private StrainProfile strain;
     private InventoryItem inventoryItem;
@@ -19,25 +18,20 @@ public class SeedBag : MonoBehaviour
         if (!inventoryItem)
             inventoryItem = GetComponent<InventoryItem>();
 
-        inventoryItem.uiName.text = strain.strainName;
-        inventoryItem.uiAmount.text = seeds.ToString();
-
     }
 
     public void AddSeeds(int _amt)
     {
-        seeds += _amt;
-
-        inventoryItem.uiAmount.text = seeds.ToString();
+        inventoryItem.AddAmount(_amt);
     }
 
     public void RemoveSeeds(int _amt)
     {
-        seeds -= _amt;
+        inventoryItem.AddAmount(-_amt);
 
-        if (seeds <= 0)
+
+        if (inventoryItem.amount <= 0)
             Destroy(gameObject);
 
-        inventoryItem.uiAmount.text = seeds.ToString();
     }
 }

@@ -114,7 +114,8 @@ public class Buyer : MonoBehaviour
         }
     }
 
-    public float DropOffWeed(float _amt)
+    // Add functions to check for correct strain type
+    public float DropOffWeed(WeedBrick _weedBrick, float _amt)
     {
         float remainder = 0;
         float diff;
@@ -131,6 +132,15 @@ public class Buyer : MonoBehaviour
         }
 
         return remainder;
+    }
+
+    public bool InspectWeed(StrainProfile _strain)
+    {
+        bool weedIsGood;
+
+        weedIsGood = true;
+
+        return weedIsGood;
     }
 
     public bool DeliverWeed()

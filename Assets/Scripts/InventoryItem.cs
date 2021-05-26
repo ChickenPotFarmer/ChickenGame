@@ -7,6 +7,8 @@ using UnityEngine.EventSystems;
 public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler
 {
     [Header("Item Info")]
+    public float amount;
+    public float maxAmount;
     public bool isSeed;
 
     [Header("Drag Info")]
@@ -51,6 +53,7 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
             inventoryController = InventoryController.instance.inventoryController.GetComponent<InventoryController>();
 
         inventoryCanvas = inventoryGUI.inventoryCanvas;
+        UpdateTextUI();
     }
 
     public void OnBeginDrag(PointerEventData _EventData)
@@ -93,6 +96,7 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
 
     public void OnEndDrag(PointerEventData _EventData)
     {
+        StrainProfile dragStrain;
         cg.blocksRaycasts = true;
         cg.alpha = 1;
 
@@ -107,16 +111,49 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
         }
         else
         {
-            if (targetParent.CompareTag("Weed Plant") && _EventData.pointerDrag.CompareTag("UI Seed Bag"))
-            {
-                WeedPlant hoverPlant = targetParent.GetComponent<WeedPlant>();
-                StrainProfile seedStrain = _EventData.pointerDrag.GetComponent<StrainProfile>();
-                SeedBag seedBag = _EventData.pointerDrag.GetComponent<SeedBag>();
+            //if (targetParent.childCount == 0)
+            //{
+                if (targetParent.CompareTag("Weed Plant") && _EventData.pointerDrag.CompareTag("UI Seed Bag"))
+                {
+                    WeedPlant hoverPlant = targetParent.GetComponent<WeedPlant>();
+                    StrainProfile seedStrain = _EventData.pointerDrag.GetComponent<StrainProfile>();
+                    SeedBag seedBag = _EventData.pointerDrag.GetComponent<SeedBag>();
 
-                hoverPlant.SetConfirmPlantPanelActive(seedStrain, seedBag);
-                rectTransform.SetParent(previousParent, false);
-                rectTransform.anchoredPosition = new Vector2(0, 0);
-            }
+                    hoverPlant.SetConfirmPlantPanelActive(seedStrain, seedBag);
+                    rectTransform.SetParent(previousParent, false);
+                    rectTransform.anchoredPosition = new Vector2(0, 0);
+                }
+            //}
+            //else
+            //{
+            //    if (targetParent.GetChild(0).CompareTag(transform.tag))
+            //    {
+            //        dragStrain = _EventData.pointerDrag.GetComponent<StrainProfile>();
+            //        // if the object has a strain profile, compare IDs to see if the same strain
+            //        if (dragStrain != null)
+            //        {
+            //            if (dragStrain.strainID == strainProfile.strainID)
+            //            {
+
+            //            }
+            //            else
+            //            {
+            //                rectTransform.SetParent(previousParent, false);
+            //                rectTransform.anchoredPosition = new Vector2(0, 0);
+            //            }
+            //        }
+            //        // else just combine the two
+            //        else
+            //        {
+
+            //        }
+            //    }
+            //    else
+            //    {
+            //        rectTransform.SetParent(previousParent, false);
+            //        rectTransform.anchoredPosition = new Vector2(0, 0);
+            //    }
+            //}
 
 
         }
@@ -164,5 +201,31 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
     public void OnPointerUp(PointerEventData eventData)
     {
         print("OnPointerUp");
+    }
+
+    public void ReturnToPreviousParent()
+    {
+        targetParent = previousParent;
+        rectTransform.SetParent(previousParent, false);
+        rectTransform.anchoredPosition = new Vector2(0, 0);
+    }
+
+    public void AddAmount(float _amt)
+    {
+        amount += _amt;
+
+        UpdateTextUI();
+    }
+
+    public void SetAmount(float _amt)
+    {
+        amount = _amt;
+
+        UpdateTextUI();
+    }
+
+    public void UpdateTextUI()
+    {
+        uiAmount.text = amount.ToString();
     }
 }
