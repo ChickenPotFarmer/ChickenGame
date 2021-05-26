@@ -10,6 +10,7 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
     public float amount;
     public float maxAmount;
     public bool isSeed;
+    public bool locked;
 
     [Header("Drag Info")]
     public Transform previousParent;
@@ -97,11 +98,14 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
     public void OnEndDrag(PointerEventData _EventData)
     {
         StrainProfile dragStrain;
-        cg.blocksRaycasts = true;
-        cg.alpha = 1;
+        if (!locked)
+        {
+            cg.blocksRaycasts = true;
+            cg.alpha = 1;
+        }
 
-        // Checks if it was dropped, if not then return to original slot.
-        if (targetParent == null)
+            // Checks if it was dropped, if not then return to original slot.
+            if (targetParent == null)
         {
             if (transform.parent == inventoryGUI.dragParent)
             {
@@ -164,14 +168,18 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
 
     public void EndDragRoutine()
     {
-        cg.blocksRaycasts = true;
-        cg.alpha = 1;
-
-        // Checks if it was dropped, if not then return to original slot.
-        if (transform.parent == inventoryGUI.dragParent)
+        if (!locked)
         {
-            rectTransform.SetParent(previousParent, false);
-            rectTransform.anchoredPosition = new Vector2(0, 0);
+            cg.blocksRaycasts = true;
+            cg.alpha = 1;
+
+
+            // Checks if it was dropped, if not then return to original slot.
+            if (transform.parent == inventoryGUI.dragParent)
+            {
+                rectTransform.SetParent(previousParent, false);
+                rectTransform.anchoredPosition = new Vector2(0, 0);
+            }
         }
     }
 
@@ -208,6 +216,22 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
         targetParent = previousParent;
         rectTransform.SetParent(previousParent, false);
         rectTransform.anchoredPosition = new Vector2(0, 0);
+    }
+
+    public void Lock(bool _locked)
+    {
+        if (_locked)
+        {
+            locked = true;
+            cg.blocksRaycasts = false;
+            cg.alpha = 0.7f;
+        }   
+        else
+        {
+            locked = false;
+            cg.blocksRaycasts = true;
+            cg.alpha = 1f;
+        }
     }
 
     public void AddAmount(float _amt)

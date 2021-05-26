@@ -9,6 +9,7 @@ public class Buyer : MonoBehaviour
     public string buyerEmail;
     public float amountRequested;
     public float amountInInventory;
+    public bool orderFilled;
     public float totalPay;
     public ToDoObject toDoObject;
 
@@ -131,10 +132,13 @@ public class Buyer : MonoBehaviour
             amountInInventory = amountRequested;
         }
 
+        if (amountInInventory == amountRequested)
+            orderFilled = true;
+
         return remainder;
     }
 
-    public bool InspectWeed(StrainProfile _strain)
+    public bool PassesInspection(StrainProfile _strain)
     {
         bool weedIsGood;
 

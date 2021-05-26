@@ -225,8 +225,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buyerEmail: 
-  amountRequested: 20
+  amountRequested: 24
   amountInInventory: 0
+  orderFilled: 0
   totalPay: 0
   toDoObject: {fileID: 0}
   prefabs:
@@ -288,7 +289,7 @@ RectTransform:
   m_Children:
   - {fileID: 1456177247}
   m_Father: {fileID: 1314745635}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -3823,6 +3824,7 @@ MonoBehaviour:
   amount: 0
   maxAmount: 10
   isSeed: 1
+  locked: 0
   previousParent: {fileID: 0}
   targetParent: {fileID: 0}
   uiName: {fileID: 599095573}
@@ -13910,6 +13912,7 @@ MonoBehaviour:
   amount: 9
   maxAmount: 10
   isSeed: 1
+  locked: 0
   previousParent: {fileID: 0}
   targetParent: {fileID: 0}
   uiName: {fileID: 1614240509}
@@ -14371,7 +14374,7 @@ RectTransform:
   m_Children:
   - {fileID: 882020373}
   m_Father: {fileID: 1314745635}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -15796,6 +15799,7 @@ MonoBehaviour:
   amount: 25
   maxAmount: 28
   isSeed: 0
+  locked: 0
   previousParent: {fileID: 0}
   targetParent: {fileID: 0}
   uiName: {fileID: 689609557}
@@ -20244,6 +20248,7 @@ MonoBehaviour:
   amount: 20
   maxAmount: 28
   isSeed: 0
+  locked: 0
   previousParent: {fileID: 0}
   targetParent: {fileID: 0}
   uiName: {fileID: 1298768583}
@@ -21943,7 +21948,7 @@ RectTransform:
   - {fileID: 2085111085}
   - {fileID: 260749414}
   m_Father: {fileID: 1314745635}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -31110,10 +31115,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2145041091}
+  - {fileID: 1925928096}
   - {fileID: 902890861}
   - {fileID: 577911285}
   - {fileID: 4446971}
-  - {fileID: 1925928096}
   m_Father: {fileID: 209585217}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -39885,6 +39890,7 @@ MonoBehaviour:
   amount: 1
   maxAmount: 10
   isSeed: 1
+  locked: 0
   previousParent: {fileID: 0}
   targetParent: {fileID: 0}
   uiName: {fileID: 1211613788}
@@ -45257,7 +45263,7 @@ GameObject:
   - component: {fileID: 1925928098}
   - component: {fileID: 1925928097}
   m_Layer: 5
-  m_Name: Title (1)
+  m_Name: Request Txt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45275,7 +45281,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1314745635}
-  m_RootOrder: 4
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -45314,7 +45320,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '12.5g
+  m_Text: '24.0g
 
     Sativa Hybrid'
 --- !u!222 &1925928098
