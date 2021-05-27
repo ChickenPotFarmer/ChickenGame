@@ -91,8 +91,10 @@ public class ItemSlot : MonoBehaviour, IDropHandler
                                 dragObjTransform = cloneBrick.GetComponent<RectTransform>();
                                 dragObjTransform.SetParent(transform, false);
                                 dragObjTransform.anchoredPosition = new Vector2(0, 0);
+                                
 
                                 childItem = cloneBrick.GetComponent<InventoryItem>();
+                                childItem.previousParent = childItem.transform;
                                 childItem.SetAmount(diff);
                                 childItem.targetParent = transform;
                                 childItem.Lock(true);
@@ -101,7 +103,7 @@ public class ItemSlot : MonoBehaviour, IDropHandler
                             // if whole brick was returned
                             else if (remainder == dragItem.amount)
                             {
-                                dragItem.targetParent = dragItem.previousParent;
+                                dragItem.ReturnToPreviousParent();
                             }
                             // if no brick was returned
                             else if (remainder <= 0)
@@ -110,8 +112,11 @@ public class ItemSlot : MonoBehaviour, IDropHandler
                                 RectTransform dragObjTransform = _eventData.pointerDrag.GetComponent<RectTransform>();
                                 dragObjTransform.SetParent(transform, false);
                                 dragObjTransform.anchoredPosition = new Vector2(0, 0);
-                                _eventData.pointerDrag.GetComponent<InventoryItem>().targetParent = transform;
-                                _eventData.pointerDrag.GetComponent<InventoryItem>().Lock(true);
+
+                                InventoryItem draggedItem = _eventData.pointerDrag.GetComponent<InventoryItem>();
+                                draggedItem.targetParent = transform;
+                                draggedItem.previousParent = transform;
+                                draggedItem.Lock(true);
                             }
                             
                         }
@@ -122,6 +127,7 @@ public class ItemSlot : MonoBehaviour, IDropHandler
                         dragObjTransform.SetParent(transform, false);
                         dragObjTransform.anchoredPosition = new Vector2(0, 0);
                         _eventData.pointerDrag.GetComponent<InventoryItem>().targetParent = transform;
+                        _eventData.pointerDrag.GetComponent<InventoryItem>().Lock(false);
                     }
                 }
 
@@ -186,8 +192,8 @@ public class ItemSlot : MonoBehaviour, IDropHandler
                 }
         }
 
-        if (transform.childCount != 0)
-            transform.GetChild(0).GetComponent<InventoryItem>().Lock(true);
+        //if (transform.childCount != 0)
+        //    transform.GetChild(0).GetComponent<InventoryItem>().Lock(true);
     }
 
     // does not need a buyer strain check because if combining items the child item has already been checked

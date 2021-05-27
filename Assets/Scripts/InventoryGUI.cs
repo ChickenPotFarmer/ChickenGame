@@ -14,25 +14,17 @@ public class InventoryGUI : MonoBehaviour
     public Canvas inventoryCanvas;
     public Transform dragParent;
     public Transform slotsParent;
-    private Transform[] inventorySlots;
 
     public static InventoryGUI instance;
     [HideInInspector]
     public GameObject inventoryGUI;
 
+
+
     private void Awake()
     {
         instance = this;
         inventoryGUI = gameObject;
-    }
-
-    private void Start()
-    {
-        inventorySlots = new Transform[slotsParent.childCount];
-        for (int i = 0; i < slotsParent.childCount; i++)
-        {
-            inventorySlots[i] = slotsParent.GetChild(i);
-        }
     }
 
     public void ToggleInventoryPanel()
@@ -47,20 +39,5 @@ public class InventoryGUI : MonoBehaviour
             inventoryAnimator.Play("Open");
             isOpen = true;
         }
-    }
-
-    public Transform GetOpenSlot()
-    { 
-        for (int i = 0; i < inventorySlots.Length; i++)
-        {
-            if (inventorySlots[i].childCount == 0)
-            {
-                openSlot = inventorySlots[i];
-                break;
-            }
-        }
-
-        return openSlot;
-
     }
 }

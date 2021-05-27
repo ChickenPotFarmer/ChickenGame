@@ -25,6 +25,8 @@ public class InventoryController : MonoBehaviour
     [HideInInspector]
     public GameObject inventoryController;
 
+    private Transform openSlot;
+
     private void Awake()
     {
         instance = this;
@@ -65,6 +67,10 @@ public class InventoryController : MonoBehaviour
 
         Transform[] newArray = new Transform[] { slot1.transform, slot2.transform, slot3.transform };
 
+        slots.Add(slot1.transform);
+        slots.Add(slot2.transform);
+        slots.Add(slot3.transform);
+
         newChickInventory.uiSlots = newArray;
     }
 
@@ -83,7 +89,126 @@ public class InventoryController : MonoBehaviour
 
         Transform[] newArray = new Transform[] { slot1.transform, slot2.transform, slot3.transform };
 
+        slots.Add(slot1.transform);
+        slots.Add(slot2.transform);
+        slots.Add(slot3.transform);
+
         newChickInventory.uiSlots = newArray;
+    }
+
+    public Transform GetOpenSlot()
+    {
+        openSlot = null;
+
+        for (int i = 0; i < slots.Count; i++)
+        {
+            if (slots[i].childCount == 0)
+            {
+                openSlot = slots[i];
+                break;
+            }
+        }
+
+        return openSlot;
+
+    }
+
+    public Transform GetOpenSlot(string _id)
+    {
+        openSlot = null;
+
+        for (int i = 0; i < slots.Count; i++)
+        {
+            if (slots[i].childCount == 0)
+            {
+                openSlot = slots[i];
+                break;
+            }
+        }
+
+        return openSlot;
+
+    }
+
+    public InventoryItem GetItemToCombine(string _id)
+    {
+        InventoryItem inventoryItem;
+        InventoryItem itemToCombine = null;
+        for (int i = 0; i < slots.Count; i++)
+        {
+            if (slots[i].childCount != 0)
+            {
+                inventoryItem = slots[i].GetChild(0).GetComponent<InventoryItem>();
+                if (_id == inventoryItem.itemID && inventoryItem.amount < inventoryItem.maxAmount)
+                {
+                    openSlot = slots[i];
+                    itemToCombine = inventoryItem;
+                    break;
+                }
+            }
+        }
+
+        return itemToCombine;
+    }
+
+    public float CombineItems(InventoryItem _draggedItem, InventoryItem _childItem)
+    {
+        float remainder = 0;
+        _childItem.AddAmount(_draggedItem.amount);
+        _draggedItem.SetAmount(0);
+
+        float diff = _childItem.amount - _childItem.maxAmount;
+
+        //if there is remainder
+        if (diff > 0)
+        {
+            _childItem.AddAmount(-diff);
+            _childItem.Lock(false);
+            _draggedItem.SetAmount(diff);
+            _draggedItem.Lock(false);
+            _draggedItem.ReturnToPreviousParent();
+            remainder = diff;
+
+        }
+        else
+        {
+            Destroy(_draggedItem.gameObject);
+            _childItem.Lock(false);
+
+        }
+
+        return remainder;
+
+    }
+
+    public float ReturnToInventory(InventoryItem _item)
+    {
+        Transform openSlot = GetOpenSlot();
+        InventoryItem itemToCombine = null;
+        float remainder = 0;
+
+        if (openSlot != null)
+        {
+            _item.transform.SetParent(openSlot, false);
+            _item.transform.position = _item.transform.parent.position;
+            _item.Lock(false);
+        }
+        else
+        {
+            itemToCombine = GetItemToCombine(_item.itemID);
+
+            if (itemToCombine != null)
+            {
+                remainder = CombineItems(_item, itemToCombine);
+            }
+            else
+            {
+                print("INVENTORY FULL");
+            }
+
+        }
+
+        return remainder;
     }
 
     public void UpdateDecoChicks()

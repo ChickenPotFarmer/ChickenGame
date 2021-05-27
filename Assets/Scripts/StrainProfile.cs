@@ -78,6 +78,11 @@ public class StrainProfile : MonoBehaviour
     public void GenerateUniqueID()
     {
         strainID = UniqueIdMaster.instance.uniqueIdMaster.GetComponent<UniqueIdMaster>().GetID();
+
+        InventoryItem itemComp = GetComponent<InventoryItem>();
+
+        if (itemComp != null)
+            itemComp.itemID = strainID;
     }
 
     public void GenerateTerpeneEffects()

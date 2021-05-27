@@ -47,9 +47,11 @@ public class BreederMaster : MonoBehaviour
     {
         if (newStrain != null)
             newStrain = null;
-        // Spawn new seed bag
+
+        //Replace these with blank prefab with correct components 
         GameObject newStrainObj = new GameObject();
         newStrainObj.AddComponent<StrainProfile>();
+
         newStrain = newStrainObj.GetComponent<StrainProfile>();
         newStrain.GenerateUniqueID();
 

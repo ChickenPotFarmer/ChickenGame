@@ -26,6 +26,8 @@ public class Buyer : MonoBehaviour
 
     [Header("Setup")]
     public CanvasGroup cg;
+    public Transform slotsParent;
+    public Transform[] slots;
 
     public InventoryController inventoryController;
 
@@ -42,13 +44,23 @@ public class Buyer : MonoBehaviour
             randomBuyer = Instantiate(prefabs[Random.Range(0, prefabs.Length)], modelSlot);
             buyerAnimator = randomBuyer.GetComponent<Animator>();
         }
+
+
+        slots = new Transform[slotsParent.childCount];
+        // Intialize Slots References
+
+        for (int i = 0; i < slotsParent.childCount; i++)
+        {
+            slots[i] = slotsParent.GetChild(i);
+        }
         
+
     }
 
     private void Update()
     {
         if (Input.GetKeyDown("0"))
-            StartCoroutine(SaleSuccessRoutine());
+            WeirdClearInventory();
     }
 
     public void SetInfo(string _buyerEmail, float _amtRequested, float _totalPay, ToDoObject _toDo)
@@ -145,6 +157,47 @@ public class Buyer : MonoBehaviour
         weedIsGood = true;
 
         return weedIsGood;
+    }
+
+    public void WeirdClearInventory()
+    {
+        List<InventoryItem> slotItems = new List<InventoryItem>();
+
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i].childCount != 0)
+                slotItems.Add(slots[i].GetChild(0).GetComponent<InventoryItem>());
+        }
+
+        for (int i = 0; i < slotItems.Count; i++)
+        {
+            ClearInventory();
+        }
+
+    }
+
+    public void ClearInventory()
+    {
+        List<InventoryItem> slotItems = new List<InventoryItem>();
+
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i].childCount != 0)
+                slotItems.Add(slots[i].GetChild(0).GetComponent<InventoryItem>());
+        }
+
+        for (int i = 0; i < slotItems.Count; i++)
+        {
+            float remainder = inventoryController.ReturnToInventory(slotItems[i]);
+            if (remainder == 0 || remainder == slotItems[i].amount)
+            {
+                slotItems.RemoveAt(i);
+
+            }
+
+        }
+        amountInInventory = 0;
+        orderFilled = false;
     }
 
     public bool DeliverWeed()

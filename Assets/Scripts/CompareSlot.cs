@@ -6,7 +6,8 @@ using UnityEngine.EventSystems;
 public class CompareSlot : MonoBehaviour, IDropHandler
 {
     private StrainInfoUI strainInfoUI;
-    private InventoryGUI inventoryGui;
+    private InventoryController inventoryController;
+
     public ComparePanel comparePanel;
     public bool slotFilled;
     public StrainProfile slotStrain;
@@ -17,8 +18,8 @@ public class CompareSlot : MonoBehaviour, IDropHandler
         if (!strainInfoUI)
             strainInfoUI = StrainInfoUI.instance.strainInfoUI.GetComponent<StrainInfoUI>();
 
-        if (!inventoryGui)
-            inventoryGui = InventoryGUI.instance.inventoryGUI.GetComponent<InventoryGUI>();
+        if (!inventoryController)
+            inventoryController = InventoryController.instance.inventoryController.GetComponent<InventoryController>();
 
         StartCoroutine(SlotCheck());
     }
@@ -34,7 +35,7 @@ public class CompareSlot : MonoBehaviour, IDropHandler
                     slotFilled = true;
                     slotStrain = transform.GetChild(0).GetComponent<StrainProfile>();
                     comparePanel.SetComparePanelActive(strainInfoUI.currStrain, slotStrain);
-                    slotStrain.transform.SetParent(inventoryGui.GetOpenSlot(), false);
+                    slotStrain.transform.SetParent(inventoryController.GetOpenSlot(), false);
                     slotStrain.transform.position = slotStrain.transform.parent.position;
                 }
             }

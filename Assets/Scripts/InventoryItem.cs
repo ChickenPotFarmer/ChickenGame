@@ -11,6 +11,7 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
     public float maxAmount;
     public bool isSeed;
     public bool locked;
+    public string itemID;
 
     [Header("Drag Info")]
     public Transform previousParent;
