@@ -12,6 +12,7 @@ public class DryerController : MonoBehaviour
     public bool chickenInRange;
 
     [Header("Setup")]
+    public Button[] btnsToDisable;
     public Slider dryBarWorld;
     public Slider dryBarUI;
     public CanvasGroup dryBarCg;
@@ -123,23 +124,42 @@ public class DryerController : MonoBehaviour
         StartCoroutine(DryBarUpdate());
         StartCoroutine(DryRoutine());
         SetDryerPanelActive(false);
+        BtnsEnabled(false);
         clickActive = true;
+    }
+
+    private void BtnsEnabled(bool _active)
+    {
+        if (_active)
+        {
+            for (int i = 0; i < btnsToDisable.Length; i++)
+            {
+                btnsToDisable[i].interactable = true;
+            }
+        }
+        else
+        {
+            for (int i = 0; i < btnsToDisable.Length; i++)
+            {
+                btnsToDisable[i].interactable = false;
+            }
+        }
     }
 
     public IEnumerator DryRoutine()
     {
         SetDryBarActive(true);
         yield return new WaitForSeconds(dryTime);
-
+        
+        for (int i = 0; i < slots.Count; i++)
         {
-            for (int i = 0; i < slots.Count; i++)
+            if (slots[i].childCount != 0)
             {
-                if (slots[i].childCount != 0)
-                {
-                    slots[i].GetChild(0).GetComponent<WeedBrick>().SetDry(true);
-                }
+                slots[i].GetChild(0).GetComponent<WeedBrick>().SetDry(true);
             }
         }
+        BtnsEnabled(true);
+        
     }
 
     public IEnumerator DryBarUpdate()

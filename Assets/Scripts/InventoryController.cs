@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryController : MonoBehaviour
 {
     [Header("Money")]
     public float moneyCarrying;
+    public Text moneyTxt;
 
     [Header("Inventory Chicks")]
     public GameObject chickPrefab;
@@ -42,7 +44,7 @@ public class InventoryController : MonoBehaviour
 
     private void Start()
     {
-
+        AddCash(0);
         // Intialize Slots References
         if (slots.Count == 0)
         {
@@ -51,6 +53,16 @@ public class InventoryController : MonoBehaviour
                 slots.Add(slotsParent.GetChild(i));
             }
         }
+    }
+
+    // TO-DO:
+    // Change this so that money is an object in the game
+    // player will need to deposit money at bank or atm to buy stuff online
+    public void AddCash(float _amt)
+    {
+        moneyCarrying += _amt;
+
+        moneyTxt.text = "$" + moneyCarrying.ToString("n2");
     }
 
     public void AddInventoryChick()

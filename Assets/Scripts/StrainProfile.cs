@@ -50,8 +50,8 @@ public class StrainProfile : MonoBehaviour
         if (!uniqueIdMaster)
             uniqueIdMaster = UniqueIdMaster.instance.uniqueIdMaster.GetComponent<UniqueIdMaster>();
 
-        if (strainID == "")
-            GenerateUniqueID();
+        //if (strainID == "")
+        //    GenerateUniqueID();
     }
 
     public void SetStrain(StrainProfile _strain)

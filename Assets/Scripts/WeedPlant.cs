@@ -32,6 +32,7 @@ public class WeedPlant : MonoBehaviour
     private MeshRenderer debugRenderer;
     private InventoryController inventoryController;
     private ConfirmPlantPanel confirmPlantPanel;
+    private HarvestPanel harvestPanel;
 
     private void Awake()
     {
@@ -50,6 +51,9 @@ public class WeedPlant : MonoBehaviour
 
         if (!confirmPlantPanel)
             confirmPlantPanel = ConfirmPlantPanel.instance.confirmPlantPanel.GetComponent<ConfirmPlantPanel>();
+
+        if (!harvestPanel)
+            harvestPanel = HarvestPanel.instance.harvestPanel.GetComponent<HarvestPanel>();
     }
 
 
@@ -159,15 +163,6 @@ public class WeedPlant : MonoBehaviour
 
     public void Harvest()
     {
-        //if (inventoryController.AddWetGrams(actualYield))
-        //{
-        //    actualYield = 0;
-        //    growthBar.value = 0;
-        //    SetNone();
-        //}
-        //else
-        //{
-        //    Debug.LogWarning("Cannot add amount to inventory.");
-        //}
+        harvestPanel.HarvestPlant(this, currentStrain);
     }
 }

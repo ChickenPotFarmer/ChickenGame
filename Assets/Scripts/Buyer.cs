@@ -28,8 +28,10 @@ public class Buyer : MonoBehaviour
     public CanvasGroup cg;
     public Transform slotsParent;
     public Transform[] slots;
+    public GameObject successParticles;
 
-    public InventoryController inventoryController;
+    private InventoryController inventoryController;
+    private InventoryGUI inventoryGUI;
 
     private Animator buyerAnimator;
     public GameObject randomBuyer;
@@ -38,6 +40,9 @@ public class Buyer : MonoBehaviour
     {
         if (!inventoryController)
             inventoryController = InventoryController.instance.inventoryController.GetComponent<InventoryController>();
+
+        if (!inventoryGUI)
+            inventoryGUI = InventoryGUI.instance.inventoryGUI.GetComponent<InventoryGUI>();
 
         if (randomBuyer == null)
         {
@@ -89,19 +94,34 @@ public class Buyer : MonoBehaviour
         }
     }
 
+    public void SaleSuccess()
+    {
+        StartCoroutine(SaleSuccessRoutine());
+    }
+
     public IEnumerator SaleSuccessRoutine()
     {
         buyerAnimator.Play("Salute");
-        yield return new WaitForSeconds(2);
         SetPanelActive(false);
+
+        yield return new WaitForSeconds(2);
+
         cam.SetActive(false);
+        yield return new WaitForSeconds(2);
+
+        // change this so they walk away or poof into a cloud
+        GameObject particles = Instantiate(successParticles);
+        particles.transform.position = transform.position;
+
+        Destroy(gameObject);
     }
 
     public void OpenBuyerPanel()
     {
         SetPanelActive(true);
         cam.SetActive(true);
-
+        if (!inventoryGUI.isOpen)
+            inventoryGUI.ToggleInventoryPanel();
     }
 
     public void CloseBuyerPanel()
@@ -200,24 +220,17 @@ public class Buyer : MonoBehaviour
         orderFilled = false;
     }
 
-    public bool DeliverWeed()
+    public void DeliverWeed()
     {
-        bool amountCorrect = true;
+        if (orderFilled)
+        {
+            inventoryController.AddCash(totalPay);
 
-        //if (inventoryController.dryGramsCarrying >= amountRequested)
-        //{
-        //    if(inventoryController.AddCash(totalPay))
-        //    {
-        //        // REMOVE BUYER
-        //        inventoryController.dryGramsCarrying -= amountRequested;
-        //        toDoObject.Complete();
-        //        Destroy(gameObject);
-        //    }
-        //}
-        //else
-        //{
-        //    amountCorrect = false;
-        //}
-        return amountCorrect;
+
+            SaleSuccess();
+
+            
+
+        }
     }
 }
