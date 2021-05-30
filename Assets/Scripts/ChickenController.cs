@@ -9,6 +9,11 @@ public class ChickenController : MonoBehaviour
     public NavMeshAgent navAgent;
     public float runThreshold;
     public GameObject navX;
+
+    [Header("Setup")]
+    public Transform pickupSlot;
+
+    [Header("Followers")]
     public bool hasFollower;
     public LilChickController follower;
 

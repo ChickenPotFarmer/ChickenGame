@@ -34,11 +34,11 @@ public class DialogController : MonoBehaviour
         //DisplayMessage(testString);
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown("1"))
-            DisplayMessage(testString);
-    }
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown("1"))
+    //        DisplayMessage(testString);
+    //}
 
     public void DisplayMessage(Sprite _whoIsSpeaking, string _message)
     {

@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6338211901171803654
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6338211901171803655}
+  - component: {fileID: 6338211901171803652}
+  m_Layer: 0
+  m_Name: Buyer Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6338211901171803655
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6338211901171803654}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6338211901171803652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6338211901171803654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec629e8325a8d8f43b0ac8049655b545, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buyerPrefabs:
+  - {fileID: 100046, guid: f8abbdd178867d2419ba9feb6ff2cba0, type: 3}
+  - {fileID: 100000, guid: 6f52b946693e54048af74f5cd6ba49f8, type: 3}
+  - {fileID: 100000, guid: 3bd8a450fcb589542a7843ea7bda2ee6, type: 3}
+  - {fileID: 100046, guid: 0e1316a3e46fdb349b6ff648610a1d71, type: 3}
+  - {fileID: 100000, guid: 610afbb40c4385d42aa33adfe3531f0a, type: 3}
+  - {fileID: 100000, guid: 7169122e91e1981469b2b6045ddf7963, type: 3}
+  - {fileID: 100046, guid: 2af1fa464b69e4c4cb1a408373c7d971, type: 3}
+  - {fileID: 100000, guid: f3f69bcf5a1514c458ed5c9b96f28e34, type: 3}
+  - {fileID: 100046, guid: 3cf7f489270aac84fb12901330960a5b, type: 3}
+  - {fileID: 100000, guid: fc01a3bb589cebc4aa10892db165243b, type: 3}
+  - {fileID: 100046, guid: 814f4326a50812947b2469896d89a215, type: 3}
+  - {fileID: 100046, guid: 7b6675de545141649953fd8adec4561b, type: 3}
+  hoveringOver: {fileID: 0}
+  spawnLocationsParent: {fileID: 0}
+  spawnLocations: []
+  hoverActive: 1
+  buyerContoller: {fileID: 0}

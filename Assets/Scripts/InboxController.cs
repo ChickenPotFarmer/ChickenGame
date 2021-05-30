@@ -17,6 +17,7 @@ public class InboxController : MonoBehaviour
     public Text totalPayTxt;
 
     [Header("Current Email Info")]
+    public Email currentEmail;
     public string fromName;
     public float amountRequested;
     public float totalPay;
@@ -33,6 +34,9 @@ public class InboxController : MonoBehaviour
     public static InboxController instance;
     [HideInInspector]
     public GameObject inboxController;
+
+    // Note for order spawning
+    // terpene effects and requested terpenes MUST BE IN ORDER for checks to complete right
 
     private void Awake()
     {
@@ -114,7 +118,7 @@ public class InboxController : MonoBehaviour
 
     public void TakeOrder()
     {
-        buyerController.SpawnBuyer(fromName, amountRequested, totalPay, toDoController.AddOrderToDo(amountRequested, fromName));
+        buyerController.SpawnBuyer(currentEmail, toDoController.AddOrderToDo(amountRequested, fromName));
         Destroy(currentInboxObject);
         currentInboxObject = null;
         laptopController.clickActive = true;
@@ -134,6 +138,7 @@ public class InboxController : MonoBehaviour
             laptopPanelCg.alpha = 0;
             laptopPanelCg.interactable = false;
             laptopPanelCg.blocksRaycasts = false;
+            currentEmail = null;
         }
     }
 
@@ -150,6 +155,7 @@ public class InboxController : MonoBehaviour
             orderInfoCg.alpha = 0;
             orderInfoCg.interactable = false;
             orderInfoCg.blocksRaycasts = false;
+            currentEmail = null;
         }
     }
 

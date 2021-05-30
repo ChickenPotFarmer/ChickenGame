@@ -18,10 +18,20 @@ public class WeedPlant : MonoBehaviour
     public bool isPlanted;
     public bool isFemale;
     public bool fullyGrown;
+    public bool trimmed;
+    public bool harvested;
+    public bool hasSeed;
 
     [Header("Setup")]
+    public CapsuleCollider collider;
     public CanvasGroup growthBarCg;
+    public CanvasGroup harvestPanelCg;
     public Slider growthBar;
+    public HarvestPanel harvestPanel;
+
+    [Header("FX")]
+    public Transform fxParent;
+    public GameObject plantedFx;
 
     [Header("Stages")]
     public GameObject seedling;
@@ -32,7 +42,6 @@ public class WeedPlant : MonoBehaviour
     private MeshRenderer debugRenderer;
     private InventoryController inventoryController;
     private ConfirmPlantPanel confirmPlantPanel;
-    private HarvestPanel harvestPanel;
 
     private void Awake()
     {
@@ -52,8 +61,6 @@ public class WeedPlant : MonoBehaviour
         if (!confirmPlantPanel)
             confirmPlantPanel = ConfirmPlantPanel.instance.confirmPlantPanel.GetComponent<ConfirmPlantPanel>();
 
-        if (!harvestPanel)
-            harvestPanel = HarvestPanel.instance.harvestPanel.GetComponent<HarvestPanel>();
     }
 
 
@@ -73,6 +80,8 @@ public class WeedPlant : MonoBehaviour
 
     public void Plant()
     {
+        harvested = false;
+        trimmed = false;
         StartCoroutine(GrowRoutine());
         StartCoroutine(GrowthBarUpdate());
     }
@@ -138,6 +147,22 @@ public class WeedPlant : MonoBehaviour
         }
     }
 
+    public void SetHarvestPanelActive(bool _active)
+    {
+        if (_active)
+        {
+            harvestPanelCg.alpha = 1;
+            harvestPanelCg.interactable = true;
+            harvestPanelCg.blocksRaycasts = true;
+        }
+        else
+        {
+            harvestPanelCg.alpha = 0;
+            harvestPanelCg.interactable = false;
+            harvestPanelCg.blocksRaycasts = false;
+        }
+    }
+
     public IEnumerator GrowRoutine()
     {
         isPlanted = true;
@@ -163,6 +188,51 @@ public class WeedPlant : MonoBehaviour
 
     public void Harvest()
     {
-        harvestPanel.HarvestPlant(this, currentStrain);
+        if (!harvested)
+        {
+            harvested = true;
+            
+            harvestPanel.HarvestPlant(this, currentStrain);
+        }
     }
+
+    public void CloseHarvestPanel()
+    {
+        SetHarvestPanelActive(false);
+    }
+
+    public void ResetPlant()
+    {
+        CloseHarvestPanel();
+        SetNone();
+
+        fullyGrown = false;
+        isPlanted = false;
+        hasSeed = false;
+        harvested = false;
+        trimmed = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Seed Projectile"))
+        {
+            Seed seed = other.GetComponent<Seed>();
+
+            if (seed.target == transform)
+            {
+                SetStrainProfile(seed.currentStrain);
+                Plant();
+                Destroy(seed.gameObject);
+                Instantiate(plantedFx, fxParent);
+            }
+            else
+            {
+                print("ignore");
+
+
+            }
+        }
+    }
+
 }

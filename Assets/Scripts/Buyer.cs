@@ -13,6 +13,12 @@ public class Buyer : MonoBehaviour
     public float totalPay;
     public ToDoObject toDoObject;
 
+    [Header("Order Constraints")]
+    public int typeRequested; // -1 for any
+    public int terpeneRequested;
+    public float minThc;
+    public string effectRequested;
+
     [Header("Buyer Prefabs")]
     public GameObject[] prefabs;
     public Transform modelSlot;
@@ -35,6 +41,9 @@ public class Buyer : MonoBehaviour
 
     private Animator buyerAnimator;
     public GameObject randomBuyer;
+
+    // Note for order spawning
+    // terpene effects and requested terpenes MUST BE IN ORDER for checks to complete right
 
     private void Start()
     {
@@ -62,19 +71,19 @@ public class Buyer : MonoBehaviour
 
     }
 
-    private void Update()
+    public void SetInfo(Email _email, ToDoObject _toDo)
     {
-        if (Input.GetKeyDown("0"))
-            WeirdClearInventory();
-    }
+        buyerEmail = _email.fromName;
+        amountRequested = _email.orderAmt;
+        totalPay = _email.totalPay;
 
-    public void SetInfo(string _buyerEmail, float _amtRequested, float _totalPay, ToDoObject _toDo)
-    {
-        buyerEmail = _buyerEmail;
-        amountRequested = _amtRequested;
-        totalPay = _totalPay;
+        typeRequested = _email.typeRequested;
+        terpeneRequested = _email.terpeneRequested;
+        minThc = _email.minThc;
+        effectRequested = _email.effectRequested;
+
         toDoObject = _toDo;
-        deliverTxt.text = "Deliver " + _amtRequested.ToString("n1") + " g";
+        deliverTxt.text = "Deliver " + amountRequested.ToString("n1") + " g";
         SetHoverInfoActive(false);
     }
 
@@ -148,7 +157,7 @@ public class Buyer : MonoBehaviour
     }
 
     // Add functions to check for correct strain type
-    public float DropOffWeed(WeedBrick _weedBrick, float _amt)
+    public float DropOffWeed(float _amt)
     {
         float remainder = 0;
         float diff;
@@ -176,6 +185,27 @@ public class Buyer : MonoBehaviour
 
         weedIsGood = true;
 
+        // Strain Type Check
+        if (Mathf.Abs(typeRequested - _strain.strainType) > 1)
+        {
+            weedIsGood = false;
+        }
+        // Effect Check
+        if (_strain.primaryEffect != effectRequested && effectRequested != "NONE")
+        {
+            weedIsGood = false;
+        }
+        // Terpene Check
+        if (_strain.primaryTerpene != terpeneRequested && terpeneRequested != -1)
+        {
+            weedIsGood = false;
+        }
+        // THC Check
+        if (_strain.thcPercent < minThc)
+        {
+            weedIsGood = false;
+        }
+
         return weedIsGood;
     }
 
@@ -198,24 +228,34 @@ public class Buyer : MonoBehaviour
 
     public void ClearInventory()
     {
-        List<InventoryItem> slotItems = new List<InventoryItem>();
+        bool isRemainder;
 
-        for (int i = 0; i < slots.Length; i++)
+        do
         {
-            if (slots[i].childCount != 0)
-                slotItems.Add(slots[i].GetChild(0).GetComponent<InventoryItem>());
-        }
+            isRemainder = false;
+            List<InventoryItem> slotItems = new List<InventoryItem>();
 
-        for (int i = 0; i < slotItems.Count; i++)
-        {
-            float remainder = inventoryController.ReturnToInventory(slotItems[i]);
-            if (remainder == 0 || remainder == slotItems[i].amount)
+            for (int i = 0; i < slots.Length; i++)
             {
-                slotItems.RemoveAt(i);
-
+                if (slots[i].childCount != 0)
+                    slotItems.Add(slots[i].GetChild(0).GetComponent<InventoryItem>());
             }
 
-        }
+            for (int i = 0; i < slotItems.Count; i++)
+            {
+                float remainder = inventoryController.ReturnToInventory(slotItems[i]);
+                if (remainder != 0 && remainder != slotItems[i].amount)
+                {
+                    isRemainder = true;
+                    break;
+                }
+                else if (remainder == slotItems[i].amount)
+                {
+                    Debug.LogWarning("INVENTORY FULL");
+                }
+
+            }
+        } while (isRemainder);
         amountInInventory = 0;
         orderFilled = false;
     }
@@ -228,8 +268,6 @@ public class Buyer : MonoBehaviour
 
 
             SaleSuccess();
-
-            
 
         }
     }

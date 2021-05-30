@@ -9,15 +9,25 @@ public class Email : MonoBehaviour
     public string fromName;
     public string subjectLine;
     public string bodyTxt;
-    public float orderAmt;
     public Transform spawnLocation;
     public GameObject buyerPrefab;
     public int timeTillCancel;
     public Text btnTxtFrom;
     public Text btnTxtSubject;
 
+    [Header("Strain Request Info")]
+    public float orderAmt;
+    public float totalPay;
+    public int typeRequested; // -1 for any
+    public int terpeneRequested; // -1 for any
+    public float minThc;
+    public string effectRequested;
+
     private InboxController inboxController;
     private Button btn;
+
+    // Note for order spawning
+    // terpene effects and requested terpenes MUST BE IN ORDER for checks to complete right
 
     private void Start()
     {
@@ -36,6 +46,7 @@ public class Email : MonoBehaviour
     public void DisplayEmail()
     {
         inboxController.UpdateEmailTxt(fromName, subjectLine, bodyTxt, orderAmt, gameObject);
+        inboxController.currentEmail = this;
         inboxController.SetOrderInfoActive(true);
         //send info to confirm email button for buyer spawn and to set timeTIllCancel
     }

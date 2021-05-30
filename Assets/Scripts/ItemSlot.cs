@@ -15,7 +15,8 @@ public class ItemSlot : MonoBehaviour, IDropHandler
     private Buyer buyer;
     private InventoryItem dragItem;
     private InventoryItem childItem;
-    private WeedBrick dragWeedBrick;
+    private StrainProfile dragWeedstrain;
+    private InventoryController inventoryController;
 
     private void Awake()
     {
@@ -26,6 +27,9 @@ public class ItemSlot : MonoBehaviour, IDropHandler
     {
         if (isBuyerSlot && !buyer)
             buyer = GetComponentInParent<Buyer>();
+
+        if (!inventoryController)
+            inventoryController = InventoryController.instance.inventoryController.GetComponent<InventoryController>();
     }
     public void OnDrop (PointerEventData _eventData)
     {
@@ -70,57 +74,60 @@ public class ItemSlot : MonoBehaviour, IDropHandler
                             if (!buyer.orderFilled)
                             {
                                 dragItem = _eventData.pointerDrag.GetComponent<InventoryItem>();
-                                dragWeedBrick = _eventData.pointerDrag.GetComponent<WeedBrick>();
+                                dragWeedstrain = _eventData.pointerDrag.GetComponent<StrainProfile>();
 
-                                float remainder = buyer.DropOffWeed(dragWeedBrick, dragItem.amount); // change this to send the entire WeedBrick to test if correct
-                                                                                                     // start with laptop script, establish means to confirm correct strain
-
-
-                                // if there is a remainder
-                                if (remainder > 0)
+                                if (buyer.PassesInspection(dragWeedstrain))
                                 {
-                                    float diff = dragItem.amount - remainder;
-                                    dragItem.SetAmount(remainder);
 
-                                    RectTransform dragObjTransform = _eventData.pointerDrag.GetComponent<RectTransform>();
-                                    dragObjTransform.SetParent(_eventData.pointerDrag.GetComponent<InventoryItem>().previousParent, false);
-                                    dragObjTransform.anchoredPosition = new Vector2(0, 0);
-                                    _eventData.pointerDrag.GetComponent<InventoryItem>().targetParent = _eventData.pointerDrag.GetComponent<InventoryItem>().previousParent;
+                                    float remainder = buyer.DropOffWeed(dragItem.amount); // change this to send the entire WeedBrick to test if correct
+                                                                                                         // start with laptop script, establish means to confirm correct strain
 
 
-                                    GameObject cloneBrick = Instantiate(_eventData.pointerDrag, transform);
-                                    print("Cloned brick");
-                                    dragObjTransform = cloneBrick.GetComponent<RectTransform>();
-                                    dragObjTransform.SetParent(transform, false);
-                                    dragObjTransform.anchoredPosition = new Vector2(0, 0);
+                                    // if there is a remainder
+                                    if (remainder > 0)
+                                    {
+                                        float diff = dragItem.amount - remainder;
+                                        dragItem.SetAmount(remainder);
+
+                                        RectTransform dragObjTransform = _eventData.pointerDrag.GetComponent<RectTransform>();
+                                        dragObjTransform.SetParent(_eventData.pointerDrag.GetComponent<InventoryItem>().previousParent, false);
+                                        dragObjTransform.anchoredPosition = new Vector2(0, 0);
+                                        _eventData.pointerDrag.GetComponent<InventoryItem>().targetParent = _eventData.pointerDrag.GetComponent<InventoryItem>().previousParent;
 
 
-                                    childItem = cloneBrick.GetComponent<InventoryItem>();
-                                    childItem.previousParent = childItem.transform;
-                                    childItem.SetAmount(diff);
-                                    childItem.targetParent = transform;
-                                    childItem.Lock(true);
+                                        GameObject cloneBrick = Instantiate(_eventData.pointerDrag, transform);
+                                        print("Cloned brick");
+                                        dragObjTransform = cloneBrick.GetComponent<RectTransform>();
+                                        dragObjTransform.SetParent(transform, false);
+                                        dragObjTransform.anchoredPosition = new Vector2(0, 0);
 
+
+                                        childItem = cloneBrick.GetComponent<InventoryItem>();
+                                        childItem.previousParent = childItem.transform;
+                                        childItem.SetAmount(diff);
+                                        childItem.targetParent = transform;
+                                        childItem.Lock(true);
+
+                                    }
+                                    // if whole brick was returned
+                                    else if (remainder == dragItem.amount)
+                                    {
+                                        dragItem.ReturnToPreviousParent();
+                                    }
+                                    // if no brick was returned
+                                    else if (remainder <= 0)
+                                    {
+                                        print("no remainder");
+                                        RectTransform dragObjTransform = _eventData.pointerDrag.GetComponent<RectTransform>();
+                                        dragObjTransform.SetParent(transform, false);
+                                        dragObjTransform.anchoredPosition = new Vector2(0, 0);
+
+                                        InventoryItem draggedItem = _eventData.pointerDrag.GetComponent<InventoryItem>();
+                                        draggedItem.targetParent = transform;
+                                        draggedItem.previousParent = transform;
+                                        draggedItem.Lock(true);
+                                    }
                                 }
-                                // if whole brick was returned
-                                else if (remainder == dragItem.amount)
-                                {
-                                    dragItem.ReturnToPreviousParent();
-                                }
-                                // if no brick was returned
-                                else if (remainder <= 0)
-                                {
-                                    print("no remainder");
-                                    RectTransform dragObjTransform = _eventData.pointerDrag.GetComponent<RectTransform>();
-                                    dragObjTransform.SetParent(transform, false);
-                                    dragObjTransform.anchoredPosition = new Vector2(0, 0);
-
-                                    InventoryItem draggedItem = _eventData.pointerDrag.GetComponent<InventoryItem>();
-                                    draggedItem.targetParent = transform;
-                                    draggedItem.previousParent = transform;
-                                    draggedItem.Lock(true);
-                                }
-
                             }
                         }
                         else
@@ -195,6 +202,8 @@ public class ItemSlot : MonoBehaviour, IDropHandler
             }
         }
 
+        inventoryController.UpdateDecoChicks();
+
         //if (transform.childCount != 0)
         //    transform.GetChild(0).GetComponent<InventoryItem>().Lock(true);
     }
@@ -264,6 +273,7 @@ public class ItemSlot : MonoBehaviour, IDropHandler
                 Destroy(_draggedItem.gameObject);
             }
         }
+        
     }
 
     public void CombineItems(InventoryItem _draggedItem, InventoryItem _childItem, float _maxAmountToAdd)

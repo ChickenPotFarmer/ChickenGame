@@ -7,28 +7,28 @@ public class HarvestPanel : MonoBehaviour
     [Header("Weed Brick Settings")]
     public float maxPerBrick;
 
+    [Header("Status")]
+    public bool harvested;
+
     [Header("Setup")]
+    public WeedPlant plant;
     public CanvasGroup cg;
     public GameObject weedBrickPrefab;
     public Transform slotsParent;
     public Transform[] slots;
 
     private List<InventoryItem> newBrickList;
+    private InventoryController inventoryController;
 
-    public static HarvestPanel instance;
-    [HideInInspector]
-    public GameObject harvestPanel;
-
-    private void Awake()
-    {
-        instance = this;
-        harvestPanel = gameObject;
-    }
 
     private void Start()
     {
+        if (!inventoryController)
+            inventoryController = InventoryController.instance.inventoryController.GetComponent<InventoryController>();
+
         slots = new Transform[slotsParent.childCount];
 
+        //StartCoroutine(SlotsEmptyCheck());
 
         for (int i = 0; i < slotsParent.childCount; i++)
         {
@@ -45,19 +45,23 @@ public class HarvestPanel : MonoBehaviour
         bricksNeeded = Mathf.Round(bricksNeeded);
 
         GameObject newBrick;
+        InventoryItem newBrickInventoryItem;
 
         for (int i = 0; i < bricksNeeded; i++)
         {
             newBrick = Instantiate(weedBrickPrefab, slots[i]);
             //newBrick.transform.position = new Vector2(0, 0);
+            newBrickInventoryItem = newBrick.GetComponent<InventoryItem>();
+            newBrickInventoryItem.Lock(true);
+            newBrickInventoryItem.previousParent = slots[i];
 
             if (i != bricksNeeded - 1)
             {
-                newBrick.GetComponent<InventoryItem>().SetAmount(maxPerBrick);
+                newBrickInventoryItem.SetAmount(maxPerBrick);
             }
             else
             {
-                newBrick.GetComponent<InventoryItem>().SetAmount(_plant.actualYield - ((bricksNeeded - 1) * maxPerBrick));
+                newBrickInventoryItem.SetAmount(_plant.actualYield - ((bricksNeeded - 1) * maxPerBrick));
             }
 
             StrainProfile strainProf = newBrick.GetComponent<StrainProfile>();
@@ -73,6 +77,74 @@ public class HarvestPanel : MonoBehaviour
         // clear plant and add to inventory
 
         SetPanelActive(false);
+    }
+
+    public void ClearInventory()
+    {
+        bool isRemainder;
+        bool resetPlantReady = true;
+        do
+        {
+            isRemainder = false;
+            List<InventoryItem> slotItems = new List<InventoryItem>();
+
+            for (int i = 0; i < slots.Length; i++)
+            {
+                if (slots[i].childCount != 0)
+                    slotItems.Add(slots[i].GetChild(0).GetComponent<InventoryItem>());
+            }
+
+            for (int i = 0; i < slotItems.Count; i++)
+            {
+                float remainder = inventoryController.ReturnToInventory(slotItems[i]);
+                slotItems[i].Lock(false);
+
+                if (remainder != 0 && remainder != slotItems[i].amount)
+                {
+                    isRemainder = true;
+                    //slotItems[i].ReturnToPreviousParent();
+                    break;
+                }
+                else if (remainder == slotItems[i].amount)
+                {
+                    Debug.LogWarning("INVENTORY FULL");
+                    resetPlantReady = false;
+                }
+
+            }
+        } while (isRemainder);
+
+        if (SlotsEmpty())
+        {
+            SetPanelActive(false);
+            plant.ResetPlant();
+        }
+    }
+
+    IEnumerator SlotsEmptyCheck()
+    {
+        do
+        {
+            yield return new WaitForSeconds(1);
+            if (SlotsEmpty())
+            {
+                SetPanelActive(false);
+                plant.ResetPlant();
+            }    
+        } while (true);
+    }
+
+    public bool SlotsEmpty()
+    {
+        bool empty = true;
+
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i].childCount != 0)
+                empty = false;
+        }
+
+        return empty;
     }
 
     public void SetPanelActive(bool _active)

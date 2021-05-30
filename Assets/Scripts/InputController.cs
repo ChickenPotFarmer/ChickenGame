@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class InputController : MonoBehaviour
 {
+    private Trimmer trimmer;
+    private SeedCannon seedCannon;
     private BuyerController buyerController;
     private DryerController dryerController;
     private LaptopController laptopController;
@@ -30,6 +32,10 @@ public class InputController : MonoBehaviour
             chickenController = ChickenController.instance.chickenController.GetComponent<ChickenController>();
         if (!inventoryGUI)
             inventoryGUI = InventoryGUI.instance.inventoryGUI.GetComponent<InventoryGUI>();
+        if (!seedCannon)
+            seedCannon = SeedCannon.instance.seedCannon.GetComponent<SeedCannon>();
+        if (!trimmer)
+            trimmer = Trimmer.instance.trimmer.GetComponent<Trimmer>();
     }
 
     private void Update()
@@ -40,6 +46,16 @@ public class InputController : MonoBehaviour
 
         else if (Input.GetKeyDown(KeyCode.T))
             toDoController.ToggleToDoPanel();
+
+        else if (Input.GetKeyDown("1"))
+        {
+            seedCannon.ToggleCannon();
+        }
+
+        else if (Input.GetKeyDown("2"))
+        {
+            trimmer.ToggleTrimmer();
+        }
 
         // Mouse Control
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -93,7 +109,7 @@ public class InputController : MonoBehaviour
                         WeedPlant foundPlant = hit.collider.gameObject.GetComponent<WeedPlant>();
 
                         // Handle unplanted weed plant
-                        if (!foundPlant.isPlanted)
+                        if (!foundPlant.isPlanted && seedCannon.cannonOn)
                         {
                             if (planterController.selectedPlant != null)
                             {
@@ -110,22 +126,45 @@ public class InputController : MonoBehaviour
                         {
                             if (foundPlant.fullyGrown)
                             {
-                                foundPlant.Harvest();
-                            }
-                        }
-
-                        if (planterController.planterOn && planterController.seeds != 0)
-                        {
-                            if (planterController.selectedPlant != null)
-                            {
-                                if (Input.GetButtonDown("Interact") && !planterController.selectedPlant.selected)
+                                if (trimmer.TrimmerIsOn())
                                 {
-                                    planterController.selectedPlant.selected = true;
-                                    planterController.SetNewPlantPanelActive(true);
-                                    planterController.planterOn = false;
+                                    if (!foundPlant.trimmed)
+                                        trimmer.TrimPlant(foundPlant);
+                                    else if (!foundPlant.harvested)
+                                        foundPlant.Harvest();
+                                    else if (foundPlant.harvested)
+                                        foundPlant.SetHarvestPanelActive(true);
+
+                                }
+                                else
+                                {
+                                    if (!foundPlant.harvested)
+                                        foundPlant.Harvest();
+                                    else
+                                        foundPlant.SetHarvestPanelActive(true);
+                                }
+                            }
+                            else
+                            {
+                                if (seedCannon.cannonOn && !foundPlant.hasSeed)
+                                {
+                                    seedCannon.FireCannon(foundPlant.transform);
                                 }
                             }
                         }
+
+                        //if (planterController.planterOn && planterController.seeds != 0)
+                        //{
+                        //    if (planterController.selectedPlant != null)
+                        //    {
+                        //        if (Input.GetButtonDown("Interact") && !planterController.selectedPlant.selected)
+                        //        {
+                        //            planterController.selectedPlant.selected = true;
+                        //            planterController.SetNewPlantPanelActive(true);
+                        //            planterController.planterOn = false;
+                        //        }
+                        //    }
+                        //}
 
                         BuyerUnhover();
                         break;

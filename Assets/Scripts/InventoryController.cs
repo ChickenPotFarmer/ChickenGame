@@ -188,7 +188,7 @@ public class InventoryController : MonoBehaviour
             _childItem.Lock(false);
 
         }
-
+        UpdateDecoChicks();
         return remainder;
 
     }
@@ -219,7 +219,7 @@ public class InventoryController : MonoBehaviour
             }
 
         }
-
+        UpdateDecoChicks();
         return remainder;
     }
 

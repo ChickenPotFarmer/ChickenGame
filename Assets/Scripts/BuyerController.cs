@@ -39,46 +39,16 @@ public class BuyerController : MonoBehaviour
         }
     }
 
-    //private void Update()
-    //{
-    //    if (hoverActive)
-    //    {
-    //        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-    //        RaycastHit hit;
-
-    //        if (Physics.Raycast(ray, out hit))
-    //        {
-    //            if (hit.collider != null)
-    //            {
-    //                if (hit.collider.gameObject.CompareTag("Buyer"))
-    //                {
-    //                    hoveringOver = hit.collider.gameObject.GetComponent<Buyer>();
-    //                    hoveringOver.SetHoverInfoActive(true);
-
-    //                    if (Input.GetMouseButtonDown(0))
-    //                    {
-    //                        hoveringOver.DeliverWeed();
-    //                    }
-    //                }
-    //                else
-    //                {
-    //                    if (hoveringOver != null)
-    //                    {
-    //                        hoveringOver.SetHoverInfoActive(false);
-    //                        hoveringOver = null;
-    //                    }
-    //                }
-    //            }
-    //        }
-    //    }
-    //}
-
-    public void SpawnBuyer(string _buyerName, float _amtRequested, float _totalPay, ToDoObject _toDo)
+    public void SpawnBuyer(Email _email, ToDoObject _toDo)
     {
+        string _buyerName = _email.fromName;
+        float _amtRequested = _email.orderAmt;
+        float _totalPay = _email.totalPay;
+
         int randSpawn = Random.Range(0, spawnLocations.Length);
         int randBuyer = Random.Range(0, buyerPrefabs.Length);
         GameObject newBuyer = Instantiate(buyerPrefabs[randBuyer], spawnLocations[randSpawn]);
         newBuyer.transform.position = spawnLocations[randSpawn].position;
-        newBuyer.GetComponent<Buyer>().SetInfo(_buyerName, _amtRequested, _totalPay, _toDo);
+        newBuyer.GetComponent<Buyer>().SetInfo(_email, _toDo);
     }
 }
