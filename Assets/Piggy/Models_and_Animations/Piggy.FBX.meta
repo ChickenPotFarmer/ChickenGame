@@ -1,0 +1,1022 @@
+fileFormatVersion: 2
+guid: 7363cfa7efe2efa49b37d430785e62b0
+labels:
+- pork
+- boar
+- runner
+- farmer
+- Animal
+- Farm
+- Piggy
+- Pig
+- Animations
+- Characters
+- Character
+- animations
+- character
+- characters
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Piggy_01_Model
+    100004: Piggy_Chest
+    100006: Piggy_Chest_Control
+    100008: Piggy_Hair_Control
+    100010: Piggy_hatsNub
+    100012: Piggy_Head
+    100014: Piggy_Hips
+    100016: Piggy_Hips_Control
+    100018: Piggy_LEar
+    100020: Piggy_Leye
+    100022: Piggy_Leyebrow
+    100024: Piggy_LLeg1
+    100026: Piggy_LLeg1 1
+    100028: Piggy_LLeg2
+    100030: Piggy_LLeg2 1
+    100032: Piggy_LLegAnkle
+    100034: Piggy_LLegAnkle 1
+    100036: Piggy_LLegPlatform
+    100038: Piggy_LLegPlatform 1
+    100040: Piggy_Main
+    100042: Piggy_Nose
+    100044: Piggy_REar
+    100046: Piggy_Reye
+    100048: Piggy_Reyebrow
+    100050: Piggy_RLeg1
+    100052: Piggy_RLeg1 1
+    100054: Piggy_RLeg2
+    100056: Piggy_RLeg2 1
+    100058: Piggy_RLegAnkle
+    100060: Piggy_RLegAnkle 1
+    100062: Piggy_RLegPlatform
+    100064: Piggy_RLegPlatform 1
+    100066: Piggy_Spine
+    100068: Piggy_Spine1
+    100070: Piggy_Spine2
+    100072: Piggy_Tail1
+    100074: Piggy_Tail2
+    100076: Piggy_Tail3
+    400000: //RootNode
+    400002: Piggy_01_Model
+    400004: Piggy_Chest
+    400006: Piggy_Chest_Control
+    400008: Piggy_Hair_Control
+    400010: Piggy_hatsNub
+    400012: Piggy_Head
+    400014: Piggy_Hips
+    400016: Piggy_Hips_Control
+    400018: Piggy_LEar
+    400020: Piggy_Leye
+    400022: Piggy_Leyebrow
+    400024: Piggy_LLeg1
+    400026: Piggy_LLeg1 1
+    400028: Piggy_LLeg2
+    400030: Piggy_LLeg2 1
+    400032: Piggy_LLegAnkle
+    400034: Piggy_LLegAnkle 1
+    400036: Piggy_LLegPlatform
+    400038: Piggy_LLegPlatform 1
+    400040: Piggy_Main
+    400042: Piggy_Nose
+    400044: Piggy_REar
+    400046: Piggy_Reye
+    400048: Piggy_Reyebrow
+    400050: Piggy_RLeg1
+    400052: Piggy_RLeg1 1
+    400054: Piggy_RLeg2
+    400056: Piggy_RLeg2 1
+    400058: Piggy_RLegAnkle
+    400060: Piggy_RLegAnkle 1
+    400062: Piggy_RLegPlatform
+    400064: Piggy_RLegPlatform 1
+    400066: Piggy_Spine
+    400068: Piggy_Spine1
+    400070: Piggy_Spine2
+    400072: Piggy_Tail1
+    400074: Piggy_Tail2
+    400076: Piggy_Tail3
+    4300000: Piggy_01_Model
+    7400000: All
+    7400002: Idle
+    7400004: Run
+    7400006: StrafeL
+    7400008: StrafeR
+    7400010: Attack
+    7400012: Jump
+    7400014: GetHit
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: Piggy_01_Model
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 3
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: All
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 325
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Piggy_01_Model
+        weight: 1
+      - path: Piggy_Hips
+        weight: 1
+      - path: Piggy_Hips/Piggy_LLeg1
+        weight: 1
+      - path: Piggy_Hips/Piggy_LLeg1/Piggy_LLeg2
+        weight: 1
+      - path: Piggy_Hips/Piggy_LLeg1/Piggy_LLeg2/Piggy_LLegAnkle
+        weight: 1
+      - path: Piggy_Hips/Piggy_RLeg1
+        weight: 1
+      - path: Piggy_Hips/Piggy_RLeg1/Piggy_RLeg2
+        weight: 1
+      - path: Piggy_Hips/Piggy_RLeg1/Piggy_RLeg2/Piggy_RLegAnkle
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_LLeg1 1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_LLeg1 1/Piggy_LLeg2
+          1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_LLeg1 1/Piggy_LLeg2
+          1/Piggy_LLegAnkle 1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_RLeg1 1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_RLeg1 1/Piggy_RLeg2
+          1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_RLeg1 1/Piggy_RLeg2
+          1/Piggy_RLegAnkle 1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Hair_Control
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_hatsNub
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_LEar
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Leye
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Leyebrow
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Nose
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_REar
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Reye
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Reyebrow
+        weight: 1
+      - path: Piggy_Hips/Piggy_Tail1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Tail1/Piggy_Tail2
+        weight: 1
+      - path: Piggy_Hips/Piggy_Tail1/Piggy_Tail2/Piggy_Tail3
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Idle
+      takeName: Take 001
+      firstFrame: 5
+      lastFrame: 170
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Piggy_01_Model
+        weight: 1
+      - path: Piggy_Chest_Control
+        weight: 1
+      - path: Piggy_Hips
+        weight: 1
+      - path: Piggy_Hips/Piggy_LLeg1
+        weight: 1
+      - path: Piggy_Hips/Piggy_LLeg1/Piggy_LLeg2
+        weight: 1
+      - path: Piggy_Hips/Piggy_LLeg1/Piggy_LLeg2/Piggy_LLegAnkle
+        weight: 1
+      - path: Piggy_Hips/Piggy_RLeg1
+        weight: 1
+      - path: Piggy_Hips/Piggy_RLeg1/Piggy_RLeg2
+        weight: 1
+      - path: Piggy_Hips/Piggy_RLeg1/Piggy_RLeg2/Piggy_RLegAnkle
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_LLeg1 1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_LLeg1 1/Piggy_LLeg2
+          1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_LLeg1 1/Piggy_LLeg2
+          1/Piggy_LLegAnkle 1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_RLeg1 1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_RLeg1 1/Piggy_RLeg2
+          1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_RLeg1 1/Piggy_RLeg2
+          1/Piggy_RLegAnkle 1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Hair_Control
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_hatsNub
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_LEar
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Leye
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Leyebrow
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Nose
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_REar
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Reye
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Reyebrow
+        weight: 1
+      - path: Piggy_Hips/Piggy_Tail1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Tail1/Piggy_Tail2
+        weight: 1
+      - path: Piggy_Hips/Piggy_Tail1/Piggy_Tail2/Piggy_Tail3
+        weight: 1
+      - path: Piggy_Hips_Control
+        weight: 1
+      - path: Piggy_LLegPlatform
+        weight: 1
+      - path: Piggy_LLegPlatform 1
+        weight: 1
+      - path: Piggy_Main
+        weight: 1
+      - path: Piggy_RLegPlatform
+        weight: 1
+      - path: Piggy_RLegPlatform 1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Run
+      takeName: Take 001
+      firstFrame: 175
+      lastFrame: 193
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Piggy_01_Model
+        weight: 1
+      - path: Piggy_Chest_Control
+        weight: 1
+      - path: Piggy_Hips
+        weight: 1
+      - path: Piggy_Hips/Piggy_LLeg1
+        weight: 1
+      - path: Piggy_Hips/Piggy_LLeg1/Piggy_LLeg2
+        weight: 1
+      - path: Piggy_Hips/Piggy_LLeg1/Piggy_LLeg2/Piggy_LLegAnkle
+        weight: 1
+      - path: Piggy_Hips/Piggy_RLeg1
+        weight: 1
+      - path: Piggy_Hips/Piggy_RLeg1/Piggy_RLeg2
+        weight: 1
+      - path: Piggy_Hips/Piggy_RLeg1/Piggy_RLeg2/Piggy_RLegAnkle
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_LLeg1 1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_LLeg1 1/Piggy_LLeg2
+          1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_LLeg1 1/Piggy_LLeg2
+          1/Piggy_LLegAnkle 1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_RLeg1 1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_RLeg1 1/Piggy_RLeg2
+          1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_RLeg1 1/Piggy_RLeg2
+          1/Piggy_RLegAnkle 1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Hair_Control
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_hatsNub
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_LEar
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Leye
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Leyebrow
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Nose
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_REar
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Reye
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Reyebrow
+        weight: 1
+      - path: Piggy_Hips/Piggy_Tail1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Tail1/Piggy_Tail2
+        weight: 1
+      - path: Piggy_Hips/Piggy_Tail1/Piggy_Tail2/Piggy_Tail3
+        weight: 1
+      - path: Piggy_Hips_Control
+        weight: 1
+      - path: Piggy_LLegPlatform
+        weight: 1
+      - path: Piggy_LLegPlatform 1
+        weight: 1
+      - path: Piggy_Main
+        weight: 1
+      - path: Piggy_RLegPlatform
+        weight: 1
+      - path: Piggy_RLegPlatform 1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: StrafeL
+      takeName: Take 001
+      firstFrame: 195
+      lastFrame: 213
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Piggy_01_Model
+        weight: 1
+      - path: Piggy_Chest_Control
+        weight: 1
+      - path: Piggy_Hips
+        weight: 1
+      - path: Piggy_Hips/Piggy_LLeg1
+        weight: 1
+      - path: Piggy_Hips/Piggy_LLeg1/Piggy_LLeg2
+        weight: 1
+      - path: Piggy_Hips/Piggy_LLeg1/Piggy_LLeg2/Piggy_LLegAnkle
+        weight: 1
+      - path: Piggy_Hips/Piggy_RLeg1
+        weight: 1
+      - path: Piggy_Hips/Piggy_RLeg1/Piggy_RLeg2
+        weight: 1
+      - path: Piggy_Hips/Piggy_RLeg1/Piggy_RLeg2/Piggy_RLegAnkle
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_LLeg1 1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_LLeg1 1/Piggy_LLeg2
+          1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_LLeg1 1/Piggy_LLeg2
+          1/Piggy_LLegAnkle 1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_RLeg1 1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_RLeg1 1/Piggy_RLeg2
+          1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_RLeg1 1/Piggy_RLeg2
+          1/Piggy_RLegAnkle 1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Hair_Control
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_hatsNub
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_LEar
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Leye
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Leyebrow
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Nose
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_REar
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Reye
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Reyebrow
+        weight: 1
+      - path: Piggy_Hips/Piggy_Tail1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Tail1/Piggy_Tail2
+        weight: 1
+      - path: Piggy_Hips/Piggy_Tail1/Piggy_Tail2/Piggy_Tail3
+        weight: 1
+      - path: Piggy_Hips_Control
+        weight: 1
+      - path: Piggy_LLegPlatform
+        weight: 1
+      - path: Piggy_LLegPlatform 1
+        weight: 1
+      - path: Piggy_Main
+        weight: 1
+      - path: Piggy_RLegPlatform
+        weight: 1
+      - path: Piggy_RLegPlatform 1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: StrafeR
+      takeName: Take 001
+      firstFrame: 215
+      lastFrame: 233
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Piggy_01_Model
+        weight: 1
+      - path: Piggy_Chest_Control
+        weight: 1
+      - path: Piggy_Hips
+        weight: 1
+      - path: Piggy_Hips/Piggy_LLeg1
+        weight: 1
+      - path: Piggy_Hips/Piggy_LLeg1/Piggy_LLeg2
+        weight: 1
+      - path: Piggy_Hips/Piggy_LLeg1/Piggy_LLeg2/Piggy_LLegAnkle
+        weight: 1
+      - path: Piggy_Hips/Piggy_RLeg1
+        weight: 1
+      - path: Piggy_Hips/Piggy_RLeg1/Piggy_RLeg2
+        weight: 1
+      - path: Piggy_Hips/Piggy_RLeg1/Piggy_RLeg2/Piggy_RLegAnkle
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_LLeg1 1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_LLeg1 1/Piggy_LLeg2
+          1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_LLeg1 1/Piggy_LLeg2
+          1/Piggy_LLegAnkle 1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_RLeg1 1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_RLeg1 1/Piggy_RLeg2
+          1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_RLeg1 1/Piggy_RLeg2
+          1/Piggy_RLegAnkle 1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Hair_Control
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_hatsNub
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_LEar
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Leye
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Leyebrow
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Nose
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_REar
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Reye
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Reyebrow
+        weight: 1
+      - path: Piggy_Hips/Piggy_Tail1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Tail1/Piggy_Tail2
+        weight: 1
+      - path: Piggy_Hips/Piggy_Tail1/Piggy_Tail2/Piggy_Tail3
+        weight: 1
+      - path: Piggy_Hips_Control
+        weight: 1
+      - path: Piggy_LLegPlatform
+        weight: 1
+      - path: Piggy_LLegPlatform 1
+        weight: 1
+      - path: Piggy_Main
+        weight: 1
+      - path: Piggy_RLegPlatform
+        weight: 1
+      - path: Piggy_RLegPlatform 1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Attack
+      takeName: Take 001
+      firstFrame: 235
+      lastFrame: 253
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Piggy_01_Model
+        weight: 1
+      - path: Piggy_Chest_Control
+        weight: 1
+      - path: Piggy_Hips
+        weight: 1
+      - path: Piggy_Hips/Piggy_LLeg1
+        weight: 1
+      - path: Piggy_Hips/Piggy_LLeg1/Piggy_LLeg2
+        weight: 1
+      - path: Piggy_Hips/Piggy_LLeg1/Piggy_LLeg2/Piggy_LLegAnkle
+        weight: 1
+      - path: Piggy_Hips/Piggy_RLeg1
+        weight: 1
+      - path: Piggy_Hips/Piggy_RLeg1/Piggy_RLeg2
+        weight: 1
+      - path: Piggy_Hips/Piggy_RLeg1/Piggy_RLeg2/Piggy_RLegAnkle
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_LLeg1 1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_LLeg1 1/Piggy_LLeg2
+          1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_LLeg1 1/Piggy_LLeg2
+          1/Piggy_LLegAnkle 1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_RLeg1 1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_RLeg1 1/Piggy_RLeg2
+          1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_RLeg1 1/Piggy_RLeg2
+          1/Piggy_RLegAnkle 1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Hair_Control
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_hatsNub
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_LEar
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Leye
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Leyebrow
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Nose
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_REar
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Reye
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Reyebrow
+        weight: 1
+      - path: Piggy_Hips/Piggy_Tail1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Tail1/Piggy_Tail2
+        weight: 1
+      - path: Piggy_Hips/Piggy_Tail1/Piggy_Tail2/Piggy_Tail3
+        weight: 1
+      - path: Piggy_Hips_Control
+        weight: 1
+      - path: Piggy_LLegPlatform
+        weight: 1
+      - path: Piggy_LLegPlatform 1
+        weight: 1
+      - path: Piggy_Main
+        weight: 1
+      - path: Piggy_RLegPlatform
+        weight: 1
+      - path: Piggy_RLegPlatform 1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Jump
+      takeName: Take 001
+      firstFrame: 255
+      lastFrame: 273
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Piggy_01_Model
+        weight: 1
+      - path: Piggy_Chest_Control
+        weight: 1
+      - path: Piggy_Hips
+        weight: 1
+      - path: Piggy_Hips/Piggy_LLeg1
+        weight: 1
+      - path: Piggy_Hips/Piggy_LLeg1/Piggy_LLeg2
+        weight: 1
+      - path: Piggy_Hips/Piggy_LLeg1/Piggy_LLeg2/Piggy_LLegAnkle
+        weight: 1
+      - path: Piggy_Hips/Piggy_RLeg1
+        weight: 1
+      - path: Piggy_Hips/Piggy_RLeg1/Piggy_RLeg2
+        weight: 1
+      - path: Piggy_Hips/Piggy_RLeg1/Piggy_RLeg2/Piggy_RLegAnkle
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_LLeg1 1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_LLeg1 1/Piggy_LLeg2
+          1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_LLeg1 1/Piggy_LLeg2
+          1/Piggy_LLegAnkle 1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_RLeg1 1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_RLeg1 1/Piggy_RLeg2
+          1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_RLeg1 1/Piggy_RLeg2
+          1/Piggy_RLegAnkle 1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Hair_Control
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_hatsNub
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_LEar
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Leye
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Leyebrow
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Nose
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_REar
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Reye
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Reyebrow
+        weight: 1
+      - path: Piggy_Hips/Piggy_Tail1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Tail1/Piggy_Tail2
+        weight: 1
+      - path: Piggy_Hips/Piggy_Tail1/Piggy_Tail2/Piggy_Tail3
+        weight: 1
+      - path: Piggy_Hips_Control
+        weight: 1
+      - path: Piggy_LLegPlatform
+        weight: 1
+      - path: Piggy_LLegPlatform 1
+        weight: 1
+      - path: Piggy_Main
+        weight: 1
+      - path: Piggy_RLegPlatform
+        weight: 1
+      - path: Piggy_RLegPlatform 1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: GetHit
+      takeName: Take 001
+      firstFrame: 275
+      lastFrame: 325
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Piggy_01_Model
+        weight: 1
+      - path: Piggy_Chest_Control
+        weight: 1
+      - path: Piggy_Hips
+        weight: 1
+      - path: Piggy_Hips/Piggy_LLeg1
+        weight: 1
+      - path: Piggy_Hips/Piggy_LLeg1/Piggy_LLeg2
+        weight: 1
+      - path: Piggy_Hips/Piggy_LLeg1/Piggy_LLeg2/Piggy_LLegAnkle
+        weight: 1
+      - path: Piggy_Hips/Piggy_RLeg1
+        weight: 1
+      - path: Piggy_Hips/Piggy_RLeg1/Piggy_RLeg2
+        weight: 1
+      - path: Piggy_Hips/Piggy_RLeg1/Piggy_RLeg2/Piggy_RLegAnkle
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_LLeg1 1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_LLeg1 1/Piggy_LLeg2
+          1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_LLeg1 1/Piggy_LLeg2
+          1/Piggy_LLegAnkle 1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_RLeg1 1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_RLeg1 1/Piggy_RLeg2
+          1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_RLeg1 1/Piggy_RLeg2
+          1/Piggy_RLegAnkle 1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Hair_Control
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_hatsNub
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_LEar
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Leye
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Leyebrow
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Nose
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_REar
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Reye
+        weight: 1
+      - path: Piggy_Hips/Piggy_Spine1/Piggy_Spine2/Piggy_Chest/Piggy_Spine/Piggy_Head/Piggy_Reyebrow
+        weight: 1
+      - path: Piggy_Hips/Piggy_Tail1
+        weight: 1
+      - path: Piggy_Hips/Piggy_Tail1/Piggy_Tail2
+        weight: 1
+      - path: Piggy_Hips/Piggy_Tail1/Piggy_Tail2/Piggy_Tail3
+        weight: 1
+      - path: Piggy_Hips_Control
+        weight: 1
+      - path: Piggy_LLegPlatform
+        weight: 1
+      - path: Piggy_LLegPlatform 1
+        weight: 1
+      - path: Piggy_Main
+        weight: 1
+      - path: Piggy_RLegPlatform
+        weight: 1
+      - path: Piggy_RLegPlatform 1
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .00999999978
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 0
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 0
+  tangentSpace:
+    normalSmoothAngle: 180
+    splitTangentsAcrossUV: 0
+    normalImportMode: 0
+    tangentImportMode: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
