@@ -5,6 +5,12 @@ using UnityEngine.EventSystems;
 
 public class ItemSlot : MonoBehaviour, IDropHandler
 {
+    [Header("Outside Script To Fire On Drop")]
+    public SeedCannon seedCannon;
+
+    [Header("Status")]
+    public bool slotFull;
+
     [Header("Settings")]
     public bool isBuyerSlot;
     public bool acceptsAll;
@@ -200,6 +206,13 @@ public class ItemSlot : MonoBehaviour, IDropHandler
                     //}
                 }
             }
+            TriggerOutsideOnDrops();
+
+            // TO-DO: Set up way to detect this if not being dropped on.
+            if (HasItem())
+                slotFull = true;
+            else
+                slotFull = false;
         }
 
         inventoryController.UpdateDecoChicks();
@@ -297,6 +310,28 @@ public class ItemSlot : MonoBehaviour, IDropHandler
             Destroy(_draggedItem.gameObject);
         }
 
+    }
+
+    public void TriggerOutsideOnDrops()
+    {
+        if (seedCannon)
+            seedCannon.OnItemDrop();
+    }
+
+    public bool HasItem()
+    {
+        if (transform.childCount != 0)
+            return true;
+        else
+            return false;
+    }
+
+    public GameObject ReturnItem()
+    {
+        if (transform.childCount != 0)
+            return transform.GetChild(0).gameObject;
+        else
+            return null;
     }
 
     private bool CheckTags(string _tag)

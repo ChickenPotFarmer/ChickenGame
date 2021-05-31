@@ -214,12 +214,17 @@ MonoBehaviour:
   fromName: alexBrah@aol.com
   subjectLine: New Order!
   bodyTxt: Hey man... gimmiee... some.. dat... stuff you got...
-  orderAmt: 12
   spawnLocation: {fileID: 0}
   buyerPrefab: {fileID: 0}
   timeTillCancel: 0
   btnTxtFrom: {fileID: 6224843011136897948}
   btnTxtSubject: {fileID: 6224843009614692774}
+  orderAmt: 12
+  totalPay: 125
+  typeRequested: -1
+  terpeneRequested: -1
+  minThc: 0.1
+  effectRequested: NONE
 --- !u!1 &6224843011136897922
 GameObject:
   m_ObjectHideFlags: 0

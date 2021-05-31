@@ -24,6 +24,12 @@ public class Trimmer : MonoBehaviour
     [HideInInspector]
     public GameObject trimmer;
 
+    private void Awake()
+    {
+        instance = this;
+        trimmer = gameObject;
+    }
+
     private void Start()
     {
         instance = this;

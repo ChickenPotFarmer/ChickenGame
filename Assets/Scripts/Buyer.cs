@@ -186,7 +186,7 @@ public class Buyer : MonoBehaviour
         weedIsGood = true;
 
         // Strain Type Check
-        if (Mathf.Abs(typeRequested - _strain.strainType) > 1)
+        if (Mathf.Abs(typeRequested - _strain.strainType) > 1 && typeRequested != -1)
         {
             weedIsGood = false;
         }
@@ -201,10 +201,15 @@ public class Buyer : MonoBehaviour
             weedIsGood = false;
         }
         // THC Check
-        if (_strain.thcPercent < minThc)
+        if (_strain.thcPercent > minThc)
         {
             weedIsGood = false;
         }
+
+        if (weedIsGood)
+            print("Weed Accepted");
+        else
+            print("Weed Rejected");
 
         return weedIsGood;
     }

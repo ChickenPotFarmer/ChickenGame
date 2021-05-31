@@ -235,18 +235,36 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
         }
     }
 
-    public void AddAmount(float _amt)
+    public bool AddAmount(float _amt)
     {
+        bool itemDestroyed = false;
         amount += _amt;
 
+        if (amount <= 0)
+        {
+            itemDestroyed = true;
+        }
+
         UpdateTextUI();
+        if (itemDestroyed)
+            Destroy(gameObject, 0.5f);
+        return itemDestroyed;
     }
 
-    public void SetAmount(float _amt)
+    public bool SetAmount(float _amt)
     {
+        bool itemDestroyed = false;
         amount = _amt;
 
+        if (amount <= 0)
+        {
+            itemDestroyed = true;
+        }
+
         UpdateTextUI();
+        if (itemDestroyed)
+            Destroy(gameObject, 0.5f);
+        return itemDestroyed;
     }
 
     public void UpdateTextUI()

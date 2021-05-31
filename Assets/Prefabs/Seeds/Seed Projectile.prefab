@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4738005135663240224}
   - component: {fileID: 4738005135663240225}
   - component: {fileID: 4738005135663240226}
+  - component: {fileID: 667180785926344361}
   m_Layer: 13
   m_Name: Seed Projectile
   m_TagString: Seed Projectile
@@ -123,8 +124,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f96e7d513d056504fb21587574f55d3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentStrain: {fileID: 0}
+  currentStrain: {fileID: 667180785926344361}
   angleModifier: 1
   rb: {fileID: 4738005135663240225}
   collider: {fileID: 4738005135663240224}
   target: {fileID: 0}
+--- !u!114 &667180785926344361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4738005135663240227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecf034d1db44c054db4733138f8a2743, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  strainName: 
+  strainType: 0
+  thcPercent: 0
+  strainID: 
+  totalTerpenesPercent: 0
+  primaryTerpene: 0
+  secondaryTerpene: 0
+  lesserTerpene: 0
+  caryophyllene: 0
+  limonene: 0
+  linalool: 0
+  myrcene: 0
+  pinene: 0
+  terpinolene: 0
+  primaryEffect: 
+  secondaryEffect: 
+  primaryMin: 0
+  primaryMax: 0
+  secondaryMinRemaindar: 0
+  secondaryMaxRemaindar: 0
+  lesserMinRemaindar: 0
+  lesserMaxRemaindar: 0
