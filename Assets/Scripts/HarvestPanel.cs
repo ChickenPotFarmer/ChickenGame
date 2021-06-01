@@ -88,50 +88,37 @@ public class HarvestPanel : MonoBehaviour
 
     public void ClearInventory()
     {
-        bool isRemainder;
-        bool resetPlantReady = true;
         InventoryItem remainderItem;
+        List<InventoryItem> slotItems = new List<InventoryItem>();
 
-            isRemainder = false;
-            List<InventoryItem> slotItems = new List<InventoryItem>();
-
-            for (int i = 0; i < slots.Length; i++)
-            {
-                if (slots[i].childCount != 0)
-                    slotItems.Add(slots[i].GetChild(0).GetComponent<InventoryItem>());
-            }
-
-            for (int i = 0; i < slotItems.Count; i++)
-            {
-                remainderItem = inventoryController.ReturnToInventory(slotItems[i]);
-
-                if (remainderItem != null && remainderItem.amount > 0)
-                {
-                    Debug.LogWarning("INVENTORY FULL");
-                    resetPlantReady = false;
-                }
-
-            }
-
-
-        if (SlotsEmpty())
+        for (int i = 0; i < slots.Length; i++)
         {
-            SetPanelActive(false);
-            plant.ResetPlant();
+            if (slots[i].childCount != 0)
+                slotItems.Add(slots[i].GetChild(0).GetComponent<InventoryItem>());
         }
+
+        for (int i = 0; i < slotItems.Count; i++)
+        {
+            remainderItem = inventoryController.ReturnToInventory(slotItems[i]);
+
+            if (remainderItem != null && remainderItem.amount > 0)
+            {
+                Debug.LogWarning("INVENTORY FULL");
+            }
+
+        }
+
+        StartCoroutine(SlotsEmptyCheck());
     }
 
     IEnumerator SlotsEmptyCheck()
     {
-        do
+        yield return new WaitForEndOfFrame();
+        if (SlotsEmpty())
         {
-            yield return new WaitForSeconds(1);
-            if (SlotsEmpty())
-            {
-                SetPanelActive(false);
-                plant.ResetPlant();
-            }    
-        } while (true);
+            SetPanelActive(false);
+            plant.ResetPlant();
+        }    
     }
 
     public bool SlotsEmpty()
@@ -143,6 +130,11 @@ public class HarvestPanel : MonoBehaviour
             if (slots[i].childCount != 0)
                 empty = false;
         }
+
+        if (empty)
+            print("slot checks said empty");
+        else
+            print("said not empty");
 
         return empty;
     }

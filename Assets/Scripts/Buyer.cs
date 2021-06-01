@@ -233,10 +233,7 @@ public class Buyer : MonoBehaviour
 
     public void ClearInventory()
     {
-        bool isRemainder;
-        InventoryItem remainderItem;
 
-            isRemainder = false;
             List<InventoryItem> slotItems = new List<InventoryItem>();
 
             for (int i = 0; i < slots.Length; i++)
@@ -247,14 +244,13 @@ public class Buyer : MonoBehaviour
 
             for (int i = 0; i < slotItems.Count; i++)
             {
-                remainderItem = inventoryController.ReturnToInventory(slotItems[i]);
-
+                inventoryController.ReturnToInventory(slotItems[i]);
             }
 
-        //amountInInventory = 0;
-        // TO-DO: Method that checks the buyers slots and gets the amountInInventory from that
-        orderFilled = false;
+        
     }
+
+
 
     public void DeliverWeed()
     {
