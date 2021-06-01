@@ -37,6 +37,11 @@ public class HarvestPanel : MonoBehaviour
         
     }
 
+    public void HarvestSeeds()
+    {
+        // This will handle new seeds and assigning new strain ID's
+    }
+
     public void HarvestPlant(WeedPlant _plant, StrainProfile _strain)
     {
         SetPanelActive(true);
@@ -45,6 +50,7 @@ public class HarvestPanel : MonoBehaviour
         bricksNeeded = Mathf.Round(bricksNeeded);
 
         GameObject newBrick;
+
         InventoryItem newBrickInventoryItem;
 
         for (int i = 0; i < bricksNeeded; i++)
@@ -52,6 +58,7 @@ public class HarvestPanel : MonoBehaviour
             newBrick = Instantiate(weedBrickPrefab, slots[i]);
             //newBrick.transform.position = new Vector2(0, 0);
             newBrickInventoryItem = newBrick.GetComponent<InventoryItem>();
+            newBrickInventoryItem.itemID = _strain.strainID;
             newBrickInventoryItem.Lock(true);
             newBrickInventoryItem.previousParent = slots[i];
 
@@ -83,8 +90,8 @@ public class HarvestPanel : MonoBehaviour
     {
         bool isRemainder;
         bool resetPlantReady = true;
-        do
-        {
+        InventoryItem remainderItem;
+
             isRemainder = false;
             List<InventoryItem> slotItems = new List<InventoryItem>();
 
@@ -96,23 +103,16 @@ public class HarvestPanel : MonoBehaviour
 
             for (int i = 0; i < slotItems.Count; i++)
             {
-                float remainder = inventoryController.ReturnToInventory(slotItems[i]);
-                slotItems[i].Lock(false);
+                remainderItem = inventoryController.ReturnToInventory(slotItems[i]);
 
-                if (remainder != 0 && remainder != slotItems[i].amount)
-                {
-                    isRemainder = true;
-                    //slotItems[i].ReturnToPreviousParent();
-                    break;
-                }
-                else if (remainder == slotItems[i].amount)
+                if (remainderItem != null && remainderItem.amount > 0)
                 {
                     Debug.LogWarning("INVENTORY FULL");
                     resetPlantReady = false;
                 }
 
             }
-        } while (isRemainder);
+
 
         if (SlotsEmpty())
         {

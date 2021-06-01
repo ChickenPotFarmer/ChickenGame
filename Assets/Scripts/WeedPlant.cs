@@ -7,6 +7,7 @@ public class WeedPlant : MonoBehaviour
 {
     [Header("Info")]
     public StrainProfile currentStrain;
+    public string strainID;
     public string strain;
     public float maxYield;
     public float minYield;

@@ -39,173 +39,163 @@ public class ItemSlot : MonoBehaviour, IDropHandler
     }
     public void OnDrop (PointerEventData _eventData)
     {
-        if (!acceptsNone)
+        if (!acceptsNone && _eventData.pointerDrag != null)
         {
-            if (_eventData.pointerDrag != null)
+            if (CheckTags(_eventData.pointerDrag.tag) || acceptsAll)
             {
-                if (CheckTags(_eventData.pointerDrag.tag) || acceptsAll)
+                // check to see if slot has something in it
+                // if it does, check to see what kind of item it is
+                // if it does, check to see if the icon is full
+                // if not, return itemMaxAmt - currentAmt, max slot out
+
+                // If there is something in the slot
+                if (transform.childCount != 0)
                 {
-                    // check to see if slot has something in it
-                    // if it does, check to see what kind of item it is
-                    // if it does, check to see if the icon is full
-                    // if not, return itemMaxAmt - currentAmt, max slot out
 
-                    // If there is something in the slot
-                    if (transform.childCount != 0)
+                    InventoryItem dragInventoryItem = _eventData.pointerDrag.GetComponent<InventoryItem>();
+                    InventoryItem childInventoryItem = transform.GetChild(0).GetComponent<InventoryItem>();
+
+
+                    // Handle checking strains to see if they are the same
+                    if (dragInventoryItem.itemID == childInventoryItem.itemID)
                     {
+                        CombineItems(dragInventoryItem, childInventoryItem);
+                    }
+                    
+                }
 
-                        StrainProfile dragStrainProfile = _eventData.pointerDrag.GetComponent<StrainProfile>();
-                        StrainProfile childStrainProfile = transform.GetChild(0).GetComponent<StrainProfile>();
+                // if there is nothing in the slot
+                else
+                {
+                    if (isBuyerSlot && !buyer.orderFilled)
+                    { 
+                        dragItem = _eventData.pointerDrag.GetComponent<InventoryItem>();
+                        dragWeedstrain = _eventData.pointerDrag.GetComponent<StrainProfile>();
 
-                        if (dragStrainProfile != null)
+                        if (buyer.PassesInspection(dragWeedstrain)) // TO-DO: FIX INSPECTION
                         {
-                            // Handle checking strains to see if they are the same
-                            if (dragStrainProfile.strainID == childStrainProfile.strainID)
+
+                            float remainder = buyer.DropOffWeed(dragItem.amount); // change this to send the entire WeedBrick to test if correct
+                                                                                                    // start with laptop script, establish means to confirm correct strain
+
+
+                            // if there is a remainder
+                            if (remainder > 0)
                             {
-                                CombineItems(dragStrainProfile.GetComponent<InventoryItem>(), childStrainProfile.GetComponent<InventoryItem>());
-                                //childStrainProfile.GetComponent<InventoryItem>().Lock(true);
+                                float diff = dragItem.amount - remainder;
+                                dragItem.SetAmount(remainder);
+
+                                RectTransform dragObjTransform = _eventData.pointerDrag.GetComponent<RectTransform>();
+                                dragObjTransform.SetParent(_eventData.pointerDrag.GetComponent<InventoryItem>().previousParent, false);
+                                dragObjTransform.anchoredPosition = new Vector2(0, 0);
+                                _eventData.pointerDrag.GetComponent<InventoryItem>().targetParent = _eventData.pointerDrag.GetComponent<InventoryItem>().previousParent;
+
+
+                                GameObject cloneBrick = Instantiate(_eventData.pointerDrag, transform);
+                                print("Cloned brick");
+                                dragObjTransform = cloneBrick.GetComponent<RectTransform>();
+                                dragObjTransform.SetParent(transform, false);
+                                dragObjTransform.anchoredPosition = new Vector2(0, 0);
+
+
+                                childItem = cloneBrick.GetComponent<InventoryItem>();
+                                childItem.previousParent = childItem.transform;
+                                childItem.SetAmount(diff);
+                                childItem.targetParent = transform;
+                                childItem.Lock(true);
+
+                            }
+                            // if whole brick was returned
+                            else if (remainder == dragItem.amount)
+                            {
+                                dragItem.ReturnToPreviousParent();
+                            }
+                            // if no brick was returned
+                            else if (remainder <= 0)
+                            {
+                                print("no remainder");
+                                RectTransform dragObjTransform = _eventData.pointerDrag.GetComponent<RectTransform>();
+                                dragObjTransform.SetParent(transform, false);
+                                dragObjTransform.anchoredPosition = new Vector2(0, 0);
+
+                                InventoryItem draggedItem = _eventData.pointerDrag.GetComponent<InventoryItem>();
+                                draggedItem.targetParent = transform;
+                                draggedItem.previousParent = transform;
+                                draggedItem.Lock(true);
                             }
                         }
-                        else
-                        {
-                            // Normal tag check to determine if they are the same
-                        }
+                        
                     }
-
-                    // if there is nothing in the slot
                     else
                     {
-                        if (isBuyerSlot)
-                        {
-                            if (!buyer.orderFilled)
-                            {
-                                dragItem = _eventData.pointerDrag.GetComponent<InventoryItem>();
-                                dragWeedstrain = _eventData.pointerDrag.GetComponent<StrainProfile>();
-
-                                if (buyer.PassesInspection(dragWeedstrain))
-                                {
-
-                                    float remainder = buyer.DropOffWeed(dragItem.amount); // change this to send the entire WeedBrick to test if correct
-                                                                                                         // start with laptop script, establish means to confirm correct strain
-
-
-                                    // if there is a remainder
-                                    if (remainder > 0)
-                                    {
-                                        float diff = dragItem.amount - remainder;
-                                        dragItem.SetAmount(remainder);
-
-                                        RectTransform dragObjTransform = _eventData.pointerDrag.GetComponent<RectTransform>();
-                                        dragObjTransform.SetParent(_eventData.pointerDrag.GetComponent<InventoryItem>().previousParent, false);
-                                        dragObjTransform.anchoredPosition = new Vector2(0, 0);
-                                        _eventData.pointerDrag.GetComponent<InventoryItem>().targetParent = _eventData.pointerDrag.GetComponent<InventoryItem>().previousParent;
-
-
-                                        GameObject cloneBrick = Instantiate(_eventData.pointerDrag, transform);
-                                        print("Cloned brick");
-                                        dragObjTransform = cloneBrick.GetComponent<RectTransform>();
-                                        dragObjTransform.SetParent(transform, false);
-                                        dragObjTransform.anchoredPosition = new Vector2(0, 0);
-
-
-                                        childItem = cloneBrick.GetComponent<InventoryItem>();
-                                        childItem.previousParent = childItem.transform;
-                                        childItem.SetAmount(diff);
-                                        childItem.targetParent = transform;
-                                        childItem.Lock(true);
-
-                                    }
-                                    // if whole brick was returned
-                                    else if (remainder == dragItem.amount)
-                                    {
-                                        dragItem.ReturnToPreviousParent();
-                                    }
-                                    // if no brick was returned
-                                    else if (remainder <= 0)
-                                    {
-                                        print("no remainder");
-                                        RectTransform dragObjTransform = _eventData.pointerDrag.GetComponent<RectTransform>();
-                                        dragObjTransform.SetParent(transform, false);
-                                        dragObjTransform.anchoredPosition = new Vector2(0, 0);
-
-                                        InventoryItem draggedItem = _eventData.pointerDrag.GetComponent<InventoryItem>();
-                                        draggedItem.targetParent = transform;
-                                        draggedItem.previousParent = transform;
-                                        draggedItem.Lock(true);
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            RectTransform dragObjTransform = _eventData.pointerDrag.GetComponent<RectTransform>();
-                            dragObjTransform.SetParent(transform, false);
-                            dragObjTransform.anchoredPosition = new Vector2(0, 0);
-                            _eventData.pointerDrag.GetComponent<InventoryItem>().targetParent = transform;
-                            _eventData.pointerDrag.GetComponent<InventoryItem>().Lock(false);
-                        }
+                        RectTransform dragObjTransform = _eventData.pointerDrag.GetComponent<RectTransform>();
+                        dragObjTransform.SetParent(transform, false);
+                        dragObjTransform.anchoredPosition = new Vector2(0, 0);
+                        _eventData.pointerDrag.GetComponent<InventoryItem>().targetParent = transform;
+                        _eventData.pointerDrag.GetComponent<InventoryItem>().Lock(false);
                     }
-
-
-
-
-
-                    //    // OLD SCRIPTS********************
-                    //    //if (transform.childCount == 0)
-                    //    //{
-
-                    //    //    if (remainder != 0)
-                    //    //    {
-                    //    //        float diff = dragItem.amount - remainder;
-                    //    //        dragItem.AddAmount(-remainder);
-
-                    //    //        RectTransform dragObjTransform = _eventData.pointerDrag.GetComponent<RectTransform>();
-                    //    //        dragObjTransform.SetParent(_eventData.pointerDrag.GetComponent<InventoryItem>().previousParent, false);
-                    //    //        dragObjTransform.anchoredPosition = new Vector2(0, 0);
-                    //    //        _eventData.pointerDrag.GetComponent<InventoryItem>().targetParent = _eventData.pointerDrag.GetComponent<InventoryItem>().previousParent;
-
-
-                    //    //        GameObject cloneBrick = Instantiate(_eventData.pointerDrag, transform);
-                    //    //        dragObjTransform = cloneBrick.GetComponent<RectTransform>();
-                    //    //        dragObjTransform.SetParent(transform, false);
-                    //    //        dragObjTransform.anchoredPosition = new Vector2(0, 0);
-
-                    //    //        childItem = cloneBrick.GetComponent<InventoryItem>();
-                    //    //        childItem.SetAmount(0);
-                    //    //        childItem.targetParent = transform;
-                    //    //        childItem.AddAmount(diff);
-                    //    //    }
-                    //    //}
-                    //    //else
-                    //    //{
-                    //    //    if (remainder != 0)
-                    //    //    {
-                    //    //        float diff = dragItem.amount - remainder;
-                    //    //        dragItem.AddAmount(-remainder);
-
-                    //    //        RectTransform dragObjTransform = _eventData.pointerDrag.GetComponent<RectTransform>();
-                    //    //        dragObjTransform.SetParent(_eventData.pointerDrag.GetComponent<InventoryItem>().previousParent, false);
-                    //    //        dragObjTransform.anchoredPosition = new Vector2(0, 0);
-                    //    //        _eventData.pointerDrag.GetComponent<InventoryItem>().targetParent = _eventData.pointerDrag.GetComponent<InventoryItem>().previousParent;
-
-
-                    //    //        GameObject cloneBrick = transform.GetChild(0).gameObject;
-
-                    //    //        childItem = cloneBrick.GetComponent<InventoryItem>();
-                    //    //        childItem.targetParent = transform;
-                    //    //        childItem.AddAmount(diff);
-                    //    //    }
-                    //    //}
-                    //}
-                    //else
-                    //{
-                    //    //RectTransform dragObjTransform = _eventData.pointerDrag.GetComponent<RectTransform>();
-                    //    //dragObjTransform.SetParent(transform, false);
-                    //    //dragObjTransform.anchoredPosition = new Vector2(0, 0);
-                    //    //_eventData.pointerDrag.GetComponent<InventoryItem>().targetParent = transform;
-                    //}
                 }
+
+
+
+
+
+                //    // OLD SCRIPTS********************
+                //    //if (transform.childCount == 0)
+                //    //{
+
+                //    //    if (remainder != 0)
+                //    //    {
+                //    //        float diff = dragItem.amount - remainder;
+                //    //        dragItem.AddAmount(-remainder);
+
+                //    //        RectTransform dragObjTransform = _eventData.pointerDrag.GetComponent<RectTransform>();
+                //    //        dragObjTransform.SetParent(_eventData.pointerDrag.GetComponent<InventoryItem>().previousParent, false);
+                //    //        dragObjTransform.anchoredPosition = new Vector2(0, 0);
+                //    //        _eventData.pointerDrag.GetComponent<InventoryItem>().targetParent = _eventData.pointerDrag.GetComponent<InventoryItem>().previousParent;
+
+
+                //    //        GameObject cloneBrick = Instantiate(_eventData.pointerDrag, transform);
+                //    //        dragObjTransform = cloneBrick.GetComponent<RectTransform>();
+                //    //        dragObjTransform.SetParent(transform, false);
+                //    //        dragObjTransform.anchoredPosition = new Vector2(0, 0);
+
+                //    //        childItem = cloneBrick.GetComponent<InventoryItem>();
+                //    //        childItem.SetAmount(0);
+                //    //        childItem.targetParent = transform;
+                //    //        childItem.AddAmount(diff);
+                //    //    }
+                //    //}
+                //    //else
+                //    //{
+                //    //    if (remainder != 0)
+                //    //    {
+                //    //        float diff = dragItem.amount - remainder;
+                //    //        dragItem.AddAmount(-remainder);
+
+                //    //        RectTransform dragObjTransform = _eventData.pointerDrag.GetComponent<RectTransform>();
+                //    //        dragObjTransform.SetParent(_eventData.pointerDrag.GetComponent<InventoryItem>().previousParent, false);
+                //    //        dragObjTransform.anchoredPosition = new Vector2(0, 0);
+                //    //        _eventData.pointerDrag.GetComponent<InventoryItem>().targetParent = _eventData.pointerDrag.GetComponent<InventoryItem>().previousParent;
+
+
+                //    //        GameObject cloneBrick = transform.GetChild(0).gameObject;
+
+                //    //        childItem = cloneBrick.GetComponent<InventoryItem>();
+                //    //        childItem.targetParent = transform;
+                //    //        childItem.AddAmount(diff);
+                //    //    }
+                //    //}
+                //}
+                //else
+                //{
+                //    //RectTransform dragObjTransform = _eventData.pointerDrag.GetComponent<RectTransform>();
+                //    //dragObjTransform.SetParent(transform, false);
+                //    //dragObjTransform.anchoredPosition = new Vector2(0, 0);
+                //    //_eventData.pointerDrag.GetComponent<InventoryItem>().targetParent = transform;
+                //}
             }
+            
             TriggerOutsideOnDrops();
 
             // TO-DO: Set up way to detect this if not being dropped on.
@@ -232,7 +222,7 @@ public class ItemSlot : MonoBehaviour, IDropHandler
                 if (buyer.amountInInventory + _draggedItem.amount <= buyer.amountRequested)
                 {
                     _childItem.AddAmount(_draggedItem.amount);
-                    _draggedItem.SetAmount(0);
+                    _draggedItem.amount = 0;
 
                     float diff = _childItem.amount - _childItem.maxAmount;
 
@@ -252,7 +242,7 @@ public class ItemSlot : MonoBehaviour, IDropHandler
                 else
                 {
                     _childItem.AddAmount(_draggedItem.amount);
-                    _draggedItem.SetAmount(0);
+                    _draggedItem.amount = 0;
 
                     float diff = _childItem.amount - buyer.amountRequested;
 
@@ -269,7 +259,7 @@ public class ItemSlot : MonoBehaviour, IDropHandler
         else
         {
             _childItem.AddAmount(_draggedItem.amount);
-            _draggedItem.SetAmount(0);
+            _draggedItem.amount = 0;
 
             float diff = _childItem.amount - _childItem.maxAmount;
 
@@ -293,7 +283,7 @@ public class ItemSlot : MonoBehaviour, IDropHandler
     {
         float maxAmt = _childItem.amount + _maxAmountToAdd;
         _childItem.AddAmount(_maxAmountToAdd);
-        _draggedItem.AddAmount(-_maxAmountToAdd);
+        _draggedItem.amount -= _maxAmountToAdd;
 
         float diff = _childItem.amount - maxAmt;
 
@@ -326,13 +316,15 @@ public class ItemSlot : MonoBehaviour, IDropHandler
             return false;
     }
 
-    public GameObject ReturnItem()
+    public GameObject GetItem()
     {
         if (transform.childCount != 0)
             return transform.GetChild(0).gameObject;
         else
             return null;
     }
+
+
 
     private bool CheckTags(string _tag)
     {

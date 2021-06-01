@@ -125,24 +125,7 @@ public class InventoryController : MonoBehaviour
 
     }
 
-    public Transform GetOpenSlot(string _id)
-    {
-        openSlot = null;
-
-        for (int i = 0; i < slots.Count; i++)
-        {
-            if (slots[i].childCount == 0)
-            {
-                openSlot = slots[i];
-                break;
-            }
-        }
-
-        return openSlot;
-
-    }
-
-    public InventoryItem GetItemToCombine(string _id)
+    public InventoryItem GetItemToCombine(InventoryItem _itemToCombine)
     {
         InventoryItem inventoryItem;
         InventoryItem itemToCombine = null;
@@ -151,7 +134,7 @@ public class InventoryController : MonoBehaviour
             if (slots[i].childCount != 0)
             {
                 inventoryItem = slots[i].GetChild(0).GetComponent<InventoryItem>();
-                if (_id == inventoryItem.itemID && inventoryItem.amount < inventoryItem.maxAmount)
+                if (_itemToCombine.itemID == inventoryItem.itemID && inventoryItem.amount < inventoryItem.maxAmount && _itemToCombine.CompareTag(inventoryItem.tag))
                 {
                     openSlot = slots[i];
                     itemToCombine = inventoryItem;
@@ -163,11 +146,11 @@ public class InventoryController : MonoBehaviour
         return itemToCombine;
     }
 
-    public float CombineItems(InventoryItem _draggedItem, InventoryItem _childItem)
+    public InventoryItem CombineItems(InventoryItem _draggedItem, InventoryItem _childItem)
     {
-        float remainder = 0;
+        InventoryItem remainderItem = null;
         _childItem.AddAmount(_draggedItem.amount);
-        _draggedItem.SetAmount(0);
+        _draggedItem.amount = 0;
 
         float diff = _childItem.amount - _childItem.maxAmount;
 
@@ -175,53 +158,111 @@ public class InventoryController : MonoBehaviour
         if (diff > 0)
         {
             _childItem.AddAmount(-diff);
-            _childItem.Lock(false);
             _draggedItem.SetAmount(diff);
-            _draggedItem.Lock(false);
+
+
+            remainderItem = _draggedItem;
             _draggedItem.ReturnToPreviousParent();
-            remainder = diff;
+            
 
         }
         else
         {
             Destroy(_draggedItem.gameObject);
-            _childItem.Lock(false);
-
         }
         UpdateDecoChicks();
-        return remainder;
+        return remainderItem;
 
     }
 
-    public float ReturnToInventory(InventoryItem _item)
+    public InventoryItem ReturnToInventory(InventoryItem _item)
     {
-        Transform openSlot = GetOpenSlot();
-        InventoryItem itemToCombine = null;
-        float remainder = 0;
+        // check for stack to combine with
+        // if there is, combine stacks
+        // if there is remainder, spawn new stack, call ReturnToInventory on new stack
 
-        if (openSlot != null)
+        Transform openSlot = null;
+        InventoryItem itemToCombine = GetItemToCombine(_item);
+        InventoryItem remainderItem = null;
+        float itemAmt;
+
+        // Check for stack to combine with
+        if (itemToCombine != null)
         {
-            _item.transform.SetParent(openSlot, false);
-            _item.transform.position = _item.transform.parent.position;
-            _item.Lock(false);
+            itemAmt = _item.amount;
+            // if there is, combine stacks.
+            remainderItem = CombineItems(_item, itemToCombine);
+
+            // I think this will make it stop trying to store them if it's the same amount coming out as going in.
+            // needs testing
+            if (remainderItem != null && remainderItem.amount == itemAmt)
+            {
+                print("inventory full? I think?");
+
+                // on a hunch I added this, needs testing
+                if (remainderItem.amount == 0)
+                    remainderItem = null;
+            }
+            // If there is a remainder, call ReturnToInventory on it
+            else if (remainderItem != null && remainderItem.amount > 0)
+            {
+                ReturnToInventory(remainderItem);
+            }
         }
         else
         {
-            itemToCombine = GetItemToCombine(_item.itemID);
+            openSlot = GetOpenSlot();
 
-            if (itemToCombine != null)
+            if (openSlot != null)
             {
-                remainder = CombineItems(_item, itemToCombine);
+                _item.transform.SetParent(openSlot, false);
+                _item.transform.position = _item.transform.parent.position;
+                _item.Lock(false);
             }
             else
             {
                 print("INVENTORY FULL");
+                remainderItem = _item;
             }
 
         }
         UpdateDecoChicks();
-        return remainder;
+        return remainderItem;
     }
+
+    //public float ReturnToInventory(InventoryItem _item)
+    //{
+    //    // check for stack to combine with
+    //    // if there is, combine stacks
+    //    // if there is remainder, spawn new stack, call ReturnToInventory on new stack
+
+    //    Transform openSlot = null;
+    //    InventoryItem itemToCombine = GetItemToCombine(_item.itemID);
+    //    float remainder = 0;
+
+    //    if (itemToCombine != null)
+    //    {
+    //        remainder = CombineItems(_item, itemToCombine);
+    //    }
+    //    else
+    //    {
+    //        openSlot = GetOpenSlot();
+
+    //        if (openSlot != null)
+    //        {
+    //            _item.transform.SetParent(openSlot, false);
+    //            _item.transform.position = _item.transform.parent.position;
+    //            _item.Lock(false);
+    //        }
+    //        else
+    //        {
+    //            print("INVENTORY FULL");
+    //        }
+
+    //    }
+    //    UpdateDecoChicks();
+    //    return remainder;
+    //}
 
     public void UpdateDecoChicks()
     {

@@ -59,6 +59,8 @@ public class StrainProfile : MonoBehaviour
         strainName = _strain.strainName;
         strainType = _strain.strainType;
         thcPercent = _strain.thcPercent;
+        strainID = _strain.strainID;
+
         totalTerpenesPercent = _strain.totalTerpenesPercent;
         primaryTerpene = _strain.primaryTerpene;
         secondaryTerpene = _strain.secondaryTerpene;

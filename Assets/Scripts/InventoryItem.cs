@@ -96,6 +96,7 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
 
     }
 
+    // Handles cases where item isn't dropped on Inventory Slot
     public void OnEndDrag(PointerEventData _EventData)
     {
         StrainProfile dragStrain;
@@ -106,82 +107,16 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
         }
 
             // Checks if it was dropped, if not then return to original slot.
-            if (targetParent == null)
+        if (targetParent == null)
         {
             if (transform.parent == inventoryGUI.dragParent)
             {
-                rectTransform.SetParent(previousParent, false);
-                rectTransform.anchoredPosition = new Vector2(0, 0);
+                ReturnToPreviousParent();
             }
-        }
-        else
-        {
-            //if (targetParent.childCount == 0)
-            //{
-                if (targetParent.CompareTag("Weed Plant") && _EventData.pointerDrag.CompareTag("UI Seed Bag"))
-                {
-                    WeedPlant hoverPlant = targetParent.GetComponent<WeedPlant>();
-                    StrainProfile seedStrain = _EventData.pointerDrag.GetComponent<StrainProfile>();
-                    SeedBag seedBag = _EventData.pointerDrag.GetComponent<SeedBag>();
-
-                    hoverPlant.SetConfirmPlantPanelActive(seedStrain, seedBag);
-                    rectTransform.SetParent(previousParent, false);
-                    rectTransform.anchoredPosition = new Vector2(0, 0);
-                }
-            //}
-            //else
-            //{
-            //    if (targetParent.GetChild(0).CompareTag(transform.tag))
-            //    {
-            //        dragStrain = _EventData.pointerDrag.GetComponent<StrainProfile>();
-            //        // if the object has a strain profile, compare IDs to see if the same strain
-            //        if (dragStrain != null)
-            //        {
-            //            if (dragStrain.strainID == strainProfile.strainID)
-            //            {
-
-            //            }
-            //            else
-            //            {
-            //                rectTransform.SetParent(previousParent, false);
-            //                rectTransform.anchoredPosition = new Vector2(0, 0);
-            //            }
-            //        }
-            //        // else just combine the two
-            //        else
-            //        {
-
-            //        }
-            //    }
-            //    else
-            //    {
-            //        rectTransform.SetParent(previousParent, false);
-            //        rectTransform.anchoredPosition = new Vector2(0, 0);
-            //    }
-            //}
-
-
         }
 
         inventoryController.UpdateDecoChicks();
 
-    }
-
-    public void EndDragRoutine()
-    {
-        if (!locked)
-        {
-            cg.blocksRaycasts = true;
-            cg.alpha = 1;
-
-
-            // Checks if it was dropped, if not then return to original slot.
-            if (transform.parent == inventoryGUI.dragParent)
-            {
-                rectTransform.SetParent(previousParent, false);
-                rectTransform.anchoredPosition = new Vector2(0, 0);
-            }
-        }
     }
 
     public void OnPointerDown(PointerEventData eventData)

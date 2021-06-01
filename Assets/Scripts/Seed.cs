@@ -5,6 +5,7 @@ using UnityEngine;
 public class Seed : MonoBehaviour
 {
     public StrainProfile currentStrain;
+    public string strainID;
 
     public float angleModifier;
     public Rigidbody rb;
@@ -16,6 +17,8 @@ public class Seed : MonoBehaviour
     {
         Vector3 vector = CalculateTrajectoryVelocity(transform.position, target.transform.position, angleModifier);
         rb.velocity = vector;
+
+        strainID = currentStrain.strainID;
     }
 
     Vector3 CalculateTrajectoryVelocity(Vector3 origin, Vector3 target, float t)

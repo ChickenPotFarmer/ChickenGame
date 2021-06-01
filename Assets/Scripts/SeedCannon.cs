@@ -93,7 +93,7 @@ public class SeedCannon : MonoBehaviour
 
     public void OnItemDrop()
     {
-        GameObject seedBag = seedSlot.ReturnItem();
+        GameObject seedBag = seedSlot.GetItem();
         currentStrain.SetStrain(seedBag.GetComponent<StrainProfile>());
         seedBagItem = seedBag.GetComponent<InventoryItem>();
 
