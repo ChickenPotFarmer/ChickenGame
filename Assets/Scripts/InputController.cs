@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class InputController : MonoBehaviour
 {
+    public bool radialMenuOn;
+
     private WateringCan wateringCan;
     private Trimmer trimmer;
     private SeedCannon seedCannon;
@@ -16,6 +18,7 @@ public class InputController : MonoBehaviour
     private ToDoController toDoController;
     private ChickenController chickenController;
     private InventoryGUI inventoryGUI;
+    private RadialMenu radialMenu;
 
     private void Start()
     {
@@ -39,6 +42,8 @@ public class InputController : MonoBehaviour
             trimmer = Trimmer.instance.trimmer.GetComponent<Trimmer>();
         if (!wateringCan)
             wateringCan = WateringCan.instance.waterCan.GetComponent<WateringCan>();
+        if (!radialMenu)
+            radialMenu = GetComponent<RadialMenu>();
     }
 
     private void Update()
@@ -88,134 +93,146 @@ public class InputController : MonoBehaviour
                 wateringCan.ToggleWaterCan();
             }
         }
+        else if (Input.GetKeyDown("r"))
+        {
+            radialMenuOn = true;
+            radialMenu.SetMenuActive(true);
+        }
+        else if (Input.GetKeyUp("r"))
+        {
+            radialMenuOn = false;
+            radialMenu.SetMenuActive(false);
+        }
 
+        if (!radialMenuOn)
+        { 
         // Mouse Control
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit) && !EventSystem.current.IsPointerOverGameObject())
-        {
-            if (hit.collider != null)
+            if (Physics.Raycast(ray, out hit) && !EventSystem.current.IsPointerOverGameObject())
             {
-                string tagId = hit.collider.gameObject.tag;
-
-                switch (tagId)
+                if (hit.collider != null)
                 {
-                    case "Buyer":
-                        buyerController.hoveringOver = hit.collider.gameObject.GetComponentInParent<Buyer>();
-                        buyerController.hoveringOver.SetHoverInfoActive(true);
+                    string tagId = hit.collider.gameObject.tag;
 
-                        if (Input.GetButtonDown("Interact"))
-                        {
-                            buyerController.hoveringOver.OpenBuyerPanel();
-                        }
+                    switch (tagId)
+                    {
+                        case "Buyer":
+                            buyerController.hoveringOver = hit.collider.gameObject.GetComponentInParent<Buyer>();
+                            buyerController.hoveringOver.SetHoverInfoActive(true);
 
-                        PlanterUnhover();
-                        break;
-
-                    case "Dryer Pile":
-                        if (Input.GetButtonDown("Interact") && dryerController.clickActive)
-                        {
-                            dryerController.SetDryerPanelActive(true);
-                            dryerController.clickActive = false;
-                        }
-
-                        PlanterUnhover();
-                        BuyerUnhover();
-                        break;
-
-                    case "Laptop":
-                        if (laptopController.chickenInRange)
-                        {
-                            if (Input.GetButtonDown("Interact") && laptopController.clickActive)
+                            if (Input.GetButtonDown("Interact"))
                             {
-                                laptopController.SetLaptopPanelActive(true);
-                                laptopController.clickActive = false;
+                                buyerController.hoveringOver.OpenBuyerPanel();
                             }
-                        }
-                        PlanterUnhover();
-                        BuyerUnhover();
-                        break;
 
-                    case "Weed Plant":
-                        WeedPlant foundPlant = hit.collider.gameObject.GetComponent<WeedPlant>();
+                            PlanterUnhover();
+                            break;
 
-                        // Handle unplanted weed plant
-                        if (!foundPlant.isPlanted && seedCannon.cannonOn)
-                        {
-                            if (planterController.selectedPlant != null)
+                        case "Dryer Pile":
+                            if (Input.GetButtonDown("Interact") && dryerController.clickActive)
                             {
-                                if (foundPlant != planterController.selectedPlant && !planterController.selectedPlant.isPlanted)
+                                dryerController.SetDryerPanelActive(true);
+                                dryerController.clickActive = false;
+                            }
+
+                            PlanterUnhover();
+                            BuyerUnhover();
+                            break;
+
+                        case "Laptop":
+                            if (laptopController.chickenInRange)
+                            {
+                                if (Input.GetButtonDown("Interact") && laptopController.clickActive)
                                 {
-                                    planterController.selectedPlant.SetNone();
+                                    laptopController.SetLaptopPanelActive(true);
+                                    laptopController.clickActive = false;
                                 }
                             }
-                            planterController.selectedPlant = foundPlant;
-                            planterController.selectedPlant.SetFullGrown();
-                        }
+                            PlanterUnhover();
+                            BuyerUnhover();
+                            break;
 
-                        if (Input.GetButtonDown("Interact"))
-                        {
-                            if (foundPlant.fullyGrown)
+                        case "Weed Plant":
+                            WeedPlant foundPlant = hit.collider.gameObject.GetComponent<WeedPlant>();
+
+                            // Handle unplanted weed plant
+                            if (!foundPlant.isPlanted && seedCannon.cannonOn)
                             {
-                                if (trimmer.TrimmerIsOn())
+                                if (planterController.selectedPlant != null)
                                 {
-                                    if (!foundPlant.trimmed)
-                                        trimmer.TrimPlant(foundPlant);
-                                    else if (!foundPlant.harvested)
-                                        foundPlant.Harvest();
-                                    else if (foundPlant.harvested)
-                                        foundPlant.SetHarvestPanelActive(true);
+                                    if (foundPlant != planterController.selectedPlant && !planterController.selectedPlant.isPlanted)
+                                    {
+                                        planterController.selectedPlant.SetNone();
+                                    }
+                                }
+                                planterController.selectedPlant = foundPlant;
+                                planterController.selectedPlant.SetFullGrown();
+                            }
 
+                            if (Input.GetButtonDown("Interact"))
+                            {
+                                if (foundPlant.fullyGrown)
+                                {
+                                    if (trimmer.TrimmerIsOn())
+                                    {
+                                        if (!foundPlant.trimmed)
+                                            trimmer.TrimPlant(foundPlant);
+                                        else if (!foundPlant.harvested)
+                                            foundPlant.Harvest();
+                                        else if (foundPlant.harvested)
+                                            foundPlant.SetHarvestPanelActive(true);
+
+                                    }
+                                    else
+                                    {
+                                        if (!foundPlant.harvested)
+                                            foundPlant.Harvest();
+                                        else
+                                            foundPlant.SetHarvestPanelActive(true);
+                                    }
                                 }
                                 else
                                 {
-                                    if (!foundPlant.harvested)
-                                        foundPlant.Harvest();
-                                    else
-                                        foundPlant.SetHarvestPanelActive(true);
+                                    if (seedCannon.cannonOn && !foundPlant.hasSeed)
+                                    {
+                                        seedCannon.FireCannon(foundPlant.transform);
+                                    }
                                 }
                             }
-                            else
-                            {
-                                if (seedCannon.cannonOn && !foundPlant.hasSeed)
-                                {
-                                    seedCannon.FireCannon(foundPlant.transform);
-                                }
-                            }
-                        }
 
-                        //if (planterController.planterOn && planterController.seeds != 0)
-                        //{
-                        //    if (planterController.selectedPlant != null)
-                        //    {
-                        //        if (Input.GetButtonDown("Interact") && !planterController.selectedPlant.selected)
-                        //        {
-                        //            planterController.selectedPlant.selected = true;
-                        //            planterController.SetNewPlantPanelActive(true);
-                        //            planterController.planterOn = false;
-                        //        }
-                        //    }
-                        //}
+                            //if (planterController.planterOn && planterController.seeds != 0)
+                            //{
+                            //    if (planterController.selectedPlant != null)
+                            //    {
+                            //        if (Input.GetButtonDown("Interact") && !planterController.selectedPlant.selected)
+                            //        {
+                            //            planterController.selectedPlant.selected = true;
+                            //            planterController.SetNewPlantPanelActive(true);
+                            //            planterController.planterOn = false;
+                            //        }
+                            //    }
+                            //}
 
-                        BuyerUnhover();
-                        break;
+                            BuyerUnhover();
+                            break;
 
-                    default:
+                        default:
 
-                        PlanterUnhover();
-                        BuyerUnhover();
-                        break;
+                            PlanterUnhover();
+                            BuyerUnhover();
+                            break;
+
+                    }
 
                 }
-                
+                else
+                {
+                    PlanterUnhover();
+                    BuyerUnhover();
+                }
             }
-            else
-            {
-                PlanterUnhover();
-                BuyerUnhover();
-            }
-
 
             if (Input.GetButtonDown("Navigate"))
             {
