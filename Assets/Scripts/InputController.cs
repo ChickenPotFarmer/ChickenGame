@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class InputController : MonoBehaviour
 {
+    private WateringCan wateringCan;
     private Trimmer trimmer;
     private SeedCannon seedCannon;
     private BuyerController buyerController;
@@ -36,6 +37,8 @@ public class InputController : MonoBehaviour
             seedCannon = SeedCannon.instance.seedCannon.GetComponent<SeedCannon>();
         if (!trimmer)
             trimmer = Trimmer.instance.trimmer.GetComponent<Trimmer>();
+        if (!wateringCan)
+            wateringCan = WateringCan.instance.waterCan.GetComponent<WateringCan>();
     }
 
     private void Update()
@@ -49,12 +52,41 @@ public class InputController : MonoBehaviour
 
         else if (Input.GetKeyDown("1"))
         {
-            seedCannon.ToggleCannon();
+            if (seedCannon.cannonOn)
+            {
+                seedCannon.ToggleCannon();
+            }
+            else
+            {
+                TurnOffAllTools();
+                seedCannon.ToggleCannon();
+            }
         }
 
         else if (Input.GetKeyDown("2"))
         {
-            trimmer.ToggleTrimmer();
+            if (trimmer.trimmerOn)
+            {
+                trimmer.ToggleTrimmer();
+            }
+            else
+            {
+                TurnOffAllTools();
+                trimmer.ToggleTrimmer();
+            }
+        }
+
+        else if (Input.GetKeyDown("3"))
+        {
+            if (wateringCan.waterCanOn)
+            {
+                wateringCan.ToggleWaterCan();
+            }
+            else
+            {
+                TurnOffAllTools();
+                wateringCan.ToggleWaterCan();
+            }
         }
 
         // Mouse Control
@@ -208,5 +240,12 @@ public class InputController : MonoBehaviour
             planterController.selectedPlant.SetNone();
             planterController.selectedPlant = null;
         }
+    }
+
+    public void TurnOffAllTools()
+    {
+        trimmer.ToggleTrimmer(false);
+        seedCannon.ToggleCannon(false);
+        wateringCan.ToggleWaterCan(false);
     }
 }

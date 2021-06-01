@@ -112,4 +112,18 @@ public class Trimmer : MonoBehaviour
             trimmerModel.SetActive(true);
         }
     }
+
+    public void ToggleTrimmer(bool _on)
+    {
+        if (!_on)
+        {
+            trimmerOn = false;
+            trimmerModel.SetActive(false);
+        }
+        else
+        {
+            trimmerOn = true;
+            trimmerModel.SetActive(true);
+        }
+    }
 }

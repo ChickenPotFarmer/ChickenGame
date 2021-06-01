@@ -91,6 +91,20 @@ public class SeedCannon : MonoBehaviour
         }
     }
 
+    public void ToggleCannon(bool _on)
+    {
+        if (!_on)
+        {
+            cannonOn = false;
+            cannonModel.SetActive(false);
+        }
+        else
+        {
+            cannonOn = true;
+            cannonModel.SetActive(true);
+        }
+    }
+
     public void OnItemDrop()
     {
         GameObject seedBag = seedSlot.GetItem();
