@@ -15,6 +15,7 @@ public class WeedPlant : MonoBehaviour
     public float growTime;
 
     [Header("Status")]
+    public bool targettedForHarvest;
     public bool selected;
     public bool isPlanted;
     public bool isFemale;
@@ -43,6 +44,7 @@ public class WeedPlant : MonoBehaviour
     private MeshRenderer debugRenderer;
     private InventoryController inventoryController;
     private ConfirmPlantPanel confirmPlantPanel;
+    private ChickenController chickenController;
 
     private void Awake()
     {
@@ -61,6 +63,9 @@ public class WeedPlant : MonoBehaviour
 
         if (!confirmPlantPanel)
             confirmPlantPanel = ConfirmPlantPanel.instance.confirmPlantPanel.GetComponent<ConfirmPlantPanel>();
+
+        if (!chickenController)
+            chickenController = ChickenController.instance.chickenController.GetComponent<ChickenController>();
 
     }
 
@@ -185,6 +190,29 @@ public class WeedPlant : MonoBehaviour
             growthBar.value++;
             yield return new WaitForSeconds(1);
         }
+    }
+
+    // set timer so it doesnt harvest if player clicks somewhere else and cancels
+    public void TargetForHarvest()
+    {
+        StartCoroutine(CheckChickenDistanceRoutine());
+    }
+
+    IEnumerator CheckChickenDistanceRoutine()
+    {
+        float endCheck = Time.time + 5;
+        do
+        {
+            if (Vector3.Distance(transform.position, chickenController.transform.position) < 4 && !harvested)
+            {
+                harvested = true;
+
+                harvestPanel.HarvestPlant(this, currentStrain);
+            }
+            yield return new WaitForSeconds(0.2f);
+        } while (Time.time < endCheck && !harvested);
+
+
     }
 
     public void Harvest()

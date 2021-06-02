@@ -18,7 +18,7 @@ public class RadialMenu : MonoBehaviour
     [HideInInspector]
     public GameObject radialMenu;
 
-    private void Start()
+    private void Awake()
     {
         instance = this;
         radialMenu = gameObject;

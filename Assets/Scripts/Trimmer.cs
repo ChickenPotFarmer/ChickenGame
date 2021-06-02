@@ -8,6 +8,8 @@ public class Trimmer : MonoBehaviour
     [Header("Status")]
     public bool trimmerOn;
     public bool autoTrimOn;
+    public WeedPlant selectedPlant;
+
 
     [Header("Setup")]
     public GameObject trimmerModel;
@@ -18,7 +20,7 @@ public class Trimmer : MonoBehaviour
     public int maxTrimmings;
     public float trimmerReach;
 
-    private WeedPlant selectedPlant;
+    private ChickenController chickenController;
 
     public static Trimmer instance;
     [HideInInspector]
@@ -32,41 +34,14 @@ public class Trimmer : MonoBehaviour
 
     private void Start()
     {
-        instance = this;
-        trimmer = gameObject;
+        if (!chickenController)
+            chickenController = ChickenController.instance.chickenController.GetComponent<ChickenController>();
 
         if (trimmerOn)
             trimmerModel.SetActive(true);
         else
             trimmerModel.SetActive(false);
     }
-
-    //private void Update()
-    //{
-    //    if (trimmerOn)
-    //    {
-    //        if (Input.GetButtonDown("Interact"))
-    //        {
-    //            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-    //            RaycastHit hit;
-
-    //            if (Physics.Raycast(ray, out hit) && !EventSystem.current.IsPointerOverGameObject())
-    //            {
-    //                if (hit.collider != null)
-    //                {
-    //                    if (hit.collider.gameObject.CompareTag("Weed Plant"))
-    //                    {
-    //                        selectedPlant = hit.collider.GetComponent<WeedPlant>();
-    //                        if (selectedPlant.fullyGrown)
-    //                        {
-    //                            TrimPlant(selectedPlant);
-    //                        }
-    //                    }
-    //                }
-    //            }
-    //        }
-    //    }
-    //}
 
     public void TrimPlant(WeedPlant _plant)
     {
@@ -125,5 +100,28 @@ public class Trimmer : MonoBehaviour
             trimmerOn = true;
             trimmerModel.SetActive(true);
         }
+    }
+
+    public void TargetForTrim(WeedPlant _plant)
+    {
+        selectedPlant = _plant;
+        StartCoroutine(CheckChickenDistanceRoutine());
+    }
+
+    IEnumerator CheckChickenDistanceRoutine()
+    {
+        float endCheck = Time.time + 5;
+        do
+        {
+            if (Vector3.Distance(selectedPlant.transform.position, chickenController.transform.position) < 4 && !selectedPlant.trimmed)
+            {
+                int trimmings = Random.Range(minTrimmings, maxTrimmings + 1);
+                selectedPlant.trimmed = true;
+
+                StartCoroutine((SpawnRoutine(trimmings)));
+            }
+            yield return new WaitForSeconds(0.2f);
+        } while (Time.time < endCheck && !selectedPlant.trimmed);
+        selectedPlant = null;
     }
 }

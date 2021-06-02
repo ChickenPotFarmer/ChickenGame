@@ -178,9 +178,15 @@ public class InputController : MonoBehaviour
                                     if (trimmer.TrimmerIsOn())
                                     {
                                         if (!foundPlant.trimmed)
-                                            trimmer.TrimPlant(foundPlant);
+                                        {
+                                            trimmer.TargetForTrim(foundPlant);
+                                            chickenController.SetNewDestination(hit.point);
+                                        }
                                         else if (!foundPlant.harvested)
-                                            foundPlant.Harvest();
+                                        {
+                                            foundPlant.TargetForHarvest();
+                                            chickenController.SetNewDestination(hit.point);
+                                        }
                                         else if (foundPlant.harvested)
                                             foundPlant.SetHarvestPanelActive(true);
 
