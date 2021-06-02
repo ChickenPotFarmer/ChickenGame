@@ -188,14 +188,14 @@ public class InputController : MonoBehaviour
                                             chickenController.SetNewDestination(hit.point);
                                         }
                                         else if (foundPlant.harvested)
+                                        {
                                             foundPlant.SetHarvestPanelActive(true);
+                                        }
 
                                     }
                                     else
                                     {
-                                        if (!foundPlant.harvested)
-                                            foundPlant.Harvest();
-                                        else
+                                        if (foundPlant.harvested)
                                             foundPlant.SetHarvestPanelActive(true);
                                     }
                                 }
