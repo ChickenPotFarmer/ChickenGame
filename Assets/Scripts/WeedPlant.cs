@@ -40,6 +40,7 @@ public class WeedPlant : MonoBehaviour
     public GameObject sapling;
     public GameObject almostGrown;
     public GameObject fullGrown;
+    public GameObject fullGrownClipped;
 
     private MeshRenderer debugRenderer;
     private InventoryController inventoryController;
@@ -92,12 +93,28 @@ public class WeedPlant : MonoBehaviour
         StartCoroutine(GrowthBarUpdate());
     }
 
+    public void Trim()
+    {
+        trimmed = true;
+        SetTrimmed();
+    }
+
+    public void SetTrimmed()
+    {
+        seedling.SetActive(false);
+        sapling.SetActive(false);
+        almostGrown.SetActive(false);
+        fullGrown.SetActive(false);
+        fullGrownClipped.SetActive(true);
+    }
+
     public void SetFullGrown()
     {
         seedling.SetActive(false);
         sapling.SetActive(false);
         almostGrown.SetActive(false);
         fullGrown.SetActive(true);
+        fullGrownClipped.SetActive(false);
         SetGrowthBarActive(true);
     }
 
@@ -107,6 +124,7 @@ public class WeedPlant : MonoBehaviour
         sapling.SetActive(false);
         fullGrown.SetActive(false);
         almostGrown.SetActive(false);
+        fullGrownClipped.SetActive(false);
         SetGrowthBarActive(true);
 
     }
@@ -117,6 +135,7 @@ public class WeedPlant : MonoBehaviour
         sapling.SetActive(true);
         fullGrown.SetActive(false);
         almostGrown.SetActive(false);
+        fullGrownClipped.SetActive(false);
         SetGrowthBarActive(true);
     }
 
@@ -126,6 +145,7 @@ public class WeedPlant : MonoBehaviour
         sapling.SetActive(false);
         fullGrown.SetActive(false);
         almostGrown.SetActive(true);
+        fullGrownClipped.SetActive(false);
         SetGrowthBarActive(true);
     }
 
@@ -134,6 +154,7 @@ public class WeedPlant : MonoBehaviour
         seedling.SetActive(false);
         sapling.SetActive(false);
         fullGrown.SetActive(false);
+        fullGrownClipped.SetActive(false);
         SetGrowthBarActive(false);
     }
 

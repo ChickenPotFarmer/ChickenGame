@@ -113,15 +113,15 @@ public class Trimmer : MonoBehaviour
         float endCheck = Time.time + 5;
         do
         {
-            if (Vector3.Distance(selectedPlant.transform.position, chickenController.transform.position) < 4 && !selectedPlant.trimmed)
+            if (Vector3.Distance(selectedPlant.transform.position, chickenController.transform.position) < 4 && !selectedPlant.trimmed && trimmerOn)
             {
                 int trimmings = Random.Range(minTrimmings, maxTrimmings + 1);
-                selectedPlant.trimmed = true;
+                selectedPlant.Trim();
 
                 StartCoroutine((SpawnRoutine(trimmings)));
             }
             yield return new WaitForSeconds(0.2f);
         } while (Time.time < endCheck && !selectedPlant.trimmed);
-        selectedPlant = null;
+        //selectedPlant = null;
     }
 }

@@ -13,6 +13,7 @@ public class SeedCannon : MonoBehaviour
     public bool cannonOn;
 
     [Header("Setup")]
+    public CanvasGroup cg;
     public ItemSlot seedSlot;
     public Transform debugTarget;
     public Transform firePoint;
@@ -44,12 +45,6 @@ public class SeedCannon : MonoBehaviour
         if (!strainInfoPanel)
             strainInfoPanel = StrainInfoUI.instance.strainInfoUI.GetComponent<StrainInfoUI>();
     }
-
-    //private void Update()
-    //{
-    //    if (Input.GetMouseButtonDown(0))
-    //        FireCannon(debugTarget);
-    //}
 
 
     public void FireCannon(Transform _target)
@@ -83,11 +78,13 @@ public class SeedCannon : MonoBehaviour
         {
             cannonOn = false;
             cannonModel.SetActive(false);
+            SetPanelActive(false);
         }
         else
         {
             cannonOn = true;
             cannonModel.SetActive(true);
+            SetPanelActive(true);
         }
     }
 
@@ -97,11 +94,29 @@ public class SeedCannon : MonoBehaviour
         {
             cannonOn = false;
             cannonModel.SetActive(false);
+            SetPanelActive(false);
         }
         else
         {
             cannonOn = true;
             cannonModel.SetActive(true);
+            SetPanelActive(true);
+        }
+    }
+
+    public void SetPanelActive(bool _active)
+    {
+        if (_active)
+        {
+            cg.alpha = 1;
+            cg.interactable = true;
+            cg.blocksRaycasts = true;
+        }
+        else
+        {
+            cg.alpha = 0;
+            cg.interactable = false;
+            cg.blocksRaycasts = false;
         }
     }
 
