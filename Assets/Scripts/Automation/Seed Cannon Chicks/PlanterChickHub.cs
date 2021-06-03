@@ -32,7 +32,7 @@ public class PlanterChickHub : MonoBehaviour
     public Transform autoChicksParent;
     public GameObject radarSphere;
     public Transform inventoryParent;
-    private Transform[] slots;
+    public Transform[] slots;
     public InventoryItem seedBagItem;
 
     public static PlanterChickHub instance;
@@ -72,13 +72,10 @@ public class PlanterChickHub : MonoBehaviour
 
                 if (availableChick != null)
                 {
-                    print("AVAILABLE CHICK FOUND");
                     availablePlant = GetAvailablePlant();
 
                     if (availablePlant != null)
                     {
-                        print("AVAILABLE PLANT FOUND");
-
                         availableChick.SetTarget(availablePlant);
                     }
                 }
@@ -131,7 +128,7 @@ public class PlanterChickHub : MonoBehaviour
 
         for (int i = 0; i < inventoryParent.childCount; i++)
         {
-            slots[i] = inventoryParent.GetChild(0);
+            slots[i] = inventoryParent.GetChild(i);
         }
 
         if (seedBagItem == null)
@@ -140,8 +137,8 @@ public class PlanterChickHub : MonoBehaviour
 
     public void OnSeedItemDrop(float _amt)
     {
-        if (seedBagItem == null)
-            GetSeedBag();
+        print("on seed item drop");
+        GetSeedBag();
         availableAmmo += Mathf.RoundToInt(_amt);
 
     }
@@ -155,6 +152,36 @@ public class PlanterChickHub : MonoBehaviour
         for (int i = 0; i < slots.Length; i++)
         {
             if (slots[i].transform.childCount != 0)
+            {
+                seedBag = slots[i].GetChild(0).gameObject;
+                foundAmmo = true;
+                break;
+            }
+        }
+
+        if (foundAmmo)
+        {
+            seedBagItem = seedBag.GetComponent<InventoryItem>();
+            currentStrain.SetStrain(seedBag.GetComponent<StrainProfile>());
+
+            seedBagItem.Lock(true);
+        }
+        else
+        {
+            seedBagItem = null;
+        }
+
+        return foundAmmo;
+    }
+
+    public bool GetSeedBag(Transform _transformToIgnore)
+    {
+        GameObject seedBag = null;
+        bool foundAmmo = false;
+
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i].transform.childCount != 0 && slots[i].GetChild(0) != _transformToIgnore)
             {
                 seedBag = slots[i].GetChild(0).gameObject;
                 foundAmmo = true;
@@ -220,7 +247,7 @@ public class PlanterChickHub : MonoBehaviour
             availableAmmo--;
             if (seedBagItem.AddAmount(-1))
             {
-                GetSeedBag();
+                GetSeedBag(seedBagItem.transform);
             }
         }
 

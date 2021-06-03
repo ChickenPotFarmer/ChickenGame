@@ -181,8 +181,8 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
         }
 
         UpdateTextUI();
-        if (itemDestroyed)
-            Destroy(gameObject, 0.5f);
+        if (itemDestroyed && gameObject != null)
+            Destroy(gameObject);
         return itemDestroyed;
     }
 
@@ -204,6 +204,7 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
 
     public void UpdateTextUI()
     {
-        uiAmount.text = amount.ToString();
+        if (uiAmount != null)
+            uiAmount.text = amount.ToString();
     }
 }

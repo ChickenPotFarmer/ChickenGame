@@ -28,7 +28,6 @@ public class AutoPlanterChick : MonoBehaviour
 
     public void SetTarget(WeedPlant _target)
     {
-        print("TARGET SENT");
         _target.targettedForSeeding = true;
         target = _target.transform;
         StartCoroutine(EngageTarget());
