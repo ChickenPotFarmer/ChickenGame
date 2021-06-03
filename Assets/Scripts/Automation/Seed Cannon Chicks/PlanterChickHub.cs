@@ -27,6 +27,7 @@ public class PlanterChickHub : MonoBehaviour
     public List<WeedPlant> plantsInRange;
 
     [Header("Setup")]
+    public CanvasGroup cg;
     public GameObject seedProjectile;
     public Transform autoChicksParent;
     public GameObject radarSphere;
@@ -225,5 +226,26 @@ public class PlanterChickHub : MonoBehaviour
 
 
         return ammoStrain;
+    }
+
+    public void SetPanelActive(bool _active)
+    {
+        if (_active)
+        {
+            cg.alpha = 1;
+            cg.interactable = true;
+            cg.blocksRaycasts = true;
+        }
+        else
+        {
+            cg.alpha = 0;
+            cg.interactable = false;
+            cg.blocksRaycasts = false;
+        }
+    }
+
+    public void ClosePanel()
+    {
+        SetPanelActive(false);
     }
 }
