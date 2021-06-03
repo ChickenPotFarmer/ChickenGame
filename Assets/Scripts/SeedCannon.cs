@@ -64,6 +64,8 @@ public class SeedCannon : MonoBehaviour
 
             if (currentStrain != null)
                 newSeed.GetComponent<Seed>().currentStrain.SetStrain(currentStrain);
+            else
+                Debug.LogWarning("Error in SeedCannon, currentStrain is null.");
 
             if (seedBagItem.AddAmount(-1))
             {
@@ -126,6 +128,9 @@ public class SeedCannon : MonoBehaviour
         currentStrain.SetStrain(seedBag.GetComponent<StrainProfile>());
         seedBagItem = seedBag.GetComponent<InventoryItem>();
 
+        seedBagItem.Lock(true);
+
+
         // update title text
         seedNameTxt.text = currentStrain.strainName;
 
@@ -149,11 +154,13 @@ public class SeedCannon : MonoBehaviour
 
     public void ReturnSeedsToInventory()
     {
+        seedBagItem.Lock(false);
         seedBagItem.ReturnToPreviousParent();
 
         if (!seedSlot.HasItem())
         {
             ResetCannon();
+            
         }
         else
         {

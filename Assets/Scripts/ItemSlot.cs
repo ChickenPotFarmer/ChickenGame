@@ -7,6 +7,8 @@ public class ItemSlot : MonoBehaviour, IDropHandler
 {
     [Header("Outside Script To Fire On Drop")]
     public SeedCannon seedCannon;
+    public PlanterChickHub planterChickHub;
+
 
     [Header("Status")]
     public bool slotFull;
@@ -306,6 +308,8 @@ public class ItemSlot : MonoBehaviour, IDropHandler
     {
         if (seedCannon)
             seedCannon.OnItemDrop();
+        if (planterChickHub)
+            planterChickHub.OnSeedItemDrop();
     }
 
     public bool HasItem()
