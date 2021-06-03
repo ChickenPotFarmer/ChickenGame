@@ -12461,7 +12461,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1539626813}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.6971658
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -18180,6 +18180,12 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 1.1910001, z: -4.9100003}
   m_TimeToStationary: 0.5
+--- !u!4 &657858736 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7477260676195423919, guid: 3307aeb4ea8f44f4b9cfe5ecb3c5cece,
+    type: 3}
+  m_PrefabInstance: {fileID: 365777215}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &658126155
 GameObject:
   m_ObjectHideFlags: 0
@@ -25037,7 +25043,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 367.3, y: -20.6}
+  m_AnchoredPosition: {x: 367.3, y: -20.599976}
   m_SizeDelta: {x: 51.5289, y: 45.74283}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &936299709
@@ -25994,27 +26000,13 @@ GameObject:
   - component: {fileID: 958197277}
   - component: {fileID: 958197276}
   - component: {fileID: 958197275}
-  - component: {fileID: 958197274}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!135 &958197274
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 958197273}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_IsActive: 0
 --- !u!23 &958197275
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -32213,7 +32205,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000061035156}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1198634603
@@ -39493,6 +39485,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1511961345}
   - component: {fileID: 1511961344}
+  - component: {fileID: 1511961346}
   m_Layer: 0
   m_Name: Planting Hub
   m_TagString: Untagged
@@ -39512,12 +39505,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f560c09983aa8ee4aa32286b10dfdbdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plantTargets: []
+  planterHubActive: 1
+  availableAmmo: 0
+  currentStrain: {fileID: 1511961346}
   networkRadius: 100
   autoChicks: []
   plantsInRange: []
+  seedProjectile: {fileID: 4738005135663240227, guid: f16497787f5fca9459394b2c3d55ddbd,
+    type: 3}
   autoChicksParent: {fileID: 2138583582}
   radarSphere: {fileID: 958197273}
+  inventoryParent: {fileID: 2019504143}
+  seedBagItem: {fileID: 0}
   planterChickHub: {fileID: 0}
 --- !u!4 &1511961345
 Transform:
@@ -39527,7 +39526,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1511961343}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 107.6, y: 0, z: 43.8}
+  m_LocalPosition: {x: 158.2, y: 0, z: 46.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 958197277}
@@ -39536,6 +39535,40 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1511961346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1511961343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecf034d1db44c054db4733138f8a2743, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  strainName: 
+  strainType: 0
+  thcPercent: 0
+  strainID: 
+  totalTerpenesPercent: 0
+  primaryTerpene: 0
+  secondaryTerpene: 0
+  lesserTerpene: 0
+  caryophyllene: 0
+  limonene: 0
+  linalool: 0
+  myrcene: 0
+  pinene: 0
+  terpinolene: 0
+  primaryEffect: 
+  secondaryEffect: 
+  primaryMin: 0
+  primaryMax: 0
+  secondaryMinRemaindar: 0
+  secondaryMaxRemaindar: 0
+  lesserMinRemaindar: 0
+  lesserMaxRemaindar: 0
 --- !u!1 &1512814248
 GameObject:
   m_ObjectHideFlags: 0
@@ -53615,7 +53648,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000030517578, y: -35}
+  m_AnchoredPosition: {x: 0, y: -35}
   m_SizeDelta: {x: -222.24847, y: -110.30472}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2019504144
@@ -58598,7 +58631,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.1
-  m_Speed: 10
+  m_Speed: 7
   m_Acceleration: 25
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -58641,6 +58674,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfc6d245bed80d941a3e2098392708d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  cannonRange: 30
+  firePoint: {fileID: 657858736}
 --- !u!1 &6560853532780526528
 GameObject:
   m_ObjectHideFlags: 0

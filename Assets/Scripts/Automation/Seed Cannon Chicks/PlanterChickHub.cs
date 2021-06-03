@@ -12,10 +12,13 @@ public class PlanterChickHub : MonoBehaviour
      */
 
     [Header("Status")]
-    public List<WeedPlant> plantTargets;
+    public bool planterHubActive;
+    public int availableAmmo;
+    public StrainProfile currentStrain;
 
     [Header("Settings")]
     public float networkRadius;
+
 
     [Header("Auto Chicks")]
     public List<AutoPlanterChick> autoChicks;
@@ -24,8 +27,12 @@ public class PlanterChickHub : MonoBehaviour
     public List<WeedPlant> plantsInRange;
 
     [Header("Setup")]
+    public GameObject seedProjectile;
     public Transform autoChicksParent;
     public GameObject radarSphere;
+    public Transform inventoryParent;
+    private Transform[] slots;
+    public InventoryItem seedBagItem;
 
     public static PlanterChickHub instance;
     [HideInInspector]
@@ -45,7 +52,41 @@ public class PlanterChickHub : MonoBehaviour
         if (plantsInRange.Count == 0)
             UpdatePlantList();
 
+        UpdateInventorySlots();
+
         UpdateRadarSphere();
+
+        StartCoroutine(PlanterHubRoutine());
+    }
+
+    public IEnumerator PlanterHubRoutine()
+    {
+        AutoPlanterChick availableChick;
+        WeedPlant availablePlant;
+        do
+        {
+            if (availableAmmo > 0)
+            {
+                availableChick = GetAvailableChick();
+
+                if (availableChick != null)
+                {
+                    print("AVAILABLE CHICK FOUND");
+                    availablePlant = GetAvailablePlant();
+
+                    if (availablePlant != null)
+                    {
+                        print("AVAILABLE PLANT FOUND");
+
+                        availableChick.SetTarget(availablePlant);
+                    }
+                }
+
+            }
+
+
+            yield return new WaitForSeconds(1);
+        } while (planterHubActive);
     }
 
     public void UpdateAutoChickList()
@@ -83,8 +124,106 @@ public class PlanterChickHub : MonoBehaviour
 
     }
 
-    public void OnSeedItemDrop()
+    public void UpdateInventorySlots()
     {
+        slots = new Transform[inventoryParent.childCount];
 
+        for (int i = 0; i < inventoryParent.childCount; i++)
+        {
+            slots[i] = inventoryParent.GetChild(0);
+        }
+
+        if (seedBagItem == null)
+            GetSeedBag();
+    }
+
+    public void OnSeedItemDrop(float _amt)
+    {
+        if (seedBagItem == null)
+            GetSeedBag();
+        availableAmmo += Mathf.RoundToInt(_amt);
+
+    }
+
+    // Call when out of ammo only
+    public bool GetSeedBag()
+    {
+        GameObject seedBag = null;
+        bool foundAmmo = false;
+
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i].transform.childCount != 0)
+            {
+                seedBag = slots[i].GetChild(0).gameObject;
+                foundAmmo = true;
+                break;
+            }
+        }
+
+        if (foundAmmo)
+        {
+            seedBagItem = seedBag.GetComponent<InventoryItem>();
+            currentStrain.SetStrain(seedBag.GetComponent<StrainProfile>());
+
+            seedBagItem.Lock(true);
+        }
+        else
+        {
+            seedBagItem = null;
+        }
+
+        return foundAmmo;
+    }
+
+    public AutoPlanterChick GetAvailableChick()
+    {
+        AutoPlanterChick availChick = null;
+
+        for (int i = 0; i < autoChicks.Count; i++)
+        {
+            if (autoChicks[i].target == null)
+            {
+                availChick = autoChicks[i];
+                break;
+            }
+        }
+
+        return availChick;
+    }
+
+    public WeedPlant GetAvailablePlant()
+    {
+        WeedPlant availPlant = null;
+
+        for (int i = 0; i < plantsInRange.Count; i++)
+        {
+            if (!plantsInRange[i].targettedForSeeding && !plantsInRange[i].isPlanted)
+            {
+                availPlant = plantsInRange[i];
+                plantsInRange[i].targettedForSeeding = true;
+                break;
+            }
+        }
+
+        return availPlant;
+    }
+
+    public StrainProfile RequestAmmo()
+    {
+        StrainProfile ammoStrain = null;
+
+        if (currentStrain != null)
+        {
+            ammoStrain = currentStrain;
+            availableAmmo--;
+            if (seedBagItem.AddAmount(-1))
+            {
+                GetSeedBag();
+            }
+        }
+
+
+        return ammoStrain;
     }
 }

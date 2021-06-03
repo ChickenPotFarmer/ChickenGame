@@ -198,7 +198,7 @@ public class ItemSlot : MonoBehaviour, IDropHandler
                 //}
             }
             
-            TriggerOutsideOnDrops();
+            TriggerOutsideOnDrops(_eventData.pointerDrag.GetComponent<InventoryItem>().amount);
 
             // TO-DO: Set up way to detect this if not being dropped on.
             if (HasItem())
@@ -304,12 +304,12 @@ public class ItemSlot : MonoBehaviour, IDropHandler
 
     }
 
-    public void TriggerOutsideOnDrops()
+    public void TriggerOutsideOnDrops(float _amt)
     {
         if (seedCannon)
             seedCannon.OnItemDrop();
         if (planterChickHub)
-            planterChickHub.OnSeedItemDrop();
+            planterChickHub.OnSeedItemDrop(_amt);
     }
 
     public bool HasItem()

@@ -16,6 +16,7 @@ public class WeedPlant : MonoBehaviour
 
     [Header("Status")]
     public bool targettedForHarvest;
+    public bool targettedForSeeding;
     public bool selected;
     public bool isPlanted;
     public bool isFemale;
@@ -89,6 +90,7 @@ public class WeedPlant : MonoBehaviour
     {
         harvested = false;
         trimmed = false;
+        targettedForSeeding = false;
         StartCoroutine(GrowRoutine());
         StartCoroutine(GrowthBarUpdate());
     }
