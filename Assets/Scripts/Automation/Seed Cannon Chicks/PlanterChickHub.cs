@@ -18,10 +18,11 @@ public class PlanterChickHub : MonoBehaviour
 
     [Header("Settings")]
     public float networkRadius;
+    public float networkSpeed; // How fast the network pings for plants
 
 
     [Header("Auto Chicks")]
-    public List<AutoPlanterChick> autoChicks;
+    public List<AutoPlanterChick> autoChicks; // add methods for altering chicks stats ie speed and shooting speed
 
     [Header("Plants")]
     public List<WeedPlant> plantsInRange;
@@ -83,7 +84,7 @@ public class PlanterChickHub : MonoBehaviour
             }
 
 
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(networkSpeed);
         } while (planterHubActive);
     }
 

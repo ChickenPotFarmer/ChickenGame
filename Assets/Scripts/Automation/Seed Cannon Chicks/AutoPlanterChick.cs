@@ -10,6 +10,7 @@ public class AutoPlanterChick : MonoBehaviour
 
     [Header("Settings")]
     public float cannonRange;
+    public float cannonFireRate;
 
     [Header("Setup")]
     public Transform firePoint;
@@ -54,7 +55,7 @@ public class AutoPlanterChick : MonoBehaviour
 
     public IEnumerator FireCannon(Transform _target)
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(cannonFireRate);
 
         GameObject newSeed = Instantiate(planterHub.seedProjectile);
         newSeed.transform.position = firePoint.position;
