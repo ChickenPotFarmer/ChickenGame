@@ -27,6 +27,13 @@ public class Buyer : MonoBehaviour
     public CanvasGroup hoverInfoCg;
     public Text deliverTxt;
 
+    [Header("Buyer UI")]
+    public Text amountRequestedTxt;
+    public Text typeRequestedTxt;
+    public Text minThcTxt;
+    public Text effectRequestedTxt;
+    public Text terpeneRequestedTxt;
+
     [Header("Camera")]
     public GameObject cam;
 
@@ -84,7 +91,17 @@ public class Buyer : MonoBehaviour
 
         toDoObject = _toDo;
         deliverTxt.text = "Deliver " + amountRequested.ToString("n1") + " g";
+        UpdateBuyerUI();
         SetHoverInfoActive(false);
+    }
+
+    public void UpdateBuyerUI()
+    {
+        amountRequestedTxt.text = amountRequested.ToString("n1") + " g";
+        minThcTxt.text = (minThc * 100).ToString("n1") + "%";
+        effectRequestedTxt.text = effectRequested;
+        terpeneRequestedTxt.text = GetRequestedTerpene();
+        typeRequestedTxt.text = GetTypeRequested();
     }
 
     public void SetHoverInfoActive(bool _active)
@@ -188,21 +205,25 @@ public class Buyer : MonoBehaviour
         // Strain Type Check
         if (Mathf.Abs(typeRequested - _strain.strainType) > 1 && typeRequested != -1)
         {
+            print("Failed Type Check");
             weedIsGood = false;
         }
         // Effect Check
         if (_strain.primaryEffect != effectRequested && effectRequested != "NONE")
         {
+            print("Failed Effect Requested Check");
             weedIsGood = false;
         }
         // Terpene Check
         if (_strain.primaryTerpene != terpeneRequested && terpeneRequested != -1)
         {
+            print("Failed Terpene Check");
             weedIsGood = false;
         }
         // THC Check
         if (_strain.thcPercent > minThc)
         {
+            print("Failed THC Check");
             weedIsGood = false;
         }
 
@@ -262,5 +283,84 @@ public class Buyer : MonoBehaviour
             SaleSuccess();
 
         }
+    }
+
+    public string GetTypeRequested()
+    {
+        string type;
+        switch (typeRequested)
+        {
+            case 0:
+                type = "Indica";
+                break;
+
+            case 1:
+                type = "Indica Hybrid";
+                break;
+
+            case 2:
+                type = "Hybrid";
+                break;
+
+            case 3:
+                type = "Sativa Hybrid";
+                break;
+
+            case 4:
+                type = "Sativa";
+                break;
+
+            case -1:
+                type = "Any";
+                break;
+
+            default:
+                type = "STRAIN TYPE ERROR";
+                break;
+        }
+
+        return type;
+    }
+
+    public string GetRequestedTerpene()
+    {
+        string terpene;
+
+        switch (terpeneRequested)
+        {
+            case 0:
+                terpene = "Caryophyllene";
+                break;
+
+            case 1:
+                terpene = "Limonene";
+                break;
+
+            case 2:
+                terpene = "Linalool";
+                break;
+
+            case 3:
+                terpene = "Myrcene";
+                break;
+
+            case 4:
+                terpene = "Pinene";
+                break;
+
+            case 5:
+                terpene = "Terpinolene";
+                break;
+
+            case -1:
+                type = "Any";
+                break;
+
+            default:
+                terpene = "PRIMARY TERPENE ERROR";
+                break;
+        }
+
+        return terpene;
     }
 }
