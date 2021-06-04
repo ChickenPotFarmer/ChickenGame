@@ -10,7 +10,7 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
     public string itemName;
     public float amount;
     public float maxAmount;
-    public bool isSeed;
+    public bool isStrain;
     public bool locked;
     public string itemID;
 
@@ -46,7 +46,7 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
         if (!hoverInfo)
             hoverInfo = HoverInfo.instance.hoverInfo.GetComponent<HoverInfo>();
 
-        if (isSeed && !strainProfile)
+        if (isStrain && !strainProfile)
             strainProfile = GetComponent<StrainProfile>();
 
         if (!seedDropDown)
@@ -101,7 +101,6 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
     // Handles cases where item isn't dropped on Inventory Slot
     public void OnEndDrag(PointerEventData _EventData)
     {
-        StrainProfile dragStrain;
         if (!locked)
         {
             cg.blocksRaycasts = true;
@@ -123,7 +122,7 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (isSeed)
+        if (isStrain)
         {
             seedDropDown.SetDropdownActive(true);
             seedDropDown.SetStrainInfoBtn(GetComponent<StrainProfile>());
@@ -132,8 +131,16 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (isSeed)
-            hoverInfo.SetText(strainProfile.strainName + " Seeds");
+        string[] info = new string[4];
+        if (isStrain)
+        {
+            info[0] = strainProfile.strainName;
+            info[1] = strainProfile.GetStrainType();
+            info[2] = "THC: " + strainProfile.GetReaderFriendlyThcContent();
+            info[3] = "Terpene: " + (strainProfile.totalTerpenesPercent * 100).ToString("n2") + "%";
+
+            hoverInfo.SetText(info);
+        }
 
         hoverInfo.SetHoverActive(true);
     }

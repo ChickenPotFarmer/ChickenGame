@@ -353,7 +353,7 @@ public class Buyer : MonoBehaviour
                 break;
 
             case -1:
-                type = "Any";
+                terpene = "Any";
                 break;
 
             default:

@@ -6,7 +6,15 @@ using UnityEngine.UI;
 
 public class HoverInfo : MonoBehaviour
 {
-    public Text txt;
+    [Header("UI")]
+    public Text nameTxt;
+    public Text typeTxt;
+    public Text thcTxt;
+    public Text terpeneTxt;
+
+    [Header("Status")]
+    public bool isActive;
+
     private CanvasGroup cg;
 
     public static HoverInfo instance;
@@ -26,12 +34,16 @@ public class HoverInfo : MonoBehaviour
 
     private void Update()
     {
-        transform.position = Input.mousePosition;
+        if (isActive)
+            transform.position = Input.mousePosition;
     }
 
-    public void SetText(string _txt)
+    public void SetText(string[] _txt)
     {
-        txt.text = _txt;
+        nameTxt.text = _txt[0];
+        typeTxt.text = _txt[1];
+        thcTxt.text = _txt[2];
+        terpeneTxt.text = _txt[3];
     }
 
     public void SetHoverActive(bool _active)
@@ -40,13 +52,13 @@ public class HoverInfo : MonoBehaviour
         {
             cg.alpha = 1;
             cg.interactable = true;
-            //cg.blocksRaycasts = true;
+            isActive = true;
         }
         else
         {
             cg.alpha = 0;
             cg.interactable = false;
-            //cg.blocksRaycasts = false;
+            isActive = false;
         }
     }
 }
