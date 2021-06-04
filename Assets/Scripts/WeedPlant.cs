@@ -26,7 +26,7 @@ public class WeedPlant : MonoBehaviour
     public bool hasSeed;
 
     [Header("Setup")]
-    public CapsuleCollider collider;
+    public CapsuleCollider plantCollider;
     public CanvasGroup growthBarCg;
     public CanvasGroup harvestPanelCg;
     public Slider growthBar;

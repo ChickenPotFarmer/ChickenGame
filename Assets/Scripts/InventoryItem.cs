@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerUpHandler
 {
     [Header("Item Info")]
+    public string itemName;
     public float amount;
     public float maxAmount;
     public bool isSeed;
@@ -55,6 +56,7 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
             inventoryController = InventoryController.instance.inventoryController.GetComponent<InventoryController>();
 
         inventoryCanvas = inventoryGUI.inventoryCanvas;
+        SetItemName();
         UpdateTextUI();
     }
 
@@ -206,5 +208,20 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
     {
         if (uiAmount != null)
             uiAmount.text = amount.ToString();
+    }
+
+    public void SetItemName()
+    {
+        if (itemName == "")
+        {
+            StrainProfile strain = GetComponent<StrainProfile>();
+
+            if (strain)
+                uiName.text = strain.strainName;
+        }
+        else
+        {
+            uiName.text = itemName;
+        }
     }
 }

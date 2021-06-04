@@ -9,7 +9,7 @@ public class Seed : MonoBehaviour
 
     public float angleModifier;
     public Rigidbody rb;
-    public SphereCollider collider;
+    public SphereCollider seedCollider;
     public Transform target;
 
 
@@ -33,11 +33,11 @@ public class Seed : MonoBehaviour
     {
         if (collision.gameObject.transform != target)
         {
-            Physics.IgnoreCollision(collision.collider, collider);
+            Physics.IgnoreCollision(collision.collider, seedCollider);
         }
         else
         {
-            print("TARGET IT!");
+
         }
     }
 

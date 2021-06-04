@@ -118,6 +118,13 @@ public class InputController : MonoBehaviour
 
                     switch (tagId)
                     {
+                        case "Planter Hub":
+                            if (Input.GetButtonDown("Interact"))
+                            {
+                                hit.collider.gameObject.GetComponentInParent<PlanterChickHub>().SetPanelActive(true);
+                            }
+                            break;
+
                         case "Buyer":
                             buyerController.hoveringOver = hit.collider.gameObject.GetComponentInParent<Buyer>();
                             buyerController.hoveringOver.SetHoverInfoActive(true);

@@ -704,6 +704,7 @@ MonoBehaviour:
   actualYield: 38
   growTime: 5
   targettedForHarvest: 0
+  targettedForSeeding: 0
   selected: 0
   isPlanted: 0
   isFemale: 0
@@ -711,7 +712,7 @@ MonoBehaviour:
   trimmed: 0
   harvested: 0
   hasSeed: 0
-  collider: {fileID: 4199247763174620605}
+  plantCollider: {fileID: 1792034965373343607}
   growthBarCg: {fileID: 1864635908194461885}
   harvestPanelCg: {fileID: 7090823871924734838}
   growthBar: {fileID: 4698173496506327115}

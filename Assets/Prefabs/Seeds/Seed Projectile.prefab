@@ -125,9 +125,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentStrain: {fileID: 667180785926344361}
+  strainID: 
   angleModifier: 1
   rb: {fileID: 4738005135663240225}
-  collider: {fileID: 4738005135663240224}
+  seedCollider: {fileID: 4738005135663240224}
   target: {fileID: 0}
 --- !u!114 &667180785926344361
 MonoBehaviour:

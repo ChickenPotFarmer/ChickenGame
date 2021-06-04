@@ -50,17 +50,17 @@ public class Trimmer : MonoBehaviour
         int trimmings = Random.Range(minTrimmings, maxTrimmings + 1);
         selectedPlant.trimmed = true;
 
-        StartCoroutine((SpawnRoutine(trimmings)));
+        StartCoroutine((SpawnRoutine(trimmings, selectedPlant.transform.position)));
     }
 
-    IEnumerator SpawnRoutine(int _amt)
+    IEnumerator SpawnRoutine(int _amt, Vector3 _pos)
     {
         GameObject trim;
         for (int i = 0; i < _amt; i++)
         {
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.12f);
             trim = Instantiate(trimmingsPrefab);
-            trim.transform.position = selectedPlant.transform.position;
+            trim.transform.position = _pos;
         }
     }
 
@@ -118,10 +118,12 @@ public class Trimmer : MonoBehaviour
                 int trimmings = Random.Range(minTrimmings, maxTrimmings + 1);
                 selectedPlant.Trim();
 
-                StartCoroutine((SpawnRoutine(trimmings)));
+                StartCoroutine((SpawnRoutine(trimmings, selectedPlant.transform.position)));
+                selectedPlant = null;
+                break;
             }
             yield return new WaitForSeconds(0.2f);
-        } while (Time.time < endCheck && !selectedPlant.trimmed);
+        } while (Time.time < endCheck);
         //selectedPlant = null;
     }
 }

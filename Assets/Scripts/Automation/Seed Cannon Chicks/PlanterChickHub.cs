@@ -241,7 +241,7 @@ public class PlanterChickHub : MonoBehaviour
     {
         StrainProfile ammoStrain = null;
 
-        if (currentStrain != null)
+        if (currentStrain != null && seedBagItem != null)
         {
             ammoStrain = currentStrain;
             availableAmmo--;
