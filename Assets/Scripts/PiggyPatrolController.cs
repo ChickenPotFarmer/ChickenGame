@@ -36,7 +36,7 @@ public class PiggyPatrolController : MonoBehaviour
     {
         if (onPatrol)
         {
-            if (Vector3.Distance(transform.position, wayPoints[currentWaypoint]) < 2)
+            if (Vector3.Distance(transform.position, wayPoints[currentWaypoint]) < 3)
             {
                 currentWaypoint++;
 
@@ -66,7 +66,7 @@ public class PiggyPatrolController : MonoBehaviour
 
             }
 
-            yield return new WaitForSeconds(0.4f);
+            yield return new WaitForSeconds(0.2f);
         } while (true);
     }
 

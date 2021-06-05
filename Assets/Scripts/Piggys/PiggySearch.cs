@@ -8,6 +8,7 @@ public class PiggySearch : MonoBehaviour
     public bool inPursuit;
 
     [Header("Settings")]
+    public float radarDistance;
     public float patrolSpeed;
     public float chaseSpeed;
 
@@ -18,7 +19,7 @@ public class PiggySearch : MonoBehaviour
 
     [Header("Setup")]
     public Transform inventoryChicksParent;
-    
+    public GameObject radarSphere;
 
     private ChickenController chickenController;
     private InputController inputController;
@@ -38,7 +39,16 @@ public class PiggySearch : MonoBehaviour
 
         if (!controller)
             controller = GetComponent<PiggyPatrolController>();
+
+        if (controller.onPatrol)
+            StartCoroutine(PatrolRoutine());
+        else if (inPursuit)
+            StartCoroutine(PursuitRoutine());
+        StartCoroutine(PatrolRoutine());
+
+        UpdateRadarSphere();
     }
+
 
     IEnumerator PursuitRoutine()
     {
@@ -57,18 +67,50 @@ public class PiggySearch : MonoBehaviour
 
     }
 
+    // maybe replace with OnTriggerEnter
+    IEnumerator PatrolRoutine()
+    {
+        print("patrol started");
+        do
+        {
+            if (Vector3.Distance(transform.position, chickenController.transform.position) < radarDistance)
+            {
+                StartSearch();
+                print("Search started");
+            }
+            else
+            {
+                print("wtf");
+            }
+            yield return new WaitForSeconds(0.5f);
+        } while (controller.onPatrol);
+        print("patrol ended");
+
+    }
+
     public void RunForIt()
     {
-        GetChicks();
+        //GetChicks();
         StartPursuit();
     }
 
     public void StartPursuit()
     {
         inPursuit = true;
+        controller.onPatrol = false;
+
         controller.navAgent.speed = chaseSpeed;
+        PanicChicks();
         StartCoroutine(PursuitRoutine());
 
+    }
+
+    public void StartSearch()
+    {
+        controller.onPatrol = false;
+        controller.navAgent.SetDestination(chickenController.transform.position);
+        inputController.fugitive = true;
+        chickenController.SetNewDestination(chickenController.transform.position);
     }
 
     private void GetChicks()
@@ -80,6 +122,15 @@ public class PiggySearch : MonoBehaviour
             inventoryChicks.Add(inventoryController.chicks[i].transform);
         }
     }
+
+    private void PanicChicks()
+    {
+        GetChicks();
+        for (int i = 0; i < inventoryChicks.Count; i++)
+        {
+            inventoryChicks[i].GetComponent<LilChickController>().panicMode = true;
+        }
+    }    
 
     public bool EnemyDetection()
     {
@@ -124,5 +175,11 @@ public class PiggySearch : MonoBehaviour
         }
 
         return chicksNearby[closestIndex];
+    }
+
+    public void UpdateRadarSphere()
+    {
+        radarSphere.transform.localScale = new Vector3(radarDistance / 2, 1, radarDistance / 2);
+
     }
 }

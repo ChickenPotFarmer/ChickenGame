@@ -67,13 +67,14 @@ public class LilChickController : MonoBehaviour
                 {
                     beingChased = true;
                     StartCoroutine(OffSetRoutine());
+                    navAgent.stoppingDistance = 0;
+
                 }
                 Vector3 dir = (transform.position - closestPiggy.transform.position);
                 dir = dir.normalized;
                 dir += transform.position;
 
                 dir += panicPathOffset;
-                navAgent.stoppingDistance = 0;
                 navAgent.SetDestination(dir);
             }
             else
