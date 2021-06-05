@@ -135,7 +135,7 @@ public class Trimmer : MonoBehaviour
                 if (inventoryController.CanTakeItem("00000001", trimmings))
                 {
                     selectedPlant.Trim();
-
+                    chickenController.SetNewDestination(transform.position);
                     StartCoroutine((SpawnRoutine(trimmings, selectedPlant.transform.position)));
                     selectedPlant = null;
 

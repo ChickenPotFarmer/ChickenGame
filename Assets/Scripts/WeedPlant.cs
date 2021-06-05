@@ -290,7 +290,7 @@ public class WeedPlant : MonoBehaviour
             if (Vector3.Distance(transform.position, chickenController.transform.position) < 4 && !harvested)
             {
                 harvested = true;
-
+                chickenController.SetNewDestination(chickenController.transform.position);
                 harvestPanel.HarvestPlant(this, currentStrain);
             }
             yield return new WaitForSeconds(0.2f);

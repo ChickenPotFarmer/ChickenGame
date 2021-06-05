@@ -215,7 +215,9 @@ public class InputController : MonoBehaviour
 
                                     else if (wateringCan.waterCanOn && foundPlant.isPlanted)
                                     {
-                                        foundPlant.Water();
+                                        wateringCan.TargetForWater(foundPlant);
+                                        chickenController.SetNewDestination(hit.point);
+
                                     }
                                 }
                             }
