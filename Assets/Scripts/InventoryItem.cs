@@ -138,9 +138,17 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
             info[1] = strainProfile.GetStrainType();
             info[2] = "THC: " + strainProfile.GetReaderFriendlyThcContent();
             info[3] = "Terpene: " + (strainProfile.totalTerpenesPercent * 100).ToString("n2") + "%";
-
-            hoverInfo.SetText(info);
         }
+        else
+        {
+            info[0] = itemName;
+            info[1] = "NULL";
+            info[2] = "NULL";
+            info[3] = "NULL";
+        }
+
+        hoverInfo.SetText(info);
+
 
         hoverInfo.SetHoverActive(true);
     }

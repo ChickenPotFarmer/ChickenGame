@@ -15,6 +15,7 @@ public class ChickInventory : MonoBehaviour
     [Header("Deco Prefabs")]
     public GameObject brickPrefab;
     public GameObject seedPrefab;
+    public GameObject trimmingsPrefab;
 
     private int nextOpenSlot;
     private InventoryController inventoryController;
@@ -32,33 +33,6 @@ public class ChickInventory : MonoBehaviour
         }
 
         UpdateDecoSlots();
-    }
-
-    public void AddBrick()
-    {
-        GameObject newBrick = Instantiate(brickPrefab, decoSlots[nextOpenSlot]);
-        newBrick.transform.position = decoSlots[nextOpenSlot].position;
-        nextOpenSlot++;
-        if (nextOpenSlot == decoSlots.Length)
-            slotsFull = true;
-    }
-
-    public void RemoveAllBricks()
-    {
-        try
-        {
-            for (int i = 0; i < decoSlots.Length; i++)
-            {
-                Destroy(decoSlots[i].GetChild(0).gameObject);
-            }
-        }
-        catch
-        {
-            Debug.LogWarning("No Bricks To Remove");
-        }
-
-        slotsFull = false;
-        nextOpenSlot = 0;
     }
 
     public void UpdateDecoSlots()
@@ -83,6 +57,10 @@ public class ChickInventory : MonoBehaviour
 
                     case "UI Weed Brick":
                         Instantiate(brickPrefab, decoSlots[i]);
+                        break;
+
+                    case "UI Trimmings":
+                        Instantiate(trimmingsPrefab, decoSlots[i]);
                         break;
                 }
             }

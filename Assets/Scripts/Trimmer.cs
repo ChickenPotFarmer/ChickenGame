@@ -14,6 +14,7 @@ public class Trimmer : MonoBehaviour
     [Header("Setup")]
     public GameObject trimmerModel;
     public GameObject trimmingsPrefab;
+    public GameObject uiTrimmingsPrefab;
 
     [Header("Current Trimmer Settings")]
     public int minTrimmings;
@@ -21,6 +22,7 @@ public class Trimmer : MonoBehaviour
     public float trimmerReach;
 
     private ChickenController chickenController;
+    private InventoryController inventoryController;
 
     public static Trimmer instance;
     [HideInInspector]
@@ -37,6 +39,9 @@ public class Trimmer : MonoBehaviour
         if (!chickenController)
             chickenController = ChickenController.instance.chickenController.GetComponent<ChickenController>();
 
+        if (!inventoryController)
+            inventoryController = InventoryController.instance.inventoryController.GetComponent<InventoryController>();
+
         if (trimmerOn)
             trimmerModel.SetActive(true);
         else
@@ -45,12 +50,20 @@ public class Trimmer : MonoBehaviour
 
     public void TrimPlant(WeedPlant _plant)
     {
-        selectedPlant = _plant;
-
         int trimmings = Random.Range(minTrimmings, maxTrimmings + 1);
-        selectedPlant.trimmed = true;
 
-        StartCoroutine((SpawnRoutine(trimmings, selectedPlant.transform.position)));
+        if (inventoryController.CanTakeItem("00000001", trimmings))
+        {
+            selectedPlant = _plant;
+
+            selectedPlant.trimmed = true;
+
+            StartCoroutine((SpawnRoutine(trimmings, selectedPlant.transform.position)));
+        }
+        else
+        {
+            Debug.LogWarning("Inventory Full, cannont add trimmings");
+        }
     }
 
     IEnumerator SpawnRoutine(int _amt, Vector3 _pos)
@@ -111,19 +124,37 @@ public class Trimmer : MonoBehaviour
     IEnumerator CheckChickenDistanceRoutine()
     {
         float endCheck = Time.time + 5;
+        GameObject newTrimmings;
+        InventoryItem trimmingsItem;
         do
         {
             if (Vector3.Distance(selectedPlant.transform.position, chickenController.transform.position) < 4 && !selectedPlant.trimmed && trimmerOn)
             {
                 int trimmings = Random.Range(minTrimmings, maxTrimmings + 1);
-                selectedPlant.Trim();
 
-                StartCoroutine((SpawnRoutine(trimmings, selectedPlant.transform.position)));
-                selectedPlant = null;
+                if (inventoryController.CanTakeItem("00000001", trimmings))
+                {
+                    selectedPlant.Trim();
+
+                    StartCoroutine((SpawnRoutine(trimmings, selectedPlant.transform.position)));
+                    selectedPlant = null;
+
+                    newTrimmings = Instantiate(uiTrimmingsPrefab);
+                    trimmingsItem = newTrimmings.GetComponent<InventoryItem>();
+
+                    trimmingsItem.SetAmount(trimmings);
+                    inventoryController.ReturnToInventory(trimmingsItem);
+
+                }
+                else
+                {
+                    Debug.LogWarning("Inventory Full, cannont add trimmings");
+                }
+
                 break;
             }
             yield return new WaitForSeconds(0.2f);
-        } while (Time.time < endCheck);
+        } while (Time.time < endCheck && selectedPlant != null);
         //selectedPlant = null;
     }
 }

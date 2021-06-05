@@ -41,9 +41,38 @@ public class HoverInfo : MonoBehaviour
     public void SetText(string[] _txt)
     {
         nameTxt.text = _txt[0];
-        typeTxt.text = _txt[1];
-        thcTxt.text = _txt[2];
-        terpeneTxt.text = _txt[3];
+
+        if (_txt[1] != "NULL")
+        {
+            if (!typeTxt.gameObject.activeInHierarchy)
+                typeTxt.gameObject.SetActive(true);
+
+            typeTxt.text = _txt[1];
+        }
+        else
+            typeTxt.gameObject.SetActive(false);
+
+        if (_txt[2] != "NULL")
+        {
+            if (!thcTxt.gameObject.activeInHierarchy)
+                thcTxt.gameObject.SetActive(true);
+
+            thcTxt.text = _txt[2];
+        }
+        else
+            thcTxt.gameObject.SetActive(false);
+
+
+        if (_txt[3] != "NULL")
+        {
+            if (!terpeneTxt.gameObject.activeInHierarchy)
+                terpeneTxt.gameObject.SetActive(true);
+
+            terpeneTxt.text = _txt[3];
+        }
+        else
+            terpeneTxt.gameObject.SetActive(false);
+
     }
 
     public void SetHoverActive(bool _active)

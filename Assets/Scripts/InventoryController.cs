@@ -230,39 +230,30 @@ public class InventoryController : MonoBehaviour
         return remainderItem;
     }
 
-    //public float ReturnToInventory(InventoryItem _item)
-    //{
-    //    // check for stack to combine with
-    //    // if there is, combine stacks
-    //    // if there is remainder, spawn new stack, call ReturnToInventory on new stack
+    public bool CanTakeItem(string _itemID, float _amt)
+    {
+        bool hasRoom = false;
+        InventoryItem inventoryItem;
 
-    //    Transform openSlot = null;
-    //    InventoryItem itemToCombine = GetItemToCombine(_item.itemID);
-    //    float remainder = 0;
+        for (int i = 0; i < slots.Count; i++)
+        {
+            if (slots[i].childCount != 0)
+            {
+                inventoryItem = slots[i].GetChild(0).GetComponent<InventoryItem>();
+                if (_itemID == inventoryItem.itemID && (inventoryItem.amount + _amt) < inventoryItem.maxAmount)
+                {
+                    hasRoom = true;
+                    break;
+                }
+            }
+            else
+            {
+                hasRoom = true;
+            }
+        }
 
-    //    if (itemToCombine != null)
-    //    {
-    //        remainder = CombineItems(_item, itemToCombine);
-    //    }
-    //    else
-    //    {
-    //        openSlot = GetOpenSlot();
-
-    //        if (openSlot != null)
-    //        {
-    //            _item.transform.SetParent(openSlot, false);
-    //            _item.transform.position = _item.transform.parent.position;
-    //            _item.Lock(false);
-    //        }
-    //        else
-    //        {
-    //            print("INVENTORY FULL");
-    //        }
-
-    //    }
-    //    UpdateDecoChicks();
-    //    return remainder;
-    //}
+        return hasRoom;
+    }
 
     public void UpdateDecoChicks()
     {
