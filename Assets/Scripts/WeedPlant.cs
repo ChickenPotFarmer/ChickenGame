@@ -25,7 +25,11 @@ public class WeedPlant : MonoBehaviour
     public bool harvested;
     public bool hasSeed;
 
+    [Header("Watering")]
+    public float waterLevel; //out of 100
+
     [Header("Setup")]
+    public ParticleSystem waterParticles;
     public CapsuleCollider plantCollider;
     public CanvasGroup growthBarCg;
     public CanvasGroup harvestPanelCg;
@@ -69,6 +73,8 @@ public class WeedPlant : MonoBehaviour
         if (!chickenController)
             chickenController = ChickenController.instance.chickenController.GetComponent<ChickenController>();
 
+        waterParticles.Stop();
+
     }
 
 
@@ -99,6 +105,32 @@ public class WeedPlant : MonoBehaviour
     {
         trimmed = true;
         SetTrimmed();
+    }
+
+    public void Water(float _amt)
+    {
+        if (waterLevel != 100)
+        {
+            waterLevel += _amt;
+            if (waterLevel > 100)
+                waterLevel = 100;
+
+            StartCoroutine(WaterRoutine());
+        }
+        else
+        {
+            print("Plant water level is full.");
+        }
+
+    }
+
+    IEnumerator WaterRoutine()
+    {
+        waterParticles.Play();
+
+        yield return new WaitForSeconds(3);
+        waterParticles.Stop();
+
     }
 
     public void SetTrimmed()

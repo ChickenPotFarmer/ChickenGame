@@ -212,6 +212,11 @@ public class InputController : MonoBehaviour
                                     {
                                         seedCannon.FireCannon(foundPlant.transform);
                                     }
+
+                                    else if (wateringCan.waterCanOn && foundPlant.isPlanted)
+                                    {
+                                        foundPlant.Water(wateringCan.waterCanPower);
+                                    }
                                 }
                             }
 

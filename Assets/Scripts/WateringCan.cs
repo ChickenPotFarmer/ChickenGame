@@ -6,6 +6,7 @@ public class WateringCan : MonoBehaviour
 {
     [Header("Status")]
     public bool waterCanOn;
+    public float waterCanPower;
 
     [Header("Setup")]
     public GameObject waterCanModel;
