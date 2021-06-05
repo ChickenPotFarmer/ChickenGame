@@ -26,7 +26,9 @@ public class WeedPlant : MonoBehaviour
     public bool hasSeed;
 
     [Header("Watering")]
+    public float startingWaterLevel;
     public float waterLevel; //out of 100
+    public float dryOutRate;
 
     [Header("Setup")]
     public ParticleSystem waterParticles;
@@ -34,6 +36,7 @@ public class WeedPlant : MonoBehaviour
     public CanvasGroup growthBarCg;
     public CanvasGroup harvestPanelCg;
     public Slider growthBar;
+    public Slider waterBar;
     public HarvestPanel harvestPanel;
 
     [Header("FX")]
@@ -97,8 +100,12 @@ public class WeedPlant : MonoBehaviour
         harvested = false;
         trimmed = false;
         targettedForSeeding = false;
+        waterLevel = startingWaterLevel;
+        SetWaterLevelBar(waterLevel);
         StartCoroutine(GrowRoutine());
         StartCoroutine(GrowthBarUpdate());
+        StartCoroutine(WaterReductionRoutine());
+
     }
 
     public void Trim()
@@ -107,13 +114,11 @@ public class WeedPlant : MonoBehaviour
         SetTrimmed();
     }
 
-    public void Water(float _amt)
+    public void Water()
     {
         if (waterLevel != 100)
         {
-            waterLevel += _amt;
-            if (waterLevel > 100)
-                waterLevel = 100;
+            waterLevel = 100;
 
             StartCoroutine(WaterRoutine());
         }
@@ -128,8 +133,32 @@ public class WeedPlant : MonoBehaviour
     {
         waterParticles.Play();
 
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2f);
+        SetWaterLevelBar(waterLevel);
+
+        yield return new WaitForSeconds(1f);
         waterParticles.Stop();
+
+    }
+
+    public void SetWaterLevelBar(float _amt)
+    {
+        waterBar.value = _amt;
+    }
+
+    IEnumerator WaterReductionRoutine()
+    {
+        do
+        {
+            waterLevel--;
+
+            if (waterLevel < 0)
+                waterLevel = 0;
+
+            SetWaterLevelBar(waterLevel);
+
+            yield return new WaitForSeconds(dryOutRate);
+        } while (isPlanted);
 
     }
 
