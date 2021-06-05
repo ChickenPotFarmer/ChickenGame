@@ -11,10 +11,12 @@ public class LilChickController : MonoBehaviour
 
     [Header("Status")]
     public bool panicMode;
+    public bool beingChased;
     private Animator animator;
     private NavMeshAgent navAgent;
     private ChickenController chickenController;
     public GameObject target;
+    public Vector3 panicPathOffset;
 
     [Header("Piggy Detection")]
     public List<Transform> piggysNearby;
@@ -42,6 +44,15 @@ public class LilChickController : MonoBehaviour
         }
     }
 
+    IEnumerator OffSetRoutine()
+    {
+        
+        do
+        {
+            panicPathOffset = new Vector3(Random.Range(-1, 1), 0, Random.Range(-1, 1));
+            yield return new WaitForSeconds(2);
+        } while (beingChased);
+    }
 
     // FIND A BETTER WAY TO DO THIS;
     private void Update()
@@ -52,9 +63,16 @@ public class LilChickController : MonoBehaviour
         {
             if (EnemyDetection())
             {
+                if (!beingChased)
+                {
+                    beingChased = true;
+                    StartCoroutine(OffSetRoutine());
+                }
                 Vector3 dir = (transform.position - closestPiggy.transform.position);
                 dir = dir.normalized;
                 dir += transform.position;
+
+                dir += panicPathOffset;
                 navAgent.stoppingDistance = 0;
                 navAgent.SetDestination(dir);
             }
@@ -62,7 +80,7 @@ public class LilChickController : MonoBehaviour
             {
                 navAgent.SetDestination(target.transform.position);
                 navAgent.stoppingDistance = stoppingDistance;
-
+                beingChased = false;
 
             }
         }
