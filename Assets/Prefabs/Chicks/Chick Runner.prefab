@@ -774,7 +774,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 134781805f8cf1945822da8ff6c361f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stoppingDistance: 4
+  enemyRadarDistance: 12
+  panicMode: 0
   target: {fileID: 0}
+  piggysNearby: []
+  closestPiggy: {fileID: 0}
 --- !u!114 &789966633152222909
 MonoBehaviour:
   m_ObjectHideFlags: 0

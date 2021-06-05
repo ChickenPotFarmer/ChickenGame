@@ -14390,7 +14390,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 490140470}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 148.446, y: 0.25, z: 18.13}
+  m_LocalPosition: {x: 97.885994, y: 0.25, z: 46.65}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children:
   - {fileID: 4429103210250445}
@@ -18265,8 +18265,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 631335199}
-  m_LocalRotation: {x: 0.05987139, y: 0.8765012, z: -0.113077104, w: 0.4640847}
-  m_LocalPosition: {x: 127.031876, y: 6.0116997, z: 27.495571}
+  m_LocalRotation: {x: 0.10444836, y: -0.57284355, z: 0.07390233, w: 0.80961674}
+  m_LocalPosition: {x: 110.15398, y: 6.0116997, z: 38.987743}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -18966,6 +18966,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radialMenuOn: 0
+  fugitive: 0
+  inputController: {fileID: 0}
 --- !u!114 &653702284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27627,7 +27629,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 971611167}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 127.031876, y: 6.0116997, z: 27.495571}
+  m_LocalPosition: {x: 110.15398, y: 6.0116997, z: 38.987743}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1713316712}
@@ -37969,6 +37971,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Chick Runner (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 789966633152222882, guid: a224c06ce68f56242880bb10e0952f4f,
+        type: 3}
+      propertyPath: panicMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 789966633152222909, guid: a224c06ce68f56242880bb10e0952f4f,
         type: 3}
       propertyPath: uiSlots.Array.size
@@ -45875,6 +45882,31 @@ MonoBehaviour:
   runThreshold: 0
   animator: {fileID: 3135579772534425982}
   navAgent: {fileID: 1684218262}
+--- !u!114 &1684218265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684218261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b07180404dcd6274da380306e8397737, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &1684218266
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684218261}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.43471283, y: 0.42580122, z: 0.9407419}
+  m_Center: {x: 0.014645855, y: 0.28709942, z: 0.029629072}
 --- !u!1 &1684731875
 GameObject:
   m_ObjectHideFlags: 0
@@ -47024,7 +47056,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1713316710}
-  m_LocalRotation: {x: -0.07417643, y: -0.87259066, z: 0.140094, w: -0.46201426}
+  m_LocalRotation: {x: -0.1294036, y: 0.5702878, z: -0.09155977, w: -0.80600464}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -54704,6 +54736,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Chick Runner (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 789966633152222882, guid: a224c06ce68f56242880bb10e0952f4f,
+        type: 3}
+      propertyPath: panicMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 789966633152222909, guid: a224c06ce68f56242880bb10e0952f4f,
         type: 3}
       propertyPath: uiSlots.Array.size
@@ -55438,7 +55475,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2016600662}
-  m_LocalRotation: {x: -0.06576075, y: -0.8749945, z: 0.124198675, w: -0.46328703}
+  m_LocalRotation: {x: -0.11472121, y: 0.5718589, z: -0.08117161, w: -0.8082251}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -56939,7 +56976,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2077945284}
-  m_LocalRotation: {x: -0.057344552, y: -0.8771037, z: 0.10830488, w: -0.46440372}
+  m_LocalRotation: {x: -0.10004039, y: 0.57323724, z: -0.0707833, w: -0.8101733}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -58420,6 +58457,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Chick Runner
       objectReference: {fileID: 0}
+    - target: {fileID: 789966633152222882, guid: a224c06ce68f56242880bb10e0952f4f,
+        type: 3}
+      propertyPath: panicMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 789966633152222909, guid: a224c06ce68f56242880bb10e0952f4f,
         type: 3}
       propertyPath: uiSlots.Array.size
@@ -58563,6 +58605,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Piggy_3k
+      objectReference: {fileID: 0}
+    - target: {fileID: 3135579772787035256, guid: 16e0053e40b9d4347ac7affbfb29bb33,
+        type: 3}
+      propertyPath: m_TagString
+      value: Piggy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16e0053e40b9d4347ac7affbfb29bb33, type: 3}
@@ -58950,7 +58997,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4588629778030620622}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 142.77, y: -0.26, z: 16.8}
+  m_LocalPosition: {x: 92.21, y: -0.26, z: 45.32}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children:
   - {fileID: 4592018967778488394}

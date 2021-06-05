@@ -6,7 +6,9 @@ using UnityEngine.UI;
 
 public class InputController : MonoBehaviour
 {
+    [Header("Status")]
     public bool radialMenuOn;
+    public bool fugitive;
 
     private WateringCan wateringCan;
     private Trimmer trimmer;
@@ -19,6 +21,16 @@ public class InputController : MonoBehaviour
     private ChickenController chickenController;
     private InventoryGUI inventoryGUI;
     private RadialMenu radialMenu;
+
+    public static InputController instance;
+    [HideInInspector]
+    public GameObject inputController;
+
+    private void Awake()
+    {
+        instance = this;
+        inputController = gameObject;
+    }
 
     private void Start()
     {
@@ -119,7 +131,7 @@ public class InputController : MonoBehaviour
                     switch (tagId)
                     {
                         case "Planter Hub":
-                            if (Input.GetButtonDown("Interact"))
+                            if (InteractWith())
                             {
                                 hit.collider.gameObject.GetComponentInParent<PlanterChickHub>().SetPanelActive(true);
                             }
@@ -129,7 +141,7 @@ public class InputController : MonoBehaviour
                             buyerController.hoveringOver = hit.collider.gameObject.GetComponentInParent<Buyer>();
                             buyerController.hoveringOver.SetHoverInfoActive(true);
 
-                            if (Input.GetButtonDown("Interact"))
+                            if (InteractWith())
                             {
                                 buyerController.hoveringOver.OpenBuyerPanel();
                             }
@@ -138,7 +150,7 @@ public class InputController : MonoBehaviour
                             break;
 
                         case "Dryer Pile":
-                            if (Input.GetButtonDown("Interact") && dryerController.clickActive)
+                            if (InteractWith() && dryerController.clickActive)
                             {
                                 dryerController.SetDryerPanelActive(true);
                                 dryerController.clickActive = false;
@@ -151,7 +163,7 @@ public class InputController : MonoBehaviour
                         case "Laptop":
                             if (laptopController.chickenInRange)
                             {
-                                if (Input.GetButtonDown("Interact") && laptopController.clickActive)
+                                if (InteractWith() && laptopController.clickActive)
                                 {
                                     laptopController.SetLaptopPanelActive(true);
                                     laptopController.clickActive = false;
@@ -178,7 +190,7 @@ public class InputController : MonoBehaviour
                                 planterController.selectedPlant.SetFullGrown();
                             }
 
-                            if (Input.GetButtonDown("Interact"))
+                            if (InteractWith())
                             {
                                 if (foundPlant.fullyGrown)
                                 {
@@ -222,19 +234,6 @@ public class InputController : MonoBehaviour
                                 }
                             }
 
-                            //if (planterController.planterOn && planterController.seeds != 0)
-                            //{
-                            //    if (planterController.selectedPlant != null)
-                            //    {
-                            //        if (Input.GetButtonDown("Interact") && !planterController.selectedPlant.selected)
-                            //        {
-                            //            planterController.selectedPlant.selected = true;
-                            //            planterController.SetNewPlantPanelActive(true);
-                            //            planterController.planterOn = false;
-                            //        }
-                            //    }
-                            //}
-
                             BuyerUnhover();
                             break;
 
@@ -259,6 +258,18 @@ public class InputController : MonoBehaviour
                 chickenController.SetNewDestination(hit.point);
             }
         }
+    }
+
+    public bool InteractWith()
+    {
+        bool clicked = false;
+
+        if (Input.GetButtonDown("Interact") && !fugitive)
+        {
+            clicked = true;
+        }
+
+        return clicked;
     }
 
     public void BuyerUnhover()
