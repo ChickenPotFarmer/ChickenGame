@@ -711,7 +711,7 @@ Transform:
   m_GameObject: {fileID: 789966633152222880}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children:
   - {fileID: 784118689811625434}
   - {fileID: 792381811401802580}
@@ -777,7 +777,9 @@ MonoBehaviour:
   stoppingDistance: 4
   enemyRadarDistance: 12
   panicMode: 0
+  beingChased: 0
   target: {fileID: 0}
+  panicPathOffset: {x: 0, y: 0, z: 0}
   piggysNearby: []
   closestPiggy: {fileID: 0}
 --- !u!114 &789966633152222909

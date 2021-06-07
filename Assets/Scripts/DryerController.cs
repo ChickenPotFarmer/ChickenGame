@@ -26,15 +26,15 @@ public class DryerController : MonoBehaviour
     private InventoryController inventoryController;
     private InventoryGUI inventoryGUI;
 
-    public static DryerController instance;
-    [HideInInspector]
-    public GameObject dryerController;
+    //public static DryerController instance;
+    //[HideInInspector]
+    //public GameObject dryerController;
 
-    private void Awake()
-    {
-        instance = this;
-        dryerController = gameObject;
-    }
+    //private void Awake()
+    //{
+    //    instance = this;
+    //    dryerController = gameObject;
+    //}
 
     private void Start()
     {

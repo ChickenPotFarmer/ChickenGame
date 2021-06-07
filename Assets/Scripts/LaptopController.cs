@@ -11,7 +11,6 @@ public class LaptopController : MonoBehaviour
 
     [Header("Setup")]
     public CanvasGroup laptopCg;
-    public GameObject laptop;
 
     private ChickenController chicken;
     private InventoryController inventoryController;
@@ -65,7 +64,7 @@ public class LaptopController : MonoBehaviour
     {
         do
         {
-            if (Vector3.Distance(laptop.transform.position, chicken.transform.position) < inRangeDist)
+            if (Vector3.Distance(transform.position, chicken.transform.position) < inRangeDist)
                 chickenInRange = true;
             else
                 chickenInRange = false;

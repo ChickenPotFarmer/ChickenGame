@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class InputController : MonoBehaviour
 {
     [Header("Status")]
+    public bool farmBuilderActive;
     public bool radialMenuOn;
     public bool fugitive;
 
@@ -36,8 +37,6 @@ public class InputController : MonoBehaviour
     {
         if (!buyerController)
             buyerController = BuyerController.instance.buyerContoller.GetComponent<BuyerController>();
-        if (!dryerController)
-            dryerController = DryerController.instance.dryerController.GetComponent<DryerController>();
         if (!laptopController)
             laptopController = LaptopController.instance.laptopController.GetComponent<LaptopController>();
         if (!planterController)
@@ -60,202 +59,206 @@ public class InputController : MonoBehaviour
 
     private void Update()
     {
-        // Keyboard Controls
-        if (Input.GetKeyDown(KeyCode.Tab))
-            inventoryGUI.ToggleInventoryPanel();
-
-        else if (Input.GetKeyDown(KeyCode.T))
-            toDoController.ToggleToDoPanel();
-
-        else if (Input.GetKeyDown("1"))
+        if (!farmBuilderActive)
         {
-            if (seedCannon.cannonOn)
-            {
-                seedCannon.ToggleCannon();
-            }
-            else
-            {
-                TurnOffAllTools();
-                seedCannon.ToggleCannon();
-            }
-        }
+            // Keyboard Controls
+            if (Input.GetKeyDown(KeyCode.Tab))
+                inventoryGUI.ToggleInventoryPanel();
 
-        else if (Input.GetKeyDown("2"))
-        {
-            if (trimmer.trimmerOn)
-            {
-                trimmer.ToggleTrimmer();
-            }
-            else
-            {
-                TurnOffAllTools();
-                trimmer.ToggleTrimmer();
-            }
-        }
+            else if (Input.GetKeyDown(KeyCode.T))
+                toDoController.ToggleToDoPanel();
 
-        else if (Input.GetKeyDown("3"))
-        {
-            if (wateringCan.waterCanOn)
+            else if (Input.GetKeyDown("1"))
             {
-                wateringCan.ToggleWaterCan();
-            }
-            else
-            {
-                TurnOffAllTools();
-                wateringCan.ToggleWaterCan();
-            }
-        }
-        else if (Input.GetKeyDown("r"))
-        {
-            radialMenuOn = true;
-            radialMenu.SetMenuActive(true);
-        }
-        else if (Input.GetKeyUp("r"))
-        {
-            radialMenuOn = false;
-            radialMenu.SetMenuActive(false);
-        }
-
-        if (!radialMenuOn)
-        { 
-        // Mouse Control
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit) && !EventSystem.current.IsPointerOverGameObject())
-            {
-                if (hit.collider != null)
+                if (seedCannon.cannonOn)
                 {
-                    string tagId = hit.collider.gameObject.tag;
-
-                    switch (tagId)
-                    {
-                        case "Planter Hub":
-                            if (InteractWith())
-                            {
-                                hit.collider.gameObject.GetComponentInParent<PlanterChickHub>().SetPanelActive(true);
-                            }
-                            break;
-
-                        case "Buyer":
-                            buyerController.hoveringOver = hit.collider.gameObject.GetComponentInParent<Buyer>();
-                            buyerController.hoveringOver.SetHoverInfoActive(true);
-
-                            if (InteractWith())
-                            {
-                                buyerController.hoveringOver.OpenBuyerPanel();
-                            }
-
-                            PlanterUnhover();
-                            break;
-
-                        case "Dryer Pile":
-                            if (InteractWith() && dryerController.clickActive)
-                            {
-                                dryerController.SetDryerPanelActive(true);
-                                dryerController.clickActive = false;
-                            }
-
-                            PlanterUnhover();
-                            BuyerUnhover();
-                            break;
-
-                        case "Laptop":
-                            if (laptopController.chickenInRange)
-                            {
-                                if (InteractWith() && laptopController.clickActive)
-                                {
-                                    laptopController.SetLaptopPanelActive(true);
-                                    laptopController.clickActive = false;
-                                }
-                            }
-                            PlanterUnhover();
-                            BuyerUnhover();
-                            break;
-
-                        case "Weed Plant":
-                            WeedPlant foundPlant = hit.collider.gameObject.GetComponent<WeedPlant>();
-
-                            // Handle unplanted weed plant
-                            if (!foundPlant.isPlanted && seedCannon.cannonOn)
-                            {
-                                if (planterController.selectedPlant != null)
-                                {
-                                    if (foundPlant != planterController.selectedPlant && !planterController.selectedPlant.isPlanted)
-                                    {
-                                        planterController.selectedPlant.SetNone();
-                                    }
-                                }
-                                planterController.selectedPlant = foundPlant;
-                                planterController.selectedPlant.SetFullGrown();
-                            }
-
-                            if (InteractWith())
-                            {
-                                if (foundPlant.fullyGrown)
-                                {
-                                    if (trimmer.TrimmerIsOn())
-                                    {
-                                        if (!foundPlant.trimmed)
-                                        {
-                                            trimmer.TargetForTrim(foundPlant);
-                                            chickenController.SetNewDestination(hit.point);
-                                        }
-                                        else if (!foundPlant.harvested)
-                                        {
-                                            foundPlant.TargetForHarvest();
-                                            chickenController.SetNewDestination(hit.point);
-                                        }
-                                        else if (foundPlant.harvested)
-                                        {
-                                            foundPlant.SetHarvestPanelActive(true);
-                                        }
-
-                                    }
-                                    else
-                                    {
-                                        if (foundPlant.harvested)
-                                            foundPlant.SetHarvestPanelActive(true);
-                                    }
-                                }
-                                else
-                                {
-                                    if (seedCannon.cannonOn && !foundPlant.hasSeed)
-                                    {
-                                        seedCannon.FireCannon(foundPlant.transform);
-                                    }
-
-                                    else if (wateringCan.waterCanOn && foundPlant.isPlanted)
-                                    {
-                                        wateringCan.TargetForWater(foundPlant);
-                                        chickenController.SetNewDestination(hit.point);
-
-                                    }
-                                }
-                            }
-
-                            BuyerUnhover();
-                            break;
-
-                        default:
-
-                            PlanterUnhover();
-                            BuyerUnhover();
-                            break;
-
-                    }
-
+                    seedCannon.ToggleCannon();
                 }
                 else
                 {
-                    PlanterUnhover();
-                    BuyerUnhover();
+                    TurnOffAllTools();
+                    seedCannon.ToggleCannon();
                 }
             }
 
-            if (Input.GetButtonDown("Navigate"))
+            else if (Input.GetKeyDown("2"))
             {
-                chickenController.SetNewDestination(hit.point);
+                if (trimmer.trimmerOn)
+                {
+                    trimmer.ToggleTrimmer();
+                }
+                else
+                {
+                    TurnOffAllTools();
+                    trimmer.ToggleTrimmer();
+                }
+            }
+
+            else if (Input.GetKeyDown("3"))
+            {
+                if (wateringCan.waterCanOn)
+                {
+                    wateringCan.ToggleWaterCan();
+                }
+                else
+                {
+                    TurnOffAllTools();
+                    wateringCan.ToggleWaterCan();
+                }
+            }
+            else if (Input.GetKeyDown("r"))
+            {
+                radialMenuOn = true;
+                radialMenu.SetMenuActive(true);
+            }
+            else if (Input.GetKeyUp("r"))
+            {
+                radialMenuOn = false;
+                radialMenu.SetMenuActive(false);
+            }
+
+            if (!radialMenuOn)
+            {
+                // Mouse Control
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+
+                if (Physics.Raycast(ray, out hit) && !EventSystem.current.IsPointerOverGameObject())
+                {
+                    if (hit.collider != null)
+                    {
+                        string tagId = hit.collider.gameObject.tag;
+
+                        switch (tagId)
+                        {
+                            case "Planter Hub":
+                                if (InteractWith())
+                                {
+                                    hit.collider.gameObject.GetComponentInParent<PlanterChickHub>().SetPanelActive(true);
+                                }
+                                break;
+
+                            case "Buyer":
+                                buyerController.hoveringOver = hit.collider.gameObject.GetComponentInParent<Buyer>();
+                                buyerController.hoveringOver.SetHoverInfoActive(true);
+
+                                if (InteractWith())
+                                {
+                                    buyerController.hoveringOver.OpenBuyerPanel();
+                                }
+
+                                PlanterUnhover();
+                                break;
+
+                            case "Dryer Pile":
+                                DryerController dryer = hit.collider.gameObject.GetComponent<DryerController>();
+                                if (InteractWith() && dryer.clickActive)
+                                {
+                                    dryer.SetDryerPanelActive(true);
+                                    dryer.clickActive = false;
+                                }
+
+                                PlanterUnhover();
+                                BuyerUnhover();
+                                break;
+
+                            case "Laptop":
+                                if (laptopController.chickenInRange)
+                                {
+                                    if (InteractWith() && laptopController.clickActive)
+                                    {
+                                        laptopController.SetLaptopPanelActive(true);
+                                        laptopController.clickActive = false;
+                                    }
+                                }
+                                PlanterUnhover();
+                                BuyerUnhover();
+                                break;
+
+                            case "Weed Plant":
+                                WeedPlant foundPlant = hit.collider.gameObject.GetComponent<WeedPlant>();
+
+                                // Handle unplanted weed plant
+                                if (!foundPlant.isPlanted && seedCannon.cannonOn)
+                                {
+                                    if (planterController.selectedPlant != null)
+                                    {
+                                        if (foundPlant != planterController.selectedPlant && !planterController.selectedPlant.isPlanted)
+                                        {
+                                            planterController.selectedPlant.SetNone();
+                                        }
+                                    }
+                                    planterController.selectedPlant = foundPlant;
+                                    planterController.selectedPlant.SetFullGrown();
+                                }
+
+                                if (InteractWith())
+                                {
+                                    if (foundPlant.fullyGrown)
+                                    {
+                                        if (trimmer.TrimmerIsOn())
+                                        {
+                                            if (!foundPlant.trimmed)
+                                            {
+                                                trimmer.TargetForTrim(foundPlant);
+                                                chickenController.SetNewDestination(hit.point);
+                                            }
+                                            else if (!foundPlant.harvested)
+                                            {
+                                                foundPlant.TargetForHarvest();
+                                                chickenController.SetNewDestination(hit.point);
+                                            }
+                                            else if (foundPlant.harvested)
+                                            {
+                                                foundPlant.SetHarvestPanelActive(true);
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            if (foundPlant.harvested)
+                                                foundPlant.SetHarvestPanelActive(true);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (seedCannon.cannonOn && !foundPlant.hasSeed)
+                                        {
+                                            seedCannon.FireCannon(foundPlant.transform);
+                                        }
+
+                                        else if (wateringCan.waterCanOn && foundPlant.isPlanted)
+                                        {
+                                            wateringCan.TargetForWater(foundPlant);
+                                            chickenController.SetNewDestination(hit.point);
+
+                                        }
+                                    }
+                                }
+
+                                BuyerUnhover();
+                                break;
+
+                            default:
+
+                                PlanterUnhover();
+                                BuyerUnhover();
+                                break;
+
+                        }
+
+                    }
+                    else
+                    {
+                        PlanterUnhover();
+                        BuyerUnhover();
+                    }
+                }
+
+                if (Input.GetButtonDown("Navigate"))
+                {
+                    chickenController.SetNewDestination(hit.point);
+                }
             }
         }
     }
