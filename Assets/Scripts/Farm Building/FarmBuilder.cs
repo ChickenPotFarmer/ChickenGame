@@ -11,11 +11,14 @@ public class FarmBuilder : MonoBehaviour
     [Header("Placeables")]
     public Vector3 targetLocation;
     public GameObject objectBeingPlaced;
+    private bool objectFlipped;
 
     private void Update()
     {
         if (farmBuilderActive)
         {
+
+
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
@@ -24,10 +27,34 @@ public class FarmBuilder : MonoBehaviour
                 if (hit.collider != null)
                 {
                     targetLocation = hit.point;
-                    targetLocation.x = Mathf.Round(targetLocation.x) + 0.5f;
-                    targetLocation.z = Mathf.Round(targetLocation.z) + 0.5f;
+                    targetLocation.x = Mathf.Round(targetLocation.x);
+                    targetLocation.z = Mathf.Round(targetLocation.z);
 
-                    objectBeingPlaced.transform.position = targetLocation;
+
+                    if (Input.GetKeyDown("r"))
+                    {
+                        var lookPos = targetLocation;
+                        lookPos.y = 0;
+                        var rotation = Quaternion.LookRotation(lookPos);
+
+                        if (!objectFlipped)
+                        {
+                            objectFlipped = true;
+                            rotation *= Quaternion.Euler(0, 90, 0); // this adds a 90 degrees Y rotation
+                        }
+                        else
+                        {
+                            objectFlipped = false;
+                            rotation *= Quaternion.Euler(0, -90, 0); // this adds a 90 degrees Y rotation
+                        }
+
+
+                        objectBeingPlaced.transform.rotation = Quaternion.RotateTowards(objectBeingPlaced.transform.rotation, rotation, 90);
+                        //objectBeingPlaced.transform.rotation = Quaternion.RotateTowards(objectBeingPlaced;
+
+                    }
+                    else
+                        objectBeingPlaced.transform.position = targetLocation;
 
                 }
                 else
