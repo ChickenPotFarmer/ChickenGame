@@ -7,18 +7,23 @@ public class FarmBuilder : MonoBehaviour
 {
     [Header("Status")]
     public bool farmBuilderActive;
+    public bool placementActive;
 
     [Header("Placeables")]
+    public GameObject[] placeables;
+
+    [Header("Placeable Setup")]
     public Vector3 targetLocation;
     public GameObject objectBeingPlaced;
     private bool objectFlipped;
 
     private void Update()
     {
-        if (farmBuilderActive)
+        if (Input.GetKeyDown("["))
+            SelectPlaceable(0);
+
+        if (placementActive && objectBeingPlaced != null)
         {
-
-
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
@@ -53,6 +58,15 @@ public class FarmBuilder : MonoBehaviour
                         //objectBeingPlaced.transform.rotation = Quaternion.RotateTowards(objectBeingPlaced;
 
                     }
+                    else if (Input.GetButtonDown("Interact"))
+                    {
+                        objectBeingPlaced.transform.position = targetLocation;
+                        objectBeingPlaced.GetComponentInChildren<Placeable>().PlaceObject();
+                        objectBeingPlaced = null;
+                        placementActive = false;
+
+                        //tell object its been placed
+                    }
                     else
                         objectBeingPlaced.transform.position = targetLocation;
 
@@ -63,5 +77,12 @@ public class FarmBuilder : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void SelectPlaceable(int _placeableInt)
+    {
+        placementActive = true;
+        GameObject newPlaceable = Instantiate(placeables[_placeableInt]);
+        objectBeingPlaced = newPlaceable;
     }
 }
