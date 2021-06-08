@@ -17,6 +17,14 @@ public class FarmBuilder : MonoBehaviour
     public GameObject objectBeingPlaced;
     private bool objectFlipped;
 
+    private InputController inputController;
+
+    private void Start()
+    {
+        if (!inputController)
+            inputController = InputController.instance.inputController.GetComponent<InputController>();
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown("["))
@@ -38,34 +46,36 @@ public class FarmBuilder : MonoBehaviour
 
                     if (Input.GetKeyDown("r"))
                     {
-                        var lookPos = targetLocation;
-                        lookPos.y = 0;
-                        var rotation = Quaternion.LookRotation(lookPos);
-
                         if (!objectFlipped)
                         {
                             objectFlipped = true;
-                            rotation *= Quaternion.Euler(0, 90, 0); // this adds a 90 degrees Y rotation
+                            objectBeingPlaced.transform.Rotate(new Vector3(0, 90, 0));
                         }
                         else
                         {
                             objectFlipped = false;
-                            rotation *= Quaternion.Euler(0, -90, 0); // this adds a 90 degrees Y rotation
+                            objectBeingPlaced.transform.Rotate(new Vector3(0, -90, 0));
+
                         }
-
-
-                        objectBeingPlaced.transform.rotation = Quaternion.RotateTowards(objectBeingPlaced.transform.rotation, rotation, 90);
-                        //objectBeingPlaced.transform.rotation = Quaternion.RotateTowards(objectBeingPlaced;
 
                     }
                     else if (Input.GetButtonDown("Interact"))
                     {
-                        objectBeingPlaced.transform.position = targetLocation;
-                        objectBeingPlaced.GetComponentInChildren<Placeable>().PlaceObject();
-                        objectBeingPlaced = null;
-                        placementActive = false;
+                        Placeable placeableComp = objectBeingPlaced.GetComponentInChildren<Placeable>();
 
-                        //tell object its been placed
+                        if (placeableComp.placementOk)
+                        {
+                            objectBeingPlaced.transform.position = targetLocation;
+                            placeableComp.PlaceObject();
+                            objectBeingPlaced = null;
+                            placementActive = false;
+                            inputController.farmBuilderActive = false;
+                        }
+                        else
+                        {
+                            //play sound
+                        }
+
                     }
                     else
                         objectBeingPlaced.transform.position = targetLocation;
@@ -73,7 +83,7 @@ public class FarmBuilder : MonoBehaviour
                 }
                 else
                 {
-
+                    
                 }
             }
         }

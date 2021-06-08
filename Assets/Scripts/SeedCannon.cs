@@ -127,7 +127,7 @@ public class SeedCannon : MonoBehaviour
         GameObject seedBag = seedSlot.GetItem();
         currentStrain.SetStrain(seedBag.GetComponent<StrainProfile>());
         seedBagItem = seedBag.GetComponent<InventoryItem>();
-
+        print("seed bag");
         seedBagItem.Lock(true);
 
 
