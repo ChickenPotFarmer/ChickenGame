@@ -7,6 +7,9 @@ public class Placeable : MonoBehaviour
     [Header("Things to activate")]
     public Transform activateObjectsParent;
     public List<GameObject> activateObjects;
+    public List<GameObject> objectLayersToSetDefault;
+    public StorageCrate storageCrate;
+    public bool setAllLayersDefault;
 
     [Header("Particle Effect")]
     public GameObject particleEffect;
@@ -22,14 +25,16 @@ public class Placeable : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!triggers.Contains(other))
+        if (other.gameObject.transform.parent != transform.parent)
         {
-            triggers.Add(other);
+            if (!triggers.Contains(other))
+            {
+                triggers.Add(other);
 
-            meshRenderer.material = nopeMat;
-            placementOk = false;
+                meshRenderer.material = nopeMat;
+                placementOk = false;
+            }
         }
-
     }
 
     private void OnTriggerExit(Collider other)
@@ -64,6 +69,9 @@ public class Placeable : MonoBehaviour
             activateObjects[i].SetActive(true);
         }
 
+        if (storageCrate)
+            storageCrate.PlaceCrate();
+
         if (particleEffect)
         {
             GameObject particles = Instantiate(particleEffect, transform.parent);
@@ -71,5 +79,14 @@ public class Placeable : MonoBehaviour
             particles.transform.position = transform.parent.position;
         }
 
+        if (setAllLayersDefault)
+        {
+            transform.parent.gameObject.layer = 0;
+
+            for (int i = 0; i < objectLayersToSetDefault.Count; i++)
+            {
+                objectLayersToSetDefault[i].layer = 0;
+            }
+        }
     }
 }

@@ -127,7 +127,14 @@ public class InputController : MonoBehaviour
                 {
                     if (hit.collider != null)
                     {
-                        string tagId = hit.collider.gameObject.tag;
+                        string tagId;
+
+                        if (hit.collider.CompareTag("Placeable"))
+                            tagId = hit.collider.transform.parent.tag;
+                        else
+                            tagId = hit.collider.gameObject.tag;
+
+                        print(tagId);
 
                         switch (tagId)
                         {
@@ -238,6 +245,21 @@ public class InputController : MonoBehaviour
 
                                 BuyerUnhover();
                                 break;
+
+                            case "Storage Container":
+                                StorageCrate crate = hit.collider.GetComponentInParent<StorageCrate>();
+
+                                if (crate && InteractWith())
+                                {
+                                    if (crate.placed)
+                                    {
+                                        crate.OpenCrate(true);
+                                        print("opened");
+                                    }
+                                }
+
+                                break;
+
 
                             default:
 
