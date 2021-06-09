@@ -13,6 +13,7 @@ public class Placeable : MonoBehaviour
 
     [Header("Status")]
     public bool placementOk = true;
+    public List<Collider> triggers;
 
     [Header("Materials")]
     public MeshRenderer meshRenderer;
@@ -21,15 +22,29 @@ public class Placeable : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        meshRenderer.material = nopeMat;
-        placementOk = false;
+        if (!triggers.Contains(other))
+        {
+            triggers.Add(other);
+
+            meshRenderer.material = nopeMat;
+            placementOk = false;
+        }
 
     }
 
     private void OnTriggerExit(Collider other)
     {
-        meshRenderer.material = okMat;
-        placementOk = true;
+        if (triggers.Contains(other))
+        {
+            triggers.Remove(other);
+        }
+
+        if (triggers.Count == 0)
+        {
+            meshRenderer.material = okMat;
+            placementOk = true;
+        }
+
     }
 
     public void PlaceObject()

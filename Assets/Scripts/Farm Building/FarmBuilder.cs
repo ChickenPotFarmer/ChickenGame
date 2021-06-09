@@ -7,7 +7,6 @@ public class FarmBuilder : MonoBehaviour
 {
     [Header("Status")]
     public bool farmBuilderActive;
-    public bool placementActive;
 
     [Header("Placeables")]
     public GameObject[] placeables;
@@ -18,11 +17,15 @@ public class FarmBuilder : MonoBehaviour
     private bool objectFlipped;
 
     private InputController inputController;
+    private PlaceableArea placeableArea;
 
     private void Start()
     {
         if (!inputController)
             inputController = InputController.instance.inputController.GetComponent<InputController>();
+
+        if (!placeableArea)
+            placeableArea = PlaceableArea.instance.placeableArea.GetComponent<PlaceableArea>();
     }
 
     private void Update()
@@ -32,7 +35,7 @@ public class FarmBuilder : MonoBehaviour
         else if (Input.GetKeyDown("]"))
             SelectPlaceable(1);
 
-        if (placementActive && objectBeingPlaced != null)
+        if (farmBuilderActive && objectBeingPlaced != null)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -41,51 +44,54 @@ public class FarmBuilder : MonoBehaviour
             {
                 if (hit.collider != null)
                 {
-                    targetLocation = hit.point;
-                    targetLocation.x = Mathf.Round(targetLocation.x);
-                    targetLocation.z = Mathf.Round(targetLocation.z);
-
-
-                    if (Input.GetKeyDown("r"))
+                    if (hit.collider.CompareTag("Placeable Area"))
                     {
-                        if (!objectFlipped)
+                        targetLocation = hit.point;
+                        targetLocation.x = Mathf.Round(targetLocation.x);
+                        targetLocation.z = Mathf.Round(targetLocation.z);
+
+
+                        if (Input.GetKeyDown("r"))
                         {
-                            objectFlipped = true;
-                            objectBeingPlaced.transform.Rotate(new Vector3(0, 90, 0));
+                            if (!objectFlipped)
+                            {
+                                objectFlipped = true;
+                                objectBeingPlaced.transform.Rotate(new Vector3(0, 90, 0));
+                            }
+                            else
+                            {
+                                objectFlipped = false;
+                                objectBeingPlaced.transform.Rotate(new Vector3(0, -90, 0));
+
+                            }
+
+                        }
+                        else if (Input.GetButtonDown("Interact"))
+                        {
+                            Placeable placeableComp = objectBeingPlaced.GetComponentInChildren<Placeable>();
+
+                            if (placeableComp.placementOk)
+                            {
+                                objectBeingPlaced.transform.position = targetLocation;
+                                placeableComp.PlaceObject();
+                                objectBeingPlaced = null;
+                                ToggleFarmBuilder(false);
+                                inputController.farmBuilderActive = false;
+                            }
+                            else
+                            {
+                                //play sound
+                            }
+
                         }
                         else
-                        {
-                            objectFlipped = false;
-                            objectBeingPlaced.transform.Rotate(new Vector3(0, -90, 0));
-
-                        }
-
-                    }
-                    else if (Input.GetButtonDown("Interact"))
-                    {
-                        Placeable placeableComp = objectBeingPlaced.GetComponentInChildren<Placeable>();
-
-                        if (placeableComp.placementOk)
-                        {
                             objectBeingPlaced.transform.position = targetLocation;
-                            placeableComp.PlaceObject();
-                            objectBeingPlaced = null;
-                            placementActive = false;
-                            inputController.farmBuilderActive = false;
-                        }
-                        else
-                        {
-                            //play sound
-                        }
 
                     }
                     else
-                        objectBeingPlaced.transform.position = targetLocation;
-
-                }
-                else
-                {
-                    
+                    {
+                        print("nope");
+                    }
                 }
             }
         }
@@ -93,8 +99,22 @@ public class FarmBuilder : MonoBehaviour
 
     public void SelectPlaceable(int _placeableInt)
     {
-        placementActive = true;
+        ToggleFarmBuilder(true);
         GameObject newPlaceable = Instantiate(placeables[_placeableInt]);
         objectBeingPlaced = newPlaceable;
+    }
+
+    public void ToggleFarmBuilder(bool _active)
+    {
+        if (_active)
+        {
+            farmBuilderActive = true;
+            placeableArea.ToggleArea(true);
+        }
+        else
+        {
+            farmBuilderActive = false;
+            placeableArea.ToggleArea(false);
+        }
     }
 }
