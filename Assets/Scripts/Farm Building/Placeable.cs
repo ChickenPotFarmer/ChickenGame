@@ -6,7 +6,10 @@ public class Placeable : MonoBehaviour
 {
     [Header("Things to activate")]
     public Transform activateObjectsParent;
-    public List<GameObject> activeObjects;
+    public List<GameObject> activateObjects;
+
+    [Header("Particle Effect")]
+    public GameObject particleEffect;
 
     [Header("Status")]
     public bool placementOk = true;
@@ -37,13 +40,21 @@ public class Placeable : MonoBehaviour
         {
             for (int i = 0; i < activateObjectsParent.childCount; i++)
             {
-                activeObjects.Add(activateObjectsParent.GetChild(i).gameObject);
+                activateObjects.Add(activateObjectsParent.GetChild(i).gameObject);
             }
         }
 
-        for (int i = 0; i < activeObjects.Count; i++)
+        for (int i = 0; i < activateObjects.Count; i++)
         {
-            activeObjects[i].SetActive(true);
+            activateObjects[i].SetActive(true);
         }
+
+        if (particleEffect)
+        {
+            GameObject particles = Instantiate(particleEffect, transform.parent);
+            Vector3 pos = new Vector3(0, 0, 0);
+            particles.transform.position = transform.parent.position;
+        }
+
     }
 }
