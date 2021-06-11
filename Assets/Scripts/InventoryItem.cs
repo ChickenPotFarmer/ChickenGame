@@ -17,6 +17,7 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
     [Header("Drag Info")]
     public Transform previousParent;
     public Transform targetParent;
+    public Transform currentParent;
 
     [Header("UI Text")]
     public Text uiName;
@@ -58,6 +59,15 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
         inventoryCanvas = inventoryGUI.inventoryCanvas;
         SetItemName();
         UpdateTextUI();
+        IntializeItem();
+    }
+
+    private void IntializeItem()
+    {
+        if (currentParent != null)
+            SetNewParent(currentParent);
+        else
+            UpdateCurrentParent();
     }
 
     public void OnBeginDrag(PointerEventData _EventData)
@@ -115,9 +125,14 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
                 ReturnToPreviousParent();
             }
         }
-
+        UpdateCurrentParent();
         inventoryController.UpdateDecoChicks();
 
+    }
+
+    public void UpdateCurrentParent()
+    {
+        currentParent = transform.parent;
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -174,6 +189,14 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
         rectTransform.anchoredPosition = new Vector2(0, 0);
     }
 
+    public void SetNewParent(Transform _parent)
+    {
+        targetParent = _parent;
+        rectTransform.SetParent(_parent, false);
+        rectTransform.anchoredPosition = new Vector2(0, 0);
+        UpdateCurrentParent();
+    }
+
     public void Lock(bool _locked)
     {
         if (_locked)
@@ -188,6 +211,7 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
             cg.blocksRaycasts = true;
             cg.alpha = 1f;
         }
+
     }
 
     public bool AddAmount(float _amt)

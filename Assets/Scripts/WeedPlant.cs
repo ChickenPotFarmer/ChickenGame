@@ -44,6 +44,8 @@ public class WeedPlant : MonoBehaviour
     public GameObject plantedFx;
 
     [Header("Stages")]
+    public int secsGrowing;
+    public int currentStage;
     public GameObject seedling;
     public GameObject sapling;
     public GameObject almostGrown;
@@ -78,6 +80,26 @@ public class WeedPlant : MonoBehaviour
 
         waterParticles.Stop();
 
+        IntializePlant();
+
+    }
+
+    public void IntializePlant()
+    {
+        SetStage(currentStage);
+
+        if (isPlanted)
+        {
+            SetGrowthBarActive(true);
+            SetWaterLevelBar(waterLevel);
+
+            if (!fullyGrown)
+            {
+                StartCoroutine(GrowRoutine());
+                StartCoroutine(GrowthBarUpdate());
+                StartCoroutine(WaterReductionRoutine());
+            }
+        }
     }
 
 
@@ -97,9 +119,11 @@ public class WeedPlant : MonoBehaviour
 
     public void Plant()
     {
+        secsGrowing = 0;
         harvested = false;
         trimmed = false;
         targettedForSeeding = false;
+        isPlanted = true;
         waterLevel = startingWaterLevel;
         SetWaterLevelBar(waterLevel);
         StartCoroutine(GrowRoutine());
@@ -164,6 +188,8 @@ public class WeedPlant : MonoBehaviour
 
     public void SetTrimmed()
     {
+        currentStage = 5;
+
         seedling.SetActive(false);
         sapling.SetActive(false);
         almostGrown.SetActive(false);
@@ -173,6 +199,8 @@ public class WeedPlant : MonoBehaviour
 
     public void SetFullGrown()
     {
+        currentStage = 4;
+
         seedling.SetActive(false);
         sapling.SetActive(false);
         almostGrown.SetActive(false);
@@ -183,6 +211,7 @@ public class WeedPlant : MonoBehaviour
 
     public void SetSeedling()
     {
+        currentStage = 1;
         seedling.SetActive(true);
         sapling.SetActive(false);
         fullGrown.SetActive(false);
@@ -194,6 +223,8 @@ public class WeedPlant : MonoBehaviour
 
     public void SetSapling()
     {
+        currentStage = 2;
+
         seedling.SetActive(false);
         sapling.SetActive(true);
         fullGrown.SetActive(false);
@@ -204,6 +235,8 @@ public class WeedPlant : MonoBehaviour
 
     public void SetAlmostDone()
     {
+        currentStage = 3;
+
         seedling.SetActive(false);
         sapling.SetActive(false);
         fullGrown.SetActive(false);
@@ -214,11 +247,43 @@ public class WeedPlant : MonoBehaviour
 
     public void SetNone()
     {
+        currentStage = 0;
+
         seedling.SetActive(false);
         sapling.SetActive(false);
         fullGrown.SetActive(false);
         fullGrownClipped.SetActive(false);
         SetGrowthBarActive(false);
+    }
+
+    private void SetStage(int _stage)
+    {
+        switch (currentStage)
+        {
+            case 0:
+                SetNone();
+                break;
+
+            case 1:
+                SetSeedling();
+                break;
+
+            case 2:
+                SetSapling();
+                break;
+
+            case 3:
+                SetAlmostDone();
+                break;
+
+            case 4:
+                SetFullGrown();
+                break;
+
+            case 5:
+                SetTrimmed();
+                break;
+        }
     }
 
     public void SetGrowthBarActive(bool _active)
@@ -255,13 +320,23 @@ public class WeedPlant : MonoBehaviour
 
     public IEnumerator GrowRoutine()
     {
-        isPlanted = true;
-        SetSeedling();
-        yield return new WaitForSeconds(growTime / 3);
-        SetSapling();
-        yield return new WaitForSeconds(growTime / 3);
-        SetAlmostDone();
-        yield return new WaitForSeconds(growTime / 3);
+        // start with growthTime set to 0, set that with method, not this routine
+        // add one for each second, check to see if it needs to update
+        float stageTime = growTime / 3;
+        do
+        {
+            yield return new WaitForSeconds(1);
+            secsGrowing++;
+
+            if (secsGrowing < stageTime)
+                SetSeedling();
+            else if (secsGrowing >= stageTime && secsGrowing < (stageTime * 2))
+                SetSapling();
+            else if (secsGrowing >= (stageTime * 2) && secsGrowing < growTime)
+                SetAlmostDone();
+
+        } while (secsGrowing < growTime);
+
         SetFullGrown();
         fullyGrown = true;
     }

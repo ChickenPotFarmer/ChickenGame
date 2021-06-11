@@ -102,6 +102,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 174903308349955706}
+  - component: {fileID: 6453665487595184863}
+  - component: {fileID: -8775880771385877646}
   m_Layer: 0
   m_Name: Starter Farm House
   m_TagString: Untagged
@@ -126,6 +128,62 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6453665487595184863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 174903308349955707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baff8732cd3074ef88b34f9cc487846d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabId: 923642309205270109
+  localRefs:
+    _Keys:
+    - {fileID: 174903308349955707}
+    - {fileID: 174903308349955706}
+    - {fileID: 6453665487595184863}
+    - {fileID: 174903307453930588}
+    - {fileID: 174903307453759612}
+    - {fileID: 174903307455086684}
+    - {fileID: 4300000, guid: 4869efe123b38e04bb3e2228d65653d1, type: 3}
+    - {fileID: 174903307456184988}
+    - {fileID: 2100000, guid: 04af6b6032008134e857eb11b6e96dcb, type: 2}
+    - {fileID: 2225549794192388348}
+    - {fileID: 2225549794192388351}
+    - {fileID: 2225549794192388345}
+    - {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+    - {fileID: 2225549794192388350}
+    - {fileID: 2100000, guid: a0b754660396aae4c926b8c5724a9325, type: 2}
+    - {fileID: 2225549794192388344}
+    - {fileID: 2225549794192388347}
+    - {fileID: 11500000, guid: 247fa22d05289024bb8a07753c2a7502, type: 3}
+    - {fileID: 2225549794192388346}
+    - {fileID: 1434416251}
+    - {fileID: 1434416252}
+    - {fileID: 1434416255}
+    - {fileID: 1434416254}
+    - {fileID: 2100000, guid: 30996c54e362ba340b63e0c756408621, type: 2}
+    - {fileID: 1434416253}
+    _Values: d0e83abeb4c8871ad99e8929a3dd784990b02681c085515dcbd66f1464e6436a0cc217cb89fd4e69e7d85f4a48b1273a16fceb7a9653cd563997898a389c7f0da5e0e11f3953406d63bd6998e59ca57bffaa2b61d2bd005e6f92fade79265d4ba8ad5a9830f7fe3c448223ac4299c3293d0489e3c8e1e062e040afa65961f4771cb5f137410d4b075310e2af65ace4095624a0749d7a82777142878f585a6a5a89646e725774174b50908fb7ff30fd335ba65035c180da6a3868a98395da5f065a78d9ffc18d4d1d
+--- !u!114 &-8775880771385877646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 174903308349955707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cfcc9ceea0bf419cb3bcaf548c2600d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saveChildren: 0
+  componentsToSave:
+  - {fileID: 174903308349955706}
 --- !u!1 &2225549794192388348
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,6 +198,7 @@ GameObject:
   - component: {fileID: 2225549794192388344}
   - component: {fileID: 2225549794192388347}
   - component: {fileID: 2225549794192388346}
+  - component: {fileID: -8517165496223591687}
   m_Layer: 2
   m_Name: Boundaries Trigger
   m_TagString: Placeable
@@ -235,9 +294,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activateObjectsParent: {fileID: 0}
   activateObjects: []
+  objectLayersToSetDefault: []
+  storageCrate: {fileID: 0}
+  setAllLayersDefault: 0
   particleEffect: {fileID: 179612864212856011, guid: ce3376073d87e824c85c1a16a8ede35c,
     type: 3}
   placementOk: 1
+  triggers: []
   meshRenderer: {fileID: 2225549794192388350}
   okMat: {fileID: 2100000, guid: a0b754660396aae4c926b8c5724a9325, type: 2}
   nopeMat: {fileID: 2100000, guid: b81b99c1f4c0eb64594b544df4c3aa47, type: 2}
@@ -257,6 +320,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &-8517165496223591687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2225549794192388348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cfcc9ceea0bf419cb3bcaf548c2600d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saveChildren: 0
+  componentsToSave:
+  - {fileID: 2225549794192388347}
+  - {fileID: 2225549794192388350}
 --- !u!1001 &174903307453897468
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -322,9 +401,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca6558dbd03876b42a762459119765c3, type: 3}
+--- !u!1 &174903307453930588 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: ca6558dbd03876b42a762459119765c3,
+    type: 3}
+  m_PrefabInstance: {fileID: 174903307453897468}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &174903307453759612 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: ca6558dbd03876b42a762459119765c3,
+    type: 3}
+  m_PrefabInstance: {fileID: 174903307453897468}
+  m_PrefabAsset: {fileID: 0}
+--- !u!33 &174903307455086684 stripped
+MeshFilter:
+  m_CorrespondingSourceObject: {fileID: 3300000, guid: ca6558dbd03876b42a762459119765c3,
+    type: 3}
+  m_PrefabInstance: {fileID: 174903307453897468}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &174903307456184988 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2300000, guid: ca6558dbd03876b42a762459119765c3,
     type: 3}
   m_PrefabInstance: {fileID: 174903307453897468}
   m_PrefabAsset: {fileID: 0}

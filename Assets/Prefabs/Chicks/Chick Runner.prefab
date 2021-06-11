@@ -695,6 +695,8 @@ GameObject:
   - component: {fileID: 789966633152222883}
   - component: {fileID: 789966633152222882}
   - component: {fileID: 789966633152222909}
+  - component: {fileID: 4990278303297394347}
+  - component: {fileID: -1463783572743748683}
   m_Layer: 0
   m_Name: Chick Runner
   m_TagString: Untagged
@@ -806,6 +808,97 @@ MonoBehaviour:
   seedPrefab: {fileID: 1947216925010022, guid: 7482e26d21c702344ac7795f06772f1c, type: 3}
   trimmingsPrefab: {fileID: 3397053557807273972, guid: c3381b75812652c49b6bbcd0e7470b62,
     type: 3}
+--- !u!114 &4990278303297394347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789966633152222880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baff8732cd3074ef88b34f9cc487846d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabId: 6524434446339219444
+  localRefs:
+    _Keys:
+    - {fileID: 789966633152222880}
+    - {fileID: 792490491179386432}
+    - {fileID: 838941359626345718}
+    - {fileID: 789966633152222883}
+    - {fileID: 789966633152222882}
+    - {fileID: 11500000, guid: 134781805f8cf1945822da8ff6c361f1, type: 3}
+    - {fileID: 789966633152222909}
+    - {fileID: 11500000, guid: 090f01f94f5fd1649b12c78778a74371, type: 3}
+    - {fileID: 4990278303297394347}
+    - {fileID: 790331905286459780}
+    - {fileID: 784118689811625434}
+    - {fileID: 789440005717002210}
+    - {fileID: 792381811401802580}
+    - {fileID: 789686003671924218}
+    - {fileID: 783826892742842782}
+    - {fileID: 789419377605392960}
+    - {fileID: 792160352739211560}
+    - {fileID: 789939018140435832}
+    - {fileID: 784106069165324770}
+    - {fileID: 789865102706388922}
+    - {fileID: 784183897550278880}
+    - {fileID: 790061053933436034}
+    - {fileID: 792139033314211884}
+    - {fileID: 789398659577065300}
+    - {fileID: 783805484460528134}
+    - {fileID: 789371333273371878}
+    - {fileID: 792521244093792772}
+    - {fileID: 790318658029287368}
+    - {fileID: 784077824908153170}
+    - {fileID: 789560773162327208}
+    - {fileID: 784088529365989486}
+    - {fileID: 789538944951973518}
+    - {fileID: 784049300965248968}
+    - {fileID: 789807776316915686}
+    - {fileID: 783654147195465058}
+    - {fileID: 789820586417241312}
+    - {fileID: 792341700299896592}
+    - {fileID: 789011573223617726}
+    - {fileID: 783667703573221526}
+    - {fileID: 789664708161540518}
+    - {fileID: 792238319240807152}
+    - {fileID: 789616107636818986}
+    - {fileID: 783702354071874628}
+    - {fileID: 788343076029177035}
+    - {fileID: 788343076029177034}
+    - {fileID: 788343075333010093}
+    - {fileID: 788343075333010092}
+    - {fileID: 788343076125227085}
+    - {fileID: 788343076125227084}
+    - {fileID: 788343076565907519}
+    - {fileID: 788343076565907518}
+    - {fileID: 789339382638827620}
+    - {fileID: 783741907433626642}
+    - {fileID: 789688238487831126}
+    - {fileID: 792531716129841250}
+    - {fileID: 799355672688652984}
+    - {fileID: 4300000, guid: e305663a1d36e9c469b164b3b8094239, type: 3}
+    - {fileID: 2100000, guid: 97c0b6c1a6ec7734c93742ce798b8718, type: 2}
+    _Values: 0edefe01ff09183b8c8ad7a9cd140f47f5f25c0142ca450b845cc5218bf09216f7725846bf372b23ffe1d034742f87200f17a89c1689184498f3845cce3ac77c1ded9f3f6c56072de380ffdc65858054d6a431a3992f2c7f8c9cdeb2bb87f239a94d5262cec78c46107b7e9688f5aa1d73d831736b6a164ce6e035f6cb46175b8fc63318331d850ee8154cea513cf77f47fc2694b865a4139c6182116e6984566e26dab0d73daf6ea2c074a9e1d40521d8b4afce1f82a228dee04b6b5f68837e7009a888e957a908b2480c080e04ce7067a4e9221852761484b28fb7891acd0abb0cc627d382c77f0ca680688eab372611db03bb7e60653d80bc0436c8f17f33eae9b2fec159631bdc692ebfd3dea3278596369ae176775a5977586f7801b719d8b2805a07c69b6ac1e020eacd59965e612cbc5e28191560610da54900f4a222dfb719dfa2b6e041fbcb5bc297612700e2fa0e4c4558f10dc8e1ba156ce56b33c101f3eabf494456b385a50c8a27083dca5997fa1aaa227a3af4587c8e0a5116a0d7fe6a91c2be2a406400cafefe985fd97d4a124d70181621874f340f383856cd70549dd98d307218c2397fabed793874485cee40c03610f114490972891b06d355017256057a6652420574c966940d
+--- !u!114 &-1463783572743748683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789966633152222880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cfcc9ceea0bf419cb3bcaf548c2600d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saveChildren: 0
+  componentsToSave:
+  - {fileID: 792490491179386432}
+  - {fileID: 789966633152222882}
+  - {fileID: 789966633152222909}
 --- !u!1 &790061053933436034
 GameObject:
   m_ObjectHideFlags: 0

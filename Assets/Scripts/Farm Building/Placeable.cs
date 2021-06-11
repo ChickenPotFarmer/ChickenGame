@@ -15,6 +15,7 @@ public class Placeable : MonoBehaviour
     public GameObject particleEffect;
 
     [Header("Status")]
+    public bool placed;
     public bool placementOk = true;
     public List<Collider> triggers;
 
@@ -22,6 +23,49 @@ public class Placeable : MonoBehaviour
     public MeshRenderer meshRenderer;
     public Material okMat;
     public Material nopeMat;
+
+    private void Start()
+    {
+        if (placed)
+        {
+            meshRenderer.enabled = false;
+            placed = true;
+
+            if (activateObjectsParent != null)
+            {
+                for (int i = 0; i < activateObjectsParent.childCount; i++)
+                {
+                    if (!activateObjects.Contains(activateObjectsParent.GetChild(i).gameObject))
+                        activateObjects.Add(activateObjectsParent.GetChild(i).gameObject);
+                }
+            }
+
+            for (int i = 0; i < activateObjects.Count; i++)
+            {
+                activateObjects[i].SetActive(true);
+            }
+
+            if (storageCrate)
+                storageCrate.PlaceCrate();
+
+            //if (particleEffect)
+            //{
+            //    GameObject particles = Instantiate(particleEffect, transform.parent);
+            //    Vector3 pos = new Vector3(0, 0, 0);
+            //    particles.transform.position = transform.parent.position;
+            //}
+
+            if (setAllLayersDefault)
+            {
+                transform.parent.gameObject.layer = 0;
+
+                for (int i = 0; i < objectLayersToSetDefault.Count; i++)
+                {
+                    objectLayersToSetDefault[i].layer = 0;
+                }
+            }
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -55,12 +99,15 @@ public class Placeable : MonoBehaviour
     public void PlaceObject()
     {
         meshRenderer.enabled = false;
+        placed = true;
 
         if (activateObjectsParent != null)
         {
+            
             for (int i = 0; i < activateObjectsParent.childCount; i++)
             {
-                activateObjects.Add(activateObjectsParent.GetChild(i).gameObject);
+                if (!activateObjects.Contains(activateObjectsParent.GetChild(i).gameObject))
+                    activateObjects.Add(activateObjectsParent.GetChild(i).gameObject);
             }
         }
 

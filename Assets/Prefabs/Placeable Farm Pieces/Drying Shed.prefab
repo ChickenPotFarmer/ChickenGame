@@ -1434,41 +1434,6 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 1.1910001, z: -4.9100003}
   m_TimeToStationary: 0.5
---- !u!225 &1250674672353953921
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3723796708741547462}
-  m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
---- !u!114 &1250674672353953926
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2272172286223467085}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be42dcde932d07646be169eb4010be16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dryTime: 5
-  clickActive: 1
-  chickenInRange: 0
-  btnsToDisable: []
-  dryBarWorld: {fileID: 1188265750744710236}
-  dryBarUI: {fileID: 1250674671071181089}
-  dryBarCg: {fileID: 1250674672353953921}
-  dryerPanel: {fileID: 1250674671209786174}
-  slotsParent: {fileID: 1250674670724515936}
-  slots: []
-  dryerController: {fileID: 0}
 --- !u!1 &1250674672373113588
 GameObject:
   m_ObjectHideFlags: 0
@@ -1599,6 +1564,40 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1250674672353953926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2272172286223467085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be42dcde932d07646be169eb4010be16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dryTime: 5
+  clickActive: 1
+  chickenInRange: 0
+  btnsToDisable: []
+  dryBarWorld: {fileID: 1188265750744710236}
+  dryBarUI: {fileID: 1250674671071181089}
+  dryBarCg: {fileID: 1250674672353953921}
+  dryerPanel: {fileID: 1250674671209786174}
+  slotsParent: {fileID: 1250674670724515936}
+  slots: []
+--- !u!225 &1250674672353953921
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3723796708741547462}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1001 &1250674670552578698
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1606,6 +1605,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1250674670724515936}
     m_Modifications:
+    - target: {fileID: 1195836354513555406, guid: d34a54be90712da43b5425db07714352,
+        type: 3}
+      propertyPath: localRefs._Values.Array.data[4]
+      value: 119806386074791723
+      objectReference: {fileID: 0}
+    - target: {fileID: 1195836354513555406, guid: d34a54be90712da43b5425db07714352,
+        type: 3}
+      propertyPath: localRefs._Keys.Array.data[4]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8243952756387746897, guid: d34a54be90712da43b5425db07714352,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1741,6 +1750,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1250674670724515936}
     m_Modifications:
+    - target: {fileID: 1195836354513555406, guid: d34a54be90712da43b5425db07714352,
+        type: 3}
+      propertyPath: localRefs._Values.Array.data[4]
+      value: 6247810692866083224
+      objectReference: {fileID: 0}
+    - target: {fileID: 1195836354513555406, guid: d34a54be90712da43b5425db07714352,
+        type: 3}
+      propertyPath: localRefs._Keys.Array.data[4]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8243952756387746897, guid: d34a54be90712da43b5425db07714352,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1876,6 +1895,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1250674670724515936}
     m_Modifications:
+    - target: {fileID: 1195836354513555406, guid: d34a54be90712da43b5425db07714352,
+        type: 3}
+      propertyPath: localRefs._Values.Array.data[4]
+      value: 5417813774990634029
+      objectReference: {fileID: 0}
+    - target: {fileID: 1195836354513555406, guid: d34a54be90712da43b5425db07714352,
+        type: 3}
+      propertyPath: localRefs._Keys.Array.data[4]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8243952756387746897, guid: d34a54be90712da43b5425db07714352,
         type: 3}
       propertyPath: m_LocalPosition.x

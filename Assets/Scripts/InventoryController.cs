@@ -226,6 +226,13 @@ public class InventoryController : MonoBehaviour
             }
 
         }
+
+        if (_item)
+            _item.UpdateCurrentParent();
+
+        if (remainderItem)
+            remainderItem.UpdateCurrentParent();
+
         UpdateDecoChicks();
         return remainderItem;
     }

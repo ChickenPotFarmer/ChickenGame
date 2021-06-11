@@ -12,8 +12,10 @@ GameObject:
   - component: {fileID: 8243952756387747247}
   - component: {fileID: 8243952756387746896}
   - component: {fileID: 8243952756387747246}
+  - component: {fileID: 1195836354513555406}
+  - component: {fileID: 7048931255067655898}
   m_Layer: 5
-  m_Name: Slot (4)
+  m_Name: Slot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -87,3 +89,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f513d23cebf00646988921341b2ab00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seedCannon: {fileID: 0}
+  planterChickHub: {fileID: 0}
+  slotFull: 0
+  lockOnDrop: 0
+  isBuyerSlot: 0
+  acceptsAll: 0
+  acceptsNone: 0
+  tagsAccepted: []
+--- !u!114 &1195836354513555406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8243952756387746898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baff8732cd3074ef88b34f9cc487846d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabId: 934716210281893768
+  localRefs:
+    _Keys:
+    - {fileID: 8243952756387746898}
+    - {fileID: 8243952756387746897}
+    - {fileID: 8243952756387747247}
+    - {fileID: 8243952756387746896}
+    - {fileID: 0}
+    - {fileID: 10906, guid: 0000000000000000f000000000000000, type: 0}
+    - {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+    - {fileID: 8243952756387747246}
+    - {fileID: 11500000, guid: 1f513d23cebf00646988921341b2ab00, type: 3}
+    - {fileID: 1195836354513555406}
+    _Values: b4883de6025b4455428e827bebb27c0c0458a8b45d613f564912e8e2e0d8c379075ccfac24d9fd47c3f6e0ed5002133a4bb2e3c870ad6916386c63108d9d8a19ae03e3c370b58c01215688acbed25947
+--- !u!114 &7048931255067655898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8243952756387746898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cfcc9ceea0bf419cb3bcaf548c2600d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saveChildren: 0
+  componentsToSave:
+  - {fileID: 8243952756387747246}

@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 6748892446318406578}
   - component: {fileID: 6748892446318406577}
   - component: {fileID: 6748892446318406576}
+  - component: {fileID: -6170675432140110345}
+  - component: {fileID: -7350581188083183534}
   m_Layer: 0
   m_Name: Timmings Pile
   m_TagString: Untagged
@@ -104,6 +106,66 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.4
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-6170675432140110345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6748892446318406581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baff8732cd3074ef88b34f9cc487846d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabId: 5496565247862537614
+  localRefs:
+    _Keys:
+    - {fileID: 6748892446318406581}
+    - {fileID: 6748892446318406582}
+    - {fileID: 6748892446318406583}
+    - {fileID: 6748892446318406578}
+    - {fileID: 6748892446318406577}
+    - {fileID: 11500000, guid: b542b35fdfeee0d4d8c72dcefcce8d2f, type: 3}
+    - {fileID: 6748892446318406576}
+    - {fileID: -6170675432140110345}
+    - {fileID: 6748892446501913594}
+    - {fileID: 6748892446501913595}
+    - {fileID: 6748892446501913590}
+    - {fileID: 4300000, guid: 0a2b60bf1f57eba4d8ad3bd4ce5d40d2, type: 3}
+    - {fileID: 6748892446501913589}
+    - {fileID: 2100000, guid: 79c2511799a05394eacdeda576d89295, type: 2}
+    - {fileID: 6748892446517730271}
+    - {fileID: 6748892446517730264}
+    - {fileID: 6748892446517730267}
+    - {fileID: 6748892446517730266}
+    - {fileID: 6748892446946698768}
+    - {fileID: 6748892446946698769}
+    - {fileID: 6748892446946698764}
+    - {fileID: 6748892446946698771}
+    - {fileID: 1325000329713220846}
+    - {fileID: 1325000329713220843}
+    - {fileID: 1325000329713220844}
+    - {fileID: 1325000329713220845}
+    - {fileID: 2100000, guid: 63c277894672e024897840a609c424ca, type: 2}
+    - {fileID: 2100000, guid: b0fbc06b85f4fa3428dfd6d37843048d, type: 2}
+    _Values: 93688526fc982010a180593c54532b3ae6ecb0117534680640f4a23da35e972567c8aecff94c4b38e9acd17a14aa4d3baf9f8e1b97a63d383074990ec5a24b00177ea21d02fa34665f8804ddfa1ce415bd2271fc3083713f8c75a085b23d7373f8d1629607303857d5f57b1faa1a324b59afcce71347306bf39c57876445e66304871ad746b1f27317e62fda016f1570bcabd3fc8f749f3f02ce88a488c0bb71f1e8e3dcffa5fa5843a72fd2e8a9957c88e6440f19e2f277d8a625eac66804285e5f3416ac0e8f16b07ab8e845cd5759c7f4d391fb34752c26a4fba67ff06d25
+--- !u!114 &-7350581188083183534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6748892446318406581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cfcc9ceea0bf419cb3bcaf548c2600d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saveChildren: 0
+  componentsToSave:
+  - {fileID: 6748892446318406582}
+  - {fileID: 6748892446318406577}
 --- !u!1 &6748892446501913594
 GameObject:
   m_ObjectHideFlags: 0
@@ -510,9 +572,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 797ee248261f4504f9071cdf2c4300d4, type: 3}
+--- !u!1 &1325000329713220846 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5749892945899594870, guid: 797ee248261f4504f9071cdf2c4300d4,
+    type: 3}
+  m_PrefabInstance: {fileID: 6748892445662664856}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1325000329713220843 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5749892945899594867, guid: 797ee248261f4504f9071cdf2c4300d4,
+    type: 3}
+  m_PrefabInstance: {fileID: 6748892445662664856}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1325000329713220844 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5749892945899594868, guid: 797ee248261f4504f9071cdf2c4300d4,
+    type: 3}
+  m_PrefabInstance: {fileID: 6748892445662664856}
+  m_PrefabAsset: {fileID: 0}
+--- !u!199 &1325000329713220845 stripped
+ParticleSystemRenderer:
+  m_CorrespondingSourceObject: {fileID: 5749892945899594869, guid: 797ee248261f4504f9071cdf2c4300d4,
     type: 3}
   m_PrefabInstance: {fileID: 6748892445662664856}
   m_PrefabAsset: {fileID: 0}
