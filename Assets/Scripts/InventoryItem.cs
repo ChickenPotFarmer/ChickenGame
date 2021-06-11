@@ -57,8 +57,7 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
             inventoryController = InventoryController.instance.inventoryController.GetComponent<InventoryController>();
 
         inventoryCanvas = inventoryGUI.inventoryCanvas;
-        SetItemName();
-        UpdateTextUI();
+
         IntializeItem();
     }
 
@@ -68,6 +67,12 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
             SetNewParent(currentParent);
         else
             UpdateCurrentParent();
+
+        transform.localScale = new Vector3(1, 1, 1);
+
+        SetItemName();
+
+        UpdateTextUI();
     }
 
     public void OnBeginDrag(PointerEventData _EventData)
@@ -250,6 +255,10 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
     {
         if (uiAmount != null)
             uiAmount.text = amount.ToString();
+
+        if (uiName != null)
+            uiName.text = itemName;
+
     }
 
     public void SetItemName()
@@ -259,7 +268,13 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
             StrainProfile strain = GetComponent<StrainProfile>();
 
             if (strain)
-                uiName.text = strain.strainName;
+            {
+                itemName = strain.strainName;
+                uiName.text = itemName;
+
+            }
+            else
+                print("no strainprofile found");
         }
         else
         {

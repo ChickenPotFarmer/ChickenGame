@@ -37,11 +37,11 @@ public class BreederMaster : MonoBehaviour
             strainInfoUI = StrainInfoUI.instance.strainInfoUI.GetComponent<StrainInfoUI>();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown("b"))
-            Breed();
-    }
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown("b"))
+    //        Breed();
+    //}
 
     public void Breed()
     {

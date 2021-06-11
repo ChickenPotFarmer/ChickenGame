@@ -36,11 +36,11 @@ public class InventoryController : MonoBehaviour
     }
 
     // TESTING
-    private void Update()
-    {
-        if (Input.GetKeyDown("n"))
-            AddInventoryChick();
-    }
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown("n"))
+    //        AddInventoryChick();
+    //}
 
     private void Start()
     {
