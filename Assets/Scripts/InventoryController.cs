@@ -269,4 +269,34 @@ public class InventoryController : MonoBehaviour
             chicks[i].UpdateDecoSlots();
         }
     }
+
+    public void ReturnAllItems(Transform _slotsParent)
+    {
+        InventoryItem remainderItem;
+        Transform[] tempSlots = new Transform[_slotsParent.childCount];
+
+        for (int i = 0; i < _slotsParent.childCount; i++)
+        {
+            tempSlots[i] = _slotsParent.GetChild(i);
+        }
+
+        List<InventoryItem> slotItems = new List<InventoryItem>();
+
+        for (int i = 0; i < tempSlots.Length; i++)
+        {
+            if (tempSlots[i].childCount != 0)
+                slotItems.Add(tempSlots[i].GetChild(0).GetComponent<InventoryItem>());
+        }
+
+        for (int i = 0; i < slotItems.Count; i++)
+        {
+            remainderItem = ReturnToInventory(slotItems[i]);
+
+            if (remainderItem != null && remainderItem.amount > 0)
+            {
+                Debug.LogWarning("INVENTORY FULL");
+            }
+
+        }
+    }
 }

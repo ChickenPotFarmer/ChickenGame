@@ -8,8 +8,16 @@ public class StorageCrate : MonoBehaviour
     public bool placed;
 
     [Header("Setup")]
+    public Transform slotsParent;
     public CanvasGroup cg;
     public Animator animator;
+
+    private InventoryController inventoryController;
+    private void Start()
+    {
+        if (!inventoryController)
+            inventoryController = InventoryController.instance.inventoryController.GetComponent<InventoryController>();
+    }
 
     public void OpenCrate(bool _open)
     {
@@ -72,5 +80,10 @@ public class StorageCrate : MonoBehaviour
         yield return new WaitForSeconds(1);
         placed = true;
 
+    }
+
+    public void ClearInventory()
+    {
+        inventoryController.ReturnAllItems(slotsParent);
     }
 }
