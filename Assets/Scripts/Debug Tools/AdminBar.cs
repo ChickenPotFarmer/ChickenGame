@@ -62,6 +62,7 @@ public class AdminBar : MonoBehaviour
             cg.alpha = 1;
             cg.interactable = true;
             cg.blocksRaycasts = true;
+            txtInput.ActivateInputField();
         }
         else
         {

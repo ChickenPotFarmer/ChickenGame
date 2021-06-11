@@ -21,5 +21,13 @@ public class SmartDropdown : MonoBehaviour
         smartDropdown = gameObject;
     }
 
+    public void SetStorageDropdown(StorageCrate _storageContainer)
+    {
 
+    }
+
+    private void ClearBtns()
+    {
+        
+    }
 }

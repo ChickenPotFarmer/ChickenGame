@@ -64,9 +64,14 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
     private void IntializeItem()
     {
         if (currentParent != null)
+        {
             SetNewParent(currentParent);
+        }
         else
+        {
             UpdateCurrentParent();
+        }
+        
 
         transform.localScale = new Vector3(1, 1, 1);
 
@@ -199,6 +204,7 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
         targetParent = _parent;
         rectTransform.SetParent(_parent, false);
         rectTransform.anchoredPosition = new Vector2(0, 0);
+        print("parent set");
         UpdateCurrentParent();
     }
 
