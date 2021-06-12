@@ -33,6 +33,11 @@ public class SmartDropdown : MonoBehaviour
         // else if not in inventory already
     }
 
+    private void SpawnInButtons()
+    {
+        //actually handle buttons here, just set the type in the other
+    }
+
     private void ClearBtns()
     {
         
