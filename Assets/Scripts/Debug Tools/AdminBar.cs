@@ -39,9 +39,14 @@ public class AdminBar : MonoBehaviour
         {
             if (words[1].Equals("SB1"))
             {
-                GameObject bag = Instantiate(seedBag1);
+                int amt = int.Parse(words[2]);
+                GameObject bag;
+                for (int i = 0; i < amt; i++)
+                {
+                    bag = Instantiate(seedBag1);
 
-                inventoryController.ReturnToInventory(bag.GetComponent<InventoryItem>());
+                    inventoryController.ReturnToInventory(bag.GetComponent<InventoryItem>());
+                }
 
             }
             else if (words[1].Equals("SB2"))
