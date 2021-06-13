@@ -6,5 +6,5 @@ using UnityEngine.UI;
 public class DropDownBtn : MonoBehaviour
 {
     public Button btnComp;
-
+    public Text btnTxt;
 }

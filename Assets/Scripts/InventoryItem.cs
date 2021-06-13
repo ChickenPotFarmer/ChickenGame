@@ -12,6 +12,7 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
     public float maxAmount;
     public bool isStrain;
     public bool locked;
+    public bool inPlayerInventory;
     public string itemID;
 
     [Header("Drag Info")]
@@ -29,8 +30,9 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
     private InventoryGUI inventoryGUI;
     private HoverInfo hoverInfo;
     private StrainProfile strainProfile;
-    private SeedDropDown seedDropDown;
+    //private SeedDropDown seedDropDown;
     private InventoryController inventoryController;
+    private SmartDropdown smartDropdown;
 
 
     private void Awake()
@@ -50,8 +52,8 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
         if (isStrain && !strainProfile)
             strainProfile = GetComponent<StrainProfile>();
 
-        if (!seedDropDown)
-            seedDropDown = SeedDropDown.instance.seedDropDown.GetComponent<SeedDropDown>();
+        if (!smartDropdown)
+            smartDropdown = SmartDropdown.instance.smartDropdown.GetComponent<SmartDropdown>();
 
         if (!inventoryController)
             inventoryController = InventoryController.instance.inventoryController.GetComponent<InventoryController>();
@@ -86,7 +88,7 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
         rectTransform.SetParent(inventoryGUI.dragParent, true);
         cg.blocksRaycasts = false;
         cg.alpha = 0.7f;
-        seedDropDown.SetDropdownActive(false);
+        smartDropdown.CloseAndResetDropdown();
     }
 
     public void OnDrag(PointerEventData _EventData)
@@ -140,21 +142,36 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
 
     }
 
+    private void CheckIfInPlayerInventory()
+    {
+        if (currentParent.GetComponent<ItemSlot>().isPlayerSlot)
+        {
+            inPlayerInventory = true;
+            print("in player inventory");
+        }
+        else
+        { 
+            inPlayerInventory = false;
+            print("not in player inventory");
+        }
+    }
+
     public void UpdateCurrentParent()
     {
         currentParent = transform.parent;
+        CheckIfInPlayerInventory();
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
         // find better way to do this
-        if (isStrain)
-        {
-            seedDropDown.SetDropdownActive(true);
-            seedDropDown.SetStrainInfoBtn(GetComponent<StrainProfile>());
-        }
-
-
+        //if (isStrain)
+        //{
+        //    seedDropDown.SetDropdownActive(true);
+        //    seedDropDown.SetStrainInfoBtn(GetComponent<StrainProfile>());
+        //}
+        print("inventory item clicks");
+        smartDropdown.OpenDropdown(this);
     }
 
     public void OnPointerEnter(PointerEventData eventData)

@@ -15,6 +15,7 @@ public class ItemSlot : MonoBehaviour, IDropHandler
 
     [Header("Settings")]
     public bool lockOnDrop;
+    public bool isPlayerSlot;
     public bool isBuyerSlot;
     public bool acceptsAll;
     public bool acceptsNone;

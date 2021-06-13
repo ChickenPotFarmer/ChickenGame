@@ -234,6 +234,7 @@ public class InventoryController : MonoBehaviour
             remainderItem.UpdateCurrentParent();
 
         UpdateDecoChicks();
+        
         return remainderItem;
     }
 
@@ -285,7 +286,42 @@ public class InventoryController : MonoBehaviour
         for (int i = 0; i < tempSlots.Length; i++)
         {
             if (tempSlots[i].childCount != 0)
+            {
                 slotItems.Add(tempSlots[i].GetChild(0).GetComponent<InventoryItem>());
+            }
+        }
+
+        for (int i = 0; i < slotItems.Count; i++)
+        {
+            remainderItem = ReturnToInventory(slotItems[i]);
+
+            if (remainderItem != null && remainderItem.amount > 0)
+            {
+                Debug.LogWarning("INVENTORY FULL");
+            }
+
+        }
+    }
+
+    public void ReturnAllItems(Transform _slotsParent, string _itemId)
+    {
+        InventoryItem remainderItem;
+        Transform[] tempSlots = new Transform[_slotsParent.childCount];
+
+        for (int i = 0; i < _slotsParent.childCount; i++)
+        {
+            tempSlots[i] = _slotsParent.GetChild(i);
+        }
+
+        List<InventoryItem> slotItems = new List<InventoryItem>();
+
+        for (int i = 0; i < tempSlots.Length; i++)
+        {
+            if (tempSlots[i].childCount != 0)
+            {
+                if (tempSlots[i].GetChild(0).GetComponent<InventoryItem>().itemID == _itemId)
+                    slotItems.Add(tempSlots[i].GetChild(0).GetComponent<InventoryItem>());
+            }
         }
 
         for (int i = 0; i < slotItems.Count; i++)

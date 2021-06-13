@@ -13,10 +13,14 @@ public class StorageCrate : MonoBehaviour
     public Animator animator;
 
     private InventoryController inventoryController;
+    private SmartDropdown smartDropdown;
     private void Start()
     {
         if (!inventoryController)
             inventoryController = InventoryController.instance.inventoryController.GetComponent<InventoryController>();
+
+        if (!smartDropdown)
+            smartDropdown = SmartDropdown.instance.smartDropdown.GetComponent<SmartDropdown>();
     }
 
     public void OpenCrate(bool _open)
@@ -61,12 +65,14 @@ public class StorageCrate : MonoBehaviour
             cg.alpha = 1;
             cg.interactable = true;
             cg.blocksRaycasts = true;
+            smartDropdown.SetStorageDropdown(this);
         }
         else
         {
             cg.alpha = 0;
             cg.interactable = false;
             cg.blocksRaycasts = false;
+            smartDropdown.UnsetStorage();
         }
     }
 
