@@ -52,20 +52,61 @@ public class SmartDropdown : MonoBehaviour
     {
         if (_itemClicked.inPlayerInventory)
         {
-            //TransferAllToStorageSpawn(openedCrate);
-
+            if (storageCrateOpen)
+            {
+                TransferAllOfTypeToStorageSpawn(_itemClicked.itemID);
+                TransferAllToStorageSpawn();
+            }
 
         }
         else
         {
-            TransferAllFromStorageSpawn(_itemClicked);
+            if (storageCrateOpen)
+            {
+                TransferAllFromStorageSpawn(_itemClicked);
+            }
         }
         SetDropdownActive(true);
     }
 
     private void TransferAllToStorageSpawn()
     {
-        
+        GameObject newBtn = Instantiate(dropDownBtn, parentDropDown);
+        DropDownBtn btnComp = newBtn.GetComponent<DropDownBtn>();
+
+        btnComp.btnTxt.text = "Store All";
+
+        btnComp.btnComp.onClick.AddListener(delegate { TransferAllToStorageRoutine(inventoryController.slotsParent); });
+
+    }
+
+    private void TransferAllOfTypeToStorageSpawn(string _itemId)
+    {
+        GameObject newBtn = Instantiate(dropDownBtn, parentDropDown);
+        DropDownBtn btnComp = newBtn.GetComponent<DropDownBtn>();
+
+        btnComp.btnTxt.text = "Store All of Type";
+
+        btnComp.btnComp.onClick.AddListener(delegate { TransferAllToStorageRoutine(inventoryController.slotsParent, _itemId); });
+
+    }
+
+    private void TransferAllToStorageRoutine(Transform _slotsParent, string _itemId)
+    {
+        if (openedCrate)
+        {
+            openedCrate.ReturnAllItems(_slotsParent, _itemId);
+            CloseAndResetDropdown();
+        }
+    }
+
+    private void TransferAllToStorageRoutine(Transform _slotsParent)
+    {
+        if (openedCrate)
+        {
+            openedCrate.ReturnAllItems(_slotsParent);
+            CloseAndResetDropdown();
+        }
     }
 
     private void TransferAllFromStorageSpawn(InventoryItem _itemClicked)
@@ -76,7 +117,7 @@ public class SmartDropdown : MonoBehaviour
         btnComp.btnTxt.text = "Take All";
 
         btnComp.btnComp.onClick.AddListener(delegate { TransferFromStorageRoutine(_itemClicked); });
-        print("spawned from storage btn");
+
     }
 
     public void TransferFromStorageRoutine(InventoryItem _itemClicked)
@@ -104,21 +145,28 @@ public class SmartDropdown : MonoBehaviour
 
     public void CloseAndResetDropdown()
     {
-        StartCoroutine(CloseAndResetDropdownRoutine());
+        //StartCoroutine(CloseAndResetDropdownRoutine());
+        ResetDropdownRoutine();
+        SetDropdownActive(false);
+
     }
 
-    public IEnumerator CloseAndResetDropdownRoutine()
+    public void ResetDropdownRoutine()
     {
         Transform go;
-        for (int i = 0; i < parentDropDown.childCount; i++)
+        int dropDownChilds = parentDropDown.childCount;
+        for (int i = 0; i < dropDownChilds; i++)
         {
-            go = parentDropDown.GetChild(i);
+            go = parentDropDown.GetChild(0);
             go.SetParent(null, false);
-            yield return new WaitForEndOfFrame();
+            //yield return new WaitForEndOfFrame(); // to reduce the wait, break the SetParent and Destroy in to 2 serperate for statements seperated by the yield
             Destroy(go.gameObject);
+        
         }
 
-        SetDropdownActive(false);
+
+        //SetDropdownActive(false);
+
     }
 
 
@@ -138,7 +186,8 @@ public class SmartDropdown : MonoBehaviour
             cg.alpha = 0;
             cg.interactable = false;
             cg.blocksRaycasts = false;
-            
+            ResetDropdownRoutine();
+
         }
     }
 
