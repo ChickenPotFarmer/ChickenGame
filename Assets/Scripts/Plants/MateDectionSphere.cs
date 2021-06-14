@@ -32,7 +32,7 @@ public class MateDectionSphere : MonoBehaviour
     {
         matesInRange.Clear();
         Vector3 explosionPos = transform.position;
-        Collider[] colliders = Physics.OverlapSphere(explosionPos, 5);
+        Collider[] colliders = Physics.OverlapSphere(explosionPos, 7.55f);
         foreach (Collider hit in colliders)
         {
             if (hit.CompareTag("Weed Plant"))

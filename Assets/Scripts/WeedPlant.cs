@@ -55,6 +55,7 @@ public class WeedPlant : MonoBehaviour, IPointerExitHandler
     public int currentStage;
     public GameObject maleImg;
     public GameObject femaleImg;
+    public GameObject seedbagImg;
     public GameObject seedling;
     public GameObject sapling;
     public GameObject almostGrown;
@@ -309,6 +310,7 @@ public class WeedPlant : MonoBehaviour, IPointerExitHandler
         SetGrowthBarActive(false);
         femaleImg.SetActive(false);
         maleImg.SetActive(false);
+        seedbagImg.SetActive(false);
     }
 
     private void ShowGender()
@@ -457,6 +459,7 @@ public class WeedPlant : MonoBehaviour, IPointerExitHandler
     public void PollinatePlant()
     {
         isPollinated = true;
+        seedbagImg.SetActive(true);
     }
 
     public void CloseHarvestPanel()
@@ -475,9 +478,11 @@ public class WeedPlant : MonoBehaviour, IPointerExitHandler
         harvested = false;
         trimmed = false;
         targettedForDelete = false;
-        almostGrown.SetActive(false); //debug
+        almostGrown.SetActive(false); //debug this
         femaleImg.SetActive(false);
         maleImg.SetActive(false);
+        seedbagImg.SetActive(false);
+
     }
 
     private void OnTriggerEnter(Collider other)

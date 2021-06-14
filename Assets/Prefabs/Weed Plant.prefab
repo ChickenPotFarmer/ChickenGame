@@ -992,6 +992,7 @@ MonoBehaviour:
   minYield: 0
   actualYield: 38
   actualSeedYield: 10
+  actualTrimmingsYield: 25
   growTime: 30
   targettedForHarvest: 0
   targettedForSeeding: 0
@@ -1023,6 +1024,7 @@ MonoBehaviour:
   currentStage: 0
   maleImg: {fileID: 0}
   femaleImg: {fileID: 0}
+  seedbagImg: {fileID: 0}
   seedling: {fileID: 9061448786156863437}
   sapling: {fileID: 7384143805762208985}
   almostGrown: {fileID: 8861810426040648134}
@@ -2031,12 +2033,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxPerBrick: 100
   maxPerBag: 10
+  maxPerTrimmings: 200
   harvested: 0
   plant: {fileID: 179106666074096597}
   cg: {fileID: 7090823871924734838}
   weedBrickPrefab: {fileID: 4178686051518599494, guid: 63e28c46fdc00424aa5634ab63e4fbed,
     type: 3}
   seedBagPrefab: {fileID: 0}
+  trimmingsPrefab: {fileID: 0}
   slotsParent: {fileID: 8639699865971660137}
   slots: []
 --- !u!225 &7090823871924734838
