@@ -14,6 +14,7 @@ public class WeedPlant : MonoBehaviour, IPointerExitHandler
     public float minYield;
     public float actualYield;
     public int actualSeedYield = 10;
+    public int actualTrimmingsYield = 25;
     public float growTime;
 
     [Header("Status")]

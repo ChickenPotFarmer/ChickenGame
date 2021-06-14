@@ -7,6 +7,7 @@ public class HarvestPanel : MonoBehaviour
     [Header("Weed Brick Settings")]
     public float maxPerBrick;
     public float maxPerBag = 10;
+    public float maxPerTrimmings = 200;
 
     [Header("Status")]
     public bool harvested;
@@ -16,6 +17,7 @@ public class HarvestPanel : MonoBehaviour
     public CanvasGroup cg;
     public GameObject weedBrickPrefab;
     public GameObject seedBagPrefab;
+    public GameObject trimmingsPrefab;
     public Transform slotsParent;
     public Transform[] slots;
 
@@ -37,6 +39,48 @@ public class HarvestPanel : MonoBehaviour
             slots[i] = slotsParent.GetChild(i);
         }
         
+    }
+
+    public void HarvestTrimmings(WeedPlant _plant)
+    {
+        float trimmingsNeeded = _plant.actualTrimmingsYield / maxPerTrimmings;
+        trimmingsNeeded += 0.5f; // to make sure it rounds up
+        trimmingsNeeded = Mathf.Round(trimmingsNeeded);
+
+        GameObject newTrimmings;
+
+        InventoryItem newTrimmingsInventoryItem;
+
+        for (int i = 0; i < trimmingsNeeded; i++)
+        {
+            if (_plant.actualTrimmingsYield - ((trimmingsNeeded - 1) * maxPerTrimmings) == 0 && i == trimmingsNeeded - 1)
+            {
+                //do nothing
+            }
+            else
+            {
+                newTrimmings = Instantiate(trimmingsPrefab, slots[i]);
+                //newBrick.transform.position = new Vector2(0, 0);
+                newTrimmingsInventoryItem = newTrimmings.GetComponent<InventoryItem>();
+
+                newTrimmingsInventoryItem.Lock(true);
+                newTrimmingsInventoryItem.previousParent = slots[i];
+
+                if (i != trimmingsNeeded - 1)
+                {
+                    newTrimmingsInventoryItem.SetAmount(maxPerTrimmings);
+                }
+                else
+                {
+                    newTrimmingsInventoryItem.SetAmount(_plant.actualTrimmingsYield - ((trimmingsNeeded - 1) * maxPerTrimmings));
+                }
+
+
+
+                newTrimmings.transform.position = newTrimmings.transform.parent.position;
+            }
+
+        }
     }
 
     public void HarvestSeeds(WeedPlant _plant, StrainProfile _strain)
@@ -87,7 +131,7 @@ public class HarvestPanel : MonoBehaviour
     {
         SetPanelActive(true);
 
-        if (!_plant.isPollinated)
+        if (!_plant.isPollinated && !_plant.isMale)
         {
             float bricksNeeded = _plant.actualYield / maxPerBrick;
             bricksNeeded += 0.5f; // to make sure it rounds up
@@ -122,9 +166,13 @@ public class HarvestPanel : MonoBehaviour
 
             }
         }
-        else
+        else if (_plant.isPollinated && !_plant.isMale)
         {
             HarvestSeeds(_plant, _strain);
+        }
+        else if (_plant.isMale)
+        {
+            HarvestTrimmings(_plant);
         }
     }
 
