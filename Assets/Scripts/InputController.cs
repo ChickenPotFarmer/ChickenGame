@@ -11,6 +11,7 @@ public class InputController : MonoBehaviour
     public bool radialMenuOn;
     public bool fugitive;
 
+
     private WateringCan wateringCan;
     private Trimmer trimmer;
     private SeedCannon seedCannon;

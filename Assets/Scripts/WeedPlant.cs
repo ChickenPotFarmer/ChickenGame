@@ -19,7 +19,7 @@ public class WeedPlant : MonoBehaviour
     public bool targettedForSeeding;
     public bool selected;
     public bool isPlanted;
-    public bool isFemale;
+    public bool isMale;
     public bool fullyGrown;
     public bool trimmed;
     public bool harvested;
@@ -46,6 +46,8 @@ public class WeedPlant : MonoBehaviour
     [Header("Stages")]
     public int secsGrowing;
     public int currentStage;
+    public GameObject maleImg;
+    public GameObject femaleImg;
     public GameObject seedling;
     public GameObject sapling;
     public GameObject almostGrown;
@@ -125,11 +127,17 @@ public class WeedPlant : MonoBehaviour
         targettedForSeeding = false;
         isPlanted = true;
         waterLevel = startingWaterLevel;
+        SetGender();
         SetWaterLevelBar(waterLevel);
         StartCoroutine(GrowRoutine());
         StartCoroutine(GrowthBarUpdate());
         StartCoroutine(WaterReductionRoutine());
 
+    }
+
+    private void SetGender()
+    {
+        isMale = Random.value > 0.65f;
     }
 
     public void Trim()
@@ -231,6 +239,7 @@ public class WeedPlant : MonoBehaviour
         almostGrown.SetActive(false);
         fullGrownClipped.SetActive(false);
         SetGrowthBarActive(true);
+        ShowGender();
     }
 
     public void SetAlmostDone()
@@ -254,6 +263,20 @@ public class WeedPlant : MonoBehaviour
         fullGrown.SetActive(false);
         fullGrownClipped.SetActive(false);
         SetGrowthBarActive(false);
+        femaleImg.SetActive(false);
+        maleImg.SetActive(false);
+    }
+
+    private void ShowGender()
+    {
+        if (isMale)
+        {
+            maleImg.SetActive(true);
+        }
+        else
+        {
+            femaleImg.SetActive(true);
+        }
     }
 
     private void SetStage(int _stage)
@@ -399,6 +422,8 @@ public class WeedPlant : MonoBehaviour
         hasSeed = false;
         harvested = false;
         trimmed = false;
+        femaleImg.SetActive(false);
+        maleImg.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)

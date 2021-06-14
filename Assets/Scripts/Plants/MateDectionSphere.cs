@@ -11,6 +11,8 @@ public class MateDectionSphere : MonoBehaviour
     {
         if (!parentPlant)
             parentPlant = GetComponentInParent<WeedPlant>();
+
+        DetectMates();
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -28,6 +30,25 @@ public class MateDectionSphere : MonoBehaviour
         if (other.CompareTag("Weed Plant"))
         {
             matesInRange.Remove(other.GetComponent<WeedPlant>());
+        }
+    }
+
+    public void DetectMates()
+    {
+        matesInRange.Clear();
+        Vector3 explosionPos = transform.position;
+        Collider[] colliders = Physics.OverlapSphere(explosionPos, 5);
+        foreach (Collider hit in colliders)
+        {
+            if (hit.CompareTag("Weed Plant"))
+            {
+                WeedPlant inRangePlant = hit.GetComponent<WeedPlant>();
+
+                if (inRangePlant != parentPlant)
+                    matesInRange.Add(inRangePlant);
+            }
+
+
         }
     }
 }

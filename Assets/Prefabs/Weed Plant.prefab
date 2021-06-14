@@ -996,7 +996,7 @@ MonoBehaviour:
   targettedForSeeding: 0
   selected: 0
   isPlanted: 0
-  isFemale: 0
+  isMale: 0
   fullyGrown: 0
   trimmed: 0
   harvested: 0
@@ -1016,6 +1016,8 @@ MonoBehaviour:
     type: 3}
   secsGrowing: 0
   currentStage: 0
+  maleImg: {fileID: 0}
+  femaleImg: {fileID: 0}
   seedling: {fileID: 9061448786156863437}
   sapling: {fileID: 7384143805762208985}
   almostGrown: {fileID: 8861810426040648134}
