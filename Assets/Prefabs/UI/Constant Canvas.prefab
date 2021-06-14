@@ -6344,11 +6344,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxPerBrick: 100
+  maxPerBag: 10
   harvested: 0
   plant: {fileID: 0}
   cg: {fileID: 3576925204402512594}
   weedBrickPrefab: {fileID: 4178686051518599494, guid: 63e28c46fdc00424aa5634ab63e4fbed,
     type: 3}
+  seedBagPrefab: {fileID: 0}
   slotsParent: {fileID: 3576925204326862038}
   slots: []
 --- !u!225 &3576925204402512594

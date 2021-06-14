@@ -144,15 +144,16 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
 
     private void CheckIfInPlayerInventory()
     {
-        if (currentParent.GetComponent<ItemSlot>().isPlayerSlot)
+        if (currentParent != null)
         {
-            inPlayerInventory = true;
-            print("in player inventory");
-        }
-        else
-        { 
-            inPlayerInventory = false;
-            print("not in player inventory");
+            if (currentParent.GetComponent<ItemSlot>().isPlayerSlot)
+            {
+                inPlayerInventory = true;
+            }
+            else
+            {
+                inPlayerInventory = false;
+            }
         }
     }
 
@@ -221,7 +222,6 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
         targetParent = _parent;
         rectTransform.SetParent(_parent, false);
         rectTransform.anchoredPosition = new Vector2(0, 0);
-        print("parent set");
         UpdateCurrentParent();
     }
 

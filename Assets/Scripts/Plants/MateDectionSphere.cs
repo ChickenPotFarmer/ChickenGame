@@ -14,23 +14,18 @@ public class MateDectionSphere : MonoBehaviour
 
         DetectMates();
     }
-    private void OnTriggerEnter(Collider other)
+    
+    public void BustinMakesMeFeelGood()
     {
-        if (other.CompareTag("Weed Plant"))
-        {
-            WeedPlant inRangePlant = other.GetComponent<WeedPlant>();
 
-            if (inRangePlant != parentPlant)
-                matesInRange.Add(other.GetComponent<WeedPlant>());
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Weed Plant"))
+        for (int i = 0; i < matesInRange.Count; i++)
         {
-            matesInRange.Remove(other.GetComponent<WeedPlant>());
+            if (matesInRange[i].isPlanted && !matesInRange[i].isMale)
+            {
+                matesInRange[i].PollinatePlant();
+            }
         }
+        
     }
 
     public void DetectMates()

@@ -6,6 +6,7 @@ public class HarvestPanel : MonoBehaviour
 {
     [Header("Weed Brick Settings")]
     public float maxPerBrick;
+    public float maxPerBag = 10;
 
     [Header("Status")]
     public bool harvested;
@@ -14,6 +15,7 @@ public class HarvestPanel : MonoBehaviour
     public WeedPlant plant;
     public CanvasGroup cg;
     public GameObject weedBrickPrefab;
+    public GameObject seedBagPrefab;
     public Transform slotsParent;
     public Transform[] slots;
 
@@ -37,45 +39,92 @@ public class HarvestPanel : MonoBehaviour
         
     }
 
-    public void HarvestSeeds()
+    public void HarvestSeeds(WeedPlant _plant, StrainProfile _strain)
     {
-        // This will handle new seeds and assigning new strain ID's
+        float bagsNeeded = _plant.actualSeedYield / maxPerBag;
+        bagsNeeded += 0.5f; // to make sure it rounds up
+        bagsNeeded = Mathf.Round(bagsNeeded);
+
+        GameObject newBag;
+
+        InventoryItem newBagInventoryItem;
+
+        for (int i = 0; i < bagsNeeded; i++)
+        {
+            if (_plant.actualSeedYield - ((bagsNeeded - 1) * maxPerBag) == 0 && i == bagsNeeded - 1)
+            {
+                //do nothing
+            }
+            else
+            {
+                newBag = Instantiate(seedBagPrefab, slots[i]);
+                //newBrick.transform.position = new Vector2(0, 0);
+                newBagInventoryItem = newBag.GetComponent<InventoryItem>();
+                newBagInventoryItem.itemID = _strain.strainID;
+                newBagInventoryItem.Lock(true);
+                newBagInventoryItem.previousParent = slots[i];
+
+                if (i != bagsNeeded - 1)
+                {
+                    newBagInventoryItem.SetAmount(maxPerBag);
+                }
+                else
+                {
+                    newBagInventoryItem.SetAmount(_plant.actualSeedYield - ((bagsNeeded - 1) * maxPerBag));
+                }
+
+                StrainProfile strainProf = newBag.GetComponent<StrainProfile>();
+                strainProf.SetStrain(_strain);
+                newBagInventoryItem.SetItemName();
+
+                newBag.transform.position = newBag.transform.parent.position;
+            }
+
+        }
     }
 
     public void HarvestPlant(WeedPlant _plant, StrainProfile _strain)
     {
         SetPanelActive(true);
-        float bricksNeeded = _plant.actualYield / maxPerBrick;
-        bricksNeeded += 0.5f; // to make sure it rounds up
-        bricksNeeded = Mathf.Round(bricksNeeded);
 
-        GameObject newBrick;
-
-        InventoryItem newBrickInventoryItem;
-
-        for (int i = 0; i < bricksNeeded; i++)
+        if (!_plant.isPollinated)
         {
-            newBrick = Instantiate(weedBrickPrefab, slots[i]);
-            //newBrick.transform.position = new Vector2(0, 0);
-            newBrickInventoryItem = newBrick.GetComponent<InventoryItem>();
-            newBrickInventoryItem.itemID = _strain.strainID;
-            newBrickInventoryItem.Lock(true);
-            newBrickInventoryItem.previousParent = slots[i];
+            float bricksNeeded = _plant.actualYield / maxPerBrick;
+            bricksNeeded += 0.5f; // to make sure it rounds up
+            bricksNeeded = Mathf.Round(bricksNeeded);
 
-            if (i != bricksNeeded - 1)
+            GameObject newBrick;
+
+            InventoryItem newBrickInventoryItem;
+
+            for (int i = 0; i < bricksNeeded; i++)
             {
-                newBrickInventoryItem.SetAmount(maxPerBrick);
+                newBrick = Instantiate(weedBrickPrefab, slots[i]);
+                //newBrick.transform.position = new Vector2(0, 0);
+                newBrickInventoryItem = newBrick.GetComponent<InventoryItem>();
+                newBrickInventoryItem.itemID = _strain.strainID;
+                newBrickInventoryItem.Lock(true);
+                newBrickInventoryItem.previousParent = slots[i];
+
+                if (i != bricksNeeded - 1)
+                {
+                    newBrickInventoryItem.SetAmount(maxPerBrick);
+                }
+                else
+                {
+                    newBrickInventoryItem.SetAmount(_plant.actualYield - ((bricksNeeded - 1) * maxPerBrick));
+                }
+
+                StrainProfile strainProf = newBrick.GetComponent<StrainProfile>();
+                strainProf.SetStrain(_strain);
+
+                newBrick.transform.position = newBrick.transform.parent.position;
+
             }
-            else
-            {
-                newBrickInventoryItem.SetAmount(_plant.actualYield - ((bricksNeeded - 1) * maxPerBrick));
-            }
-
-            StrainProfile strainProf = newBrick.GetComponent<StrainProfile>();
-            strainProf.SetStrain(_strain);
-
-            newBrick.transform.position = newBrick.transform.parent.position;
-
+        }
+        else
+        {
+            HarvestSeeds(_plant, _strain);
         }
     }
 
@@ -130,11 +179,6 @@ public class HarvestPanel : MonoBehaviour
             if (slots[i].childCount != 0)
                 empty = false;
         }
-
-        if (empty)
-            print("slot checks said empty");
-        else
-            print("said not empty");
 
         return empty;
     }

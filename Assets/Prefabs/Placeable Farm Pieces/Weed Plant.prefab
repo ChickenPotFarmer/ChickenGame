@@ -1386,6 +1386,7 @@ Transform:
   - {fileID: 1021762670441449712}
   - {fileID: 7750204717646769633}
   - {fileID: 2721631384189020000}
+  - {fileID: 2339211128476940153}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1468,6 +1469,7 @@ MonoBehaviour:
   maxYield: 0
   minYield: 0
   actualYield: 38
+  actualSeedYield: 10
   growTime: 30
   targettedForHarvest: 0
   targettedForSeeding: 0
@@ -1477,10 +1479,14 @@ MonoBehaviour:
   fullyGrown: 0
   trimmed: 0
   harvested: 0
+  isPollinated: 0
   hasSeed: 0
+  targettedForDelete: 0
   startingWaterLevel: 75
   waterLevel: 0
   dryOutRate: 1
+  mateDectionSphere: {fileID: 2721631384189020012}
+  destroyHighlight: {fileID: 7976208144510546612}
   waterParticles: {fileID: 7583806872573983637}
   plantCollider: {fileID: 695129060552470159}
   growthBarCg: {fileID: 620241133279236421}
@@ -1561,7 +1567,7 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 3.5
+  m_Height: 3.34
   m_Direction: 1
   m_Center: {x: 0.00000003973643, y: -0.43001032, z: -0.00000007947286}
 --- !u!114 &8342123754695708341
@@ -2713,10 +2719,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxPerBrick: 100
+  maxPerBag: 10
   harvested: 0
   plant: {fileID: 1371168982470490669}
   cg: {fileID: 8294685770153767566}
   weedBrickPrefab: {fileID: 4178686051518599494, guid: 63e28c46fdc00424aa5634ab63e4fbed,
+    type: 3}
+  seedBagPrefab: {fileID: 6760439214409932137, guid: 22cf8bafe12a60144adc30d191eaa644,
     type: 3}
   slotsParent: {fileID: 7394188467276917905}
   slots: []
@@ -21699,6 +21708,85 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 04af6b6032008134e857eb11b6e96dcb, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!1 &7976208144510546612
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2339211128476940153}
+  - component: {fileID: 5236741656281762361}
+  - component: {fileID: 8046207333009589635}
+  m_Layer: 9
+  m_Name: Destroy Highlight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &2339211128476940153
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7976208144510546612}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 5.783, z: 0}
+  m_LocalScale: {x: 1, y: 6.7831154, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1902744917202053482}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &5236741656281762361
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7976208144510546612}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &8046207333009589635
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7976208144510546612}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: b81b99c1f4c0eb64594b544df4c3aa47, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

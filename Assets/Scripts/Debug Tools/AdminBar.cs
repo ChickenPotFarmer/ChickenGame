@@ -57,6 +57,17 @@ public class AdminBar : MonoBehaviour
 
             }
         }
+        else if (words[0].Equals("1"))
+        {
+            int amt = 3;
+            GameObject bag;
+            for (int i = 0; i < amt; i++)
+            {
+                bag = Instantiate(seedBag1);
+
+                inventoryController.ReturnToInventory(bag.GetComponent<InventoryItem>());
+            }
+        }
         SetPanelActive(false);
     }
 

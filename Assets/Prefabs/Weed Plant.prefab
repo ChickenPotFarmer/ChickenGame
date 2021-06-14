@@ -991,6 +991,7 @@ MonoBehaviour:
   maxYield: 0
   minYield: 0
   actualYield: 38
+  actualSeedYield: 10
   growTime: 30
   targettedForHarvest: 0
   targettedForSeeding: 0
@@ -1000,10 +1001,14 @@ MonoBehaviour:
   fullyGrown: 0
   trimmed: 0
   harvested: 0
+  isPollinated: 0
   hasSeed: 0
+  targettedForDelete: 0
   startingWaterLevel: 75
   waterLevel: 0
   dryOutRate: 1
+  mateDectionSphere: {fileID: 0}
+  destroyHighlight: {fileID: 0}
   waterParticles: {fileID: 8666076148496564845}
   plantCollider: {fileID: 1792034965373343607}
   growthBarCg: {fileID: 1864635908194461885}
@@ -2025,11 +2030,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxPerBrick: 100
+  maxPerBag: 10
   harvested: 0
   plant: {fileID: 179106666074096597}
   cg: {fileID: 7090823871924734838}
   weedBrickPrefab: {fileID: 4178686051518599494, guid: 63e28c46fdc00424aa5634ab63e4fbed,
     type: 3}
+  seedBagPrefab: {fileID: 0}
   slotsParent: {fileID: 8639699865971660137}
   slots: []
 --- !u!225 &7090823871924734838

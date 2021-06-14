@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class WeedPlant : MonoBehaviour
+public class WeedPlant : MonoBehaviour, IPointerExitHandler
 {
     [Header("Info")]
     public StrainProfile currentStrain;
@@ -12,6 +13,7 @@ public class WeedPlant : MonoBehaviour
     public float maxYield;
     public float minYield;
     public float actualYield;
+    public int actualSeedYield = 10;
     public float growTime;
 
     [Header("Status")]
@@ -23,7 +25,9 @@ public class WeedPlant : MonoBehaviour
     public bool fullyGrown;
     public bool trimmed;
     public bool harvested;
+    public bool isPollinated;
     public bool hasSeed;
+    public bool targettedForDelete;
 
     [Header("Watering")]
     public float startingWaterLevel;
@@ -31,6 +35,8 @@ public class WeedPlant : MonoBehaviour
     public float dryOutRate;
 
     [Header("Setup")]
+    public MateDectionSphere mateDectionSphere;
+    public GameObject destroyHighlight;
     public ParticleSystem waterParticles;
     public CapsuleCollider plantCollider;
     public CanvasGroup growthBarCg;
@@ -161,6 +167,40 @@ public class WeedPlant : MonoBehaviour
 
     }
 
+    public void DestroyPlant()
+    {
+        StopAllCoroutines();
+
+        StartCoroutine(DestroyPlantRoutine());
+    }
+
+    IEnumerator DestroyPlantRoutine()
+    {
+        if (!targettedForDelete)
+        {
+            TargetForDelete();
+        }
+        else
+        {
+            targettedForDelete = false;
+            destroyHighlight.SetActive(false);
+            yield return new WaitForSeconds(0.5f);
+            ResetPlant();
+        }
+    }
+
+    public void TargetForDelete()
+    {
+        targettedForDelete = true;
+        destroyHighlight.SetActive(true);
+    }
+
+    private void DeletePlant()
+    {
+        ResetPlant();
+
+    }
+
     IEnumerator WaterRoutine()
     {
         waterParticles.Play();
@@ -215,6 +255,9 @@ public class WeedPlant : MonoBehaviour
         fullGrown.SetActive(true);
         fullGrownClipped.SetActive(false);
         SetGrowthBarActive(true);
+
+        if (isMale)
+            mateDectionSphere.BustinMakesMeFeelGood();
     }
 
     public void SetSeedling()
@@ -351,12 +394,15 @@ public class WeedPlant : MonoBehaviour
             yield return new WaitForSeconds(1);
             secsGrowing++;
 
-            if (secsGrowing < stageTime)
-                SetSeedling();
-            else if (secsGrowing >= stageTime && secsGrowing < (stageTime * 2))
-                SetSapling();
-            else if (secsGrowing >= (stageTime * 2) && secsGrowing < growTime)
-                SetAlmostDone();
+            if (isPlanted)
+            {
+                if (secsGrowing < stageTime)
+                    SetSeedling();
+                else if (secsGrowing >= stageTime && secsGrowing < (stageTime * 2))
+                    SetSapling();
+                else if (secsGrowing >= (stageTime * 2) && secsGrowing < growTime)
+                    SetAlmostDone();
+            }
 
         } while (secsGrowing < growTime);
 
@@ -407,6 +453,11 @@ public class WeedPlant : MonoBehaviour
         }
     }
 
+    public void PollinatePlant()
+    {
+        isPollinated = true;
+    }
+
     public void CloseHarvestPanel()
     {
         SetHarvestPanelActive(false);
@@ -422,6 +473,8 @@ public class WeedPlant : MonoBehaviour
         hasSeed = false;
         harvested = false;
         trimmed = false;
+        targettedForDelete = false;
+        almostGrown.SetActive(false); //debug
         femaleImg.SetActive(false);
         maleImg.SetActive(false);
     }
@@ -448,4 +501,12 @@ public class WeedPlant : MonoBehaviour
         }
     }
 
+    public void OnPointerExit(PointerEventData eventData)
+    { 
+        if (targettedForDelete)
+        {
+            targettedForDelete = false;
+            destroyHighlight.SetActive(false);
+        }
+    }
 }

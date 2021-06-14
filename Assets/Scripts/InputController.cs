@@ -241,6 +241,12 @@ public class InputController : MonoBehaviour
                                             chickenController.SetNewDestination(hit.point);
 
                                         }
+
+                                        else if (trimmer.trimmerOn && foundPlant.isPlanted)
+                                        {
+                                            //highlight plant and ask if sure
+                                            foundPlant.DestroyPlant();
+                                        }
                                     }
                                 }
 
