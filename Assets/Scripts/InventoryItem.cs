@@ -29,7 +29,7 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
     private RectTransform rectTransform;
     private InventoryGUI inventoryGUI;
     private HoverInfo hoverInfo;
-    private StrainProfile strainProfile;
+    public StrainProfile strainProfile;
     //private SeedDropDown seedDropDown;
     private InventoryController inventoryController;
     private SmartDropdown smartDropdown;

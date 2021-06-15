@@ -50,6 +50,12 @@ public class SmartDropdown : MonoBehaviour
 
     public void OpenDropdown(InventoryItem _itemClicked)
     {
+        //buttons that come up regardless of what panel is open
+        if (_itemClicked.isStrain)
+            StrainInfoSpawn(_itemClicked);
+
+
+        //buttons that come up depending on what panel is open
         if (_itemClicked.inPlayerInventory)
         {
             if (storageCrateOpen)
@@ -68,6 +74,22 @@ public class SmartDropdown : MonoBehaviour
             }
         }
         SetDropdownActive(true);
+    }
+
+    private void StrainInfoSpawn(InventoryItem _itemClicked)
+    {
+        GameObject newBtn = Instantiate(dropDownBtn, parentDropDown);
+        DropDownBtn btnComp = newBtn.GetComponent<DropDownBtn>();
+
+        btnComp.btnTxt.text = "Strain Profile";
+
+        btnComp.btnComp.onClick.AddListener(delegate { ShowStrain(_itemClicked.strainProfile); });
+    }
+
+    private void ShowStrain(StrainProfile _strain)
+    {
+        strainInfoUI.SetStrainInfoActive(_strain);
+        CloseAndResetDropdown();
     }
 
     private void TransferAllToStorageSpawn()
