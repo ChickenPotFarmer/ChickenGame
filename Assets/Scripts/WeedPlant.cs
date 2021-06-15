@@ -392,6 +392,7 @@ public class WeedPlant : MonoBehaviour, IPointerExitHandler
     {
         // start with growthTime set to 0, set that with method, not this routine
         // add one for each second, check to see if it needs to update
+        secsGrowing = 0;
         float stageTime = growTime / 3;
         do
         {
@@ -474,6 +475,7 @@ public class WeedPlant : MonoBehaviour, IPointerExitHandler
         CloseHarvestPanel();
         SetNone();
 
+        waterLevel = startingWaterLevel;
         fullyGrown = false;
         isPlanted = false;
         hasSeed = false;
