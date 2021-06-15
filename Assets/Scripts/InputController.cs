@@ -24,6 +24,7 @@ public class InputController : MonoBehaviour
     private InventoryGUI inventoryGUI;
     private RadialMenu radialMenu;
 
+
     public static InputController instance;
     [HideInInspector]
     public GameObject inputController;
@@ -244,8 +245,10 @@ public class InputController : MonoBehaviour
 
                                         else if (trimmer.trimmerOn && foundPlant.isPlanted)
                                         {
-                                            //highlight plant and ask if sure
+
                                             foundPlant.DestroyPlant();
+
+                                            
                                         }
                                     }
                                 }

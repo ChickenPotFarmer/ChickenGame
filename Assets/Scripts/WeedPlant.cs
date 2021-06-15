@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class WeedPlant : MonoBehaviour, IPointerExitHandler
+public class WeedPlant : MonoBehaviour
 {
     [Header("Info")]
     public StrainProfile currentStrain;
@@ -38,7 +38,7 @@ public class WeedPlant : MonoBehaviour, IPointerExitHandler
 
     [Header("Setup")]
     public MateDectionSphere mateDectionSphere;
-    public GameObject destroyHighlight;
+    public DestroyHighlight destroyHighlight;
     public ParticleSystem waterParticles;
     public CapsuleCollider plantCollider;
     public CanvasGroup growthBarCg;
@@ -172,30 +172,32 @@ public class WeedPlant : MonoBehaviour, IPointerExitHandler
 
     public void DestroyPlant()
     {
-        StopAllCoroutines();
+        if (!destroyHighlight.highlightActive)
+        {
+            destroyHighlight.ActivateHighlight(true);
+        }
+        else
+        {
+            destroyHighlight.ActivateHighlight(false);
+            StopAllCoroutines();
+            StartCoroutine(DestroyPlantRoutine());
 
-        StartCoroutine(DestroyPlantRoutine());
+        }
     }
 
     IEnumerator DestroyPlantRoutine()
     {
-        if (!targettedForDelete)
-        {
-            TargetForDelete();
-        }
-        else
-        {
-            targettedForDelete = false;
-            destroyHighlight.SetActive(false);
-            yield return new WaitForSeconds(0.5f);
-            ResetPlant();
-        }
+
+        yield return new WaitForSeconds(0.5f);
+        ResetPlant();
+        
     }
 
     public void TargetForDelete()
     {
         targettedForDelete = true;
-        destroyHighlight.SetActive(true);
+        destroyHighlight.ActivateHighlight(true);
+
     }
 
     private void DeletePlant()
@@ -508,15 +510,6 @@ public class WeedPlant : MonoBehaviour, IPointerExitHandler
 
 
             }
-        }
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    { 
-        if (targettedForDelete)
-        {
-            targettedForDelete = false;
-            destroyHighlight.SetActive(false);
         }
     }
 }
