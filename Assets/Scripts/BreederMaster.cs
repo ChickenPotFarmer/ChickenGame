@@ -31,6 +31,16 @@ public class BreederMaster : MonoBehaviour
 
     private StrainInfoUI strainInfoUI;
 
+    public static BreederMaster instance;
+    [HideInInspector]
+    public GameObject breederMaster;
+
+    private void Awake()
+    {
+        instance = this;
+        breederMaster = gameObject;
+    }
+
     private void Start()
     {
         if (!strainInfoUI)
@@ -43,8 +53,11 @@ public class BreederMaster : MonoBehaviour
     //        Breed();
     //}
 
-    public void Breed()
+    public StrainProfile Breed(WeedPlant _male, WeedPlant _female)
     {
+        male = _male.currentStrain;
+        female = _female.currentStrain;
+
         if (newStrain != null)
             newStrain = null;
 
@@ -83,7 +96,9 @@ public class BreederMaster : MonoBehaviour
 
         newStrain.GenerateTerpeneEffects(); // Make this more complicated. 1/3 chance for male side, 1/3 chance for female, 1/3 chance random.
 
-        strainInfoUI.SetStrainInfoActive(newStrain);
+        return newStrain;
+
+        //strainInfoUI.SetStrainInfoActive(newStrain);
     }
 
     public void AverageTerpeneLevels()

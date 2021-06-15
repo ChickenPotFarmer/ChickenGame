@@ -22,7 +22,7 @@ public class MateDectionSphere : MonoBehaviour
         {
             if (matesInRange[i].isPlanted && !matesInRange[i].isMale)
             {
-                matesInRange[i].PollinatePlant();
+                matesInRange[i].PollinatePlant(parentPlant);
             }
         }
         

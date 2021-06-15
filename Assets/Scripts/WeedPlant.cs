@@ -8,6 +8,7 @@ public class WeedPlant : MonoBehaviour, IPointerExitHandler
 {
     [Header("Info")]
     public StrainProfile currentStrain;
+    public WeedPlant fatherPlant;
     public string strainID;
     public string strain;
     public float maxYield;
@@ -456,9 +457,10 @@ public class WeedPlant : MonoBehaviour, IPointerExitHandler
         }
     }
 
-    public void PollinatePlant()
+    public void PollinatePlant(WeedPlant _father)
     {
         isPollinated = true;
+        fatherPlant = _father;
         seedbagImg.SetActive(true);
     }
 

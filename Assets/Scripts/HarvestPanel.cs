@@ -23,12 +23,16 @@ public class HarvestPanel : MonoBehaviour
 
     private List<InventoryItem> newBrickList;
     private InventoryController inventoryController;
+    private BreederMaster breederMaster;
 
 
     private void Start()
     {
         if (!inventoryController)
             inventoryController = InventoryController.instance.inventoryController.GetComponent<InventoryController>();
+
+        if (!breederMaster)
+            breederMaster = BreederMaster.instance.breederMaster.GetComponent<BreederMaster>();
 
         slots = new Transform[slotsParent.childCount];
 
@@ -168,7 +172,19 @@ public class HarvestPanel : MonoBehaviour
         }
         else if (_plant.isPollinated && !_plant.isMale)
         {
-            HarvestSeeds(_plant, _strain);
+            StrainProfile newStrain;
+            if (_plant.currentStrain != _plant.fatherPlant.currentStrain)
+            {
+                newStrain = breederMaster.Breed(_plant, _plant.fatherPlant);
+                print("New Strain Created");
+            }
+            else
+            {
+                newStrain = _strain;
+            }
+            
+
+            HarvestSeeds(_plant, newStrain);
         }
         else if (_plant.isMale)
         {
