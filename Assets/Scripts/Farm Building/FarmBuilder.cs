@@ -34,6 +34,10 @@ public class FarmBuilder : MonoBehaviour
             SelectPlaceable(0);
         else if (Input.GetKeyDown("]"))
             SelectPlaceable(1);
+        else if (Input.GetKeyDown("\\"))
+            SelectPlaceable(2);
+        else if (Input.GetKeyDown("p"))
+            SelectPlaceable(3);
 
         if (farmBuilderActive && objectBeingPlaced != null)
         {
