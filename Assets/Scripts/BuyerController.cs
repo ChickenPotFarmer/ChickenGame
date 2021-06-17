@@ -12,6 +12,10 @@ public class BuyerController : MonoBehaviour
     public Transform spawnLocationsParent;
     public Transform[] spawnLocations;
 
+    [Header("UI")]
+    public Transform iconsParent;
+    public GameObject mapIcon;
+
     [Header("Status")]
     public bool hoverActive;
 
@@ -50,5 +54,12 @@ public class BuyerController : MonoBehaviour
         GameObject newBuyer = Instantiate(buyerPrefabs[randBuyer], spawnLocations[randSpawn]);
         newBuyer.transform.position = spawnLocations[randSpawn].position;
         newBuyer.GetComponent<Buyer>().SetInfo(_email, _toDo);
+
+        GameObject newIcon = (Instantiate(mapIcon, iconsParent));
+        MapIcon icon = newIcon.GetComponent<MapIcon>();
+
+        icon.followObj = newBuyer.transform;
+        icon.SetIcon(0);
+
     }
 }

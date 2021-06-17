@@ -381,7 +381,7 @@ public class TrafficCar : MonoBehaviour
     private void VerificaPoints()
     {
 
-        if (distance < 5)
+        if (distance < 5 && atualWayScript.nextWay.Length != 0)
         {
 
             if (currentNode < countWays - 1)
@@ -397,6 +397,7 @@ public class TrafficCar : MonoBehaviour
             }
 
         }
+
 
         distance = Vector3.Distance(nodes[currentNode].position, transform.position);
 

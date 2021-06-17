@@ -67,7 +67,7 @@ public class MapController : MonoBehaviour
             mapCam.SetActive(false);
             mapActive = false;
             inputController.mapActive = false;
-            mapCam.transform.position = mapStartPos;
+            //mapCam.transform.position = mapStartPos;
         }
         else
         {
