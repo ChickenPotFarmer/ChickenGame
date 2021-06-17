@@ -10,6 +10,7 @@ public class InputController : MonoBehaviour
     public bool farmBuilderActive;
     public bool radialMenuOn;
     public bool fugitive;
+    public bool mapActive;
 
 
     private WateringCan wateringCan;
@@ -23,6 +24,7 @@ public class InputController : MonoBehaviour
     private ChickenController chickenController;
     private InventoryGUI inventoryGUI;
     private RadialMenu radialMenu;
+    private MapController mapController;
 
 
     public static InputController instance;
@@ -57,6 +59,8 @@ public class InputController : MonoBehaviour
             wateringCan = WateringCan.instance.waterCan.GetComponent<WateringCan>();
         if (!radialMenu)
             radialMenu = GetComponent<RadialMenu>();
+        if (!mapController)
+            mapController = MapController.instance.mapController.GetComponent<MapController>();
     }
 
     private void Update()
@@ -117,6 +121,10 @@ public class InputController : MonoBehaviour
             {
                 radialMenuOn = false;
                 radialMenu.SetMenuActive(false);
+            }
+            else if (Input.GetKeyDown("m"))
+            {
+                mapController.ToggleMap();
             }
 
             if (!radialMenuOn)
@@ -299,7 +307,7 @@ public class InputController : MonoBehaviour
     {
         bool clicked = false;
 
-        if (Input.GetButtonDown("Interact") && !fugitive)
+        if (Input.GetButtonDown("Interact") && !fugitive && !mapActive)
         {
             clicked = true;
         }
