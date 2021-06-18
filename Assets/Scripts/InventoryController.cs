@@ -65,6 +65,16 @@ public class InventoryController : MonoBehaviour
         moneyTxt.text = "$" + moneyCarrying.ToString("n2");
     }
 
+    public bool CheckIfCanAfford(float _amt)
+    {
+        float newAmt = moneyCarrying - _amt;
+        if (newAmt >= 0)
+            return true;
+        else
+            return false;
+
+    }
+
     public void AddInventoryChick()
     {
         // Add and setup new ChickInventory

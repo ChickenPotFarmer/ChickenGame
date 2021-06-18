@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class MapController : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class MapController : MonoBehaviour
     public Vector3 mapStartPos;
     public GameObject mapCam;
     public Rigidbody camRb;
+    public CinemachineVirtualCamera camComp;
 
     private Vector3 forceDir;
     private InputController inputController;
@@ -58,6 +60,20 @@ public class MapController : MonoBehaviour
             else
                 forceDir = new Vector3(0, 0, 0) * camSpeed;
             camRb.AddForce(forceDir, ForceMode.Impulse);
+
+            if (Input.mouseScrollDelta.y > 0)
+            {
+                camComp.m_Lens.FieldOfView -= 2;
+                if (camComp.m_Lens.FieldOfView < 8)
+                    camComp.m_Lens.FieldOfView = 8;
+            }
+            else if (Input.mouseScrollDelta.y < 0)
+            {
+                camComp.m_Lens.FieldOfView += 2;
+                if (camComp.m_Lens.FieldOfView > 54)
+                    camComp.m_Lens.FieldOfView = 54;
+            }
+
         }
     }
 

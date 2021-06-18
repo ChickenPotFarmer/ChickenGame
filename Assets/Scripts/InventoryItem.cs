@@ -13,6 +13,7 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
     public bool isStrain;
     public bool locked;
     public bool inPlayerInventory;
+    public float storeCost;
     public string itemID;
 
     [Header("Drag Info")]
