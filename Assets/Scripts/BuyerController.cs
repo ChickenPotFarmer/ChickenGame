@@ -49,8 +49,30 @@ public class BuyerController : MonoBehaviour
         float _amtRequested = _email.orderAmt;
         float _totalPay = _email.totalPay;
 
-        int randSpawn = Random.Range(0, spawnLocations.Length);
+        int randSpawn;
+        Transform spawnLocation;
         int randBuyer = Random.Range(0, buyerPrefabs.Length);
+        bool spawnOk = true;
+
+        do
+        {
+            randSpawn = Random.Range(0, spawnLocations.Length);
+            if (spawnLocations[randSpawn].childCount == 0)
+            {
+                spawnOk = true;
+                spawnLocation = spawnLocations[randSpawn];
+            }
+            else
+            {
+                spawnOk = false;
+            }
+
+            //find a way to check to make sure there is an open slot before spawning in buyer.
+            
+        } while (!spawnOk);
+
+
+
         GameObject newBuyer = Instantiate(buyerPrefabs[randBuyer], spawnLocations[randSpawn]);
         newBuyer.transform.position = spawnLocations[randSpawn].position;
         newBuyer.GetComponent<Buyer>().SetInfo(_email, _toDo);

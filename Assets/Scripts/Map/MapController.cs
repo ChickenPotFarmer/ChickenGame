@@ -11,6 +11,7 @@ public class MapController : MonoBehaviour
     public float camSpeed;
 
     [Header("Setup")]
+    public CanvasGroup iconsCg;
     public Vector3 mapStartPos;
     public GameObject mapCam;
     public Rigidbody camRb;
@@ -67,6 +68,7 @@ public class MapController : MonoBehaviour
             mapCam.SetActive(false);
             mapActive = false;
             inputController.mapActive = false;
+            SetIconsActive(false);
             //mapCam.transform.position = mapStartPos;
         }
         else
@@ -74,7 +76,25 @@ public class MapController : MonoBehaviour
             mapCam.SetActive(true);
             mapActive = true;
             inputController.mapActive = true;
+            SetIconsActive(true);
 
         }
     }
+
+    private void SetIconsActive(bool _active)
+    {
+        if (_active)
+        {
+            iconsCg.alpha = 1;
+            iconsCg.interactable = true;
+            iconsCg.blocksRaycasts = true;
+        }
+        else
+        {
+            iconsCg.alpha = 0;
+            iconsCg.interactable = false;
+            iconsCg.blocksRaycasts = false;
+        }
+    }
+        
 }
