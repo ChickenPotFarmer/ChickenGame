@@ -37,7 +37,8 @@ public class SeedStore : MonoBehaviour
 
     private InventoryController inventoryController;
     private Transform openSlot;
-    private StoreItem selectedSeed; 
+    private StoreItem selectedSeed;
+    private Bank bank;
 
     private void Awake()
     {
@@ -47,7 +48,11 @@ public class SeedStore : MonoBehaviour
 
     private void Start()
     {
-        inventoryController = InventoryController.instance.inventoryController.GetComponent<InventoryController>();
+        if (!inventoryController)
+            inventoryController = InventoryController.instance.inventoryController.GetComponent<InventoryController>();
+
+        if (!bank)
+            bank = Bank.instance.bank.GetComponent<Bank>();
 
         buyBtn.onClick.AddListener(delegate { BuySelectedSeed(); });
         cancelBtn.onClick.AddListener(delegate { CancelBuy(); });

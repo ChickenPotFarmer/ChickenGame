@@ -28,7 +28,6 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
     private CanvasGroup cg;
     private Canvas inventoryCanvas;
     private RectTransform rectTransform;
-    private InventoryGUI inventoryGUI;
     private HoverInfo hoverInfo;
     public StrainProfile strainProfile;
     //private SeedDropDown seedDropDown;
@@ -44,9 +43,6 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
 
     void Start()
     {
-        if (!inventoryGUI)
-            inventoryGUI = InventoryGUI.instance.inventoryGUI.GetComponent<InventoryGUI>();
-
         if (!hoverInfo)
             hoverInfo = HoverInfo.instance.hoverInfo.GetComponent<HoverInfo>();
 
@@ -59,7 +55,7 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
         if (!inventoryController)
             inventoryController = InventoryController.instance.inventoryController.GetComponent<InventoryController>();
 
-        inventoryCanvas = inventoryGUI.inventoryCanvas;
+        inventoryCanvas = inventoryController.inventoryCanvas;
 
         IntializeItem();
     }
@@ -86,7 +82,7 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
     public void OnBeginDrag(PointerEventData _EventData)
     {
         previousParent = transform.parent;
-        rectTransform.SetParent(inventoryGUI.dragParent, true);
+        rectTransform.SetParent(inventoryController.dragParent, true);
         cg.blocksRaycasts = false;
         cg.alpha = 0.7f;
         smartDropdown.CloseAndResetDropdown();
@@ -133,7 +129,7 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
             // Checks if it was dropped, if not then return to original slot.
         if (targetParent == null)
         {
-            if (transform.parent == inventoryGUI.dragParent)
+            if (transform.parent == inventoryController.dragParent)
             {
                 ReturnToPreviousParent();
             }
@@ -278,8 +274,12 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
     public void UpdateTextUI()
     {
         if (uiAmount != null)
-            uiAmount.text = amount.ToString();
-
+        {
+            if (itemName.Equals("Cash"))
+                uiAmount.text = "$" + amount.ToString();
+            else
+                uiAmount.text = amount.ToString();
+        }
         if (uiName != null)
             uiName.text = itemName;
 
@@ -302,7 +302,8 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
         }
         else
         {
-            uiName.text = itemName;
+            if (!itemName.Equals("Cash"))
+                uiName.text = itemName;
         }
     }
 }

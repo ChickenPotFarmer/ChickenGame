@@ -22,7 +22,7 @@ public class InputController : MonoBehaviour
     private Planter planterController;
     private ToDoController toDoController;
     private ChickenController chickenController;
-    private InventoryGUI inventoryGUI;
+    private InventoryController inventoryController;
     private RadialMenu radialMenu;
     private MapController mapController;
 
@@ -49,8 +49,6 @@ public class InputController : MonoBehaviour
             toDoController = ToDoController.instance.toDoController.GetComponent<ToDoController>();
         if (!chickenController)
             chickenController = ChickenController.instance.chickenController.GetComponent<ChickenController>();
-        if (!inventoryGUI)
-            inventoryGUI = InventoryGUI.instance.inventoryGUI.GetComponent<InventoryGUI>();
         if (!seedCannon)
             seedCannon = SeedCannon.instance.seedCannon.GetComponent<SeedCannon>();
         if (!trimmer)
@@ -61,6 +59,8 @@ public class InputController : MonoBehaviour
             radialMenu = GetComponent<RadialMenu>();
         if (!mapController)
             mapController = MapController.instance.mapController.GetComponent<MapController>();
+        if (!inventoryController)
+            inventoryController = InventoryController.instance.inventoryController.GetComponent<InventoryController>();
     }
 
     private void Update()
@@ -69,7 +69,7 @@ public class InputController : MonoBehaviour
         {
             // Keyboard Controls
             if (Input.GetKeyDown(KeyCode.Tab))
-                inventoryGUI.ToggleInventoryPanel();
+                inventoryController.ToggleInventoryPanel();
 
             else if (Input.GetKeyDown(KeyCode.T))
                 toDoController.ToggleToDoPanel();

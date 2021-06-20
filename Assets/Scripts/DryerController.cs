@@ -44,9 +44,6 @@ public class DryerController : MonoBehaviour
         if (!chicken)
             chicken = ChickenController.instance.chickenController.GetComponent<ChickenController>();
 
-        if (!inventoryGUI)
-            inventoryGUI = InventoryGUI.instance.inventoryGUI.GetComponent<InventoryGUI>();
-
         if (slots.Count == 0)
         {
             for (int i = 0; i < slotsParent.childCount; i++)

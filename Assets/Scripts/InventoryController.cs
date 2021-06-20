@@ -9,6 +9,9 @@ public class InventoryController : MonoBehaviour
     public float moneyCarrying;
     public Text moneyTxt;
 
+    [Header("Status")]
+    public bool inventoryActive;
+
     [Header("Inventory Chicks")]
     public GameObject chickPrefab;
     public Transform chicksParent;
@@ -19,8 +22,11 @@ public class InventoryController : MonoBehaviour
     public List<Transform> slots;
 
     [Header("Settings")]
+    public Transform dragParent;
+    public Canvas inventoryCanvas;
     public float gramsPerBrick;
     public GameObject slotPrefab;
+    public CanvasGroup inventoryCg;
 
 
     public static InventoryController instance;
@@ -44,7 +50,6 @@ public class InventoryController : MonoBehaviour
 
     private void Start()
     {
-        AddCash(0);
         // Intialize Slots References
         if (slots.Count == 0)
         {
@@ -55,15 +60,39 @@ public class InventoryController : MonoBehaviour
         }
     }
 
+    public void ToggleInventoryPanel()
+    {
+        if (inventoryActive)
+        {
+            SetInventoryActive(false);
+        }
+        else
+        {
+            SetInventoryActive(true);
+        }
+    }
+
+    private void SetInventoryActive(bool _active)
+    {
+        if (_active)
+        {
+            inventoryCg.alpha = 1;
+            inventoryCg.interactable = true;
+            inventoryCg.blocksRaycasts = true;
+            inventoryActive = true;
+        }
+        else
+        {
+            inventoryCg.alpha = 0;
+            inventoryCg.interactable = false;
+            inventoryCg.blocksRaycasts = false;
+            inventoryActive = false;
+        }
+    }
+
     // TO-DO:
     // Change this so that money is an object in the game
     // player will need to deposit money at bank or atm to buy stuff online
-    public void AddCash(float _amt)
-    {
-        moneyCarrying += _amt;
-
-        moneyTxt.text = "$" + moneyCarrying.ToString("n2");
-    }
 
     public bool CheckIfCanAfford(float _amt)
     {
@@ -207,7 +236,6 @@ public class InventoryController : MonoBehaviour
             // needs testing
             if (remainderItem != null && remainderItem.amount == itemAmt)
             {
-                print("inventory full? I think?");
 
                 // on a hunch I added this, needs testing
                 if (remainderItem.amount == 0)
@@ -269,6 +297,10 @@ public class InventoryController : MonoBehaviour
                 hasRoom = true;
             }
         }
+
+        //Handle sound effects here too
+        if (!hasRoom)
+            print("No Room In Inventory");
 
         return hasRoom;
     }

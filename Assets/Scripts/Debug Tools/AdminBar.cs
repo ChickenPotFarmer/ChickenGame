@@ -13,11 +13,15 @@ public class AdminBar : MonoBehaviour
     public GameObject seedBag2;
 
     private InventoryController inventoryController;
+    private Bank bank;
 
     private void Start()
     {
         if (!inventoryController)
             inventoryController = InventoryController.instance.inventoryController.GetComponent<InventoryController>();
+
+        if (!bank)
+            bank = Bank.instance.bank.GetComponent<Bank>();
     }
 
     private void Update()
@@ -67,6 +71,12 @@ public class AdminBar : MonoBehaviour
 
                 inventoryController.ReturnToInventory(bag.GetComponent<InventoryItem>());
             }
+        }
+
+        else if (words[0].Equals("ADDCASH"))
+        {
+            float amt = float.Parse(words[1]);
+            bank.RequestCash(amt);
         }
         SetPanelActive(false);
     }

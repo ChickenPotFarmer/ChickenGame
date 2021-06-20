@@ -45,6 +45,7 @@ public class Buyer : MonoBehaviour
 
     private InventoryController inventoryController;
     private InventoryGUI inventoryGUI;
+    private Bank bank;
 
     private Animator buyerAnimator;
     public GameObject randomBuyer;
@@ -59,6 +60,9 @@ public class Buyer : MonoBehaviour
 
         if (!inventoryGUI)
             inventoryGUI = InventoryGUI.instance.inventoryGUI.GetComponent<InventoryGUI>();
+
+        if (!bank)
+            bank = Bank.instance.bank.GetComponent<Bank>();
 
         if (randomBuyer == null)
         {
@@ -202,6 +206,9 @@ public class Buyer : MonoBehaviour
 
         weedIsGood = true;
 
+
+        //Change these to grades, weight them and then add them to get a score
+
         // Strain Type Check
         if (Mathf.Abs(typeRequested - _strain.strainType) > 1 && typeRequested != -1)
         {
@@ -277,10 +284,11 @@ public class Buyer : MonoBehaviour
     {
         if (orderFilled)
         {
-            inventoryController.AddCash(totalPay);
+            if (bank.RequestCash(totalPay))
+            {
+                SaleSuccess();
 
-
-            SaleSuccess();
+            }
 
         }
     }
