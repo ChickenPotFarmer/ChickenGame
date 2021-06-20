@@ -11,6 +11,7 @@ public class StoreItem : MonoBehaviour
     public GameObject objectPrefab;
     public Button itemBtn;
     public TextMeshProUGUI nameTxt;
+    public StrainProfile strainProfile;
     private SeedStore seedStore;
 
     private void Start()
@@ -25,6 +26,10 @@ public class StoreItem : MonoBehaviour
     {
         itemBtn.onClick.AddListener(delegate { seedStore.SetSelectedItem(this); });
         if (isStrain)
-            nameTxt.text = objectPrefab.GetComponent<StrainProfile>().strainName;
+        {
+            strainProfile = objectPrefab.GetComponent<StrainProfile>();
+            nameTxt.text = strainProfile.strainName;
+
+        }
     }
 }

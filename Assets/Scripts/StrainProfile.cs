@@ -378,6 +378,13 @@ public class StrainProfile : MonoBehaviour
         return readable;
     }
 
+    public string GetReaderFriendlyTerpeneContent()
+    {
+        float terpenes = totalTerpenesPercent * 100;
+        string readable = terpenes.ToString("n2") + "%";
+        return readable;
+    }
+
     public string GetPrimaryTerpene()
     {
         string terpene;

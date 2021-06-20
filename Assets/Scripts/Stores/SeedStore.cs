@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class SeedStore : MonoBehaviour
 {
@@ -16,9 +17,19 @@ public class SeedStore : MonoBehaviour
     public GameObject[] legendarySeeds;
 
     [Header("Setup")]
+    public CanvasGroup seedStoreCg;
     public CanvasGroup confirmPanelCg;
     public Button buyBtn;
     public Button cancelBtn;
+
+    [Header("Confirm UI Info")]
+    public TextMeshProUGUI strainNameTxt;
+    public TextMeshProUGUI typeTxt;
+    public TextMeshProUGUI thcTxt;
+    public TextMeshProUGUI terpeneTxt;
+    public TextMeshProUGUI primaryTerpeneTxt;
+    public TextMeshProUGUI costTxt;
+
 
     public static SeedStore instance;
     [HideInInspector]
@@ -62,9 +73,17 @@ public class SeedStore : MonoBehaviour
 
     }
 
-    public void SetSelectedItem(StoreItem _item)
+    public void SetSelectedItem(StoreItem _storeItem)
     {
-        selectedSeed = _item;
+        selectedSeed = _storeItem;
+
+        strainNameTxt.text = _storeItem.strainProfile.strainName;
+        typeTxt.text = _storeItem.strainProfile.GetStrainType();
+        thcTxt.text = _storeItem.strainProfile.GetReaderFriendlyThcContent();
+        terpeneTxt.text = _storeItem.strainProfile.GetReaderFriendlyTerpeneContent();
+        primaryTerpeneTxt.text = _storeItem.strainProfile.GetPrimaryTerpene();
+        costTxt.text = "$" + _storeItem.storeCost.ToString("n2");
+
         SetConfirmActive(true);
     }
 
@@ -81,6 +100,18 @@ public class SeedStore : MonoBehaviour
         return slotFound;
     }
 
+    public void CloseSeedStore()
+    {
+        SetStorePanelActive(false);
+    }
+
+    public void OpenSeedStore()
+    {
+        SetStorePanelActive(true);
+    }
+
+
+
     private void SetConfirmActive(bool _active)
     {
         if (_active)
@@ -94,6 +125,22 @@ public class SeedStore : MonoBehaviour
             confirmPanelCg.alpha = 0;
             confirmPanelCg.interactable = false;
             confirmPanelCg.blocksRaycasts = false;
+        }
+    }
+
+    private void SetStorePanelActive(bool _active)
+    {
+        if (_active)
+        {
+            seedStoreCg.alpha = 1;
+            seedStoreCg.interactable = true;
+            seedStoreCg.blocksRaycasts = true;
+        }
+        else
+        {
+            seedStoreCg.alpha = 0;
+            seedStoreCg.interactable = false;
+            seedStoreCg.blocksRaycasts = false;
         }
     }
 
