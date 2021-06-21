@@ -1,0 +1,346 @@
+fileFormatVersion: 2
+guid: 0541ba7793ea96a40bd2a85e6525c08f
+ModelImporter:
+  serializedVersion: 19301
+  internalIDToNameTable:
+  - first:
+      74: -2345940226078208058
+    second: metarig|Chicken canon
+  - first:
+      74: 1541499386124576781
+    second: metarig|Idle chicken
+  - first:
+      74: -1747354009883320244
+    second: metarig|walk chicken
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FaceSkin.001
+    second: {fileID: 2100000, guid: e1d1f8d743b897e41ab3d7cb5b6fe4c6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: b5428cd7424a8204a99e41425b105a9f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.002
+    second: {fileID: 2100000, guid: 976bab65ba6eaab4faa9e23c93e17f21, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.004
+    second: {fileID: 2100000, guid: eb227babe5366274fa6a6d9263d506af, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.005
+    second: {fileID: 2100000, guid: 3254f0ab619ddb846995b0ced6522f21, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: No Name
+    second: {fileID: 2100000, guid: 285eaf55dbb170c43b990133ecca5a7a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: eye whites
+    second: {fileID: 2100000, guid: 722d86ba51f678c45bc34a9aa2670592, type: 2}
+  materials:
+    materialImportMode: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: <Root Transform>
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton:
+    - name: New chicken(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Mball.004
+      parentName: New chicken(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Mball.001
+      parentName: New chicken(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Body_Cube.009_Body_Cube.001mesh.008
+      parentName: New chicken(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Body_Cube.010_Body_Cube.001mesh.009
+      parentName: New chicken(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Sphere_Sphere.002
+      parentName: New chicken(Clone)
+      position: {x: 0.0010360342, y: 0.3654317, z: 0.20975964}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 107.01766, y: 107.01766, z: 107.01766}
+    - name: Sphere.002_Sphere.005
+      parentName: New chicken(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Mball.006
+      parentName: New chicken(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Sphere
+      parentName: New chicken(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Sphere.001
+      parentName: New chicken(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Feet
+      parentName: New chicken(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Mball.002
+      parentName: New chicken(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: metarig
+      parentName: New chicken(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 233.63678, y: 233.63678, z: 233.63678}
+    - name: spine.004
+      parentName: metarig
+      position: {x: -0.000004326535, y: 0.00047894075, z: 0.00087261666}
+      rotation: {x: 0.69180876, y: -0.00038937753, z: -0.00037305697, w: 0.72208065}
+      scale: {x: 0.99999994, y: 1.000002, z: 0.9998958}
+    - name: spine.007
+      parentName: spine.004
+      position: {x: -8.0547125e-13, y: 0.00040375255, z: 1.2806822e-12}
+      rotation: {x: -0.99118555, y: -0.00023051887, z: 0.0027937763, w: 0.13245152}
+      scale: {x: 1, y: 1.000001, z: 1.0000026}
+    - name: spine.003
+      parentName: spine.007
+      position: {x: 2.5465852e-13, y: 0.0006915244, z: -1.8627361e-10}
+      rotation: {x: 0.16801518, y: 0.000000069449015, z: -0.0007660277, w: 0.9857841}
+      scale: {x: 0.99999994, y: 1.0002012, z: 0.9997985}
+    - name: spine.003_end
+      parentName: spine.003
+      position: {x: -0, y: 0.00031999307, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: spine.005
+      parentName: spine.004
+      position: {x: -8.0547125e-13, y: 0.00040375255, z: 1.2806822e-12}
+      rotation: {x: -0.14854242, y: 0.0004010633, z: 0.00009992579, w: 0.988906}
+      scale: {x: 0.99999994, y: 1.0000018, z: 1.0000031}
+    - name: Wing.L
+      parentName: spine.005
+      position: {x: -0.00008468185, y: 0.00061648566, z: -0.000031196574}
+      rotation: {x: 0.007995249, y: -0.017968096, z: 0.7052676, w: 0.7086684}
+      scale: {x: 0.9999759, y: 0.9999988, z: 1.0000285}
+    - name: Wing.001.L
+      parentName: Wing.L
+      position: {x: 0.00009125082, y: 0.000451614, z: 0.0000245438}
+      rotation: {x: -0.023459213, y: 0.0066116876, z: -0.0075376225, w: 0.99967456}
+      scale: {x: 0.9999516, y: 0.9999952, z: 1.0000651}
+    - name: Wing.002.L
+      parentName: Wing.001.L
+      position: {x: 1.1641532e-10, y: 0.00043490244, z: 1.8626451e-11}
+      rotation: {x: 0.043208916, y: -0.003003018, z: 0.014055668, w: 0.9989627}
+      scale: {x: 1.0000012, y: 0.9999937, z: 1.0000156}
+    - name: Wing.002.L_end
+      parentName: Wing.002.L
+      position: {x: -0, y: 0.0012094234, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: spine.006
+      parentName: spine.005
+      position: {x: -2.6147972e-13, y: 0.00044222674, z: 5.7874344e-11}
+      rotation: {x: -0.15799052, y: 0.00013166611, z: 0.000021138068, w: 0.98744065}
+      scale: {x: 1, y: 1.0002114, z: 0.99978864}
+    - name: neck.001
+      parentName: spine.006
+      position: {x: -5.3778314e-13, y: 0.00021693412, z: 4.002822e-11}
+      rotation: {x: 0.094488315, y: -0.00004975683, z: -0.000004789903, w: 0.99552596}
+      scale: {x: 0.99999917, y: 1.0004563, z: 0.9995423}
+    - name: head
+      parentName: neck.001
+      position: {x: -2.1373125e-13, y: 0.00021523017, z: -2.1162449e-11}
+      rotation: {x: -0.16266678, y: 0.000049451177, z: 0.0000081878, w: 0.98668104}
+      scale: {x: 1.0000015, y: 1.0009694, z: 0.9990331}
+    - name: eye.L
+      parentName: head
+      position: {x: -0.00012129999, y: 0.00022730588, z: 0.00022174434}
+      rotation: {x: -0.004550309, y: 0.7576859, z: 0.65259194, w: 0.0039017047}
+      scale: {x: 1.0000042, y: 0.999003, z: 1.0010017}
+    - name: eye.L_end
+      parentName: eye.L
+      position: {x: -0, y: 0.00014571552, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: eye.R
+      parentName: head
+      position: {x: 0.00012913645, y: 0.00022730808, z: 0.0002217585}
+      rotation: {x: 0.008785246, y: 0.7576486, z: 0.65255976, w: -0.007574649}
+      scale: {x: 1.0000085, y: 0.9990062, z: 1.0010036}
+    - name: eye.R_end
+      parentName: eye.R
+      position: {x: -0, y: 0.0001457155, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Wing.R
+      parentName: spine.005
+      position: {x: 0.00009331826, y: 0.00061648566, z: -0.00003124417}
+      rotation: {x: 0.007806614, y: 0.018157678, z: -0.70526963, w: 0.7086637}
+      scale: {x: 0.9999776, y: 1.000001, z: 1.0000304}
+    - name: Wing.001.R
+      parentName: Wing.R
+      position: {x: -0.000091250884, y: 0.00045161403, z: 0.000024543679}
+      rotation: {x: -0.023459202, y: -0.0066116997, z: 0.0075376923, w: 0.9996745}
+      scale: {x: 0.99994814, y: 0.99999154, z: 1.0000618}
+    - name: Wing.002.R
+      parentName: Wing.001.R
+      position: {x: -3.259629e-11, y: 0.00043490235, z: 3.259629e-11}
+      rotation: {x: 0.043208953, y: 0.0030029416, z: -0.014055801, w: 0.9989627}
+      scale: {x: 0.9999963, y: 0.99998915, z: 1.0000145}
+    - name: Wing.002.R_end
+      parentName: Wing.002.R
+      position: {x: -0, y: 0.0012094234, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: thigh.L
+      parentName: spine.004
+      position: {x: -0.00024235321, y: 0.0004886719, z: 0.0001549497}
+      rotation: {x: 0.99680126, y: -0.022417681, z: 0.01778551, w: 0.07462209}
+      scale: {x: 1, y: 1.0000033, z: 1.0000031}
+    - name: shin.L
+      parentName: thigh.L
+      position: {x: 1.883041e-11, y: 0.0006691362, z: -1.0964686e-11}
+      rotation: {x: 0.043264326, y: 0.008824743, z: 0.00870064, w: 0.99898684}
+      scale: {x: 1, y: 0.9999988, z: 1.0000119}
+    - name: shin.L_end
+      parentName: shin.L
+      position: {x: -0, y: 0.00049946364, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: thigh.R
+      parentName: spine.004
+      position: {x: 0.00025525378, y: 0.0004886719, z: 0.00015441298}
+      rotation: {x: 0.99678147, y: 0.022498032, z: -0.018860407, w: 0.07459775}
+      scale: {x: 1, y: 1.0000024, z: 1.0000021}
+    - name: shin.R
+      parentName: thigh.R
+      position: {x: -1.8425409e-11, y: 0.00066913624, z: 6.666845e-13}
+      rotation: {x: 0.04297606, y: -0.031362027, z: -0.014007364, w: 0.9984855}
+      scale: {x: 1, y: 0.9999981, z: 1.0000116}
+    - name: shin.R_end
+      parentName: shin.R
+      position: {x: -0, y: 0.00049972755, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Leaf_model.002_Plane.001
+      parentName: New chicken(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Empty
+      parentName: New chicken(Clone)
+      position: {x: -0.7969364, y: -0.03536846, z: 2.2400024}
+      rotation: {x: 0.000000015454313, y: 0.70710677, z: -0.000000015454312, w: 0.7071068}
+      scale: {x: 100, y: 100, z: 100}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
