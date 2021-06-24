@@ -106,7 +106,7 @@ public class ItemSlot : MonoBehaviour, IDropHandler
                                 childItem = cloneBrick.GetComponent<InventoryItem>();
                                 childItem.previousParent = childItem.transform;
                                 childItem.SetAmount(diff);
-                                childItem.targetParent = transform;
+                                childItem.SetNewParent(transform);
                                 childItem.Lock(true);
 
                             }

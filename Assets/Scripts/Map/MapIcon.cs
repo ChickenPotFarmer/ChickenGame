@@ -23,12 +23,14 @@ public class MapIcon : MonoBehaviour
 
     IEnumerator FollowRoutine()
     {
-        do
+        while (followObj != null)
         {
             transform.position = mainCam.WorldToScreenPoint(followObj.position);
 
             yield return new WaitForSeconds(0.02f);
-        } while (true);
+        }
+
+        Destroy(gameObject);
     }
 
     public void SetIcon(int _imageNum)
