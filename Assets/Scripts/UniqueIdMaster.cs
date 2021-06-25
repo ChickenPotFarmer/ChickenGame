@@ -5,6 +5,7 @@ using UnityEngine;
 public class UniqueIdMaster : MonoBehaviour
 {
     [Header("Strains")]
+    public Dictionary<string, string> breedingDictionary = new Dictionary<string, string>();
     public List<string> strainIds;
 
 
@@ -18,35 +19,51 @@ public class UniqueIdMaster : MonoBehaviour
         uniqueIdMaster = gameObject;
     }
 
-    public string GetID()
+    public string GetID(string _femaleId, string _maleId)
+    {
+        string newStrainID;
+        string parentIds = _femaleId + _maleId;
+
+        if (breedingDictionary.ContainsKey(parentIds))
+        {
+            newStrainID = breedingDictionary[parentIds];
+            print("Dictionary checked " + parentIds + ". Returned " + newStrainID);
+
+        }
+        else
+        {
+            newStrainID = GetNewID();
+            breedingDictionary.Add(parentIds, newStrainID);
+            print("Dictionary checked " + parentIds + ". Created a new ID:  " + newStrainID);
+
+        }
+
+        return newStrainID;
+    }
+
+    private string GetNewID()
     {
         int _id;
         bool idGood = true;
         string parsed = "derp";
-        _id = Random.Range(1, 100000000);
-        parsed = _id.ToString("00000000");
-
 
         do
         {
             _id = Random.Range(1, 100000000);
+            parsed = _id.ToString("00000000");
 
             for (int i = 0; i < strainIds.Count; i++)
             {
-                parsed = _id.ToString("00000000");
-
                 if (parsed.Equals(strainIds[i]))
                 {
                     idGood = false;
                     break;
                 }
-
             }
         } while (!idGood);
 
         if (idGood)
             strainIds.Add(parsed);
-
 
         return parsed;
     }

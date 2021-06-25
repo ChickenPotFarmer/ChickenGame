@@ -8,7 +8,7 @@ public class WeedPlant : MonoBehaviour
 {
     [Header("Info")]
     public StrainProfile currentStrain;
-    public WeedPlant fatherPlant;
+    public StrainProfile fatherPlantStrain;
     public string strainID;
     public string strain;
     public float maxYield;
@@ -67,11 +67,6 @@ public class WeedPlant : MonoBehaviour
     private InventoryController inventoryController;
     private ConfirmPlantPanel confirmPlantPanel;
     private ChickenController chickenController;
-
-    private void Awake()
-    {
-        currentStrain = GetComponent<StrainProfile>();
-    }
 
     private void Start()
     {
@@ -460,10 +455,10 @@ public class WeedPlant : MonoBehaviour
         }
     }
 
-    public void PollinatePlant(WeedPlant _father)
+    public void PollinatePlant(StrainProfile _father)
     {
         isPollinated = true;
-        fatherPlant = _father;
+        fatherPlantStrain.SetStrain(_father);
         seedbagImg.SetActive(true);
     }
 

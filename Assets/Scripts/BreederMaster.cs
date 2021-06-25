@@ -29,7 +29,11 @@ public class BreederMaster : MonoBehaviour
     public int newSecondaryTerpene;
     public int newLesserTerpene;
 
+    [Header("Setup")]
+    public GameObject seedBagPrefab;
+
     private StrainInfoUI strainInfoUI;
+    private UniqueIdMaster uniqueIdMaster;
 
     public static BreederMaster instance;
     [HideInInspector]
@@ -45,57 +49,61 @@ public class BreederMaster : MonoBehaviour
     {
         if (!strainInfoUI)
             strainInfoUI = StrainInfoUI.instance.strainInfoUI.GetComponent<StrainInfoUI>();
+
+        if (!uniqueIdMaster)
+            uniqueIdMaster = UniqueIdMaster.instance.uniqueIdMaster.GetComponent<UniqueIdMaster>();
     }
 
-    //private void Update()
-    //{
-    //    if (Input.GetKeyDown("b"))
-    //        Breed();
-    //}
-
-    public StrainProfile Breed(WeedPlant _male, WeedPlant _female)
+    public StrainProfile Breed(WeedPlant _female, StrainProfile _male)
     {
-        male = _male.currentStrain;
-        female = _female.currentStrain;
-
         if (newStrain != null)
             newStrain = null;
 
-        //Replace these with blank prefab with correct components 
         GameObject newStrainObj = new GameObject();
-        newStrainObj.AddComponent<StrainProfile>();
+        newStrain = newStrainObj.AddComponent<StrainProfile>();
 
-        newStrain = newStrainObj.GetComponent<StrainProfile>();
-        newStrain.GenerateUniqueID();
+        // If the parents are the same, return the mother as the strain.
+        if (_male.strainID.Equals(_female.currentStrain.strainID))
+        {
+            newStrain.SetStrain(_female.currentStrain);
+        }
+        else
+        {
+            male = _male;
+            female = _female.currentStrain;
 
-        // THC Percent
-        newStrain.thcPercent = (male.thcPercent + female.thcPercent) / 2; // add random factor to increase / decrease
-        newStrain.thcPercent += newStrain.thcPercent * (Random.Range(0, maxThcBoost));
+            newStrain.SetUniqueID(uniqueIdMaster.GetID(_female.currentStrain.strainID, _male.strainID));
 
-        float strainTypeAvg = (male.strainType + female.strainType) / 2;
-        newStrain.strainType = Mathf.RoundToInt(strainTypeAvg);
-        newStrain.strainName = "New " + newStrain.GetStrainType() + " Strain";
+            // THC Percent
+            newStrain.thcPercent = (male.thcPercent + female.thcPercent) / 2; // add random factor to increase / decrease
+            newStrain.thcPercent += newStrain.thcPercent * (Random.Range(0, maxThcBoost));
+
+            float strainTypeAvg = (male.strainType + female.strainType) / 2;
+            newStrain.strainType = Mathf.RoundToInt(strainTypeAvg);
+            newStrain.strainName = "New " + newStrain.GetStrainType() + " Strain";
 
 
-        newStrain.totalTerpenesPercent = (male.totalTerpenesPercent + female.totalTerpenesPercent) / 2; // add random factor to increase / decrease
-        newStrain.totalTerpenesPercent += newStrain.totalTerpenesPercent * (Random.Range(0, maxTerpenesBoost));
+            newStrain.totalTerpenesPercent = (male.totalTerpenesPercent + female.totalTerpenesPercent) / 2; // add random factor to increase / decrease
+            newStrain.totalTerpenesPercent += newStrain.totalTerpenesPercent * (Random.Range(0, maxTerpenesBoost));
 
-        //Average terpenes
-        AverageTerpeneLevels();
-        CalcTopTerpenes();
+            //Average terpenes
+            AverageTerpeneLevels();
+            CalcTopTerpenes();
 
-        //Primary terpene boost
-        float rand = Random.Range(0.05f, primaryTerpeneBoostMax);
-        newStrain.BoostTerpene(newStrain.primaryTerpene, newStrain.secondaryTerpene, rand);
+            //Primary terpene boost
+            float rand = Random.Range(0.05f, primaryTerpeneBoostMax);
+            newStrain.BoostTerpene(newStrain.primaryTerpene, newStrain.secondaryTerpene, rand);
 
-        CalcTopTerpenes();
+            CalcTopTerpenes();
 
-        newStrain.primaryTerpene = newPrimaryTerpene;
-        newStrain.secondaryTerpene = newSecondaryTerpene;
-        newStrain.lesserTerpene = newLesserTerpene;
+            newStrain.primaryTerpene = newPrimaryTerpene;
+            newStrain.secondaryTerpene = newSecondaryTerpene;
+            newStrain.lesserTerpene = newLesserTerpene;
 
-        newStrain.GenerateTerpeneEffects(); // Make this more complicated. 1/3 chance for male side, 1/3 chance for female, 1/3 chance random.
+            newStrain.GenerateTerpeneEffects(); // Make this more complicated. 1/3 chance for male side, 1/3 chance for female, 1/3 chance random.
+        }
 
+        Destroy(newStrainObj, 2);
         return newStrain;
 
         //strainInfoUI.SetStrainInfoActive(newStrain);

@@ -108,7 +108,6 @@ public class HarvestPanel : MonoBehaviour
                 newBag = Instantiate(seedBagPrefab, slots[i]);
                 //newBrick.transform.position = new Vector2(0, 0);
                 newBagInventoryItem = newBag.GetComponent<InventoryItem>();
-                newBagInventoryItem.itemID = _strain.strainID;
                 newBagInventoryItem.Lock(true);
                 newBagInventoryItem.previousParent = slots[i];
 
@@ -173,9 +172,9 @@ public class HarvestPanel : MonoBehaviour
         else if (_plant.isPollinated && !_plant.isMale)
         {
             StrainProfile newStrain;
-            if (_plant.currentStrain != _plant.fatherPlant.currentStrain)
+            if (_plant.currentStrain != _plant.fatherPlantStrain)
             {
-                newStrain = breederMaster.Breed(_plant, _plant.fatherPlant);
+                newStrain = breederMaster.Breed(_plant, _plant.fatherPlantStrain);
                 print("New Strain Created");
             }
             else
