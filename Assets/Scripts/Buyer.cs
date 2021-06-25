@@ -10,6 +10,7 @@ public class Buyer : MonoBehaviour
     public float amountRequested;
     public float amountInInventory;
     public bool orderFilled;
+    public bool saleComplete;
     public float totalPay;
     public ToDoObject toDoObject;
 
@@ -39,6 +40,9 @@ public class Buyer : MonoBehaviour
 
     [Header("Setup")]
     public CanvasGroup cg;
+    public CanvasGroup presaleBtnsCg;
+    public CanvasGroup postsaleBtnsCg;
+
     public Transform slotsParent;
     public Transform[] slots;
     public GameObject successParticles;
@@ -58,8 +62,8 @@ public class Buyer : MonoBehaviour
         if (!inventoryController)
             inventoryController = InventoryController.instance.inventoryController.GetComponent<InventoryController>();
 
-        if (!inventoryGUI)
-            inventoryGUI = InventoryGUI.instance.inventoryGUI.GetComponent<InventoryGUI>();
+        //if (!inventoryGUI)
+        //    inventoryGUI = InventoryGUI.instance.inventoryGUI.GetComponent<InventoryGUI>();
 
         if (!bank)
             bank = Bank.instance.bank.GetComponent<Bank>();
@@ -150,8 +154,8 @@ public class Buyer : MonoBehaviour
     {
         SetPanelActive(true);
         cam.SetActive(true);
-        if (!inventoryGUI.isOpen)
-            inventoryGUI.ToggleInventoryPanel();
+        if (!inventoryController.inventoryActive)
+            inventoryController.ToggleInventoryPanel();
     }
 
     public void CloseBuyerPanel()
@@ -174,6 +178,22 @@ public class Buyer : MonoBehaviour
             cg.alpha = 0;
             cg.interactable = false;
             cg.blocksRaycasts = false;
+        }
+    }
+
+    public void SetPanelActive(CanvasGroup _cg, bool _active)
+    {
+        if (_active)
+        {
+            _cg.alpha = 1;
+            _cg.interactable = true;
+            _cg.blocksRaycasts = true;
+        }
+        else
+        {
+            _cg.alpha = 0;
+            _cg.interactable = false;
+            _cg.blocksRaycasts = false;
         }
     }
 
@@ -228,7 +248,7 @@ public class Buyer : MonoBehaviour
             weedIsGood = false;
         }
         // THC Check
-        if (_strain.thcPercent > minThc)
+        if (_strain.thcPercent < minThc)
         {
             print("Failed THC Check");
             weedIsGood = false;
@@ -259,23 +279,41 @@ public class Buyer : MonoBehaviour
 
     }
 
+
+    // for some reason this only clears one at a time.
     public void ClearInventory()
     {
 
-            List<InventoryItem> slotItems = new List<InventoryItem>();
+        List<InventoryItem> slotItems = new List<InventoryItem>();
 
-            for (int i = 0; i < slots.Length; i++)
-            {
-                if (slots[i].childCount != 0)
-                    slotItems.Add(slots[i].GetChild(0).GetComponent<InventoryItem>());
-            }
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i].childCount != 0)
+                slotItems.Add(slots[i].GetChild(0).GetComponent<InventoryItem>());
+        }
 
-            for (int i = 0; i < slotItems.Count; i++)
-            {
-                inventoryController.ReturnToInventory(slotItems[i]);
-            }
+        for (int i = 0; i < slotItems.Count; i++)
+        {
+            inventoryController.ReturnToInventory(slotItems[i]);
+        }
 
         
+    }
+
+    public void DestroyInventory()
+    {
+        List<InventoryItem> slotItems = new List<InventoryItem>();
+
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i].childCount != 0)
+                slotItems.Add(slots[i].GetChild(0).GetComponent<InventoryItem>());
+        }
+
+        for (int i = 0; i < slotItems.Count; i++)
+        {
+            Destroy(slotItems[i].gameObject);
+        }
     }
 
 
@@ -284,13 +322,35 @@ public class Buyer : MonoBehaviour
     {
         if (orderFilled)
         {
-            if (bank.RequestCash(totalPay))
-            {
-                SaleSuccess();
 
-            }
+            DestroyInventory();
+
+            bank.RequestCash(totalPay, slotsParent, true);
+            SetPanelActive(presaleBtnsCg, false);
+            SetPanelActive(postsaleBtnsCg, true);
+            StartCoroutine(CheckForSaleComplete());
+            
 
         }
+    }
+
+    IEnumerator CheckForSaleComplete()
+    {
+        do
+        {
+            saleComplete = true;
+
+            for (int i = 0; i < slots.Length; i++)
+            {
+                if (slots[i].childCount != 0)
+                    saleComplete = false;
+
+            }
+            yield return new WaitForSeconds(0.1f);
+        } while (!saleComplete);
+
+        SaleSuccess();
+
     }
 
     public string GetTypeRequested()

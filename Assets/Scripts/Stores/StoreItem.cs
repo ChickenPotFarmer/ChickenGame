@@ -6,8 +6,11 @@ using TMPro;
 
 public class StoreItem : MonoBehaviour
 {
+    [Header("Settings")]
     public bool isStrain;
     public float storeCost;
+
+    [Header("Setup")]
     public GameObject objectPrefab;
     public Button itemBtn;
     public TextMeshProUGUI nameTxt;

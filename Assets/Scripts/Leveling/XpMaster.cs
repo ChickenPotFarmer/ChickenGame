@@ -28,8 +28,12 @@ public class XpMaster : MonoBehaviour
     [Header("XP Levels")]
     public float[] xpToLevelUp;
 
-
     public void PlantSeed()
+    {
+
+    }
+
+    public void AddXp(float _amt)
     {
 
     }

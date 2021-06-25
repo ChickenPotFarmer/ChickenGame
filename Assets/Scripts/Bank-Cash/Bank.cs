@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Bank : MonoBehaviour
 {
+    [Header("Status")]
+    public float maxCashPerStack;
+
     [Header("Setup")]
     public GameObject cashPrefab;
 
@@ -25,7 +28,7 @@ public class Bank : MonoBehaviour
             inventoryController = InventoryController.instance.inventoryController.GetComponent<InventoryController>();
     }
 
-
+    // obsolete because money is now an object.
     public bool RequestCash(float _amt)
     {
         bool roomInInventory;
@@ -34,7 +37,7 @@ public class Bank : MonoBehaviour
         {
             roomInInventory = true;
 
-            float bricksNeeded = _amt / 1000;
+            float bricksNeeded = _amt / maxCashPerStack;
             bricksNeeded += 0.5f; // to make sure it rounds up
             bricksNeeded = Mathf.Round(bricksNeeded);
 
@@ -51,11 +54,11 @@ public class Bank : MonoBehaviour
 
                 if (i != bricksNeeded - 1)
                 {
-                    newBrickInventoryItem.SetAmount(1000);
+                    newBrickInventoryItem.SetAmount(maxCashPerStack);
                 }
                 else
                 {
-                    newBrickInventoryItem.SetAmount(_amt - ((bricksNeeded - 1) * 1000));
+                    newBrickInventoryItem.SetAmount(_amt - ((bricksNeeded - 1) * maxCashPerStack));
                 }
 
                 inventoryController.ReturnToInventory(newBrickInventoryItem);
@@ -76,5 +79,47 @@ public class Bank : MonoBehaviour
         }
 
         return roomInInventory;
+    }
+
+    // assumes inventory has room
+    public void RequestCash(float _amt, Transform _targetInventory, bool _lockAfterSpawn)
+    {
+        Transform[] targetSlots = new Transform[_targetInventory.childCount];
+        float bricksNeeded = _amt / maxCashPerStack;
+        bricksNeeded += 0.5f; // to make sure it rounds up
+        bricksNeeded = Mathf.Round(bricksNeeded);
+
+        GameObject newBrick;
+
+        InventoryItem newBrickInventoryItem;
+
+        // intialize slots
+        for (int i = 0; i < _targetInventory.childCount; i++)
+        {
+            targetSlots[i] = _targetInventory.GetChild(i);
+        }
+
+        // Spawn and set prfabs
+        for (int i = 0; i < bricksNeeded; i++)
+        {
+            newBrick = Instantiate(cashPrefab);
+            newBrickInventoryItem = newBrick.GetComponent<InventoryItem>();
+
+
+            if (i != bricksNeeded - 1)
+            {
+                newBrickInventoryItem.SetAmount(maxCashPerStack);
+            }
+            else
+            {
+                newBrickInventoryItem.SetAmount(_amt - ((bricksNeeded - 1) * maxCashPerStack));
+            }
+
+            newBrickInventoryItem.SetNewParent(targetSlots[i]);
+
+            if (_lockAfterSpawn)
+                newBrickInventoryItem.Lock(true);
+
+        }
     }
 }
