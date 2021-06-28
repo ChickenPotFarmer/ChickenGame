@@ -326,9 +326,10 @@ public class InventoryController : MonoBehaviour
         if (GetCashOnHand() >= _amt)
         {
             hasEnoughMoney = true;
-            float amtToRemove = _amt;
 
+            List<InventoryItem> cashItems = new List<InventoryItem>();
             InventoryItem foundCash;
+
 
             for (int i = 0; i < slots.Count; i++)
             {
@@ -338,19 +339,30 @@ public class InventoryController : MonoBehaviour
 
                     if (foundCash.itemID == "CASH")
                     {
-                        if (foundCash.amount >= amtToRemove)
-                        {
-                            foundCash.AddAmount(-amtToRemove);
-                            amtToRemove = 0;
-                            break;
-                        }
-                        else
-                        {
-                            amtToRemove -= foundCash.amount;
-                            foundCash.SetAmount(0);
-                        }
+                        cashItems.Add(foundCash);
                     }
                 }
+            }
+
+            float amtToRemove = _amt;
+            cashItems.Sort();
+
+            for (int i = 0; i < cashItems.Count; i++)
+            {
+
+                if (cashItems[i].amount >= amtToRemove)
+                {
+                    cashItems[i].AddAmount(-amtToRemove);
+                    amtToRemove = 0;
+                    break;
+                }
+                else
+                {
+                    amtToRemove -= cashItems[i].amount;
+                    cashItems[i].SetAmount(0);
+                }
+                
+                
             }
         }
 
