@@ -74,6 +74,8 @@ public class FarmStore : MonoBehaviour
         else
         {
             // play sound
+            Alerts.DisplayMessage("You do not have enough money!");
+
         }
     }
 

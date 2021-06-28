@@ -2,37 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Alerts : MonoBehaviour
+public static class Alerts
 {
-    [Header("Setup")]
-    public Animator animator;
+    private static AlertDisplay alertDisplay;
 
-    public static Alerts instance;
-    [HideInInspector]
-    public GameObject alerts;
-
-    private void Awake()
+    public static void DisplayMessage(string _message)
     {
-        instance = this;
-        alerts = gameObject;
-    }
+        if (!alertDisplay)
+            alertDisplay = AlertDisplay.instance.alerts.GetComponent<AlertDisplay>();
 
-    private void Update()
-    {
-        if (Input.GetKeyDown("7"))
-            OpenAlert();
-        else if (Input.GetKeyDown("8"))
-            CloseAlert();
-    }
-
-    public void OpenAlert()
-    {
-        animator.SetTrigger("Open");
-    }
-
-    public void CloseAlert()
-    {
-        animator.SetTrigger("Close");
-
+        alertDisplay.DisplayMessage(_message);
     }
 }
