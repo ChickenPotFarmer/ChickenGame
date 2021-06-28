@@ -43,6 +43,8 @@ public class Bank : MonoBehaviour
         if (inventoryController.RemoveCash(_amt))
         {
             hasEnoughCash = true;
+            Alerts.DisplayMessage("$" + _amt.ToString("n0") + " removed from Inventory.");
+
         }
 
         return hasEnoughCash;
