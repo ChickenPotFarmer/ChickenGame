@@ -28,6 +28,26 @@ public class Bank : MonoBehaviour
             inventoryController = InventoryController.instance.inventoryController.GetComponent<InventoryController>();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(","))
+            PayAmount(100);
+        else if (Input.GetKeyDown("."))
+            RequestCash(100);
+    }
+
+    public bool PayAmount(float _amt)
+    {
+        bool hasEnoughCash = false;
+
+        if (inventoryController.RemoveCash(_amt))
+        {
+            hasEnoughCash = true;
+        }
+
+        return hasEnoughCash;
+    }
+
     // obsolete because money is now an object.
     public bool RequestCash(float _amt)
     {

@@ -41,13 +41,6 @@ public class InventoryController : MonoBehaviour
         inventoryController = gameObject;
     }
 
-    // TESTING
-    //private void Update()
-    //{
-    //    if (Input.GetKeyDown("n"))
-    //        AddInventoryChick();
-    //}
-
     private void Start()
     {
         // Intialize Slots References
@@ -303,6 +296,65 @@ public class InventoryController : MonoBehaviour
             print("No Room In Inventory");
 
         return hasRoom;
+    }
+
+    public float GetCashOnHand()
+    {
+        float cashOnHand = 0;
+        InventoryItem foundCash;
+
+        for (int i = 0; i < slots.Count; i++)
+        {
+            if (slots[i].childCount != 0)
+            {
+                foundCash = slots[i].GetChild(0).GetComponent<InventoryItem>();
+
+                if (foundCash.itemID == "CASH")
+                {
+                    cashOnHand += foundCash.amount;
+                }
+            }
+        }
+
+        return cashOnHand;
+    }
+
+    public bool RemoveCash(float _amt)
+    {
+        bool hasEnoughMoney = false;
+
+        if (GetCashOnHand() >= _amt)
+        {
+            hasEnoughMoney = true;
+            float amtToRemove = _amt;
+
+            InventoryItem foundCash;
+
+            for (int i = 0; i < slots.Count; i++)
+            {
+                if (slots[i].childCount != 0)
+                {
+                    foundCash = slots[i].GetChild(0).GetComponent<InventoryItem>();
+
+                    if (foundCash.itemID == "CASH")
+                    {
+                        if (foundCash.amount >= amtToRemove)
+                        {
+                            foundCash.AddAmount(-amtToRemove);
+                            amtToRemove = 0;
+                            break;
+                        }
+                        else
+                        {
+                            amtToRemove -= foundCash.amount;
+                            foundCash.SetAmount(0);
+                        }
+                    }
+                }
+            }
+        }
+
+        return hasEnoughMoney;
     }
 
     public void UpdateDecoChicks()
