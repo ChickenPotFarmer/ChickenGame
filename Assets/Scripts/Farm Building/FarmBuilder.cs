@@ -19,6 +19,16 @@ public class FarmBuilder : MonoBehaviour
     private InputController inputController;
     private PlaceableArea placeableArea;
 
+    public static FarmBuilder instance;
+    [HideInInspector]
+    public GameObject farmBuilder;
+
+    private void Awake()
+    {
+        instance = this;
+        farmBuilder = gameObject;
+    }
+
     private void Start()
     {
         if (!inputController)
@@ -30,14 +40,6 @@ public class FarmBuilder : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown("["))
-            SelectPlaceable(0);
-        else if (Input.GetKeyDown("]"))
-            SelectPlaceable(1);
-        else if (Input.GetKeyDown("\\"))
-            SelectPlaceable(2);
-        else if (Input.GetKeyDown("p"))
-            SelectPlaceable(3);
 
         if (farmBuilderActive && objectBeingPlaced != null)
         {
@@ -101,10 +103,10 @@ public class FarmBuilder : MonoBehaviour
         }
     }
 
-    public void SelectPlaceable(int _placeableInt)
+    public void SelectPlaceable(GameObject _placeable)
     {
         ToggleFarmBuilder(true);
-        GameObject newPlaceable = Instantiate(placeables[_placeableInt]);
+        GameObject newPlaceable = Instantiate(_placeable);
         objectBeingPlaced = newPlaceable;
     }
 

@@ -10,8 +10,8 @@ public class FarmBuilderItem : MonoBehaviour
 
     [Header("Setup")]
     public int objectPrefabInt;
-    public Button itemBtn;
 
+    private Button itemBtn;
     private FarmStore farmStore;
 
     private void Start()
@@ -24,6 +24,7 @@ public class FarmBuilderItem : MonoBehaviour
 
     private void SetButton()
     {
+        itemBtn = GetComponent<Button>();
         itemBtn.onClick.AddListener(delegate { farmStore.SetSelectedItem(objectPrefabInt); });
     }
 }

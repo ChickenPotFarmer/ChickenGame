@@ -8,7 +8,7 @@ public class FarmStore : MonoBehaviour
 {
     // These are buttons, not SeedBags
     [Header("Fields")]
-    public GameObject[] fields;
+    public GameObject[] placeables;
 
     [Header("Setup")]
     public CanvasGroup storeCg;
@@ -27,6 +27,7 @@ public class FarmStore : MonoBehaviour
     private Transform openSlot;
     private int selectedItem;
     private Bank bank;
+    private FarmBuilder farmBuilder;
 
     private void Awake()
     {
@@ -41,6 +42,9 @@ public class FarmStore : MonoBehaviour
 
         if (!bank)
             bank = Bank.instance.bank.GetComponent<Bank>();
+
+        if (!farmBuilder)
+            farmBuilder = FarmBuilder.instance.farmBuilder.GetComponent<FarmBuilder>();
     }
 
     public void BuySelected()
@@ -53,7 +57,7 @@ public class FarmStore : MonoBehaviour
     {
         selectedItem = _builderItem;
 
-        
+        farmBuilder.SelectPlaceable(placeables[selectedItem]);
 
         SetStorePanelActive(false);
     }

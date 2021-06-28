@@ -345,7 +345,24 @@ public class InventoryController : MonoBehaviour
             }
 
             float amtToRemove = _amt;
-            cashItems.Sort();
+
+            // Sory items if more than one
+            if (cashItems.Count > 1)
+            {
+                InventoryItem tempItem;
+
+                for (int i = 0; i < cashItems.Count - 1; i++)
+                {
+                    if (cashItems[i].amount > cashItems[i + 1].amount)
+                    {
+                        tempItem = cashItems[i];
+                        cashItems[i] = cashItems[i + 1];
+                        cashItems[i + 1] = tempItem;
+                        i = -1;
+                    }
+                }
+            }
+
 
             for (int i = 0; i < cashItems.Count; i++)
             {
