@@ -124,8 +124,6 @@ GameObject:
   - component: {fileID: 5523344794673146879}
   - component: {fileID: 5523344794673146867}
   - component: {fileID: 5523344794673146866}
-  - component: {fileID: 7106878976133371003}
-  - component: {fileID: 2826022868243566964}
   m_Layer: 5
   m_Name: Cash
   m_TagString: UI Weed Brick
@@ -228,62 +226,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &7106878976133371003
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5523344794673146877}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: baff8732cd3074ef88b34f9cc487846d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefabId: 7197856148577506541
-  localRefs:
-    _Keys:
-    - {fileID: 5523344794673146877}
-    - {fileID: 5523344794673146876}
-    - {fileID: 5523344794673146878}
-    - {fileID: 5523344794673146879}
-    - {fileID: 0}
-    - {fileID: 2800000, guid: 054ff771ea8f20a44834d15b912272da, type: 3}
-    - {fileID: 21300000, guid: 054ff771ea8f20a44834d15b912272da, type: 3}
-    - {fileID: 5523344794673146867}
-    - {fileID: 11500000, guid: 1a70dc5932bc6ae4ca8601131fd9acc4, type: 3}
-    - {fileID: 5523344794673146866}
-    - {fileID: 7106878976133371003}
-    - {fileID: 5523344794390188444}
-    - {fileID: 5523344794390188447}
-    - {fileID: 5523344794014990298}
-    - {fileID: 5523344794014990301}
-    - {fileID: 5523344794014990303}
-    - {fileID: 5523344794014990300}
-    - {fileID: 10906, guid: 0000000000000000f000000000000000, type: 0}
-    - {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-    - {fileID: 5523344795742809704}
-    - {fileID: 5523344795742809707}
-    - {fileID: 5523344795742809709}
-    - {fileID: 5523344795742809706}
-    - {fileID: 2800000, guid: f6ede7a17aba0f347af88c229d2f2462, type: 3}
-    - {fileID: 12800000, guid: f6ede7a17aba0f347af88c229d2f2462, type: 3}
-    _Values: b52bcada9975dc039dc9e89bdf5f0823c7e6656f6f2e6a38e4dd2e2e7e00635f5476efb606d38f3eeb79de8de74b2a3ffa46a196531ea37ac192f6bb46ad85612c482d8b7f2cac4431a45be90df81f2ff891d63b5d064c4e509963f614fb7a6602c09e60e2613f31995cc6f87a8c87378d384c277b3f4026052025e76f5ca735d50a17b2a640b259d108a1013f54d323229b844c47a1e14002c55cc13b58c10904fb226f74d5914c7b0caa8d61c018590bb6392b27a51277fbfaa5f594e3ee147f4500ba273cdc1f
---- !u!114 &2826022868243566964
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5523344794673146877}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cfcc9ceea0bf419cb3bcaf548c2600d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  saveChildren: 0
-  componentsToSave:
-  - {fileID: 5523344794673146867}
 --- !u!1 &5523344795742809704
 GameObject:
   m_ObjectHideFlags: 0

@@ -2047,7 +2047,6 @@ GameObject:
   - component: {fileID: 5786904934671274486}
   - component: {fileID: 5786904934671274487}
   - component: {fileID: 5786904934671274480}
-  - component: {fileID: 3905467548105948154}
   m_Layer: 0
   m_Name: Planting Hub
   m_TagString: Planter Hub
@@ -2166,23 +2165,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.3660278, y: 5.580455, z: 3.5657043}
   m_Center: {x: -0.5805359, y: 2.2902274, z: 0.7558403}
---- !u!114 &3905467548105948154
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5786904934671273995}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cfcc9ceea0bf419cb3bcaf548c2600d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  saveChildren: 0
-  componentsToSave:
-  - {fileID: 5786904934671274484}
-  - {fileID: 5786904934671274486}
-  - {fileID: 5786904934671274485}
 --- !u!1 &5786904934711442700
 GameObject:
   m_ObjectHideFlags: 0

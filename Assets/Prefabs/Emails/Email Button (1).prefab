@@ -13,8 +13,6 @@ GameObject:
   - component: {fileID: 4634083335594332133}
   - component: {fileID: 4634083335594332132}
   - component: {fileID: 4634083335594332131}
-  - component: {fileID: -675586926348422904}
-  - component: {fileID: 6126979764339598151}
   m_Layer: 5
   m_Name: Email Button (1)
   m_TagString: Untagged
@@ -149,59 +147,6 @@ MonoBehaviour:
   terpeneRequested: 0
   minThc: 0
   effectRequested: 
---- !u!114 &-675586926348422904
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4634083335594332129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: baff8732cd3074ef88b34f9cc487846d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefabId: 9034788274287420994
-  localRefs:
-    _Keys:
-    - {fileID: 4634083335594332129}
-    - {fileID: 4634083335594332130}
-    - {fileID: 4634083335594332134}
-    - {fileID: 4634083335594332133}
-    - {fileID: 0}
-    - {fileID: 10904, guid: 0000000000000000f000000000000000, type: 0}
-    - {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-    - {fileID: 4634083335594332132}
-    - {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-    - {fileID: 4634083335594332131}
-    - {fileID: 11500000, guid: b3dbd738163d4404480512d807991f94, type: 3}
-    - {fileID: -675586926348422904}
-    - {fileID: 4634083336050004083}
-    - {fileID: 4634083336050004084}
-    - {fileID: 4634083336050004086}
-    - {fileID: 4634083336050004085}
-    - {fileID: 2800000, guid: 50ef03338ec970f4db51e5d4759cd0d1, type: 3}
-    - {fileID: 12800000, guid: 50ef03338ec970f4db51e5d4759cd0d1, type: 3}
-    - {fileID: 4634083335930176227}
-    - {fileID: 4634083335930176228}
-    - {fileID: 4634083335930176230}
-    - {fileID: 4634083335930176229}
-    _Values: 1c965e3414ebbc6cd66e7d2f7096ca7885f63a445aa1f554ae18f5bd16652f3081d00b71bad76e15f1341e92cad99627f03da71bc91e23428db2e32de179833a62527ea3a3bcc945c4b3cb713f78e078af1ccdd9bd146733387cfb8fdc1930764f1b0be3a8c535338d9d2182156b7e142d952202b8a2084eea4bda20b8582156ef73fcd9e0293f3427f24032e0c47c35ffe7bd713b322e5313bcf85dea157b1bc077ffbfaa23900eb6391b1f3dad1800
---- !u!114 &6126979764339598151
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4634083335594332129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cfcc9ceea0bf419cb3bcaf548c2600d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  saveChildren: 0
-  componentsToSave:
-  - {fileID: 4634083335594332131}
 --- !u!1 &4634083335930176227
 GameObject:
   m_ObjectHideFlags: 0

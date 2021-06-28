@@ -15,8 +15,6 @@ GameObject:
   - component: {fileID: 4178686051518599498}
   - component: {fileID: 4178686051518599496}
   - component: {fileID: 4178686051518599497}
-  - component: {fileID: 1728191240077618880}
-  - component: {fileID: -3286646053913072689}
   m_Layer: 5
   m_Name: Weed Brick
   m_TagString: UI Weed Brick
@@ -171,90 +169,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &1728191240077618880
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4178686051518599494}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: baff8732cd3074ef88b34f9cc487846d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefabId: 7197856148577506541
-  localRefs:
-    _Keys:
-    - {fileID: 4178686051518599494}
-    - {fileID: 4178686051518599495}
-    - {fileID: 4178686051518599493}
-    - {fileID: 4178686051518599492}
-    - {fileID: 0}
-    - {fileID: 2800000, guid: 2e15db79907a0114e9d8b5c23cd2547e, type: 3}
-    - {fileID: 21300000, guid: 2e15db79907a0114e9d8b5c23cd2547e, type: 3}
-    - {fileID: 4178686051518599499}
-    - {fileID: 11500000, guid: 704a6505bb602c94bbdd068e086f21cd, type: 3}
-    - {fileID: 4178686051796240139}
-    - {fileID: 4178686051796240136}
-    - {fileID: 4178686051796240142}
-    - {fileID: 4178686051796240137}
-    - {fileID: 2800000, guid: 156acb4b9f3675547994571c958efd02, type: 3}
-    - {fileID: 21300000, guid: 156acb4b9f3675547994571c958efd02, type: 3}
-    - {fileID: 4178686053611809586}
-    - {fileID: 4178686053611809587}
-    - {fileID: 4178686053611809585}
-    - {fileID: 4178686053611809584}
-    - {fileID: 2800000, guid: 831fccc285883cc469c4bdf0e1da374a, type: 3}
-    - {fileID: 12800000, guid: 831fccc285883cc469c4bdf0e1da374a, type: 3}
-    - {fileID: 4178686051518599498}
-    - {fileID: 11500000, guid: ecf034d1db44c054db4733138f8a2743, type: 3}
-    - {fileID: 4178686051518599496}
-    - {fileID: 11500000, guid: 1a70dc5932bc6ae4ca8601131fd9acc4, type: 3}
-    - {fileID: 4178686051518599497}
-    - {fileID: 1728191240077618880}
-    - {fileID: 4178686053218570003}
-    - {fileID: 4178686053218570000}
-    - {fileID: 4178686053174991146}
-    - {fileID: 4178686053174991147}
-    - {fileID: 4178686053174991145}
-    - {fileID: 4178686053174991144}
-    - {fileID: 10906, guid: 0000000000000000f000000000000000, type: 0}
-    - {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-    - {fileID: 4178686051715573873}
-    - {fileID: 4178686051715573878}
-    - {fileID: 4178686051715573876}
-    - {fileID: 4178686051715573879}
-    - {fileID: 2800000, guid: f6ede7a17aba0f347af88c229d2f2462, type: 3}
-    - {fileID: 12800000, guid: f6ede7a17aba0f347af88c229d2f2462, type: 3}
-    - {fileID: 4178686052371458855}
-    - {fileID: 4178686052371458852}
-    - {fileID: 4178686052206085473}
-    - {fileID: 4178686052206085478}
-    - {fileID: 4178686052206085476}
-    - {fileID: 4178686052206085479}
-    - {fileID: 4178686052591670483}
-    - {fileID: 4178686052591670480}
-    - {fileID: 4178686052591670486}
-    - {fileID: 4178686052591670481}
-    _Values: 163babc0b391f548093aa50fa036510b0e4c5b1a54bbdf6f6666eda614c9214c8dfc51272d1b675634f46e2c2ea1db498346f2bb90c80f2d1a1b5a4da44e342ea40d2ed1d0c6d552c3fd4f482a0c9e3a765cd6a54323227464da33fcb9d7021a41c077df8cf68649e3ba076c8639fc27476b3cffdb258d3730a335aaf9d20b15fb35086a95bfae7f29727601d4700463d75ab64e9b033e1a4346f3b9aae9c0552e66e6cc0a611b21bdbd284e9c8f0c3f9ed181538859b0090911c8aa5081ab5a4b9bae1df6b6df3de9cf6e21250f825dcc2f31034d698855bfa24ece61eed63e977cfcfe1e11b6554f40954615711b058f6add2050a80c4b24045f546810dc285a527557ed7cc1448724ae710030944c87485ecccbf68f11914edddd8ef5413e9c92123d033be70c2c22a775567e4b0c7012cd1fb2105c62c08358c52d7032422421138a7053bc76316af8ee9d04680e9be96e7c27218b53ee7501670385ab0fd83958c68cdd4f633ef510b7e7913b400447fc4a8ac6953f1c457e472b473a491708c6d75c2e9b78c62d45e3cdbcc55c3ac062bb89618511
---- !u!114 &-3286646053913072689
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4178686051518599494}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cfcc9ceea0bf419cb3bcaf548c2600d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  saveChildren: 0
-  componentsToSave:
-  - {fileID: 4178686051518599499}
-  - {fileID: 4178686051518599498}
-  - {fileID: 4178686051518599496}
 --- !u!1 &4178686051715573873
 GameObject:
   m_ObjectHideFlags: 0
