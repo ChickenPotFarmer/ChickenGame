@@ -6,11 +6,10 @@ using UnityEngine.UI;
 public class FarmBuilderItem : MonoBehaviour
 {
     [Header("Settings")]
-    public bool isStrain;
     public float storeCost;
 
     [Header("Setup")]
-    public GameObject objectPrefab;
+    public int objectPrefabInt;
     public Button itemBtn;
 
     private FarmStore farmStore;
@@ -25,6 +24,6 @@ public class FarmBuilderItem : MonoBehaviour
 
     private void SetButton()
     {
-        itemBtn.onClick.AddListener(delegate { farmStore.SetSelectedItem(this); });
+        itemBtn.onClick.AddListener(delegate { farmStore.SetSelectedItem(objectPrefabInt); });
     }
 }
