@@ -102,12 +102,15 @@ public class Placeable : MonoBehaviour
 
     }
 
-    public void BuyAndPlaceObject()
+    public bool BuyAndPlaceObject()
     {
         if (farmStore.BuySelected())
         {
             PlaceObject();
+            return true;
         }
+        else
+            return false;
     }
 
     public void PlaceObject()

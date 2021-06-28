@@ -63,12 +63,18 @@ public class FarmStore : MonoBehaviour
 
     public void SetSelectedItem(int _builderItem, float _cost)
     {
-        selectedItem = _builderItem;
-        selectedItemCost = _cost;
+        if (inventoryController.CheckIfCanAfford(_cost))
+        {
+            selectedItem = _builderItem;
+            selectedItemCost = _cost;
 
-        farmBuilder.SelectPlaceable(placeables[selectedItem]);
-
-        SetStorePanelActive(false);
+            farmBuilder.SelectPlaceable(placeables[selectedItem]);
+            SetStorePanelActive(false);
+        }
+        else
+        {
+            // play sound
+        }
     }
 
     public void CloseStore()

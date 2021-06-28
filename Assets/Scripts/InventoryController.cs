@@ -89,8 +89,7 @@ public class InventoryController : MonoBehaviour
 
     public bool CheckIfCanAfford(float _amt)
     {
-        float newAmt = moneyCarrying - _amt;
-        if (newAmt >= 0)
+        if (GetCashOnHand() >= _amt)
             return true;
         else
             return false;

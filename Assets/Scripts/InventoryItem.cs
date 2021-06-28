@@ -251,7 +251,7 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
 
         UpdateTextUI();
         if (itemDestroyed && gameObject != null)
-            Destroy(gameObject, 0.05f);
+            Destroy(gameObject, 0.01f);
         return itemDestroyed;
     }
 
@@ -267,7 +267,7 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
 
         UpdateTextUI();
         if (itemDestroyed)
-            Destroy(gameObject, 0.05f);
+            Destroy(gameObject, 0.01f);
         return itemDestroyed;
     }
 

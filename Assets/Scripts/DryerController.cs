@@ -24,17 +24,7 @@ public class DryerController : MonoBehaviour
 
     private ChickenController chicken;
     private InventoryController inventoryController;
-    private InventoryGUI inventoryGUI;
 
-    //public static DryerController instance;
-    //[HideInInspector]
-    //public GameObject dryerController;
-
-    //private void Awake()
-    //{
-    //    instance = this;
-    //    dryerController = gameObject;
-    //}
 
     private void Start()
     {
@@ -198,9 +188,6 @@ public class DryerController : MonoBehaviour
             dryerPanel.alpha = 1;
             dryerPanel.interactable = true;
             dryerPanel.blocksRaycasts = true;
-
-            if (!inventoryGUI.isOpen)
-                inventoryGUI.ToggleInventoryPanel();
 
         }
         else
