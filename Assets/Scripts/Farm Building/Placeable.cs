@@ -24,8 +24,14 @@ public class Placeable : MonoBehaviour
     public Material okMat;
     public Material nopeMat;
 
+    private FarmStore farmStore;
+
     private void Start()
     {
+        if (!farmStore)
+            farmStore = FarmStore.instance.farmStore.GetComponent<FarmStore>();
+
+
         if (placed)
         {
             meshRenderer.enabled = false;
@@ -94,6 +100,14 @@ public class Placeable : MonoBehaviour
             placementOk = true;
         }
 
+    }
+
+    public void BuyAndPlaceObject()
+    {
+        if (farmStore.BuySelected())
+        {
+            PlaceObject();
+        }
     }
 
     public void PlaceObject()

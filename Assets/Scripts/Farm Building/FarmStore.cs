@@ -26,6 +26,7 @@ public class FarmStore : MonoBehaviour
     private InventoryController inventoryController;
     private Transform openSlot;
     private int selectedItem;
+    private float selectedItemCost;
     private Bank bank;
     private FarmBuilder farmBuilder;
 
@@ -47,32 +48,27 @@ public class FarmStore : MonoBehaviour
             farmBuilder = FarmBuilder.instance.farmBuilder.GetComponent<FarmBuilder>();
     }
 
-    public void BuySelected()
+    public bool BuySelected()
     {
-        
+        bool buyOk = false;
 
+        if (bank.PayAmount(selectedItemCost))
+        {
+            buyOk = true;
+
+            selectedItemCost = 0;
+        }
+        return buyOk;
     }
 
-    public void SetSelectedItem(int _builderItem)
+    public void SetSelectedItem(int _builderItem, float _cost)
     {
         selectedItem = _builderItem;
+        selectedItemCost = _cost;
 
         farmBuilder.SelectPlaceable(placeables[selectedItem]);
 
         SetStorePanelActive(false);
-    }
-
-    private bool GetOpenSlot()
-    {
-        bool slotFound;
-        openSlot = inventoryController.GetOpenSlot();
-
-        if (openSlot)
-            slotFound = true;
-        else
-            slotFound = false;
-
-        return slotFound;
     }
 
     public void CloseStore()
@@ -85,6 +81,11 @@ public class FarmStore : MonoBehaviour
         SetStorePanelActive(true);
     }
 
+    public void UnselectItem()
+    {
+        selectedItem = 0;
+        selectedItemCost = 0;
+    }
 
     // dont use confirm panel
     // confirm is implied when player places piece

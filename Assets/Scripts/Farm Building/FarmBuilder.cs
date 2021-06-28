@@ -79,7 +79,7 @@ public class FarmBuilder : MonoBehaviour
                             if (placeableComp.placementOk)
                             {
                                 objectBeingPlaced.transform.position = targetLocation;
-                                placeableComp.PlaceObject();
+                                placeableComp.BuyAndPlaceObject();
                                 objectBeingPlaced = null;
                                 ToggleFarmBuilder(false);
                                 inputController.farmBuilderActive = false;

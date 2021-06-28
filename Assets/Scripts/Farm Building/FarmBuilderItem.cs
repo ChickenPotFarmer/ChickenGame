@@ -25,6 +25,6 @@ public class FarmBuilderItem : MonoBehaviour
     private void SetButton()
     {
         itemBtn = GetComponent<Button>();
-        itemBtn.onClick.AddListener(delegate { farmStore.SetSelectedItem(objectPrefabInt); });
+        itemBtn.onClick.AddListener(delegate { farmStore.SetSelectedItem(objectPrefabInt, storeCost); });
     }
 }
