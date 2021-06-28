@@ -8,16 +8,15 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Atlas-1
-  m_Shader: {fileID: 4800000, guid: bee44b4a58655ee4cbff107302a3e131, type: 3}
+  m_Shader: {fileID: 4800000, guid: f7e38193b7f064d7380403618fd8b69e, type: 3}
   m_ShaderKeywords: DR_GRADIENT_ON DR_RIM_ON DR_SPECULAR_ON DR_VERTEX_COLORS_ON _CELPRIMARYMODE_SINGLE
     _ENVIRONMENTREFLECTIONS_OFF _SPECULARHIGHLIGHTS_OFF _TEXTUREBLENDINGMODE_MULTIPLY
-    _UNITYSHADOWMODE_NONE
+    _UNITYSHADOWMODE_MULTIPLY
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 1991
-  stringTagMap:
-    RenderType: Opaque
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -78,6 +77,7 @@ Material:
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
+    - _CameraDistanceImpact: 0
     - _CelExtraEnabled: 0
     - _CelNumSteps: 3
     - _CelPrimaryMode: 1
@@ -89,8 +89,8 @@ Material:
     - _FlatRimEdgeSmoothness: 0.618
     - _FlatRimLightAlign: 0
     - _FlatRimSize: 0.5
-    - _FlatSpecularEdgeSmoothness: 0.484
-    - _FlatSpecularSize: 0.506
+    - _FlatSpecularEdgeSmoothness: 0.069
+    - _FlatSpecularSize: 0.376
     - _Flatness: 0.487
     - _FlatnessExtra: 1
     - _GlossMapScale: 1
@@ -109,6 +109,9 @@ Material:
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
+    - _OutlineDepthOffset: 0
+    - _OutlineScale: 1
+    - _OutlineWidth: 2.28
     - _OverrideLightmapDir: 0
     - _Parallax: 0.02
     - _QueueOffset: -9
@@ -130,9 +133,9 @@ Material:
     - _TextureBlendingMode: 0
     - _TextureImpact: 1
     - _UVSec: 0
-    - _UnityShadowMode: 0
-    - _UnityShadowPower: 0.2
-    - _UnityShadowSharpness: 1
+    - _UnityShadowMode: 1
+    - _UnityShadowPower: 0.807
+    - _UnityShadowSharpness: 1.45
     - _VertexColorsEnabled: 1
     - _WorkflowMode: 1
     - _ZWrite: 1
@@ -148,6 +151,7 @@ Material:
     - _FlatRimColor: {r: 1, g: 1, b: 1, a: 1}
     - _FlatSpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _LightmapDirection: {r: 0, g: 1, b: 0, a: 0}
+    - _OutlineColor: {r: 0.14150941, g: 0.14150941, b: 0.14150941, a: 1}
     - _SpecColor: {r: 0, g: 0, b: 0, a: 0}
     - _UnityShadowColor: {r: 0.85023, g: 0.85034, b: 0.85045, a: 0.85056}
 --- !u!114 &690954731618186703
