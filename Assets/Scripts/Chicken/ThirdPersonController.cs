@@ -78,8 +78,11 @@ public class ThirdPersonController : MonoBehaviour
         }
         else
         {
-            //navAgent.SetDestination(transform.position);
-            movementActive = false;
+            if (movementActive)
+            {
+                navAgent.SetDestination(transform.position);
+                movementActive = false;
+            }
         }
 
         // Cursor lock and camera axis change
