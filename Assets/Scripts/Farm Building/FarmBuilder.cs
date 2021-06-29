@@ -85,14 +85,14 @@ public class FarmBuilder : MonoBehaviour
                                     ToggleFarmBuilder(false);
                                     inputController.farmBuilderActive = false;
                                 }
-                                else
-                                {
-                                    // play sound
-                                }
+                                //else
+                                //{
+                                //    // play sound
+                                //}
                             }
                             else
                             {
-                                //play sound
+                                Alerts.DisplayMessage("Cannot place object here!");
                             }
 
                         }
@@ -100,10 +100,10 @@ public class FarmBuilder : MonoBehaviour
                             objectBeingPlaced.transform.position = targetLocation;
 
                     }
-                    else
-                    {
-                        print("nope");
-                    }
+                    //else
+                    //{
+                    //    print("nope");
+                    //}
                 }
             }
         }

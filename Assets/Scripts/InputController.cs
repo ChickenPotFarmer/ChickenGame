@@ -167,12 +167,15 @@ public class InputController : MonoBehaviour
                                 PlanterUnhover();
                                 break;
 
-                            case "Dryer Pile":
-                                DryerController dryer = hit.collider.gameObject.GetComponent<DryerController>();
+                            case "Dryer":
+                                DryerController dryer = hit.collider.gameObject.GetComponentInParent<DryerController>();
                                 if (InteractWith() && dryer.clickActive)
                                 {
-                                    dryer.SetDryerPanelActive(true);
-                                    dryer.clickActive = false;
+                                    if (dryer.placed)
+                                    {
+                                        dryer.SetDryerPanelActive(true);
+                                        dryer.clickActive = false; // what is this???
+                                    }
                                 }
 
                                 PlanterUnhover();
