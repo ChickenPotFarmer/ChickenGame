@@ -93,4 +93,10 @@ public class LaptopController : MonoBehaviour
         SetLaptopPanelActive(false);
         clickActive = true;
     }
+
+    public void OpenLaptop()
+    {
+        SetLaptopPanelActive(true);
+        clickActive = false;
+    }
 }
