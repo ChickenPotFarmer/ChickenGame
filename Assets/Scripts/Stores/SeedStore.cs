@@ -63,12 +63,12 @@ public class SeedStore : MonoBehaviour
         // check if has open inventory slot
         //check if has enough cash
 
-        if (GetOpenSlot() && inventoryController.CheckIfCanAfford(selectedSeed.storeCost))
+        if (GetOpenSlot() && bank.PayAmount(selectedSeed.storeCost))
         {
             GameObject newItem = Instantiate(selectedSeed.objectPrefab);
             InventoryItem itemComp = newItem.GetComponent<InventoryItem>();
             inventoryController.ReturnToInventory(itemComp);
-            inventoryController.moneyCarrying -= selectedSeed.storeCost;
+            
             SetConfirmActive(false);
         }
         else
