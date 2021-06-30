@@ -131,6 +131,7 @@ public class WeedPlant : MonoBehaviour
         targettedForSeeding = false;
         isPlanted = true;
         waterLevel = startingWaterLevel;
+        Xp.PlantSeed();
         SetGender();
         SetWaterLevelBar(waterLevel);
         StartCoroutine(GrowRoutine());
@@ -155,6 +156,8 @@ public class WeedPlant : MonoBehaviour
         if (waterLevel != 100)
         {
             waterLevel = 100;
+
+            Xp.WaterPlant();
 
             StartCoroutine(WaterRoutine());
         }
