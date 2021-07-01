@@ -58,6 +58,8 @@ public class Trimmer : MonoBehaviour
 
             selectedPlant.trimmed = true;
 
+            Xp.TrimPlant();
+
             StartCoroutine((SpawnRoutine(trimmings, selectedPlant.transform.position)));
         }
         else

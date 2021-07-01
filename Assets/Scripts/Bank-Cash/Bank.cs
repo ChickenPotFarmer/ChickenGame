@@ -31,7 +31,10 @@ public class Bank : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(","))
+        {
             PayAmount(100);
+            Xp.AddXp(50);
+        }
         else if (Input.GetKeyDown("."))
             RequestCash(100);
     }

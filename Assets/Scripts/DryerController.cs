@@ -11,7 +11,11 @@ public class DryerController : MonoBehaviour
     public bool clickActive;
     public bool chickenInRange;
 
+    [Header("Status")]
+    public bool placed;
+
     [Header("Setup")]
+    public GameObject colliderObj;
     public Button[] btnsToDisable;
     public Slider dryBarWorld;
     public Slider dryBarUI;
@@ -88,22 +92,18 @@ public class DryerController : MonoBehaviour
         } while (true);
     }
 
-    public void Harvest()
+    public void PlaceDryer()
     {
-        // TO-DO: Convert to new intventory controller
+        StartCoroutine(PlaceRoutine());
+        colliderObj.tag = "Dryer";
 
+    }
 
-        //if (inventoryController.AddDryGrams(inventory))
-        //{
-        //    inventory = 0;
-        //    isDry = false;
-        //    dryBar.value = 0;
-        //    SetDryBarActive(false);
-        //}
-        //else
-        //{
-        //    Debug.LogWarning("Cannot add amount to inventory.");
-        //}
+    IEnumerator PlaceRoutine()
+    {
+        yield return new WaitForSeconds(1);
+        placed = true;
+
     }
 
     public void BeginDrying()

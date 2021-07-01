@@ -9,6 +9,7 @@ public class Placeable : MonoBehaviour
     public List<GameObject> activateObjects;
     public List<GameObject> objectLayersToSetDefault;
     public StorageCrate storageCrate;
+    public DryerController dryer;
     public bool setAllLayersDefault;
 
     [Header("Particle Effect")]
@@ -135,6 +136,8 @@ public class Placeable : MonoBehaviour
 
         if (storageCrate)
             storageCrate.PlaceCrate();
+        else if (dryer)
+            dryer.PlaceDryer();
 
         if (particleEffect)
         {
