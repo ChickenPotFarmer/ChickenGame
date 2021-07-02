@@ -12,6 +12,11 @@ public static class Xp
             xpMaster = XpMaster.instance.xpMaster.GetComponent<XpMaster>();
     }
 
+    public static int GetPlayerLevel()
+    {
+        return xpMaster.currentLvl;
+    }
+
     public static void AddXp(float _amt)
     {
         xpMaster.AddXp(_amt);

@@ -18,9 +18,24 @@ public class TimeLord : MonoBehaviour
     public TextMeshProUGUI dateTxt;
     public Slider monthSlider;
 
+    public static TimeLord instance;
+    [HideInInspector]
+    public GameObject timeLord;
+
+    private EmailGenerator emailGenerator;
+
+    private void Awake()
+    {
+        instance = this;
+        timeLord = gameObject;
+    }
+
 
     private void Start()
     {
+        if (!emailGenerator)
+            emailGenerator = EmailGenerator.instance.emailGenerator.GetComponent<EmailGenerator>();
+
         DisplayDate();
         StartCoroutine(TimeRoutine());
     }
@@ -32,6 +47,7 @@ public class TimeLord : MonoBehaviour
 
         do
         {
+            NewMonthTasks();
 
             for (int i = 0; i < timePerMonth; i++)
             {
@@ -48,9 +64,15 @@ public class TimeLord : MonoBehaviour
                 currentMonth = 0;
                 currentYear++;
             }
+
             DisplayDate();
 
         } while (true);
+    }
+
+    private void NewMonthTasks()
+    {
+        emailGenerator.NewMonthCalculations();
     }
 
     private void DisplayDate()

@@ -7,6 +7,8 @@ public class RandomEmail : MonoBehaviour
 {
     [Header("Email")]
     public string generatedEmail;
+    public bool terpeneRequest;
+    public bool effectRequest;
 
     [Header("Nouns")]
     public string[] nouns;
@@ -59,6 +61,12 @@ public class RandomEmail : MonoBehaviour
             }
             else
                 newEmail += rand;
+
+            // chance to add dash between words
+            if (Random.value >= 0.7f)
+            {
+                newEmail += "-";
+            }
 
             rand = nouns[Random.Range(0, nouns.Length)];
 

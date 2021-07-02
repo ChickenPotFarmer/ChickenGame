@@ -97,21 +97,6 @@ public class InboxController : MonoBehaviour
                 subjectLineTxt.text = "";
                 emailBodyTxt.text = "";
             }
-            //if (emailsParent.childCount > 0 && inboxEmpty)
-            //{
-            //    inboxEmpty = false;
-            //    orderInfoCg.alpha = 1;
-            //    orderInfoCg.interactable = true;
-            //    orderInfoCg.blocksRaycasts = true;
-            //    try
-            //    {
-            //        emailsParent.GetChild(0).GetComponent<Email>().DisplayEmail();
-            //    }
-            //    catch
-            //    {
-            //        Debug.LogWarning("Problem Displaying Email");
-            //    }
-            //}
             yield return new WaitForSeconds(1);
         } while (true);
     }
