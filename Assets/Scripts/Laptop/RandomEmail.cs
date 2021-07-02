@@ -19,11 +19,11 @@ public class RandomEmail : MonoBehaviour
         IntializeLists();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown("9"))
-            GenerateRandomEmailAddress();
-    }
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown("9"))
+    //        GenerateRandomEmailAddress();
+    //}
 
     public void IntializeLists()
     {
@@ -117,7 +117,7 @@ public class RandomEmail : MonoBehaviour
         rand = domains[Random.Range(0, domains.Length)];
         newEmail += rand;
 
-        newEmail = newEmail.Replace("\r", "");
+        newEmail = newEmail.Replace("\r", ""); //thank god for google
 
         generatedEmail = newEmail;
         return newEmail;

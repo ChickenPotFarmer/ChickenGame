@@ -16,31 +16,56 @@ public class AlertDisplay : MonoBehaviour
     [HideInInspector]
     public GameObject alerts;
 
+
+    private List<string> alertMessageStack = new List<string>();
+    private bool alertsRunning;
+
     private void Awake()
     {
         instance = this;
         alerts = gameObject;
     }
 
+    // needs a new display for xp and rep
     public void DisplayMessage(string _message)
     {
-        StartCoroutine(DisplayRoutine(_message));
+        AddToStack(_message);
+        if (!alertsRunning)
+            StartCoroutine(DisplayRoutine());
     }
 
-    IEnumerator DisplayRoutine(string _message)
+    private void AddToStack(string _message)
     {
-        float timeToRead = _message.Length / 15;
+        alertMessageStack.Add(_message);
+    }
 
-        if (timeToRead < minTimeToRead)
-            timeToRead = minTimeToRead;
+    private void PopAlerts()
+    {
+        alertMessageStack.RemoveAt(0);
+    }
 
-        print("Wait time: " + timeToRead + "Length: " + _message.Length);
-
-        alertTxt.text = _message;
+    IEnumerator DisplayRoutine()
+    {
+        alertsRunning = true;
         OpenAlert();
 
-        yield return new WaitForSeconds(timeToRead);
+        do
+        {
+            float timeToRead = alertMessageStack[0].Length / 15;
+
+            if (timeToRead < minTimeToRead)
+                timeToRead = minTimeToRead;
+
+            alertTxt.text = alertMessageStack[0];
+
+            yield return new WaitForSeconds(timeToRead);
+            PopAlerts();
+
+        } while (alertMessageStack.Count != 0);
         CloseAlert();
+
+        alertsRunning = false;
+
     }
 
     public void OpenAlert()

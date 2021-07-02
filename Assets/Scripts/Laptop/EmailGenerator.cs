@@ -10,7 +10,6 @@ public class EmailGenerator : MonoBehaviour
     public int maxEmailsPerMonth;
     public float minGramsPerOrder;
     public float maxGramsPerOrder;
-    public float pricePerGram;
 
     [Header("Setup")]
     public GameObject emailPrefab;
@@ -19,10 +18,17 @@ public class EmailGenerator : MonoBehaviour
     public TimeLord timeLord;
     private float secsPerMonth;
     public RandomEmail randomEmail;
+    private ReputationManager reputationManager;
 
     public static EmailGenerator instance;
     [HideInInspector]
     public GameObject emailGenerator;
+
+    //private void Start()
+    //{
+    //    if (!reputationManager)
+    //        reputationManager = ReputationManager.instance.repManager.GetComponent<ReputationManager>();
+    //}
 
     private void Awake()
     {
@@ -65,6 +71,9 @@ public class EmailGenerator : MonoBehaviour
 
     private void GenerateEmail()
     {
+        if (!reputationManager)
+            reputationManager = ReputationManager.instance.repManager.GetComponent<ReputationManager>();
+
         GameObject newEmailObj = Instantiate(emailPrefab, emailsParent);
         Email newEmail = newEmailObj.GetComponent<Email>();
 
@@ -72,8 +81,8 @@ public class EmailGenerator : MonoBehaviour
         newEmail.SetOrderAmt(Random.Range(minGramsPerOrder, maxGramsPerOrder));
         newEmail.SetSubject("New Buy Order"); // generate in RandomEmail
         newEmail.SetBodyText("Test Body Text"); // generate in RandomEmail
-        pricePerGram = 10f; // change this to "ReptuationManager"
-        newEmail.SetPricePerGram(pricePerGram); // generate in RandomEmail
+
+        newEmail.SetPricePerGram(reputationManager.GetPricePerGram());
 
         newEmail.SetMinThc(.1f); // generate in RandomEmail
         newEmail.SetTypeRequested(-1); // generate in RandomEmail

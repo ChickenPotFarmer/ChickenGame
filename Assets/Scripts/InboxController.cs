@@ -83,6 +83,26 @@ public class InboxController : MonoBehaviour
 
     }
 
+    public void UpdateEmailTxt(Email _email, GameObject _inboxBtn)
+    {
+        currentInboxObject = _inboxBtn;
+
+        fromTxt.text = "FROM: " + _email.fromName;
+        fromName = _email.fromName;
+        subjectLineTxt.text = "SUBJECT: " + _email.subjectLine;
+        emailBodyTxt.text = _email.bodyTxt;
+
+        amountRequestedTxt.text = _email.orderAmt.ToString("n1") + " G";
+        amountRequested = _email.orderAmt;
+
+        currentPerGramPriceTxt.text = "$" + _email.pricePerGram.ToString("n2");
+
+        totalPay = _email.pricePerGram * _email.orderAmt;
+
+        totalPayTxt.text = "$" + totalPay.ToString("n2");
+
+    }
+
     IEnumerator InboxUpdateRoutine()
     {
         do

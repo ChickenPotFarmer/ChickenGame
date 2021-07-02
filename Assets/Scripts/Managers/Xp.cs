@@ -17,6 +17,16 @@ public static class Xp
         return xpMaster.currentLvl;
     }
 
+    public static void BuyComplete(float _amt)
+    {
+        xpMaster.BuyComplete(_amt);
+    }
+
+    public static void AddRep(float _amt)
+    {
+        xpMaster.AddRep(_amt);
+    }
+
     public static void AddXp(float _amt)
     {
         xpMaster.AddXp(_amt);

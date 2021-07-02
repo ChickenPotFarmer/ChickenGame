@@ -147,6 +147,8 @@ public class Buyer : MonoBehaviour
         GameObject particles = Instantiate(successParticles);
         particles.transform.position = transform.position;
 
+        Xp.BuyComplete(amountRequested);
+
         Destroy(gameObject);
     }
 

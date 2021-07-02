@@ -25,9 +25,14 @@ public class XpMaster : MonoBehaviour
     [Header("Placeables XP Settings")]
     public float xpPerDollarSpent;
 
+    [Header("Rep Settings")]
+    public float repPerGramDelivered;
+
     [Header("XP Levels")]
     public float xpToNextLvl;
     public float[] xpToLevelUp;
+
+    private ReputationManager repManager;
 
     public static XpMaster instance;
     [HideInInspector]
@@ -49,6 +54,22 @@ public class XpMaster : MonoBehaviour
             Xp.AddXp(50);
     }
 
+    public void BuyComplete(float _amt)
+    {
+        AddXp(xpPerGramDelivered * _amt);
+        AddRep(repPerGramDelivered * _amt);
+    }
+
+    public void AddRep(float _amt)
+    {
+        if (!repManager)
+            repManager = ReputationManager.instance.repManager.GetComponent<ReputationManager>();
+
+        repManager.AddRep(_amt);
+
+        Alerts.DisplayMessage(_amt + " rep gained!");
+    }
+
     public void AddXp(float _amt)
     {
         xp += _amt;
@@ -56,15 +77,18 @@ public class XpMaster : MonoBehaviour
         if (xp >= xpToLevelUp[currentLvl])
         {
             currentLvl++;
-            CalcXpToLvl();
+            //CalcXpToLvl();
         }
+
+        Alerts.DisplayMessage("+" + _amt + " XP!");
+
     }
 
-    private void CalcXpToLvl()
-    {
-        float xpDiff = 0.25f * (currentLvl + (300 * (2 * (currentLvl / 7)))); //does not work, look in to later
-        xpToNextLvl += xpDiff;
-    }
+    //private void CalcXpToLvl()
+    //{
+    //    float xpDiff = 0.25f * (currentLvl + (300 * (2 * (currentLvl / 7)))); //does not work, look in to later
+    //    xpToNextLvl += xpDiff;
+    //}
 
     // Planting Seeds
     public void PlantSeed()

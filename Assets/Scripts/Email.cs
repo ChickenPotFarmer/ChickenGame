@@ -101,7 +101,8 @@ public class Email : MonoBehaviour
 
     public void DisplayEmail()
     {
-        inboxController.UpdateEmailTxt(fromName, subjectLine, bodyTxt, orderAmt, gameObject);
+        //inboxController.UpdateEmailTxt(fromName, subjectLine, bodyTxt, orderAmt, gameObject);
+        inboxController.UpdateEmailTxt(this, gameObject);
         inboxController.currentEmail = this;
         inboxController.SetOrderInfoActive(true);
         //send info to confirm email button for buyer spawn and to set timeTIllCancel
