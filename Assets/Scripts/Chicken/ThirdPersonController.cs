@@ -80,7 +80,7 @@ public class ThirdPersonController : MonoBehaviour
         {
             if (movementActive)
             {
-                navAgent.SetDestination(transform.position);
+                //navAgent.SetDestination(transform.position);
                 movementActive = false;
             }
         }

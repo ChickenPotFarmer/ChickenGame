@@ -128,6 +128,7 @@ public class InboxController : MonoBehaviour
         currentInboxObject = null;
         laptopController.clickActive = true;
         SetLaptopPanelActive(false);
+        SetOrderInfoActive(false);
     }
 
     public void SetLaptopPanelActive(bool _active)
@@ -160,6 +161,9 @@ public class InboxController : MonoBehaviour
             orderInfoCg.alpha = 0;
             orderInfoCg.interactable = false;
             orderInfoCg.blocksRaycasts = false;
+            fromTxt.text = "";
+            subjectLineTxt.text = "";
+            emailBodyTxt.text = "";
             currentEmail = null;
         }
     }

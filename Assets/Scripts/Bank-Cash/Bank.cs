@@ -5,7 +5,13 @@ using UnityEngine;
 public class Bank : MonoBehaviour
 {
     [Header("Status")]
+    public float bankAccount;
     public float maxCashPerStack;
+
+    [Header("Loan")]
+    public float loanAmount;
+    public float loanRemaining;
+    public float interestRate;
 
     [Header("Setup")]
     public GameObject cashPrefab;
@@ -37,6 +43,23 @@ public class Bank : MonoBehaviour
         }
         else if (Input.GetKeyDown("."))
             RequestCash(100);
+    }
+
+    public void DepositCash(float _amt)
+    {
+        bankAccount += _amt;
+    }
+
+    public void WithdrawCash(float _amt)
+    {
+        if (RequestCash(_amt))
+        {
+            // close bank panel
+        }
+        else
+        {
+            Alerts.DisplayMessage("Not enough room in Inventory!");
+        }
     }
 
     public bool PayAmount(float _amt)
@@ -146,5 +169,14 @@ public class Bank : MonoBehaviour
                 newBrickInventoryItem.Lock(true);
 
         }
+    }
+
+    public float GetLoanInterestPayment()
+    {
+        float paymentAmt;
+
+        paymentAmt = loanRemaining * interestRate;
+
+        return paymentAmt;
     }
 }

@@ -53,7 +53,7 @@ public class BuyerController : MonoBehaviour
         Transform spawnLocation;
         int randBuyer = Random.Range(0, buyerPrefabs.Length);
         bool spawnOk = true;
-
+        int tryCount = 0;
         do
         {
             randSpawn = Random.Range(0, spawnLocations.Length);
@@ -68,8 +68,10 @@ public class BuyerController : MonoBehaviour
             }
 
             //find a way to check to make sure there is an open slot before spawning in buyer.
-            
-        } while (!spawnOk);
+            tryCount++;
+
+
+        } while (!spawnOk && tryCount < 100);
 
 
 

@@ -91,6 +91,7 @@ public class Email : MonoBehaviour
     public void SetTotalPay()
     {
         totalPay = orderAmt * pricePerGram;
+
     }
 
     public void SetButtonText()

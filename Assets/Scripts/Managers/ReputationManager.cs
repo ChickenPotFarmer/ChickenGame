@@ -43,13 +43,15 @@ public class ReputationManager : MonoBehaviour
 
         price = minPricePerGram + diff;
 
-        print("Price before random: " + price);
-
-
         // random factor
         float rand = Random.Range(-3, 3);
 
         price += rand;
+
+        ////round to .XX
+        //price *= 100;
+        price = Mathf.Round(price);
+        //price /= 100;
 
         return price;
     }

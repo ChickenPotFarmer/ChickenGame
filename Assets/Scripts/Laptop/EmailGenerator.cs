@@ -78,7 +78,16 @@ public class EmailGenerator : MonoBehaviour
         Email newEmail = newEmailObj.GetComponent<Email>();
 
         newEmail.SetFromName(randomEmail.GenerateRandomEmailAddress());
-        newEmail.SetOrderAmt(Random.Range(minGramsPerOrder, maxGramsPerOrder));
+
+        float orderAmt = Random.Range(minGramsPerOrder, maxGramsPerOrder);
+
+        //round to .X
+        //orderAmt *= 10;
+        orderAmt = Mathf.Round(orderAmt);
+        //orderAmt /= 10;
+
+
+        newEmail.SetOrderAmt(orderAmt);
         newEmail.SetSubject("New Buy Order"); // generate in RandomEmail
         newEmail.SetBodyText("Test Body Text"); // generate in RandomEmail
 
