@@ -18,6 +18,7 @@ public class Email : MonoBehaviour
     [Header("Strain Request Info")]
     public float orderAmt;
     public float totalPay;
+    public float pricePerGram;
     public int typeRequested; // -1 for any
     public int terpeneRequested; // -1 for any
     public float minThc;
@@ -39,6 +40,61 @@ public class Email : MonoBehaviour
 
         btn.onClick.AddListener(DisplayEmail);
 
+        SetButtonText();
+    }
+
+    public void SetFromName(string _str)
+    {
+        fromName = _str;
+    }
+
+    public void SetSubject(string _str)
+    {
+        subjectLine = _str;
+    }
+
+    public void SetBodyText(string _str)
+    {
+        bodyTxt = _str;
+    }
+
+    public void SetOrderAmt(float _amt)
+    {
+        orderAmt = _amt;
+    }
+
+    public void SetPricePerGram(float _amt)
+    {
+        pricePerGram = _amt;   
+    }
+
+    public void SetTypeRequested(int _type)
+    {
+        typeRequested = _type;
+    }
+
+    public void SetTerpeneRequested(int _terpene)
+    {
+        terpeneRequested = _terpene;
+    }
+
+    public void SetEffectRequested(string _effect)
+    {
+        effectRequested = _effect;
+    }
+
+    public void SetMinThc(float _minThc)
+    {
+        minThc = _minThc;
+    }
+
+    public void SetTotalPay()
+    {
+        totalPay = orderAmt * pricePerGram;
+    }
+
+    public void SetButtonText()
+    {
         btnTxtFrom.text = "FROM: " + fromName;
         btnTxtSubject.text = "SUBJECT: " + subjectLine;
     }

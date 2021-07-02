@@ -26,6 +26,7 @@ public class XpMaster : MonoBehaviour
     public float xpPerDollarSpent;
 
     [Header("XP Levels")]
+    public float xpToNextLvl;
     public float[] xpToLevelUp;
 
     public static XpMaster instance;
@@ -42,6 +43,12 @@ public class XpMaster : MonoBehaviour
         Xp.XpStart();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown("x"))
+            Xp.AddXp(50);
+    }
+
     public void AddXp(float _amt)
     {
         xp += _amt;
@@ -49,7 +56,14 @@ public class XpMaster : MonoBehaviour
         if (xp >= xpToLevelUp[currentLvl])
         {
             currentLvl++;
+            CalcXpToLvl();
         }
+    }
+
+    private void CalcXpToLvl()
+    {
+        float xpDiff = 0.25f * (currentLvl + (300 * (2 * (currentLvl / 7)))); //does not work, look in to later
+        xpToNextLvl += xpDiff;
     }
 
     // Planting Seeds

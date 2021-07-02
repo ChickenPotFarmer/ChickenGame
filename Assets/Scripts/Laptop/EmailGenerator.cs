@@ -8,13 +8,17 @@ public class EmailGenerator : MonoBehaviour
     public int emailsPerMonth;
     public int minEmailsPerMonth;
     public int maxEmailsPerMonth;
-    public int emailsPerMonthRemaining;
     public float minGramsPerOrder;
     public float maxGramsPerOrder;
     public float pricePerGram;
 
-    private TimeLord timeLord;
+    [Header("Setup")]
+    public GameObject emailPrefab;
+    public Transform emailsParent;
+
+    public TimeLord timeLord;
     private float secsPerMonth;
+    public RandomEmail randomEmail;
 
     public static EmailGenerator instance;
     [HideInInspector]
@@ -24,14 +28,6 @@ public class EmailGenerator : MonoBehaviour
     {
         instance = this;
         emailGenerator = gameObject;
-    }
-
-    private void Start()
-    {
-        if (!timeLord)
-            timeLord = TimeLord.instance.timeLord.GetComponent<TimeLord>();
-
-        secsPerMonth = timeLord.secsPerMonth;
     }
 
     public void NewMonthCalculations()
@@ -44,8 +40,7 @@ public class EmailGenerator : MonoBehaviour
         minEmailsPerMonth = maxEmailsPerMonth - 4;
         if (minEmailsPerMonth < 2)
             minEmailsPerMonth = 2;
-        emailsPerMonthRemaining = emailsPerMonth;
-        pricePerGram = 10f; // change this to "ReptuationManager"
+
 
 
         StartCoroutine(EmailGenerationRoutine());
@@ -53,19 +48,42 @@ public class EmailGenerator : MonoBehaviour
 
     IEnumerator EmailGenerationRoutine()
     {
+        if (!timeLord)
+            timeLord = TimeLord.instance.timeLord.GetComponent<TimeLord>();
+
         emailsPerMonth = Random.Range(minEmailsPerMonth, maxEmailsPerMonth);
+        secsPerMonth = timeLord.secsPerMonth;
         float timeBetweenEmails = secsPerMonth / emailsPerMonth;
 
         for (int i = 0; i < emailsPerMonth; i++)
         {
             GenerateEmail();
             yield return new WaitForSeconds(timeBetweenEmails);
+            print("time between emails: " + timeBetweenEmails);
         }
     }
 
     private void GenerateEmail()
     {
-        print("email generated");
+        GameObject newEmailObj = Instantiate(emailPrefab, emailsParent);
+        Email newEmail = newEmailObj.GetComponent<Email>();
+
+        newEmail.SetFromName(randomEmail.GenerateRandomEmailAddress());
+        newEmail.SetOrderAmt(Random.Range(minGramsPerOrder, maxGramsPerOrder));
+        newEmail.SetSubject("New Buy Order"); // generate in RandomEmail
+        newEmail.SetBodyText("Test Body Text"); // generate in RandomEmail
+        pricePerGram = 10f; // change this to "ReptuationManager"
+        newEmail.SetPricePerGram(pricePerGram); // generate in RandomEmail
+
+        newEmail.SetMinThc(.1f); // generate in RandomEmail
+        newEmail.SetTypeRequested(-1); // generate in RandomEmail
+        newEmail.SetTerpeneRequested(-1); // generate in RandomEmail
+        newEmail.SetEffectRequested("NONE"); // generate in RandomEmail
+
+        newEmail.SetTotalPay();
+
+        Alerts.DisplayMessage("New e-mail from " + newEmail.fromName);
+ 
     }
 
 }

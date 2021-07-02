@@ -22,7 +22,7 @@ public class RandomEmail : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown("9"))
-            GenerateRandomEmail();
+            GenerateRandomEmailAddress();
     }
 
     public void IntializeLists()
@@ -42,7 +42,14 @@ public class RandomEmail : MonoBehaviour
             print("failed to find nouns");
     }
 
-    public void GenerateRandomEmail()
+    public string GenerateBodyText()
+    {
+        string bodyTxt = "";
+
+        return bodyTxt;
+    }
+
+    public string GenerateRandomEmailAddress()
     {
         string newEmail = "";
         string rand;
@@ -110,8 +117,10 @@ public class RandomEmail : MonoBehaviour
         rand = domains[Random.Range(0, domains.Length)];
         newEmail += rand;
 
+        newEmail = newEmail.Replace("\r", "");
 
         generatedEmail = newEmail;
+        return newEmail;
 
     }
 }
