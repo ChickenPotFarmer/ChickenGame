@@ -48,13 +48,14 @@ public class Bank : MonoBehaviour
     public void DepositCash(float _amt)
     {
         bankAccount += _amt;
+        Alerts.DisplayMessage("$" + _amt.ToString("n0") + " added to bank account.");
     }
 
     public void WithdrawCash(float _amt)
     {
         if (RequestCash(_amt))
         {
-            // close bank panel
+            bankAccount -= _amt;
         }
         else
         {
