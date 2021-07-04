@@ -105,6 +105,27 @@ public class Atm : MonoBehaviour
     {
         SetPanelActive(false);
     }
+    
+    public void SetInteractable(bool _canInteract)
+    {
+        if (_canInteract)
+        {
+            if (!playerInRange)
+            {
+                playerInRange = true;
+                interactIndicator.SetActive(true);
+            }
+
+        }
+        else
+        {
+            if (playerInRange)
+            {
+                playerInRange = false;
+                interactIndicator.SetActive(false);
+            }
+        }
+    }
 
     public void SetPanelActive(bool _active)
     {
@@ -121,27 +142,6 @@ public class Atm : MonoBehaviour
             cg.interactable = false;
             cg.blocksRaycasts = false;
             panelOpen = false;
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player") && !playerInRange)
-        {
-            playerInRange = true;
-            interactIndicator.SetActive(true);
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player") && playerInRange)
-        {
-            playerInRange = false;
-            interactIndicator.SetActive(false);
-
-            if (panelOpen)
-                SetPanelActive(false);
         }
     }
 }

@@ -76,11 +76,17 @@ public class ThirdPersonController : MonoBehaviour
             movementActive = true;
 
         }
+        else if (Input.GetKey(KeyCode.LeftControl))
+        {
+            movementActive = true;
+
+        }
         else
         {
             if (movementActive)
             {
-                //navAgent.SetDestination(transform.position);
+                print("Movement stopped");
+                navAgent.SetDestination(transform.position);
                 movementActive = false;
             }
         }

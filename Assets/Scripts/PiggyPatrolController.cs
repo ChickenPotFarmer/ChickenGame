@@ -34,9 +34,11 @@ public class PiggyPatrolController : MonoBehaviour
 
     private void Update()
     {
+
+        // CHANCE TO COROUTINE
         if (onPatrol)
         {
-            if (Vector3.Distance(transform.position, wayPoints[currentWaypoint]) < 3)
+            if (Vector3.Distance(transform.position, wayPoints[currentWaypoint]) < 0.8f)
             {
                 currentWaypoint++;
 

@@ -45,8 +45,6 @@ public class DryerController : MonoBehaviour
                 slots.Add(slotsParent.GetChild(i));
             }
         }
-
-        StartCoroutine(InRangeCheck());
     }
 
     //private void Update()
@@ -90,6 +88,38 @@ public class DryerController : MonoBehaviour
                 chickenInRange = false;
             yield return new WaitForSeconds(0.2f);
         } while (true);
+    }
+
+    IEnumerator InteractCheck()
+    {
+        do
+        {
+            if (Input.GetKey("f"))
+            {
+                SetDryerPanelActive(true);
+            }
+            yield return new WaitForSeconds(0.1f);
+        } while (chickenInRange);
+    }
+
+    public void SetInteractable(bool _canInteract)
+    {
+        if (_canInteract)
+        {
+            if (!chickenInRange)
+            {
+                chickenInRange = true;
+                StartCoroutine(InteractCheck());
+            }
+
+        }
+        else
+        {
+            if (chickenInRange)
+            {
+                chickenInRange = false;
+            }
+        }
     }
 
     public void PlaceDryer()

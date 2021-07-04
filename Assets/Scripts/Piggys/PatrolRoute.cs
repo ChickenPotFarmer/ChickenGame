@@ -11,4 +11,9 @@ public class PatrolRoute : MonoBehaviour
     [Header("Setup")]
     public Transform waypointsParent;
 
+    private void Start()
+    {
+        lineRenderer.enabled = false;
+    }
+
 }
