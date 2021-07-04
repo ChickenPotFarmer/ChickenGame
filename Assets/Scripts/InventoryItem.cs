@@ -143,13 +143,20 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
     {
         if (currentParent != null)
         {
-            if (currentParent.GetComponent<ItemSlot>().isPlayerSlot)
+            try
             {
-                inPlayerInventory = true;
+                if (currentParent.GetComponent<ItemSlot>().isPlayerSlot)
+                {
+                    inPlayerInventory = true;
+                }
+                else
+                {
+                    inPlayerInventory = false;
+                }
             }
-            else
+            catch
             {
-                inPlayerInventory = false;
+                Debug.LogWarning("Error in Inventory Item, currentParent is null.");
             }
         }
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class SmartPanelDropdown : MonoBehaviour
+public class SmartPanelDropdown : MonoBehaviour, IPointerExitHandler
 {
     private CanvasGroup cg;
     public bool active;
@@ -37,5 +37,6 @@ public class SmartPanelDropdown : MonoBehaviour
     public void OnPointerExit(PointerEventData eventData)
     {
         SetDropdownActive(false);
+        print("dropdown exit");
     }
 }

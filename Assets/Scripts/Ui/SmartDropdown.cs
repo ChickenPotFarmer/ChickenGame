@@ -5,7 +5,7 @@ using UnityEngine;
 public class SmartDropdown : MonoBehaviour
 {
     [Header("Status")]
-    public bool storageCrateOpen;
+    public bool hasTargetInventory;
     private StorageCrate openedCrate;
 
     [Header("Setup")]
@@ -38,18 +38,19 @@ public class SmartDropdown : MonoBehaviour
     public void SetStorageDropdown(StorageCrate _storageContainer)
     {
         openedCrate = _storageContainer;
-        storageCrateOpen = true;
+        hasTargetInventory = true;
 
     }
 
     public void UnsetStorage()
     {
         openedCrate = null;
-        storageCrateOpen = false;
+        hasTargetInventory = false;
     }
 
     public void OpenDropdown(InventoryItem _itemClicked)
     {
+        ResetDropdownRoutine();
         //buttons that come up regardless of what panel is open
         if (_itemClicked.isStrain)
             StrainInfoSpawn(_itemClicked);
@@ -58,7 +59,7 @@ public class SmartDropdown : MonoBehaviour
         //buttons that come up depending on what panel is open
         if (_itemClicked.inPlayerInventory)
         {
-            if (storageCrateOpen)
+            if (hasTargetInventory)
             {
                 TransferAllOfTypeToStorageSpawn(_itemClicked.itemID);
                 TransferAllToStorageSpawn();
@@ -67,7 +68,7 @@ public class SmartDropdown : MonoBehaviour
         }
         else
         {
-            if (storageCrateOpen)
+            if (hasTargetInventory)
             {
                 TransferAllOfTypeFromStorageSpawn(_itemClicked);
                 TransferAllFromStorageSpawn();
@@ -230,7 +231,6 @@ public class SmartDropdown : MonoBehaviour
             cg.alpha = 0;
             cg.interactable = false;
             cg.blocksRaycasts = false;
-            ResetDropdownRoutine();
 
         }
     }
