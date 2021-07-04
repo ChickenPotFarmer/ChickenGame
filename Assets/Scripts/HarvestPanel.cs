@@ -109,6 +109,7 @@ public class HarvestPanel : MonoBehaviour
                 //newBrick.transform.position = new Vector2(0, 0);
                 newBagInventoryItem = newBag.GetComponent<InventoryItem>();
                 newBagInventoryItem.Lock(true);
+                newBagInventoryItem.isStrain = true;
                 newBagInventoryItem.previousParent = slots[i];
 
                 if (i != bagsNeeded - 1)
@@ -150,6 +151,8 @@ public class HarvestPanel : MonoBehaviour
                 //newBrick.transform.position = new Vector2(0, 0);
                 newBrickInventoryItem = newBrick.GetComponent<InventoryItem>();
                 newBrickInventoryItem.itemID = _strain.strainID;
+                newBrickInventoryItem.isStrain = true;
+                newBrickInventoryItem.isBrick = true;
                 newBrickInventoryItem.Lock(true);
                 newBrickInventoryItem.previousParent = slots[i];
 

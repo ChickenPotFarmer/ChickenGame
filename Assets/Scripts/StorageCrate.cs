@@ -69,7 +69,7 @@ public class StorageCrate : MonoBehaviour
             cg.alpha = 1;
             cg.interactable = true;
             cg.blocksRaycasts = true;
-            smartDropdown.SetStorageDropdown(this);
+            smartDropdown.SetStorageDropdown(slotsParent);
         }
         else
         {
@@ -164,8 +164,6 @@ public class StorageCrate : MonoBehaviour
 
             remainderItem = _draggedItem;
             _draggedItem.ReturnToPreviousParent();
-
-
         }
         else
         {

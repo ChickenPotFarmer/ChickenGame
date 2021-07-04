@@ -11,6 +11,7 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
     public float amount;
     public float maxAmount;
     public bool isStrain;
+    public bool isBrick;
     public bool locked;
     public bool inPlayerInventory;
     public float storeCost;

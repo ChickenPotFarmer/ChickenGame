@@ -44,13 +44,19 @@ public class InventoryController : MonoBehaviour
     private void Start()
     {
         // Intialize Slots References
-        if (slots.Count == 0)
+        slots = CreateSlots(slotsParent);
+    }
+
+    private List<Transform> CreateSlots(Transform _slotsParent)
+    {
+        List<Transform> newSlotsList = new List<Transform>();
+
+        for (int i = 0; i < _slotsParent.childCount; i++)
         {
-            for (int i = 0; i < slotsParent.childCount; i++)
-            {
-                slots.Add(slotsParent.GetChild(i));
-            }
+            newSlotsList.Add(_slotsParent.GetChild(i));
         }
+
+        return newSlotsList;
     }
 
     public void ToggleInventoryPanel()
@@ -153,7 +159,22 @@ public class InventoryController : MonoBehaviour
         }
 
         return openSlot;
+    }
 
+    public Transform GetOpenSlot(List<Transform> _slotsList)
+    {
+        openSlot = null;
+
+        for (int i = 0; i < _slotsList.Count; i++)
+        {
+            if (_slotsList[i].childCount == 0)
+            {
+                openSlot = _slotsList[i];
+                break;
+            }
+        }
+
+        return openSlot;
     }
 
     public InventoryItem GetItemToCombine(InventoryItem _itemToCombine)
@@ -168,6 +189,27 @@ public class InventoryController : MonoBehaviour
                 if (_itemToCombine.itemID == inventoryItem.itemID && inventoryItem.amount < inventoryItem.maxAmount && _itemToCombine.CompareTag(inventoryItem.tag))
                 {
                     openSlot = slots[i];
+                    itemToCombine = inventoryItem;
+                    break;
+                }
+            }
+        }
+
+        return itemToCombine;
+    }
+
+    public InventoryItem GetItemToCombine(InventoryItem _itemToCombine, List<Transform> _slotsList)
+    {
+        InventoryItem inventoryItem;
+        InventoryItem itemToCombine = null;
+        for (int i = 0; i < _slotsList.Count; i++)
+        {
+            if (_slotsList[i].childCount != 0)
+            {
+                inventoryItem = _slotsList[i].GetChild(0).GetComponent<InventoryItem>();
+                if (_itemToCombine.itemID == inventoryItem.itemID && inventoryItem.amount < inventoryItem.maxAmount && _itemToCombine.CompareTag(inventoryItem.tag))
+                {
+                    openSlot = _slotsList[i];
                     itemToCombine = inventoryItem;
                     break;
                 }
@@ -265,6 +307,72 @@ public class InventoryController : MonoBehaviour
 
         UpdateDecoChicks();
         
+        return remainderItem;
+    }
+
+    public InventoryItem ReturnToInventory(InventoryItem _item, Transform _slotsParent)
+    {
+        // check for stack to combine with
+        // if there is, combine stacks
+        // if there is remainder, spawn new stack, call ReturnToInventory on new stack
+
+        List<Transform> tempSlots = new List<Transform>();
+
+        tempSlots = CreateSlots(_slotsParent);
+
+        Transform openSlot = null;
+        InventoryItem itemToCombine = GetItemToCombine(_item, tempSlots);
+        InventoryItem remainderItem = null;
+        float itemAmt;
+
+        // Check for stack to combine with
+        if (itemToCombine != null)
+        {
+            itemAmt = _item.amount;
+            // if there is, combine stacks.
+            remainderItem = CombineItems(_item, itemToCombine);
+
+            // I think this will make it stop trying to store them if it's the same amount coming out as going in.
+            // needs testing
+            if (remainderItem != null && remainderItem.amount == itemAmt)
+            {
+
+                // on a hunch I added this, needs testing
+                if (remainderItem.amount == 0)
+                    remainderItem = null;
+            }
+            // If there is a remainder, call ReturnToInventory on it
+            else if (remainderItem != null && remainderItem.amount > 0)
+            {
+                ReturnToInventory(remainderItem);
+            }
+        }
+        else
+        {
+            openSlot = GetOpenSlot(tempSlots);
+
+            if (openSlot != null)
+            {
+                _item.transform.SetParent(openSlot, false);
+                _item.transform.position = _item.transform.parent.position;
+                _item.Lock(false);
+            }
+            else
+            {
+                print("INVENTORY FULL");
+                remainderItem = _item;
+            }
+
+        }
+
+        if (_item)
+            _item.UpdateCurrentParent();
+
+        if (remainderItem)
+            remainderItem.UpdateCurrentParent();
+
+        UpdateDecoChicks();
+
         return remainderItem;
     }
 
@@ -456,5 +564,87 @@ public class InventoryController : MonoBehaviour
             }
 
         }
+    }
+
+    public void InventoryToInventoryTransfer(Transform _fromInventoryParent, Transform _toInventoryParent, InventoryItem _itemClicked)
+    {
+        InventoryItem remainderItem;
+        Transform[] tempSlots = new Transform[_fromInventoryParent.childCount];
+
+        for (int i = 0; i < _fromInventoryParent.childCount; i++)
+        {
+            tempSlots[i] = _fromInventoryParent.GetChild(i);
+        }
+
+        List<InventoryItem> slotItems = new List<InventoryItem>();
+        InventoryItem tempItem;
+
+        for (int i = 0; i < tempSlots.Length; i++)
+        {
+            if (tempSlots[i].childCount != 0)
+            {
+                tempItem = tempSlots[i].GetChild(0).GetComponent<InventoryItem>();
+                if (tempItem.itemID == _itemClicked.itemID)
+                {
+                    if (_itemClicked.isBrick)
+                    {
+                        if (tempItem.isBrick)
+                            slotItems.Add(tempSlots[i].GetChild(0).GetComponent<InventoryItem>());
+
+                    }
+                    else
+                    {
+                        if (!tempItem.isBrick)
+                            slotItems.Add(tempSlots[i].GetChild(0).GetComponent<InventoryItem>());
+                    }
+                }
+            }
+        }
+
+        for (int i = 0; i < slotItems.Count; i++)
+        {
+            remainderItem = ReturnToInventory(slotItems[i], _toInventoryParent);
+
+            if (remainderItem != null && remainderItem.amount > 0)
+            {
+                Debug.LogWarning("INVENTORY FULL");
+            }
+
+        }
+
+    }
+
+    public void InventoryToInventoryTransfer(Transform _fromInventoryParent, Transform _toInventoryParent)
+    {
+        InventoryItem remainderItem;
+        Transform[] tempSlots = new Transform[_fromInventoryParent.childCount];
+
+        for (int i = 0; i < _fromInventoryParent.childCount; i++)
+        {
+            tempSlots[i] = _fromInventoryParent.GetChild(i);
+        }
+
+        List<InventoryItem> slotItems = new List<InventoryItem>();
+
+        for (int i = 0; i < tempSlots.Length; i++)
+        {
+            if (tempSlots[i].childCount != 0)
+            {
+                if (tempSlots[i].GetChild(0).GetComponent<InventoryItem>())
+                    slotItems.Add(tempSlots[i].GetChild(0).GetComponent<InventoryItem>());
+            }
+        }
+
+        for (int i = 0; i < slotItems.Count; i++)
+        {
+            remainderItem = ReturnToInventory(slotItems[i], _toInventoryParent);
+
+            if (remainderItem != null && remainderItem.amount > 0)
+            {
+                Debug.LogWarning("INVENTORY FULL");
+            }
+
+        }
+
     }
 }
