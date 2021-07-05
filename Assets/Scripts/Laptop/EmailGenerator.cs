@@ -8,6 +8,8 @@ public class EmailGenerator : MonoBehaviour
     public int emailsPerMonth;
     public int minEmailsPerMonth;
     public int maxEmailsPerMonth;
+    public int activeOrders;
+    public int maxActiveOrders;
     public float minGramsPerOrder;
     public float maxGramsPerOrder;
 
@@ -19,6 +21,7 @@ public class EmailGenerator : MonoBehaviour
     private float secsPerMonth;
     public RandomEmail randomEmail;
     private ReputationManager reputationManager;
+    private Coroutine generateRoutine;
 
     public static EmailGenerator instance;
     [HideInInspector]
@@ -40,16 +43,20 @@ public class EmailGenerator : MonoBehaviour
     {
         int playerLevel = Xp.GetPlayerLevel();
 
-        maxGramsPerOrder = playerLevel * playerLevel * 4; // 4 is the constant that can be modified;
+        maxGramsPerOrder = playerLevel * playerLevel * 40; // 40 is the constant that can be modified;
         minGramsPerOrder = maxGramsPerOrder * 0.35f;
         maxEmailsPerMonth = (int)(Mathf.Round((playerLevel / 5) + 0.49f) + 2);
+
+        if (maxActiveOrders != maxEmailsPerMonth)
+            maxActiveOrders = maxEmailsPerMonth;
+
         minEmailsPerMonth = maxEmailsPerMonth - 4;
         if (minEmailsPerMonth < 2)
             minEmailsPerMonth = 2;
 
-
-
-        StartCoroutine(EmailGenerationRoutine());
+        if (generateRoutine != null)
+            StopCoroutine(generateRoutine);
+        generateRoutine = StartCoroutine(EmailGenerationRoutine());
     }
 
     IEnumerator EmailGenerationRoutine()
@@ -63,9 +70,27 @@ public class EmailGenerator : MonoBehaviour
 
         for (int i = 0; i < emailsPerMonth; i++)
         {
-            GenerateEmail();
-            yield return new WaitForSeconds(timeBetweenEmails);
-            print("time between emails: " + timeBetweenEmails);
+            if (activeOrders < maxActiveOrders)
+            {
+                GenerateEmail();
+                yield return new WaitForSeconds(timeBetweenEmails);
+            }
+            else
+            {
+                print("Not enough room in inbox, beginning check routine.");
+                do
+                {
+                    if (activeOrders < maxActiveOrders)
+                    {
+                        GenerateEmail();
+                    }
+                    else
+                    {
+                        print("emails for, waiting 15 secs or until there is room.");
+                        yield return new WaitForSeconds(15);
+                    }
+                } while (activeOrders >= maxActiveOrders);
+            }
         }
     }
 
@@ -99,6 +124,8 @@ public class EmailGenerator : MonoBehaviour
         newEmail.SetEffectRequested("NONE"); // generate in RandomEmail
 
         newEmail.SetTotalPay();
+
+        activeOrders++;
 
         Alerts.DisplayMessage("New e-mail from " + newEmail.fromName);
  

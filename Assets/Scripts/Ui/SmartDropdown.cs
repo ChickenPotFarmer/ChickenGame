@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class SmartDropdown : MonoBehaviour
 {
-    [Header("Status")]
-    public bool hasTargetInventory;
+    private bool hasTargetInventory;
+    private bool acceptsAll;
+    private string[] tagsAccepted;
     //private StorageCrate openedCrate;
 
     [Header("Setup")]
@@ -36,8 +37,18 @@ public class SmartDropdown : MonoBehaviour
             strainInfoUI = StrainInfoUI.instance.strainInfoUI.GetComponent<StrainInfoUI>();
     }
 
-    public void SetStorageDropdown(Transform _targetParent)
+    public void SetStorageDropdown(Transform _targetParent, bool _acceptsAll)
     {
+        acceptsAll = true;
+        targetParent = _targetParent;
+        hasTargetInventory = true;
+
+    }
+
+    public void SetStorageDropdown(Transform _targetParent, string[] _tags)
+    {
+        acceptsAll = false;
+        tagsAccepted = _tags;
         targetParent = _targetParent;
         hasTargetInventory = true;
 

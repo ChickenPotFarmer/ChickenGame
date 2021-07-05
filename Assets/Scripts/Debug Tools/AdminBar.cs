@@ -82,6 +82,15 @@ public class AdminBar : MonoBehaviour
 
         }
 
+        else if (words[0].Equals("2"))
+        {
+            GameObject bag;
+
+            bag = Instantiate(blueDreamBrick);
+            inventoryController.ReturnToInventory(bag.GetComponent<InventoryItem>());
+
+        }
+
         else if (words[0].Equals("ADDCASH"))
         {
             float amt = float.Parse(words[1]);

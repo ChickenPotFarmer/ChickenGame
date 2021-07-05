@@ -50,6 +50,7 @@ public class Buyer : MonoBehaviour
     private InventoryController inventoryController;
     private InventoryGUI inventoryGUI;
     private Bank bank;
+    private BuyerController buyerController;
 
     private Animator buyerAnimator;
     public GameObject randomBuyer;
@@ -61,6 +62,9 @@ public class Buyer : MonoBehaviour
     {
         if (!inventoryController)
             inventoryController = InventoryController.instance.inventoryController.GetComponent<InventoryController>();
+
+        if (!buyerController)
+            buyerController = BuyerController.instance.buyerContoller.GetComponent<BuyerController>();
 
         //if (!inventoryGUI)
         //    inventoryGUI = InventoryGUI.instance.inventoryGUI.GetComponent<InventoryGUI>();
@@ -146,6 +150,7 @@ public class Buyer : MonoBehaviour
         // change this so they walk away or poof into a cloud
         GameObject particles = Instantiate(successParticles);
         particles.transform.position = transform.position;
+        buyerController.BuyerOrderComplete();
 
         Xp.BuyComplete(amountRequested);
 

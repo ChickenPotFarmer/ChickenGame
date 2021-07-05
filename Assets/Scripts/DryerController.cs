@@ -10,6 +10,7 @@ public class DryerController : MonoBehaviour
     public float dryTime;
     public bool clickActive;
     public bool chickenInRange;
+    public string[] tagsAccepted;
 
     [Header("Status")]
     public bool placed;
@@ -28,6 +29,7 @@ public class DryerController : MonoBehaviour
 
     private ChickenController chicken;
     private InventoryController inventoryController;
+    private SmartDropdown smartDropdown;
 
 
     private void Start()
@@ -37,6 +39,9 @@ public class DryerController : MonoBehaviour
 
         if (!chicken)
             chicken = ChickenController.instance.chickenController.GetComponent<ChickenController>();
+
+        if (!smartDropdown)
+            smartDropdown = SmartDropdown.instance.smartDropdown.GetComponent<SmartDropdown>();
 
         if (slots.Count == 0)
         {
@@ -218,6 +223,7 @@ public class DryerController : MonoBehaviour
             dryerPanel.alpha = 1;
             dryerPanel.interactable = true;
             dryerPanel.blocksRaycasts = true;
+            smartDropdown.SetStorageDropdown(slotsParent, tagsAccepted);
 
         }
         else
@@ -225,6 +231,7 @@ public class DryerController : MonoBehaviour
             dryerPanel.alpha = 0;
             dryerPanel.interactable = false;
             dryerPanel.blocksRaycasts = false;
+            smartDropdown.UnsetStorage();
         }
     }
 

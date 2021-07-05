@@ -12,6 +12,7 @@ public class Atm : MonoBehaviour
     public CanvasGroup cg;
     public TMP_InputField amountInput;
     public GameObject interactIndicator;
+    public string[] tagsAccepted;
     private bool playerInRange;
     private bool panelOpen;
     private List<Transform> slots = new List<Transform>();
@@ -19,6 +20,7 @@ public class Atm : MonoBehaviour
 
     private Bank bank;
     private InventoryController inventoryController;
+    private SmartDropdown smartDropdown;
 
     private void Start()
     {
@@ -27,6 +29,9 @@ public class Atm : MonoBehaviour
 
         if (!bank)
             bank = Bank.instance.bank.GetComponent<Bank>();
+
+        if (!smartDropdown)
+            smartDropdown = SmartDropdown.instance.smartDropdown.GetComponent<SmartDropdown>();
 
         UpdateUI();
         IntializeSlots();
@@ -134,6 +139,8 @@ public class Atm : MonoBehaviour
             cg.alpha = 1;
             cg.interactable = true;
             cg.blocksRaycasts = true;
+            UpdateUI();
+            smartDropdown.SetStorageDropdown(slotsParent, tagsAccepted);
             panelOpen = true;
         }
         else
@@ -141,6 +148,7 @@ public class Atm : MonoBehaviour
             cg.alpha = 0;
             cg.interactable = false;
             cg.blocksRaycasts = false;
+            smartDropdown.UnsetStorage();
             panelOpen = false;
         }
     }

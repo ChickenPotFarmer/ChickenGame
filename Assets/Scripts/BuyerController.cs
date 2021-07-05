@@ -20,6 +20,7 @@ public class BuyerController : MonoBehaviour
     public bool hoverActive;
 
     private ToDoController toDoController;
+    private EmailGenerator emailGenerator;
 
     public static BuyerController instance;
     [HideInInspector]
@@ -36,11 +37,19 @@ public class BuyerController : MonoBehaviour
         if (!toDoController)
             toDoController = ToDoController.instance.toDoController.GetComponent<ToDoController>();
 
+        if (!emailGenerator)
+            emailGenerator = EmailGenerator.instance.emailGenerator.GetComponent<EmailGenerator>();
+
         spawnLocations = new Transform[spawnLocationsParent.childCount];
         for (int i = 0; i < spawnLocationsParent.childCount; i++)
         {
             spawnLocations[i] = spawnLocationsParent.GetChild(i);
         }
+    }
+
+    public void BuyerOrderComplete()
+    {
+        emailGenerator.activeOrders--;
     }
 
     public void SpawnBuyer(Email _email, ToDoObject _toDo)

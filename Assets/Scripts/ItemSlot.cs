@@ -164,12 +164,14 @@ public class ItemSlot : MonoBehaviour, IDropHandler
     // just make sure the child item is checked when dropped in empty slot
     public void CombineItems(InventoryItem _draggedItem, InventoryItem _childItem)
     {
+        float childStartAmt;
         if (isBuyerSlot)
         {
             if (!buyer.orderFilled)
             {
                 if (buyer.amountInInventory + _draggedItem.amount <= buyer.amountRequested)
                 {
+                    childStartAmt = _childItem.amount;
                     _childItem.AddAmount(_draggedItem.amount);
                     _draggedItem.amount = 0;
 
@@ -180,6 +182,7 @@ public class ItemSlot : MonoBehaviour, IDropHandler
                     {
                         _childItem.AddAmount(-diff);
                         _draggedItem.SetAmount(diff);
+
                         _draggedItem.ReturnToPreviousParent();
 
                     }
@@ -187,9 +190,12 @@ public class ItemSlot : MonoBehaviour, IDropHandler
                     {
                         Destroy(_draggedItem.gameObject);
                     }
+                    buyer.amountInInventory += _childItem.amount - childStartAmt;
                 }
                 else
                 {
+                    childStartAmt = _childItem.amount;
+
                     _childItem.AddAmount(_draggedItem.amount);
                     _draggedItem.amount = 0;
 
@@ -198,6 +204,8 @@ public class ItemSlot : MonoBehaviour, IDropHandler
 
                     _childItem.AddAmount(-diff);
                     _draggedItem.SetAmount(diff);
+                    buyer.amountInInventory += _childItem.amount - childStartAmt;
+
                 }
             }
             else

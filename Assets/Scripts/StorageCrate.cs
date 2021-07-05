@@ -69,7 +69,7 @@ public class StorageCrate : MonoBehaviour
             cg.alpha = 1;
             cg.interactable = true;
             cg.blocksRaycasts = true;
-            smartDropdown.SetStorageDropdown(slotsParent);
+            smartDropdown.SetStorageDropdown(slotsParent, true);
         }
         else
         {
