@@ -12,6 +12,7 @@ public class AdminBar : MonoBehaviour
     public GameObject seedBag1;
     public GameObject seedBag2;
     public GameObject blueDreamBrick;
+    public GameObject gorillaGlueBrick;
 
     private InventoryController inventoryController;
     private Bank bank;
@@ -87,6 +88,9 @@ public class AdminBar : MonoBehaviour
             GameObject bag;
 
             bag = Instantiate(blueDreamBrick);
+            inventoryController.ReturnToInventory(bag.GetComponent<InventoryItem>());
+
+            bag = Instantiate(gorillaGlueBrick);
             inventoryController.ReturnToInventory(bag.GetComponent<InventoryItem>());
 
         }

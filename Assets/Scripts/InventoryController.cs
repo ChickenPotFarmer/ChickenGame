@@ -102,6 +102,8 @@ public class InventoryController : MonoBehaviour
 
     }
 
+    #region InventoryChicks
+
     public void AddInventoryChick()
     {
         // Add and setup new ChickInventory
@@ -145,6 +147,8 @@ public class InventoryController : MonoBehaviour
         newChickInventory.uiSlots = newArray;
     }
 
+    #endregion
+    #region Get Open Slots
     public Transform GetOpenSlot()
     {
         openSlot = null;
@@ -154,6 +158,28 @@ public class InventoryController : MonoBehaviour
             if (slots[i].childCount == 0)
             {
                 openSlot = slots[i];
+                break;
+            }
+        }
+
+        return openSlot;
+    }
+
+    public Transform GetOpenSlot(Transform _slotsParent)
+    {
+        Transform[] tempSlots = new Transform[_slotsParent.childCount];
+
+        for (int i = 0; i < _slotsParent.childCount; i++)
+        {
+            tempSlots[i] = _slotsParent.GetChild(i);
+        }
+        openSlot = null;
+
+        for (int i = 0; i < tempSlots.Length; i++)
+        {
+            if (tempSlots[i].childCount == 0)
+            {
+                openSlot = tempSlots[i];
                 break;
             }
         }
@@ -177,6 +203,24 @@ public class InventoryController : MonoBehaviour
         return openSlot;
     }
 
+    public ItemSlot GetOpenSlot(List<ItemSlot> _slotsList)
+    {
+        ItemSlot itemSlot = null;
+
+        for (int i = 0; i < _slotsList.Count; i++)
+        {
+            if (!_slotsList[i].HasItem())
+            {
+                itemSlot = _slotsList[i];
+                break;
+            }
+        }
+
+        return itemSlot;
+    }
+
+    #endregion
+    #region Combine Items
     public InventoryItem GetItemToCombine(InventoryItem _itemToCombine)
     {
         InventoryItem inventoryItem;
@@ -247,7 +291,7 @@ public class InventoryController : MonoBehaviour
         return remainderItem;
 
     }
-
+    #endregion
     public InventoryItem ReturnToInventory(InventoryItem _item)
     {
         // check for stack to combine with
@@ -288,6 +332,8 @@ public class InventoryController : MonoBehaviour
             if (openSlot != null)
             {
                 _item.transform.SetParent(openSlot, false);
+                if (_item.previousParent == null)
+                    _item.previousParent = openSlot;
                 _item.transform.position = _item.transform.parent.position;
                 _item.Lock(false);
             }
@@ -646,5 +692,115 @@ public class InventoryController : MonoBehaviour
 
         }
 
+    }
+
+    public void InventoryToBuyerTransfer(Buyer _buyer)
+    {
+        // Create list of Weed Bricks in inventory
+        List<InventoryItem> bricksInInventory = new List<InventoryItem>();
+        InventoryItem foundItem;
+
+        for (int i = 0; i < slots.Count; i++)
+        {
+            if (slots[i].childCount != 0)
+            {
+                foundItem = slots[i].GetChild(0).GetComponent<InventoryItem>();
+                if (foundItem)
+                {
+                    if (foundItem.CompareTag("UI Weed Brick"))
+                    {
+                        bricksInInventory.Add(foundItem);
+                    }
+                }
+            }
+        }
+
+        // create array of ItemSlots from buyer
+        List<ItemSlot> itemSlots = new List<ItemSlot>();
+
+        for (int i = 0; i < _buyer.slots.Length; i++)
+        {
+            itemSlots.Add(_buyer.slots[i].GetComponent<ItemSlot>());
+        }
+
+        ItemSlot openSlot;
+        StrainProfile strain;
+        // check weed bricks
+        for (int i = 0; i < bricksInInventory.Count; i++)
+        {
+            strain = bricksInInventory[i].gameObject.GetComponent<StrainProfile>();
+
+            if (strain != null)
+                print("strain found");
+            if (_buyer.PassesInspection(strain))
+            {
+                openSlot = null;
+                openSlot = GetOpenSlot(itemSlots);
+
+                if (openSlot != null)
+                {
+                    openSlot.ManualDrop(bricksInInventory[i].gameObject);
+                }
+                else
+                {
+                    // spawn in more slots (fuck it who cares)
+                }
+            }
+        }
+    }
+
+    public void InventoryToBuyerTransfer(Buyer _buyer, string _id)
+    {
+        // Create list of Weed Bricks in inventory
+        List<InventoryItem> bricksInInventory = new List<InventoryItem>();
+        InventoryItem foundItem;
+
+        for (int i = 0; i < slots.Count; i++)
+        {
+            if (slots[i].childCount != 0)
+            {
+                foundItem = slots[i].GetChild(0).GetComponent<InventoryItem>();
+                if (foundItem)
+                {
+                    if (foundItem.CompareTag("UI Weed Brick") && foundItem.itemID == _id)
+                    {
+                        bricksInInventory.Add(foundItem);
+                    }
+                }
+            }
+        }
+
+        // create array of ItemSlots from buyer
+        List<ItemSlot> itemSlots = new List<ItemSlot>();
+
+        for (int i = 0; i < _buyer.slots.Length; i++)
+        {
+            itemSlots.Add(_buyer.slots[i].GetComponent<ItemSlot>());
+        }
+
+        ItemSlot openSlot;
+        StrainProfile strain;
+        // check weed bricks
+        for (int i = 0; i < bricksInInventory.Count; i++)
+        {
+            strain = bricksInInventory[i].gameObject.GetComponent<StrainProfile>();
+
+            if (strain != null)
+                print("strain found");
+            if (_buyer.PassesInspection(strain))
+            {
+                openSlot = null;
+                openSlot = GetOpenSlot(itemSlots);
+
+                if (openSlot != null)
+                {
+                    openSlot.ManualDrop(bricksInInventory[i].gameObject);
+                }
+                else
+                {
+                    // spawn in more slots (fuck it who cares)
+                }
+            }
+        }
     }
 }

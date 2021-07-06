@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 5523344794673146866}
   m_Layer: 5
   m_Name: Cash
-  m_TagString: UI Weed Brick
+  m_TagString: UI Cash
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -204,6 +204,7 @@ MonoBehaviour:
   amount: 0
   maxAmount: 1000
   isStrain: 0
+  isBrick: 0
   locked: 0
   inPlayerInventory: 0
   storeCost: 0

@@ -1250,6 +1250,8 @@ MonoBehaviour:
   cg: {fileID: 72285678867259239}
   amountInput: {fileID: 6306359229188612649}
   interactIndicator: {fileID: 6306359227429062007}
+  tagsAccepted:
+  - UI Cash
 --- !u!65 &6306359227332102793
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1276,6 +1278,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   atm: {fileID: 6306359227332102795}
+  dryer: {fileID: 0}
   keyboardKeyIcon: {fileID: 6306359227429062007}
 --- !u!1 &6306359227343853643
 GameObject:

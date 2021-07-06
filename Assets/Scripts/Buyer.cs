@@ -51,6 +51,7 @@ public class Buyer : MonoBehaviour
     private InventoryGUI inventoryGUI;
     private Bank bank;
     private BuyerController buyerController;
+    private SmartDropdown smartDropdown;
 
     private Animator buyerAnimator;
     public GameObject randomBuyer;
@@ -65,6 +66,9 @@ public class Buyer : MonoBehaviour
 
         if (!buyerController)
             buyerController = BuyerController.instance.buyerContoller.GetComponent<BuyerController>();
+
+        if (!smartDropdown)
+            smartDropdown = SmartDropdown.instance.smartDropdown.GetComponent<SmartDropdown>();
 
         //if (!inventoryGUI)
         //    inventoryGUI = InventoryGUI.instance.inventoryGUI.GetComponent<InventoryGUI>();
@@ -176,6 +180,8 @@ public class Buyer : MonoBehaviour
     {
         if (_active)
         {
+            smartDropdown.SetBuyerDropdown(this);
+
             cg.alpha = 1;
             cg.interactable = true;
             cg.blocksRaycasts = true;
@@ -185,6 +191,7 @@ public class Buyer : MonoBehaviour
             cg.alpha = 0;
             cg.interactable = false;
             cg.blocksRaycasts = false;
+            smartDropdown.UnsetBuyer();
         }
     }
 
@@ -232,32 +239,40 @@ public class Buyer : MonoBehaviour
         bool weedIsGood;
 
         weedIsGood = true;
+        WeedBrick weedBrick = _strain.gameObject.GetComponent<WeedBrick>();
 
+        if (weedBrick.isDry)
+        {
+            //Change these to grades, weight them and then add them to get a score
 
-        //Change these to grades, weight them and then add them to get a score
-
-        // Strain Type Check
-        if (Mathf.Abs(typeRequested - _strain.strainType) > 1 && typeRequested != -1)
-        {
-            print("Failed Type Check");
-            weedIsGood = false;
+            // Strain Type Check
+            if (Mathf.Abs(typeRequested - _strain.strainType) > 1 && typeRequested != -1)
+            {
+                Alerts.DisplayMessage("Weed is not the correct type! Buyer requested a " + _strain.GetStrainType(typeRequested) + " strain.");
+                weedIsGood = false;
+            }
+            // Effect Check
+            if (_strain.primaryEffect != effectRequested && effectRequested != "NONE")
+            {
+                Alerts.DisplayMessage("Weed rejected. This buyer requested the " + effectRequested + " effect!");
+                weedIsGood = false;
+            }
+            // Terpene Check
+            if (_strain.primaryTerpene != terpeneRequested && terpeneRequested != -1)
+            {
+                Alerts.DisplayMessage("Weed rejected. This buyer requested " + terpeneRequested + "!");
+                weedIsGood = false;
+            }
+            // THC Check
+            if (_strain.thcPercent < minThc)
+            {
+                Alerts.DisplayMessage("Weed rejected. This buyer requested at least " + (100 * minThc).ToString("n0") + "%!");
+                weedIsGood = false;
+            }
         }
-        // Effect Check
-        if (_strain.primaryEffect != effectRequested && effectRequested != "NONE")
+        else
         {
-            print("Failed Effect Requested Check");
-            weedIsGood = false;
-        }
-        // Terpene Check
-        if (_strain.primaryTerpene != terpeneRequested && terpeneRequested != -1)
-        {
-            print("Failed Terpene Check");
-            weedIsGood = false;
-        }
-        // THC Check
-        if (_strain.thcPercent < minThc)
-        {
-            print("Failed THC Check");
+            Alerts.DisplayMessage("Weed is not dry! Dry your weed in a dryer before trying to sell it.");
             weedIsGood = false;
         }
 
@@ -283,14 +298,12 @@ public class Buyer : MonoBehaviour
         {
             ClearInventory();
         }
-
     }
 
 
     // for some reason this only clears one at a time.
     public void ClearInventory()
     {
-
         List<InventoryItem> slotItems = new List<InventoryItem>();
 
         for (int i = 0; i < slots.Length; i++)
@@ -303,8 +316,6 @@ public class Buyer : MonoBehaviour
         {
             inventoryController.ReturnToInventory(slotItems[i]);
         }
-
-        
     }
 
     public void DestroyInventory()

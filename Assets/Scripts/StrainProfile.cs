@@ -364,6 +364,40 @@ public class StrainProfile : MonoBehaviour
         return type;
     }
 
+    public string GetStrainType(int _type)
+    {
+        string type;
+        switch (_type)
+        {
+            case 0:
+                type = "Indica";
+                break;
+
+            case 1:
+                type = "Indica Hybrid";
+                break;
+
+            case 2:
+                type = "Hybrid";
+                break;
+
+            case 3:
+                type = "Sativa Hybrid";
+                break;
+
+            case 4:
+                type = "Sativa";
+                break;
+
+
+            default:
+                type = "STRAIN TYPE ERROR";
+                break;
+        }
+
+        return type;
+    }
+
     public string GetReaderFriendlyThcContent()
     {
         float thc = thcPercent * 100;

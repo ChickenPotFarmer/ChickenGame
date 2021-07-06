@@ -5,8 +5,10 @@ using UnityEngine;
 public class SmartDropdown : MonoBehaviour
 {
     private bool hasTargetInventory;
+    private bool targetIsBuyer;
     private bool acceptsAll;
     private string[] tagsAccepted;
+    private string itemId;
     //private StorageCrate openedCrate;
 
     [Header("Setup")]
@@ -15,6 +17,7 @@ public class SmartDropdown : MonoBehaviour
     public CanvasGroup cg;
 
     private Transform targetParent;
+    private Buyer targetBuyer;
     private InventoryController inventoryController;
     private StrainInfoUI strainInfoUI;
 
@@ -42,6 +45,7 @@ public class SmartDropdown : MonoBehaviour
         acceptsAll = true;
         targetParent = _targetParent;
         hasTargetInventory = true;
+        targetIsBuyer = false;
 
     }
 
@@ -51,18 +55,43 @@ public class SmartDropdown : MonoBehaviour
         tagsAccepted = _tags;
         targetParent = _targetParent;
         hasTargetInventory = true;
+        targetIsBuyer = false;
 
+    }
+
+    public void SetBuyerDropdown(Buyer _buyer)
+    {
+        acceptsAll = false;
+        tagsAccepted = new string[] { "UI Weed Brick" };
+        targetParent = _buyer.slotsParent;
+        targetBuyer = _buyer;
+        hasTargetInventory = true;
+        targetIsBuyer = true;
     }
 
     public void UnsetStorage()
     {
         targetParent = null;
         hasTargetInventory = false;
+        itemId = "";
+    }
+
+    public void UnsetBuyer()
+    {
+        targetBuyer = null;
+        targetIsBuyer = false;
+        targetParent = null;
+        hasTargetInventory = false;
+        itemId = "";
+
     }
 
     public void OpenDropdown(InventoryItem _itemClicked)
     {
         ResetDropdownRoutine();
+
+        itemId = _itemClicked.itemID;
+
         //buttons that come up regardless of what panel is open
         if (_itemClicked.isStrain)
             StrainInfoSpawn(_itemClicked);
@@ -73,8 +102,16 @@ public class SmartDropdown : MonoBehaviour
         {
             if (hasTargetInventory)
             {
-                TransferAllOfTypeToStorageSpawn(_itemClicked);
-                TransferAllToStorageSpawn();
+                if (targetIsBuyer)
+                {
+                    TransferAllToBuyerSpawn();
+                    TransferAllOfTypeToBuyerSpawn();
+                }
+                else
+                {
+                    TransferAllOfTypeToStorageSpawn(_itemClicked);
+                    TransferAllToStorageSpawn();
+                }
             }
 
         }
@@ -82,8 +119,15 @@ public class SmartDropdown : MonoBehaviour
         {
             if (hasTargetInventory)
             {
-                TransferAllOfTypeFromStorageSpawn(_itemClicked);
-                TransferAllFromStorageSpawn();
+                if (targetIsBuyer)
+                {
+
+                }
+                else
+                {
+                    TransferAllOfTypeFromStorageSpawn(_itemClicked);
+                    TransferAllFromStorageSpawn();
+                }
             }
         }
 
@@ -107,6 +151,40 @@ public class SmartDropdown : MonoBehaviour
     private void ShowStrain(StrainProfile _strain)
     {
         strainInfoUI.SetStrainInfoActive(_strain);
+        CloseAndResetDropdown();
+    }
+
+    private void TransferAllToBuyerSpawn()
+    {
+        GameObject newBtn = Instantiate(dropDownBtn, parentDropDown);
+        DropDownBtn btnComp = newBtn.GetComponent<DropDownBtn>();
+
+        btnComp.btnTxt.text = "Transfer All Weed";
+
+        btnComp.btnComp.onClick.AddListener(delegate { TransferAllToBuyerRoutine(); });
+
+    }
+
+    private void TransferAllToBuyerRoutine()
+    {
+        inventoryController.InventoryToBuyerTransfer(targetBuyer);
+        CloseAndResetDropdown();
+    }
+
+    private void TransferAllOfTypeToBuyerSpawn()
+    {
+        GameObject newBtn = Instantiate(dropDownBtn, parentDropDown);
+        DropDownBtn btnComp = newBtn.GetComponent<DropDownBtn>();
+
+        btnComp.btnTxt.text = "Transfer All Weed Of Same Type";
+
+        btnComp.btnComp.onClick.AddListener(delegate { TransferAllOfTypeToBuyerRoutine(); });
+
+    }
+
+    private void TransferAllOfTypeToBuyerRoutine()
+    {
+        inventoryController.InventoryToBuyerTransfer(targetBuyer, itemId);
         CloseAndResetDropdown();
     }
 
