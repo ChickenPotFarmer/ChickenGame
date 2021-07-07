@@ -58,9 +58,13 @@ public class SeedCannon : MonoBehaviour
             seedComp.target = _target;
 
             WeedPlant weedPlant = _target.GetComponent<WeedPlant>();
+            TutorialPlant tutorialWeedPlant = _target.GetComponent<TutorialPlant>();
 
             if (weedPlant)
                 weedPlant.hasSeed = true;
+
+            if (tutorialWeedPlant)
+                tutorialWeedPlant.hasSeed = true;
 
             if (currentStrain != null)
                 newSeed.GetComponent<Seed>().currentStrain.SetStrain(currentStrain);

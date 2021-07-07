@@ -32,15 +32,10 @@ public class TutorialPlant : MonoBehaviour
     public GameObject fullGrownClipped;
 
     [Header("Info")]
-    public StrainProfile currentStrain;
-    public string strainID;
-    public string strain;
-    public float actualYield;
-    public int actualSeedYield = 10;
-    public int actualTrimmingsYield = 25;
     public float growTime;
 
     [Header("Status")]
+    public bool interactable;
     public bool targettedForHarvest;
     public bool targettedForSeeding;
     public bool selected;
@@ -89,17 +84,12 @@ public class TutorialPlant : MonoBehaviour
         isPlanted = true;
         waterLevel = startingWaterLevel;
         Xp.PlantSeed();
-        SetGender();
+
         SetWaterLevelBar(waterLevel);
         StartCoroutine(GrowRoutine());
         StartCoroutine(GrowthBarUpdate());
         StartCoroutine(WaterReductionRoutine());
 
-    }
-
-    private void SetGender()
-    {
-        isMale = Random.value > 0.65f;
     }
 
     public void Trim()
@@ -272,36 +262,6 @@ public class TutorialPlant : MonoBehaviour
         genderIcon.SetActive(true);
     }
 
-    private void SetStage(int _stage)
-    {
-        switch (currentStage)
-        {
-            case 0:
-                SetNone();
-                break;
-
-            case 1:
-                SetSeedling();
-                break;
-
-            case 2:
-                SetSapling();
-                break;
-
-            case 3:
-                SetAlmostDone();
-                break;
-
-            case 4:
-                SetFullGrown();
-                break;
-
-            case 5:
-                SetTrimmed();
-                break;
-        }
-    }
-
     public void SetGrowthBarActive(bool _active)
     {
         if (_active)
@@ -363,6 +323,7 @@ public class TutorialPlant : MonoBehaviour
 
     public IEnumerator GrowthBarUpdate()
     {
+        print("Grow bar start");
         growthBar.maxValue = growTime + 1;
         for (int i = 0; i < growTime + 1; i++)
         {
@@ -402,7 +363,7 @@ public class TutorialPlant : MonoBehaviour
 
             //harvestPanel.HarvestPlant(this, currentStrain);
         }
-    }00.
+    }
 
     public void CloseHarvestPanel()
     {
@@ -438,12 +399,6 @@ public class TutorialPlant : MonoBehaviour
                 Plant();
                 Destroy(seed.gameObject);
                 Instantiate(plantedFx, fxParent);
-            }
-            else
-            {
-                print("ignore");
-
-
             }
         }
     }

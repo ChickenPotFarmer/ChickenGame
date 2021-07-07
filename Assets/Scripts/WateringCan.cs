@@ -16,6 +16,7 @@ public class WateringCan : MonoBehaviour
     public GameObject waterCan;
 
     private WeedPlant selectedPlant;
+    private TutorialPlant selectedTutorialPlant;
     private ChickenController chickenController;
 
     private void Awake()
@@ -66,19 +67,39 @@ public class WateringCan : MonoBehaviour
     public void TargetForWater(WeedPlant _plant)
     {
         selectedPlant = _plant;
-        StartCoroutine(CheckChickenDistanceRoutine());
+        StartCoroutine(CheckChickenDistanceRoutine(false));
     }
 
-    IEnumerator CheckChickenDistanceRoutine()
+    public void TargetForWater(TutorialPlant _plant)
+    {
+        selectedTutorialPlant = _plant;
+        StartCoroutine(CheckChickenDistanceRoutine(true));
+    }
+
+    IEnumerator CheckChickenDistanceRoutine(bool _tutorialOn)
     {
         float endCheck = Time.time + 5;
         do
         {
-            if (Vector3.Distance(selectedPlant.transform.position, transform.position) < 4 && waterCanOn)
+            if (_tutorialOn)
             {
-                selectedPlant.Water();
-                chickenController.SetNewDestination(transform.position);
-                break;
+                if (Vector3.Distance(selectedTutorialPlant.transform.position, transform.position) < 4 && waterCanOn)
+                {
+                    selectedTutorialPlant.Water();
+
+                    chickenController.SetNewDestination(transform.position);
+                    break;
+                }
+            }
+            else
+            {
+                if (Vector3.Distance(selectedPlant.transform.position, transform.position) < 4 && waterCanOn)
+                {
+                    selectedPlant.Water();
+
+                    chickenController.SetNewDestination(transform.position);
+                    break;
+                }
             }
             yield return new WaitForSeconds(0.2f);
         } while (Time.time < endCheck && selectedPlant != null);

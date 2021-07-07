@@ -17,15 +17,16 @@ public class InputController : MonoBehaviour
     private Trimmer trimmer;
     private SeedCannon seedCannon;
     private BuyerController buyerController;
-    private DryerController dryerController;
     private LaptopController laptopController;
-    private Planter planterController;
     private ToDoController toDoController;
     private ChickenController chickenController;
     private InventoryController inventoryController;
     private RadialMenu radialMenu;
     private MapController mapController;
-
+    private WeedPlant selectedPlant;
+    private TutorialPlant selectedTutorialPlant;
+    private WeedPlant foundPlant;
+    private TutorialPlant foundTutorialPlant;
 
     public static InputController instance;
     [HideInInspector]
@@ -43,8 +44,6 @@ public class InputController : MonoBehaviour
             buyerController = BuyerController.instance.buyerContoller.GetComponent<BuyerController>();
         if (!laptopController)
             laptopController = LaptopController.instance.laptopController.GetComponent<LaptopController>();
-        if (!planterController)
-            planterController = Planter.instance.planter.GetComponent<Planter>();
         if (!toDoController)
             toDoController = ToDoController.instance.toDoController.GetComponent<ToDoController>();
         if (!chickenController)
@@ -144,6 +143,9 @@ public class InputController : MonoBehaviour
                         else
                             tagId = hit.collider.gameObject.tag;
 
+                        PlanterUnhover();
+                        BuyerUnhover();
+
                         print(tagId);
 
                         switch (tagId)
@@ -164,7 +166,6 @@ public class InputController : MonoBehaviour
                                     buyerController.hoveringOver.OpenBuyerPanel();
                                 }
 
-                                PlanterUnhover();
                                 break;
 
                             case "Dryer":
@@ -178,8 +179,7 @@ public class InputController : MonoBehaviour
                                     }
                                 }
 
-                                PlanterUnhover();
-                                BuyerUnhover();
+                                //BuyerUnhover();
                                 break;
 
                             case "Laptop":
@@ -191,25 +191,25 @@ public class InputController : MonoBehaviour
                                         laptopController.clickActive = false;
                                     }
                                 }
-                                PlanterUnhover();
-                                BuyerUnhover();
+
+                                //BuyerUnhover();
                                 break;
 
                             case "Weed Plant":
-                                WeedPlant foundPlant = hit.collider.gameObject.GetComponent<WeedPlant>();
+                                foundPlant = hit.collider.gameObject.GetComponent<WeedPlant>();
 
                                 // Handle unplanted weed plant
                                 if (!foundPlant.isPlanted && seedCannon.cannonOn)
                                 {
-                                    if (planterController.selectedPlant != null)
+                                    if (selectedPlant != null)
                                     {
-                                        if (foundPlant != planterController.selectedPlant && !planterController.selectedPlant.isPlanted)
+                                        if (foundPlant != selectedPlant && !selectedPlant.isPlanted)
                                         {
-                                            planterController.selectedPlant.SetNone();
+                                            selectedPlant.SetNone();
                                         }
                                     }
-                                    planterController.selectedPlant = foundPlant;
-                                    planterController.selectedPlant.SetFullGrown();
+                                    selectedPlant = foundPlant;
+                                    selectedPlant.SetFullGrown();
                                 }
 
                                 if (InteractWith())
@@ -264,7 +264,76 @@ public class InputController : MonoBehaviour
                                     }
                                 }
 
-                                BuyerUnhover();
+                                //BuyerUnhover();
+                                break;
+
+                            case "Tutorial Plant":
+                                foundTutorialPlant = hit.collider.gameObject.GetComponent<TutorialPlant>();
+
+                                // Handle unplanted weed plant
+                                if (!foundTutorialPlant.isPlanted && seedCannon.cannonOn)
+                                {
+                                    if (selectedTutorialPlant != null)
+                                    {
+                                        if (foundTutorialPlant != selectedTutorialPlant && !selectedTutorialPlant.isPlanted)
+                                        {
+                                            selectedTutorialPlant.SetNone();
+                                        }
+                                    }
+                                    selectedTutorialPlant = foundTutorialPlant;
+                                    selectedTutorialPlant.SetFullGrown();
+                                }
+
+                                if (InteractWith())
+                                {
+                                    if (foundTutorialPlant.fullyGrown)
+                                    {
+                                        if (trimmer.TrimmerIsOn())
+                                        {
+                                            if (!foundTutorialPlant.trimmed)
+                                            {
+                                                trimmer.TargetForTrim(foundTutorialPlant);
+                                                chickenController.SetNewDestination(hit.point);
+                                            }
+                                            else if (!foundTutorialPlant.harvested)
+                                            {
+                                                foundTutorialPlant.TargetForHarvest();
+                                                chickenController.SetNewDestination(hit.point);
+                                            }
+                                            else if (foundTutorialPlant.harvested)
+                                            {
+                                                foundTutorialPlant.SetHarvestPanelActive(true);
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            if (foundTutorialPlant.harvested)
+                                                foundTutorialPlant.SetHarvestPanelActive(true);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (seedCannon.cannonOn && !foundTutorialPlant.hasSeed)
+                                        {
+                                            seedCannon.FireCannon(foundTutorialPlant.transform);
+                                        }
+
+                                        else if (wateringCan.waterCanOn && foundTutorialPlant.isPlanted)
+                                        {
+                                            wateringCan.TargetForWater(foundTutorialPlant);
+                                            chickenController.SetNewDestination(hit.point);
+
+                                        }
+
+                                        else if (trimmer.trimmerOn && foundTutorialPlant.isPlanted)
+                                        {
+                                            foundTutorialPlant.DestroyPlant();
+                                        }
+                                    }
+                                }
+
+                                //BuyerUnhover();
                                 break;
 
                             case "Storage Container":
@@ -283,7 +352,6 @@ public class InputController : MonoBehaviour
 
 
                             default:
-
                                 PlanterUnhover();
                                 BuyerUnhover();
                                 break;
@@ -293,8 +361,8 @@ public class InputController : MonoBehaviour
                     }
                     else
                     {
-                        PlanterUnhover();
                         BuyerUnhover();
+                        PlanterUnhover();
                     }
                 }
 
@@ -318,21 +386,27 @@ public class InputController : MonoBehaviour
         return clicked;
     }
 
+    private void PlanterUnhover()
+    {
+        if (selectedTutorialPlant != null)
+        {
+            selectedTutorialPlant.SetNone();
+            selectedTutorialPlant = null;
+        }
+
+        if (selectedPlant != null)
+        {
+            selectedPlant.SetNone();
+            selectedPlant = null;
+        }
+    }
+
     public void BuyerUnhover()
     {
         if (buyerController.hoveringOver != null)
         {
             buyerController.hoveringOver.SetHoverInfoActive(false);
             buyerController.hoveringOver = null;
-        }
-    }
-
-    public void PlanterUnhover()
-    {
-        if (planterController.selectedPlant != null && !planterController.selectedPlant.isPlanted)
-        {
-            planterController.selectedPlant.SetNone();
-            planterController.selectedPlant = null;
         }
     }
 
