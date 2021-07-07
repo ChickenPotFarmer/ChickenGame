@@ -1355,7 +1355,6 @@ GameObject:
   - component: {fileID: 1259616449373587203}
   - component: {fileID: 1592618280438017331}
   - component: {fileID: 695129060552470159}
-  - component: {fileID: 8342123754695708341}
   - component: {fileID: 2721631382532077778}
   m_Layer: 9
   m_Name: Weed Plant
@@ -1579,22 +1578,6 @@ CapsuleCollider:
   m_Height: 3.34
   m_Direction: 1
   m_Center: {x: 0.00000003973643, y: -0.43001032, z: -0.00000007947286}
---- !u!114 &8342123754695708341
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2567857705582666608}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cfcc9ceea0bf419cb3bcaf548c2600d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  saveChildren: 0
-  componentsToSave:
-  - {fileID: 1371168982470490669}
-  - {fileID: 1592618280438017331}
 --- !u!54 &2721631382532077778
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1941,7 +1924,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 63227706107896068, guid: da8fc74ce04ec924390f7dd878a667ce, type: 3}
+  - {fileID: -8274133419916619345, guid: 021a991a9eb3d4f44b1e275b0550824e, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2503,8 +2486,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -3899524663081401858, guid: da8fc74ce04ec924390f7dd878a667ce, type: 3}
-  - {fileID: -6889759923446241589, guid: da8fc74ce04ec924390f7dd878a667ce, type: 3}
+  - {fileID: -8274133419916619345, guid: 4d51a79d671773f49b46fe4af0951906, type: 3}
+  - {fileID: -5605289326131794027, guid: 57c87b8d2ed33234480c155d9862e641, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -22298,7 +22281,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 6566028747325475338, guid: da8fc74ce04ec924390f7dd878a667ce, type: 3}
+  - {fileID: 2100000, guid: 1e713864208124b5890945e2967fd787, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -22745,15 +22728,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c4edcba6e96a8f4caeeef4a0cc6948f, type: 3}
---- !u!4 &5012213758753056247 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2842574088865057269, guid: 5c4edcba6e96a8f4caeeef4a0cc6948f,
-    type: 3}
-  m_PrefabInstance: {fileID: 7132628450892131330}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5675984098644819789 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3186590023109071695, guid: 5c4edcba6e96a8f4caeeef4a0cc6948f,
+    type: 3}
+  m_PrefabInstance: {fileID: 7132628450892131330}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5012213758753056247 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2842574088865057269, guid: 5c4edcba6e96a8f4caeeef4a0cc6948f,
     type: 3}
   m_PrefabInstance: {fileID: 7132628450892131330}
   m_PrefabAsset: {fileID: 0}

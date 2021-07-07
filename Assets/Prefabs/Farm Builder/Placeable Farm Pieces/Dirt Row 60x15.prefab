@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2124223893989195925}
-  - component: {fileID: 3249249223520399057}
   m_Layer: 0
   m_Name: Pre Placement Info
   m_TagString: Untagged
@@ -31,21 +30,6 @@ Transform:
   m_Father: {fileID: 2124223894365779808}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3249249223520399057
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2124223893989195924}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cfcc9ceea0bf419cb3bcaf548c2600d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  saveChildren: 0
-  componentsToSave:
-  - {fileID: 2124223893989195925}
 --- !u!1 &2124223894365779839
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,7 +78,6 @@ GameObject:
   - component: {fileID: 2124223895516480573}
   - component: {fileID: 2124223895516480574}
   - component: {fileID: 2124223895516480575}
-  - component: {fileID: 581168021808796921}
   m_Layer: 2
   m_Name: Boundaries Trigger
   m_TagString: Placeable
@@ -218,22 +201,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &581168021808796921
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2124223895516480569}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cfcc9ceea0bf419cb3bcaf548c2600d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  saveChildren: 0
-  componentsToSave:
-  - {fileID: 2124223895516480574}
-  - {fileID: 2124223895516480570}
 --- !u!1 &5646139035929711001
 GameObject:
   m_ObjectHideFlags: 0

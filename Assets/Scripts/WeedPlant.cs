@@ -78,9 +78,6 @@ public class WeedPlant : MonoBehaviour
         if (debugRenderer.enabled)
             debugRenderer.enabled = false;
 
-        if (!confirmPlantPanel)
-            confirmPlantPanel = ConfirmPlantPanel.instance.confirmPlantPanel.GetComponent<ConfirmPlantPanel>();
-
         if (!chickenController)
             chickenController = ChickenController.instance.chickenController.GetComponent<ChickenController>();
 
