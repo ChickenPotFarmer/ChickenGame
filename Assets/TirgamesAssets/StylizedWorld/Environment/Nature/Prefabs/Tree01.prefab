@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 88585138}
   m_LocalRotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.99999994, z: 0.99999994}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 5265314964952118862}
   - {fileID: 5265314964952118856}
@@ -57,6 +57,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -68,6 +69,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -121,9 +123,9 @@ MeshCollider:
   m_Material: {fileID: 13400000, guid: 919f7bdb02d965c419f22b569d2559c1, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
+  serializedVersion: 4
   m_Convex: 1
-  m_CookingOptions: 14
+  m_CookingOptions: 30
   m_Mesh: {fileID: 4300004, guid: 52c511a8f55a58d47b5566885428933d, type: 3}
 --- !u!1 &5265314964952017514
 GameObject:
@@ -166,9 +168,9 @@ MeshCollider:
   m_Material: {fileID: 13400000, guid: 83d40cc6f25564543a2ebcbe86422a29, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
+  serializedVersion: 4
   m_Convex: 1
-  m_CookingOptions: 14
+  m_CookingOptions: 30
   m_Mesh: {fileID: 4300006, guid: 52c511a8f55a58d47b5566885428933d, type: 3}
 --- !u!1 &5265314964952017518
 GameObject:
@@ -211,7 +213,7 @@ MeshCollider:
   m_Material: {fileID: 13400000, guid: 919f7bdb02d965c419f22b569d2559c1, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
+  serializedVersion: 4
   m_Convex: 1
-  m_CookingOptions: 14
+  m_CookingOptions: 30
   m_Mesh: {fileID: 4300002, guid: 52c511a8f55a58d47b5566885428933d, type: 3}
