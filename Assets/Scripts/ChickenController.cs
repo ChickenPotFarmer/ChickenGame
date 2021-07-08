@@ -12,12 +12,11 @@ public class ChickenController : MonoBehaviour
 
     [Header("Setup")]
     public Transform pickupSlot;
+    public Animator animator;
 
     [Header("Followers")]
     public bool hasFollower;
     public LilChickController follower;
-
-    private Animator animator;
 
     public static ChickenController instance;
     [HideInInspector]
@@ -29,26 +28,21 @@ public class ChickenController : MonoBehaviour
         chickenController = gameObject;
     }
 
-    private void Start()
-    {
-        animator = GetComponent<Animator>();
-    }
-
     // FIND A BETTER WAY TO DO THIS
     private void Update()
     {
         if (navAgent.velocity.magnitude > runThreshold)
         {
-            if (!animator.GetBool("Run"))
-                animator.SetBool("Run", true);
+            if (!animator.GetBool("Walk"))
+                animator.SetBool("Walk", true);
 
             if (!navX.activeInHierarchy)
                 navX.SetActive(true);
         }
         else
         {
-            if (animator.GetBool("Run"))
-                animator.SetBool("Run", false);
+            if (animator.GetBool("Walk"))
+                animator.SetBool("Walk", false);
 
             if (navX.activeInHierarchy)
                 navX.SetActive(false);
