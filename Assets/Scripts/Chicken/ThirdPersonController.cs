@@ -98,6 +98,7 @@ public class ThirdPersonController : MonoBehaviour
             {
                 cursorLocked = true;
                 Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
                 cmCam.m_XAxis.m_InputAxisName = "Mouse X";
             }
         }
@@ -107,6 +108,7 @@ public class ThirdPersonController : MonoBehaviour
             {
                 cursorLocked = false;
                 Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
                 cmCam.m_XAxis.m_InputAxisName = "QE Rotate";
 
             }
