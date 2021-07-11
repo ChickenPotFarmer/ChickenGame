@@ -7,6 +7,7 @@ public class PiggyPatrolController : MonoBehaviour
 {
     [Header("Status")]
     public bool onPatrol;
+    public bool playerSighted;
     public bool playerInRange;
     public int currentWaypoint;
 
@@ -20,16 +21,35 @@ public class PiggyPatrolController : MonoBehaviour
     public float maxWaitTime;
 
     [Header("Setup")]
+    public GameObject susIcon;
+    public GameObject pursuitIcon;
     public float runThreshold;
     public Animator animator;
     public NavMeshAgent navAgent;
     public AudioSource piggyRadio;
 
+    // sus
+    [Header("Sus Level Settings")]
+    public float susThreshold;
+    public float susLvlIncreaseRate;
+    public float susCooldownRate;
+    public bool isSus;
+    public float susLvl;
+
+    [Header("Pursuit Settings")]
+    public bool inPursuit;
+    public float searchTime;
+    private float pursuitCheckLvl;
+    public float pursuitCooldownRate;
+
+
     private Dispatch dispatch;
     private ChickenController chicken;
     private Rigidbody playerRb;
+    private NavMeshAgent playerNavAgent;
     private Vector3 playerLastKnownPosition;
     private Vector3 playerLastKnownDirection;
+    private ScreenAlert screenAlert;
 
 
     private void Start()
@@ -42,6 +62,12 @@ public class PiggyPatrolController : MonoBehaviour
 
         if (!playerRb)
             playerRb = chicken.GetComponent<Rigidbody>();
+
+        if (!playerNavAgent)
+            playerNavAgent = chicken.GetComponent<NavMeshAgent>();
+
+        if (!screenAlert)
+            screenAlert = ScreenAlert.instance.screenAlert.GetComponent<ScreenAlert>();
 
         if (wayPointsParent != null)
             wayPoints = new Vector3[wayPointsParent.childCount];
@@ -96,6 +122,8 @@ public class PiggyPatrolController : MonoBehaviour
     {
         // coin flip to see which direction of route to take
         bool coinFlip = Random.value > 0.5f;
+        print("Returning to patrol");
+        onPatrol = true;
 
         do
         {
@@ -156,25 +184,164 @@ public class PiggyPatrolController : MonoBehaviour
 
         // This would cast rays only against colliders in layer 8.
         // But instead we want to collide against everything except layer 8. The ~ operator does this, it inverts a bitmask.
+
         layerMask = ~layerMask;
         do
         {
-            if (Physics.Linecast(transform.position, chicken.chickenModel.position, out RaycastHit hit, layerMask, QueryTriggerInteraction.Ignore))
+            if (Physics.Linecast(transform.position + Vector3.up, chicken.chickenModel.position + Vector3.up, out RaycastHit hit, layerMask, QueryTriggerInteraction.Ignore))
             {
-                Debug.Log("blocked");
                 Debug.DrawLine(transform.position, hit.point, Color.red);
+                playerSighted = false;
+
+                screenAlert.SetSus(false);
+                susIcon.SetActive(false);
             }
             else
             {
-                print("Not Blocked");
+                playerSighted = true;
                 Debug.DrawLine(transform.position, chicken.chickenModel.position, Color.green);
-                playerLastKnownPosition = chicken.chickenModel.position;
-                playerLastKnownDirection = chicken.chickenModel.position;
+                PlayerSighted();
             }
 
             yield return new WaitForSeconds(0.1f);
         } while (playerInRange);
+
+        if (!playerInRange)
+            screenAlert.SetSus(false);
+
+        playerSighted = false;
+
     }
+
+    private void PlayerSighted()
+    {
+        //print("Player Sighted");
+        playerLastKnownPosition = chicken.chickenModel.position;
+        playerLastKnownDirection = playerNavAgent.velocity.normalized;
+        screenAlert.SetSus(true);
+        susIcon.SetActive(true);
+
+
+        if (!isSus && !inPursuit)
+            StartCoroutine(SusRoutine()); 
+
+    }
+
+    private IEnumerator SusRoutine()
+    {
+        print("Sus routine Started");
+
+        isSus = true;
+        susLvl = 0;
+
+        do
+        {
+            susLvl += susLvlIncreaseRate;
+
+            if (susLvl >= susThreshold && !inPursuit)
+            {
+                StartCoroutine(PursuitRoutine());
+                break;
+            }
+
+            yield return new WaitForSeconds(0.1f);
+        } while (playerSighted);
+
+        if (susLvl <= 0)
+        { 
+            isSus = false;
+            susLvl = 0;
+        }
+        else
+            StartCoroutine(SusCooldown());
+    }
+
+    private IEnumerator SusCooldown()
+    {
+        print("Sus cooldown Started");
+
+        do
+        {
+            susLvl -= susCooldownRate;
+            yield return new WaitForSeconds(0.1f);
+
+        } while (susLvl > 0);
+
+        if (susLvl <= 0)
+        {
+            isSus = false;
+            susLvl = 0;
+            screenAlert.SetSus(false);
+            susIcon.SetActive(false);
+
+        }
+    }
+
+    private IEnumerator PursuitRoutine()
+    {
+        inPursuit = true;
+        onPatrol = false;
+        StopCoroutine(PatrolRoutine());
+        pursuitCheckLvl = 1;
+        screenAlert.SetPursuit(true);
+        pursuitIcon.SetActive(true);
+
+        print("Pursuit Started");
+
+        do
+        {
+            if (playerSighted)
+            {
+                pursuitCheckLvl = 1;
+                PlayerSighted();
+                navAgent.SetDestination(playerLastKnownPosition);
+
+            }
+            else
+            {
+
+                if (Vector3.Distance(transform.position, playerLastKnownPosition ) < 1.5f)
+                {
+                    navAgent.SetDestination(transform.position + (playerLastKnownDirection * 4));
+                    playerLastKnownPosition = navAgent.destination;
+                    Debug.DrawLine(transform.position, transform.position + (playerLastKnownDirection * 4), Color.blue);
+
+                    print("Headed in last known player direction.");
+                }
+                else
+                {
+                    navAgent.SetDestination(playerLastKnownPosition);
+                    print("Headed to last known player positon.");
+
+                }
+
+                pursuitCheckLvl -= pursuitCooldownRate;
+
+                if (pursuitCheckLvl <= 0)
+                {
+                    inPursuit = false;
+                    screenAlert.SetPursuit(false);
+                    pursuitIcon.SetActive(false);
+                    break;
+                }
+            }
+
+            yield return new WaitForSeconds(0.1f);
+
+        } while (inPursuit);
+        inPursuit = false;
+        screenAlert.SetPursuit(false);
+        pursuitIcon.SetActive(false);
+
+        RequestNewPatrol();
+
+    }
+
+    //private void ReturnToPatrol()
+    //{
+    //    StartCoroutine(PatrolRoutine());
+
+    //}
 
     public void RequestNewPatrol()
     {
