@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PatrolRoute : MonoBehaviour
 {
+    [Header("Status")]
+    public int piggiesOnRoute;
+
     [Header("Debug Line")]
     public LineRenderer lineRenderer;
     public bool updateLine;

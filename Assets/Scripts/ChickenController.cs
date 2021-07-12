@@ -13,6 +13,7 @@ public class ChickenController : MonoBehaviour
     [Header("Setup")]
     public Transform pickupSlot;
     public Animator animator;
+    public Transform chickenModel;
 
     [Header("Followers")]
     public bool hasFollower;

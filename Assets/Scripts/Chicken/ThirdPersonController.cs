@@ -20,6 +20,8 @@ public class ThirdPersonController : MonoBehaviour
     public Transform left;
     public Transform fL;
 
+    private bool cursorWasLocked;
+
     [Header("Setup")]
     public CinemachineFreeLook cmCam;
     public NavMeshAgent navAgent;
@@ -76,43 +78,78 @@ public class ThirdPersonController : MonoBehaviour
             movementActive = true;
 
         }
-        else if (Input.GetKey(KeyCode.LeftControl))
-        {
-            movementActive = true;
-
-        }
         else
         {
             if (movementActive)
             {
-                print("Movement stopped");
                 navAgent.SetDestination(transform.position);
                 movementActive = false;
             }
         }
 
-        // Cursor lock and camera axis change
-        if (movementActive)
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
-            if (!cursorLocked)
-            {
-                cursorLocked = true;
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-                cmCam.m_XAxis.m_InputAxisName = "Mouse X";
-            }
+            ToggleCursor();
+
+        }
+        else if (Input.GetMouseButtonDown(2))
+        {
+            cursorWasLocked = cursorLocked;
+            LockCursor();
+        }
+        else if (Input.GetMouseButtonUp(2))
+        {
+            if (!cursorWasLocked)
+                UnlockCursor();
+        }
+
+        // Cursor lock and camera axis change
+        //if (movementActive)
+        //{
+        //    if (!cursorLocked)
+        //    {
+        //        LockCursor();
+        //        cmCam.m_XAxis.m_InputAxisName = "Mouse X";
+        //    }
+        //}
+        //else
+        //{
+        //    if (cursorLocked)
+        //    {
+        //        UnlockCursor();
+        //        cmCam.m_XAxis.m_InputAxisName = "QE Rotate";
+
+        //    }
+        //}
+
+    }
+
+    private void ToggleCursor()
+    {
+        if (cursorLocked)
+        {
+            UnlockCursor();
         }
         else
         {
-            if (cursorLocked)
-            {
-                cursorLocked = false;
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-                cmCam.m_XAxis.m_InputAxisName = "QE Rotate";
-
-            }
+            LockCursor();
         }
 
+    }
+
+    private void LockCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        cursorLocked = true;
+        cmCam.m_XAxis.m_InputAxisName = "Mouse X";
+    }
+
+    private void UnlockCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        cursorLocked = false;
+        cmCam.m_XAxis.m_InputAxisName = "QE Rotate";
     }
 }

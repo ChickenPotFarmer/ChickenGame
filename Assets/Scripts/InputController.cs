@@ -67,7 +67,7 @@ public class InputController : MonoBehaviour
         if (!farmBuilderActive)
         {
             // Keyboard Controls
-            if (Input.GetKeyDown(KeyCode.Tab))
+            if (Input.GetKeyDown("i"))
                 inventoryController.ToggleInventoryPanel();
 
             else if (Input.GetKeyDown(KeyCode.T))
@@ -146,7 +146,7 @@ public class InputController : MonoBehaviour
                         PlanterUnhover();
                         BuyerUnhover();
 
-                        print(tagId);
+                        //print(tagId);
 
                         switch (tagId)
                         {
