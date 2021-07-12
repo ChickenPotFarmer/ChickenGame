@@ -14,8 +14,9 @@ Material:
   m_LightmapFlags: 6
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_CustomRenderQueue: 2000
+  stringTagMap:
+    RenderType: Opaque
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -188,7 +189,7 @@ Material:
     - _HeightTransition: 0
     - _IntensityA: 0.831
     - _IntensityC: 0.931
-    - _LightContribution: 0
+    - _LightContribution: 1
     - _LightFalloffSize: 0.0001
     - _LightmapDirectionPitch: 0
     - _LightmapDirectionYaw: 0
@@ -227,7 +228,7 @@ Material:
     - _TextureImpact: 0.864
     - _UVSec: 0
     - _UnityShadowMode: 1
-    - _UnityShadowPower: 0.559
+    - _UnityShadowPower: 1
     - _UnityShadowSharpness: 1
     - _VertexColorsEnabled: 0
     - _ZWrite: 1

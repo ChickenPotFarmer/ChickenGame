@@ -8,8 +8,9 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Atlas-1
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
-  m_ShaderKeywords: _ENVIRONMENTREFLECTIONS_OFF _SPECULARHIGHLIGHTS_OFF
+  m_Shader: {fileID: 4800000, guid: f7e38193b7f064d7380403618fd8b69e, type: 3}
+  m_ShaderKeywords: DR_GRADIENT_ON DR_RIM_ON DR_VERTEX_COLORS_ON _CELPRIMARYMODE_SINGLE
+    _TEXTUREBLENDINGMODE_MULTIPLY _UNITYSHADOWMODE_MULTIPLY
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -84,7 +85,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _EnvironmentReflections: 0
+    - _EnvironmentReflections: 1
     - _FlatRimEdgeSmoothness: 0.618
     - _FlatRimLightAlign: 0
     - _FlatRimSize: 0.5
@@ -121,20 +122,20 @@ Material:
     - _ShadowEdgeSize: 0.316
     - _ShadowEdgeSizeExtra: 0.038
     - _Shininess: 0.36
-    - _Smoothness: 0.34
+    - _Smoothness: 0.382
     - _SmoothnessSource: 1
     - _SmoothnessTextureChannel: 0
     - _SpecSource: 0
     - _SpecularEnabled: 0
-    - _SpecularHighlights: 0
+    - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
     - _TextureBlendingMode: 0
     - _TextureImpact: 1
     - _UVSec: 0
     - _UnityShadowMode: 1
-    - _UnityShadowPower: 0.807
-    - _UnityShadowSharpness: 1.45
+    - _UnityShadowPower: 1
+    - _UnityShadowSharpness: 5.88
     - _VertexColorsEnabled: 1
     - _WorkflowMode: 1
     - _ZWrite: 1
@@ -152,7 +153,7 @@ Material:
     - _LightmapDirection: {r: 0, g: 1, b: 0, a: 0}
     - _OutlineColor: {r: 0.14150941, g: 0.14150941, b: 0.14150941, a: 1}
     - _SpecColor: {r: 0, g: 0, b: 0, a: 0}
-    - _UnityShadowColor: {r: 0.85023, g: 0.85034, b: 0.85045, a: 0.85056}
+    - _UnityShadowColor: {r: 0.3207547, g: 0.31470272, b: 0.31470272, a: 1}
 --- !u!114 &690954731618186703
 MonoBehaviour:
   m_ObjectHideFlags: 11
