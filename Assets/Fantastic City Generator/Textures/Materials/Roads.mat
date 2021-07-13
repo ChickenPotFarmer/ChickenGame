@@ -10,7 +10,7 @@ Material:
   m_Name: Roads
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_ShaderKeywords: 
-  m_LightmapFlags: 4
+  m_LightmapFlags: 6
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 2000
@@ -87,7 +87,7 @@ Material:
     - _LightFalloffSize: 0.0001
     - _LightmapDirectionPitch: 0
     - _LightmapDirectionYaw: 0
-    - _Metallic: 0
+    - _Metallic: 0.385
     - _OcclusionStrength: 1
     - _OverrideLightmapDir: 0
     - _QueueOffset: 0
@@ -98,7 +98,7 @@ Material:
     - _ShadowEdgeSize: 0.05
     - _ShadowEdgeSizeExtra: 0.05
     - _Shininess: 0.683
-    - _Smoothness: 0.683
+    - _Smoothness: 0.408
     - _SmoothnessSource: 1
     - _SmoothnessTextureChannel: 0
     - _SpecSource: 0
@@ -115,7 +115,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.8773585, g: 0.9895011, b: 1, a: 0.683}
+    - _BaseColor: {r: 0.9819344, g: 1, b: 0.8784314, a: 0.683}
     - _Color: {r: 0.91764706, g: 0.91764706, b: 0.91764706, a: 0}
     - _ColorDim: {r: 0.91764706, g: 0.91764706, b: 0.91764706, a: 0.683}
     - _ColorDimCurve: {r: 0.85023, g: 0.85034, b: 0.8504499, a: 0.85056}
