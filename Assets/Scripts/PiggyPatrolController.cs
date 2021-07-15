@@ -70,7 +70,7 @@ public class PiggyPatrolController : MonoBehaviour
     private int layerMask;
     private bool isAttacking;
     private bool isSticky;
-
+    private bool searching;
 
     private void Start()
     {
@@ -125,12 +125,15 @@ public class PiggyPatrolController : MonoBehaviour
         {
             if (Physics.Linecast(transform.position + Vector3.up, chicken.chickenModel.position + Vector3.up, out RaycastHit hit, layerMask, QueryTriggerInteraction.Ignore) || isSticky)
             {
-                Debug.DrawLine(transform.position, hit.point, Color.red);
-                DrawSightLine(transform.position + (Vector3.up), playerLastKnownPosition + (Vector3.up / 2), cannotSeeColor);
-                if (!holoChicken.activeInHierarchy)
-                    holoChicken.SetActive(true);
-                holoChicken.transform.position = playerLastKnownPosition;
-                holoChicken.transform.rotation = playerLastKnownRotation;
+                if (!searching)
+                {
+                    Debug.DrawLine(transform.position, hit.point, Color.red);
+                    DrawSightLine(transform.position + (Vector3.up), playerLastKnownPosition + (Vector3.up / 2), cannotSeeColor);
+                    if (!holoChicken.activeInHierarchy)
+                        holoChicken.SetActive(true);
+                    holoChicken.transform.position = playerLastKnownPosition;
+                    holoChicken.transform.rotation = playerLastKnownRotation;
+                }
             }
             else
             {
@@ -425,24 +428,22 @@ public class PiggyPatrolController : MonoBehaviour
                     pursuitCheckLvl = 1;
                     PlayerSighted();
                     navAgent.SetDestination(playerLastKnownPosition);
-
+                    searching = false;
                 }
                 else
                 {
 
                     if (Vector3.Distance(transform.position, playerLastKnownPosition) < 1.5f)
                     {
-                        navAgent.SetDestination(transform.position + (playerLastKnownDirection * 4));
-                        playerLastKnownPosition = navAgent.destination;
-                        Debug.DrawLine(transform.position, transform.position + (playerLastKnownDirection * 4), Color.blue);
-
-                        print("Headed in last known player direction.");
+                        playerLastKnownPosition = chicken.transform.position + new Vector3(Random.Range(-20, 20), 0, Random.Range(-20, 20));
+                        lineRenderer.positionCount = 0;
+                        holoChicken.SetActive(false);
+                        searching = true;
+                        navAgent.SetDestination(playerLastKnownPosition);
                     }
                     else
                     {
                         navAgent.SetDestination(playerLastKnownPosition);
-                        print("Headed to last known player positon.");
-
                     }
 
                     pursuitCheckLvl -= pursuitCooldownRate;
