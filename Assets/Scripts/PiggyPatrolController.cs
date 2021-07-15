@@ -119,7 +119,7 @@ public class PiggyPatrolController : MonoBehaviour
     {
         if (playerInRange)
         {
-            if (Physics.Linecast(transform.position + Vector3.up, chicken.chickenModel.position + Vector3.up, out RaycastHit hit, layerMask, QueryTriggerInteraction.Ignore))
+            if (Physics.Linecast(transform.position + Vector3.up, chicken.chickenModel.position + Vector3.up, out RaycastHit hit, layerMask, QueryTriggerInteraction.Ignore) || isSticky)
             {
                 Debug.DrawLine(transform.position, hit.point, Color.red);
                 DrawSightLine(transform.position + (Vector3.up), playerLastKnownPosition + (Vector3.up), cannotSeeColor);
@@ -262,7 +262,7 @@ public class PiggyPatrolController : MonoBehaviour
         {
             if (Physics.Linecast(transform.position + Vector3.up, chicken.chickenModel.position + Vector3.up, out RaycastHit hit, layerMask, QueryTriggerInteraction.Ignore))
             {
-                Debug.DrawLine(transform.position, hit.point, Color.red);
+                //Debug.DrawLine(transform.position, hit.point, Color.red);
                 //DrawSightLine(transform.position, hit.point, Color.red);
                 playerSighted = false;
 
@@ -271,10 +271,13 @@ public class PiggyPatrolController : MonoBehaviour
             }
             else
             {
-                playerSighted = true;
-                Debug.DrawLine(transform.position, chicken.chickenModel.position, Color.green);
-                //DrawSightLine(transform.position, chicken.chickenModel.position, Color.green);
-                PlayerSighted();
+                if (!isSticky)
+                {
+                    playerSighted = true;
+                    //Debug.DrawLine(transform.position, chicken.chickenModel.position, Color.green);
+                    //DrawSightLine(transform.position, chicken.chickenModel.position, Color.green);
+                    PlayerSighted();
+                }
             }
 
             yield return new WaitForSeconds(0.1f);
@@ -310,7 +313,7 @@ public class PiggyPatrolController : MonoBehaviour
         if (!isSus && !inPursuit)
             StartCoroutine(SusRoutine()); 
 
-        if (distanceToPlayer <= attackDistance && !isAttacking)
+        if (distanceToPlayer <= attackDistance && !isAttacking && !isSticky)
         {
             StartCoroutine(AttackRoutine());
         }
@@ -398,40 +401,47 @@ public class PiggyPatrolController : MonoBehaviour
 
         do
         {
-            if (playerSighted)
+            if (!isSticky)
             {
-                pursuitCheckLvl = 1;
-                PlayerSighted();
-                navAgent.SetDestination(playerLastKnownPosition);
-
-            }
-            else
-            {
-
-                if (Vector3.Distance(transform.position, playerLastKnownPosition ) < 1.5f)
+                if (playerSighted)
                 {
-                    navAgent.SetDestination(transform.position + (playerLastKnownDirection * 4));
-                    playerLastKnownPosition = navAgent.destination;
-                    Debug.DrawLine(transform.position, transform.position + (playerLastKnownDirection * 4), Color.blue);
+                    pursuitCheckLvl = 1;
+                    PlayerSighted();
+                    navAgent.SetDestination(playerLastKnownPosition);
 
-                    print("Headed in last known player direction.");
                 }
                 else
                 {
-                    navAgent.SetDestination(playerLastKnownPosition);
-                    print("Headed to last known player positon.");
 
+                    if (Vector3.Distance(transform.position, playerLastKnownPosition) < 1.5f)
+                    {
+                        navAgent.SetDestination(transform.position + (playerLastKnownDirection * 4));
+                        playerLastKnownPosition = navAgent.destination;
+                        Debug.DrawLine(transform.position, transform.position + (playerLastKnownDirection * 4), Color.blue);
+
+                        print("Headed in last known player direction.");
+                    }
+                    else
+                    {
+                        navAgent.SetDestination(playerLastKnownPosition);
+                        print("Headed to last known player positon.");
+
+                    }
+
+                    pursuitCheckLvl -= pursuitCooldownRate;
+
+                    if (pursuitCheckLvl <= 0)
+                    {
+                        inPursuit = false;
+                        screenAlert.SetPursuit(false);
+                        pursuitIcon.SetActive(false);
+                        break;
+                    }
                 }
-
-                pursuitCheckLvl -= pursuitCooldownRate;
-
-                if (pursuitCheckLvl <= 0)
-                {
-                    inPursuit = false;
-                    screenAlert.SetPursuit(false);
-                    pursuitIcon.SetActive(false);
-                    break;
-                }
+            }
+            else
+            {
+                navAgent.SetDestination(transform.position + new Vector3(Random.Range(-20, 20), 0, Random.Range(-20, 20)));
             }
 
             yield return new WaitForSeconds(0.1f);
