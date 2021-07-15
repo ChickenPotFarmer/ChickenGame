@@ -24,6 +24,8 @@ public class PiggyPatrolController : MonoBehaviour
     private float attackRate;
     [SerializeField]
     private float attackAccuracy;
+    [SerializeField]
+    private float stickyTime;
     public float maxSpeed;
     public float stickySpeed;
     public float minWaitTime;
@@ -64,6 +66,7 @@ public class PiggyPatrolController : MonoBehaviour
     private ScreenAlert screenAlert;
     private int layerMask;
     private bool isAttacking;
+    private bool isSticky;
 
 
     private void Start()
@@ -156,16 +159,35 @@ public class PiggyPatrolController : MonoBehaviour
         piggyRadio.Play();
     }
 
-    public void SetSticky(bool _sticky)
+    public void SetSticky()
     {
-        if (_sticky)
-        {
-            navAgent.speed = stickySpeed;
-        }
+        if (!isSticky)
+            StartCoroutine(StickyRoutine());
         else
         {
-            navAgent.speed = maxSpeed;
+            stickyI = 0;
         }
+    }
+
+    private int stickyI;
+
+    private IEnumerator StickyRoutine()
+    {
+        isSticky = true;
+        navAgent.speed = stickySpeed;
+        for (stickyI = 0; stickyI < stickyTime; stickyI++)
+        {
+            yield return new WaitForSeconds(1);
+        }
+
+        if (inPursuit)
+            navAgent.speed = maxSpeed;
+            else
+            navAgent.speed = maxSpeed * 0.7f;
+
+        isSticky = false;
+
+
     }
 
     IEnumerator PatrolRoutine()
@@ -368,6 +390,7 @@ public class PiggyPatrolController : MonoBehaviour
         onPatrol = false;
         StopCoroutine(PatrolRoutine());
         pursuitCheckLvl = 1;
+        navAgent.speed = maxSpeed;
         screenAlert.SetPursuit(true);
         pursuitIcon.SetActive(true);
 
@@ -481,6 +504,7 @@ public class PiggyPatrolController : MonoBehaviour
 
     public void StartPatrol()
     {
+        navAgent.speed = maxSpeed * 0.7f;
         Vector3 closest = new Vector3(1000, 1000, 1000);
 
         for (int i = 0; i < wayPoints.Length; i++)
