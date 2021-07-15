@@ -150,8 +150,13 @@ public class ThirdPersonController : MonoBehaviour
             float diff = Input.mousePosition.y - prevMouseY;
             prevMouseY = Input.mousePosition.y;
             print(diff);
+            float z = targetImage.localPosition.z - (diff / 2);
 
-            targetImage.localPosition = new Vector3(0, 0, targetImage.localPosition.z - (diff / 2));
+            if (z < -25)
+                z = -25;
+            else if (z > 15)
+                z = 15;
+            targetImage.localPosition = new Vector3(0, 0, z);
         }
         else
         {
