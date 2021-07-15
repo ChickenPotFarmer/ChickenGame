@@ -5,6 +5,9 @@ using UnityEngine.AI;
 
 public class ChickenController : MonoBehaviour
 {
+    [Header("Status")]
+    public bool isTazed;
+
     [Header("NavMesh Agent")]
     public NavMeshAgent navAgent;
     public float runThreshold;
@@ -14,6 +17,8 @@ public class ChickenController : MonoBehaviour
     public Transform pickupSlot;
     public Animator animator;
     public Transform chickenModel;
+    [SerializeField]
+    private GameObject tazerEffects;
 
     [Header("Followers")]
     public bool hasFollower;
@@ -51,9 +56,22 @@ public class ChickenController : MonoBehaviour
 
     }
 
+    public void TazeMeBro()
+    {
+        isTazed = true;
+        navAgent.SetDestination(transform.position);
+        //disable nav agent?
+        tazerEffects.SetActive(true);
+
+        // TazeAftermathRoutine
+    }
+
     public void SetNewDestination(Vector3 _pos)
     {
-        navAgent.SetDestination(_pos);
-        navX.transform.position = navAgent.destination;
+        if (!isTazed)
+        {
+            navAgent.SetDestination(_pos);
+            navX.transform.position = navAgent.destination;
+        }
     }
 }

@@ -29,80 +29,90 @@ public class ThirdPersonController : MonoBehaviour
     private Vector3 targetIconPos;
     private float prevMouseY;
 
+    private ChickenController chicken;
+
     [Header("Setup")]
     public CinemachineFreeLook cmCam;
     public NavMeshAgent navAgent;
 
     private void Start()
     {
+        if (!chicken)
+            chicken = ChickenController.instance.chickenController.GetComponent<ChickenController>();
+
         LockCursor();
     }
 
     private void Update()
     {
-        if (Input.GetKey("w"))
-        {
-            if (Input.GetKey("d"))
-                navAgent.SetDestination(fR.position);
-            else if (Input.GetKey("a"))
-                navAgent.SetDestination(fL.position);
-            else
-                navAgent.SetDestination(forward.position);
-
-            movementActive = true;
-        }
-
-        else if (Input.GetKey("d"))
-        {
-            if (Input.GetKey("s"))
-                navAgent.SetDestination(bR.position);
-            else if (Input.GetKey("w"))
-                navAgent.SetDestination(fR.position);
-            else
-                navAgent.SetDestination(right.position);
-
-            movementActive = true;
-
-        }
-
-        else if (Input.GetKey("s"))
-        {
-            if (Input.GetKey("a"))
-                navAgent.SetDestination(bL.position);
-            else if (Input.GetKey("d"))
-                navAgent.SetDestination(bR.position);
-            else
-                navAgent.SetDestination(back.position);
-
-            movementActive = true;
-
-        }
-
-        else if (Input.GetKey("a"))
+        if (!chicken.isTazed)
         {
             if (Input.GetKey("w"))
-                navAgent.SetDestination(fL.position);
+            {
+                if (Input.GetKey("d"))
+                    navAgent.SetDestination(fR.position);
+                else if (Input.GetKey("a"))
+                    navAgent.SetDestination(fL.position);
+                else
+                    navAgent.SetDestination(forward.position);
+
+                movementActive = true;
+            }
+
+            else if (Input.GetKey("d"))
+            {
+                if (Input.GetKey("s"))
+                    navAgent.SetDestination(bR.position);
+                else if (Input.GetKey("w"))
+                    navAgent.SetDestination(fR.position);
+                else
+                    navAgent.SetDestination(right.position);
+
+                movementActive = true;
+
+            }
+
             else if (Input.GetKey("s"))
-                navAgent.SetDestination(bL.position);
+            {
+                if (Input.GetKey("a"))
+                    navAgent.SetDestination(bL.position);
+                else if (Input.GetKey("d"))
+                    navAgent.SetDestination(bR.position);
+                else
+                    navAgent.SetDestination(back.position);
+
+                movementActive = true;
+
+            }
+
+            else if (Input.GetKey("a"))
+            {
+                if (Input.GetKey("w"))
+                    navAgent.SetDestination(fL.position);
+                else if (Input.GetKey("s"))
+                    navAgent.SetDestination(bL.position);
+                else
+                    navAgent.SetDestination(left.position);
+
+                movementActive = true;
+
+            }
             else
-                navAgent.SetDestination(left.position);
-
-            movementActive = true;
-
+            {
+                if (movementActive)
+                {
+                    navAgent.SetDestination(transform.position);
+                    movementActive = false;
+                }
+            }
         }
         else
         {
-            if (movementActive)
-            {
-                navAgent.SetDestination(transform.position);
-                movementActive = false;
-            }
+            // lock controls?
         }
-
         if (Input.GetKeyDown(KeyCode.Tab) || Input.GetMouseButtonDown(2))
         {
             ToggleCursor();
-
         }
         //else if (Input.GetMouseButtonDown(2))
         //{
@@ -139,23 +149,17 @@ public class ThirdPersonController : MonoBehaviour
             if (!targetImage.gameObject.activeInHierarchy)
                 targetImage.gameObject.SetActive(true);
 
-            //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            //if (Physics.Raycast(ray, out RaycastHit hit) && !EventSystem.current.IsPointerOverGameObject())
-            //{
-            //    targetImage.position = hit.point;
-            //    targetImage.localPosition = new Vector3(0, 0, targetImage.localPosition.z);
-            //}
-
             float diff = Input.mousePosition.y - prevMouseY;
             prevMouseY = Input.mousePosition.y;
             print(diff);
             float z = targetImage.localPosition.z - (diff / 2);
 
+            // Confine target
             if (z < -25)
                 z = -25;
             else if (z > 15)
                 z = 15;
+
             targetImage.localPosition = new Vector3(0, 0, z);
         }
         else
@@ -189,6 +193,26 @@ public class ThirdPersonController : MonoBehaviour
         cmCam.m_XAxis.m_InputAxisName = "QE Rotate";
 
 
+    }
+    
+    public void OverrideLock()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        cursorLocked = true;
+        cmCam.m_XAxis.m_InputAxisName = "Mouse X";
+        if (cursorWasLocked)
+            LockCursor();
+    }
+
+    public void OverrideUnlock()
+    {
+        cursorWasLocked = cursorLocked;
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        cursorLocked = false;
+        cmCam.m_XAxis.m_InputAxisName = "QE Rotate";
     }
 
     private void ToggleCursor()

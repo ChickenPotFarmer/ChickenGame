@@ -10,6 +10,7 @@ public class PiggyPatrolController : MonoBehaviour
     public bool playerSighted;
     public bool playerInRange;
     public int currentWaypoint;
+    private float distanceToPlayer;
 
     [Header("Path")]
     public PatrolRoute currentRoute;
@@ -17,6 +18,12 @@ public class PiggyPatrolController : MonoBehaviour
     public Vector3[] wayPoints;
 
     [Header("Settings")]
+    [SerializeField]
+    private float attackDistance;
+    [SerializeField]
+    private float attackRate;
+    [SerializeField]
+    private float attackAccuracy;
     public float maxSpeed;
     public float stickySpeed;
     public float minWaitTime;
@@ -56,6 +63,7 @@ public class PiggyPatrolController : MonoBehaviour
     private Vector3 playerLastKnownDirection;
     private ScreenAlert screenAlert;
     private int layerMask;
+    private bool isAttacking;
 
 
     private void Start()
@@ -271,6 +279,8 @@ public class PiggyPatrolController : MonoBehaviour
         //print("Player Sighted");
         playerLastKnownPosition = chicken.chickenModel.position;
         playerLastKnownDirection = playerNavAgent.velocity.normalized;
+        distanceToPlayer = Vector3.Distance(transform.position, chicken.transform.position);
+
         screenAlert.SetSus(true);
         susIcon.SetActive(true);
 
@@ -278,6 +288,28 @@ public class PiggyPatrolController : MonoBehaviour
         if (!isSus && !inPursuit)
             StartCoroutine(SusRoutine()); 
 
+        if (distanceToPlayer <= attackDistance && !isAttacking)
+        {
+            StartCoroutine(AttackRoutine());
+        }
+
+    }
+
+    private IEnumerator AttackRoutine()
+    {
+        isAttacking = true;
+
+        do
+        {
+            if (Random.value <= attackAccuracy)
+            {
+                //fire tazer
+                chicken.TazeMeBro();
+            }
+            yield return new WaitForSeconds(attackRate);
+        } while (distanceToPlayer <= attackDistance);
+
+        isAttacking = false;
     }
 
     private IEnumerator SusRoutine()
@@ -298,7 +330,7 @@ public class PiggyPatrolController : MonoBehaviour
             }
 
             yield return new WaitForSeconds(0.1f);
-        } while (playerSighted);
+        } while (playerSighted && !chicken.isTazed);
 
         if (susLvl <= 0)
         { 
@@ -381,7 +413,7 @@ public class PiggyPatrolController : MonoBehaviour
 
             yield return new WaitForSeconds(0.1f);
 
-        } while (inPursuit);
+        } while (inPursuit && !chicken.isTazed);
         inPursuit = false;
         screenAlert.SetPursuit(false);
         pursuitIcon.SetActive(false);
@@ -398,7 +430,10 @@ public class PiggyPatrolController : MonoBehaviour
 
     public void RequestNewPatrol()
     {
-        StartCoroutine(NewPatrolRoutine());
+        if (!chicken.isTazed)
+            StartCoroutine(NewPatrolRoutine());
+        else
+            navAgent.SetDestination(transform.position);
     }
 
     IEnumerator NewPatrolRoutine()

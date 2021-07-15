@@ -122,13 +122,16 @@ public class InputController : MonoBehaviour
             {
                 radialMenuOn = true;
                 radialMenu.SetMenuActive(true);
-                thirdPersonController.TempUnlock();
+                thirdPersonController.OverrideUnlock();
             }
             else if (Input.GetKeyUp("r"))
             {
                 radialMenuOn = false;
                 radialMenu.SetMenuActive(false);
-                thirdPersonController.TempLock();
+                if (!splatGun.cannonOn)
+                    thirdPersonController.OverrideLock();
+                else
+                    thirdPersonController.SplatCannonLock();
 
             }
             else if (Input.GetKeyDown("m"))
