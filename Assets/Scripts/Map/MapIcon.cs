@@ -32,7 +32,7 @@ public class MapIcon : MonoBehaviour
     {
         if (followObj != null)
         {
-            transform.position = mainCam.WorldToScreenPoint(followObj.position + (Vector3.up * 4));
+            transform.position = mainCam.WorldToScreenPoint(followObj.position + (Vector3.up * 6));
 
             if (lockToScreenBounds)
             {

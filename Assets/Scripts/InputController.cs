@@ -12,6 +12,10 @@ public class InputController : MonoBehaviour
     public bool fugitive;
     public bool mapActive;
 
+    [Header("Cache")]
+    [SerializeField]
+    private ThirdPersonController thirdPersonController;
+
 
     private WateringCan wateringCan;
     private Trimmer trimmer;
@@ -27,6 +31,7 @@ public class InputController : MonoBehaviour
     private TutorialPlant selectedTutorialPlant;
     private WeedPlant foundPlant;
     private TutorialPlant foundTutorialPlant;
+    private SplatGun splatGun;
 
     public static InputController instance;
     [HideInInspector]
@@ -60,6 +65,8 @@ public class InputController : MonoBehaviour
             mapController = MapController.instance.mapController.GetComponent<MapController>();
         if (!inventoryController)
             inventoryController = InventoryController.instance.inventoryController.GetComponent<InventoryController>();
+        if (!splatGun)
+            splatGun = SplatGun.instance.splatGun.GetComponent<SplatGun>();
     }
 
     private void Update()
@@ -115,24 +122,39 @@ public class InputController : MonoBehaviour
             {
                 radialMenuOn = true;
                 radialMenu.SetMenuActive(true);
+                thirdPersonController.TempUnlock();
             }
             else if (Input.GetKeyUp("r"))
             {
                 radialMenuOn = false;
                 radialMenu.SetMenuActive(false);
+                thirdPersonController.TempLock();
+
             }
             else if (Input.GetKeyDown("m"))
             {
                 mapController.ToggleMap();
             }
 
+            if (splatGun.cannonOn)
+            {
+                if (InteractWith())
+                {
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+                    if (Physics.Raycast(ray, out RaycastHit hit) && !EventSystem.current.IsPointerOverGameObject())
+                    {
+                        splatGun.Fire(hit.point);
+                    }
+                }
+            }
+
             if (!radialMenuOn)
             {
                 // Mouse Control
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
 
-                if (Physics.Raycast(ray, out hit) && !EventSystem.current.IsPointerOverGameObject())
+                if (Physics.Raycast(ray, out RaycastHit hit) && !EventSystem.current.IsPointerOverGameObject())
                 {
                     if (hit.collider != null)
                     {

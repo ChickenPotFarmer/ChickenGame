@@ -12,6 +12,7 @@ public class RadialMenu : MonoBehaviour
     public SeedCannon seedCannon;
     public Trimmer trimmer;
     public WateringCan waterCan;
+    public SplatGun splatGun;
 
 
     public static RadialMenu instance;
@@ -60,6 +61,10 @@ public class RadialMenu : MonoBehaviour
                 waterCan.ToggleWaterCan(true);
                 break;
 
+            case "SPLAT CANNON":
+                splatGun.ToggleCannon(true);
+                break;
+
             case "NONE":
                 TurnOffAllTools();
                 break;
@@ -80,5 +85,6 @@ public class RadialMenu : MonoBehaviour
         trimmer.ToggleTrimmer(false);
         seedCannon.ToggleCannon(false);
         waterCan.ToggleWaterCan(false);
+        splatGun.ToggleCannon(false);
     }
 }

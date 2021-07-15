@@ -17,6 +17,8 @@ public class PiggyPatrolController : MonoBehaviour
     public Vector3[] wayPoints;
 
     [Header("Settings")]
+    public float maxSpeed;
+    public float stickySpeed;
     public float minWaitTime;
     public float maxWaitTime;
 
@@ -27,6 +29,9 @@ public class PiggyPatrolController : MonoBehaviour
     public Animator animator;
     public NavMeshAgent navAgent;
     public AudioSource piggyRadio;
+    public LineRenderer lineRenderer;
+    public Material canSeeColor;
+    public Material cannotSeeColor;
 
     // sus
     [Header("Sus Level Settings")]
@@ -50,6 +55,7 @@ public class PiggyPatrolController : MonoBehaviour
     private Vector3 playerLastKnownPosition;
     private Vector3 playerLastKnownDirection;
     private ScreenAlert screenAlert;
+    private int layerMask;
 
 
     private void Start()
@@ -77,6 +83,13 @@ public class PiggyPatrolController : MonoBehaviour
             wayPoints[i] = wayPointsParent.GetChild(i).transform.position;
         }
 
+        layerMask = 1 << 10;
+
+        // This would cast rays only against colliders in layer 8.
+        // But instead we want to collide against everything except layer 8. The ~ operator does this, it inverts a bitmask.
+
+        layerMask = ~layerMask;
+
         if (currentRoute != null)
             StartPatrol();
         else
@@ -88,6 +101,24 @@ public class PiggyPatrolController : MonoBehaviour
         // this is stupid
         float rand = Random.Range(0, 15.1f);
         Invoke("StartRadio", rand);
+
+    }
+
+    private void Update()
+    {
+        if (playerInRange)
+        {
+            if (Physics.Linecast(transform.position + Vector3.up, chicken.chickenModel.position + Vector3.up, out RaycastHit hit, layerMask, QueryTriggerInteraction.Ignore))
+            {
+                Debug.DrawLine(transform.position, hit.point, Color.red);
+                DrawSightLine(transform.position + (Vector3.up), playerLastKnownPosition + (Vector3.up), cannotSeeColor);
+            }
+            else
+            {
+                Debug.DrawLine(transform.position, chicken.chickenModel.position, Color.green);
+                DrawSightLine(transform.position + (Vector3.up), chicken.chickenModel.position + (Vector3.up), canSeeColor);
+            }
+        }
 
     }
 
@@ -117,6 +148,17 @@ public class PiggyPatrolController : MonoBehaviour
         piggyRadio.Play();
     }
 
+    public void SetSticky(bool _sticky)
+    {
+        if (_sticky)
+        {
+            navAgent.speed = stickySpeed;
+        }
+        else
+        {
+            navAgent.speed = maxSpeed;
+        }
+    }
 
     IEnumerator PatrolRoutine()
     {
@@ -178,19 +220,20 @@ public class PiggyPatrolController : MonoBehaviour
 
     private IEnumerator SightCheck()
     {
-        print("sight check started");
-        // Bit shift the index of the layer (10) to get a bit mask
-        int layerMask = 1 << 10;
+        //print("sight check started");
+        //// Bit shift the index of the layer (10) to get a bit mask
+        //int layerMask = 1 << 10;
 
-        // This would cast rays only against colliders in layer 8.
-        // But instead we want to collide against everything except layer 8. The ~ operator does this, it inverts a bitmask.
+        //// This would cast rays only against colliders in layer 8.
+        //// But instead we want to collide against everything except layer 8. The ~ operator does this, it inverts a bitmask.
 
-        layerMask = ~layerMask;
+        //layerMask = ~layerMask;
         do
         {
             if (Physics.Linecast(transform.position + Vector3.up, chicken.chickenModel.position + Vector3.up, out RaycastHit hit, layerMask, QueryTriggerInteraction.Ignore))
             {
                 Debug.DrawLine(transform.position, hit.point, Color.red);
+                //DrawSightLine(transform.position, hit.point, Color.red);
                 playerSighted = false;
 
                 screenAlert.SetSus(false);
@@ -200,6 +243,7 @@ public class PiggyPatrolController : MonoBehaviour
             {
                 playerSighted = true;
                 Debug.DrawLine(transform.position, chicken.chickenModel.position, Color.green);
+                //DrawSightLine(transform.position, chicken.chickenModel.position, Color.green);
                 PlayerSighted();
             }
 
@@ -209,8 +253,17 @@ public class PiggyPatrolController : MonoBehaviour
         if (!playerInRange)
             screenAlert.SetSus(false);
 
+        lineRenderer.positionCount = 0;
         playerSighted = false;
 
+    }
+
+    private void DrawSightLine(Vector3 _start, Vector3 _end, Material _color)
+    {
+        lineRenderer.positionCount = 2;
+
+        lineRenderer.SetPositions(new Vector3[] { _start, _end });
+        lineRenderer.material = _color;
     }
 
     private void PlayerSighted()

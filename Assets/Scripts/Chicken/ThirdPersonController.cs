@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.AI;
 using Cinemachine;
 
@@ -9,6 +10,9 @@ public class ThirdPersonController : MonoBehaviour
     [Header("Status")]
     public bool movementActive;
     private bool cursorLocked;
+
+    [Header("Target Image")]
+    public Transform targetImage;
 
     [Header("Vectors Setup")]
     public Transform forward;
@@ -21,10 +25,17 @@ public class ThirdPersonController : MonoBehaviour
     public Transform fL;
 
     private bool cursorWasLocked;
+    private bool splatCannonActive;
+    private Vector3 targetIconPos;
 
     [Header("Setup")]
     public CinemachineFreeLook cmCam;
     public NavMeshAgent navAgent;
+
+    private void Start()
+    {
+        LockCursor();
+    }
 
     private void Update()
     {
@@ -87,21 +98,21 @@ public class ThirdPersonController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Tab) || Input.GetMouseButtonDown(2))
         {
             ToggleCursor();
 
         }
-        else if (Input.GetMouseButtonDown(2))
-        {
-            cursorWasLocked = cursorLocked;
-            LockCursor();
-        }
-        else if (Input.GetMouseButtonUp(2))
-        {
-            if (!cursorWasLocked)
-                UnlockCursor();
-        }
+        //else if (Input.GetMouseButtonDown(2))
+        //{
+        //    cursorWasLocked = cursorLocked;
+        //    LockCursor();
+        //}
+        //else if (Input.GetMouseButtonUp(2))
+        //{
+        //    if (!cursorWasLocked)
+        //        UnlockCursor();
+        //}
 
         // Cursor lock and camera axis change
         //if (movementActive)
@@ -122,11 +133,51 @@ public class ThirdPersonController : MonoBehaviour
         //    }
         //}
 
+        if (splatCannonActive)
+        {
+            if (!targetImage.gameObject.activeInHierarchy)
+                targetImage.gameObject.SetActive(true);
+
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out RaycastHit hit) && !EventSystem.current.IsPointerOverGameObject())
+            {
+                targetImage.position = hit.point;
+                targetImage.localPosition = new Vector3(0, 0, targetImage.localPosition.z);
+            }
+        }
+        else
+        {
+            if (targetImage.gameObject.activeInHierarchy)
+                targetImage.gameObject.SetActive(false);
+        }
+
+    }
+
+    public void SplatCannonLock()
+    {
+        // only lock X, leave visable
+        UnlockCursor();
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Confined;
+        splatCannonActive = true;
+        cmCam.m_XAxis.m_InputAxisName = "Mouse X";
+
+
+
+    }
+
+    public void SplatCannonUnlock()
+    {
+        splatCannonActive = false;
+        UnlockCursor();
+
+
     }
 
     private void ToggleCursor()
     {
-        if (cursorLocked)
+        if (cursorLocked && !splatCannonActive)
         {
             UnlockCursor();
         }
@@ -137,15 +188,35 @@ public class ThirdPersonController : MonoBehaviour
 
     }
 
-    private void LockCursor()
+    public void TempLock()
     {
+        if (!splatCannonActive)
+        {
+            if (cursorWasLocked)
+                LockCursor();
+        }
+    }
+
+    public void TempUnlock()
+    {
+        if (!splatCannonActive)
+        {
+            cursorWasLocked = cursorLocked;
+            UnlockCursor();
+        }
+    }
+
+    public void LockCursor()
+    {
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         cursorLocked = true;
         cmCam.m_XAxis.m_InputAxisName = "Mouse X";
+        
     }
 
-    private void UnlockCursor()
+    public void UnlockCursor()
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
