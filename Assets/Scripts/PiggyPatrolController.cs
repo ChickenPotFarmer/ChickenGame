@@ -41,6 +41,8 @@ public class PiggyPatrolController : MonoBehaviour
     public LineRenderer lineRenderer;
     public Material canSeeColor;
     public Material cannotSeeColor;
+    [SerializeField]
+    private GameObject holoChicken;
 
     // sus
     [Header("Sus Level Settings")]
@@ -63,6 +65,7 @@ public class PiggyPatrolController : MonoBehaviour
     private NavMeshAgent playerNavAgent;
     private Vector3 playerLastKnownPosition;
     private Vector3 playerLastKnownDirection;
+    private Quaternion playerLastKnownRotation;
     private ScreenAlert screenAlert;
     private int layerMask;
     private bool isAttacking;
@@ -108,6 +111,7 @@ public class PiggyPatrolController : MonoBehaviour
 
         StartCoroutine(MovingCheck());
         StartCoroutine(PatrolRoutine());
+        StartCoroutine(StuckCheck());
 
         // this is stupid
         float rand = Random.Range(0, 15.1f);
@@ -122,13 +126,25 @@ public class PiggyPatrolController : MonoBehaviour
             if (Physics.Linecast(transform.position + Vector3.up, chicken.chickenModel.position + Vector3.up, out RaycastHit hit, layerMask, QueryTriggerInteraction.Ignore) || isSticky)
             {
                 Debug.DrawLine(transform.position, hit.point, Color.red);
-                DrawSightLine(transform.position + (Vector3.up), playerLastKnownPosition + (Vector3.up), cannotSeeColor);
+                DrawSightLine(transform.position + (Vector3.up), playerLastKnownPosition + (Vector3.up / 2), cannotSeeColor);
+                if (!holoChicken.activeInHierarchy)
+                    holoChicken.SetActive(true);
+                holoChicken.transform.position = playerLastKnownPosition;
+                holoChicken.transform.rotation = playerLastKnownRotation;
             }
             else
             {
                 Debug.DrawLine(transform.position, chicken.chickenModel.position, Color.green);
                 DrawSightLine(transform.position + (Vector3.up), chicken.chickenModel.position + (Vector3.up), canSeeColor);
+                if (holoChicken.activeInHierarchy)
+                    holoChicken.SetActive(false);
+
             }
+        }
+        else
+        {
+            if (holoChicken.activeInHierarchy)
+                holoChicken.SetActive(false);
         }
 
     }
@@ -303,6 +319,7 @@ public class PiggyPatrolController : MonoBehaviour
     {
         //print("Player Sighted");
         playerLastKnownPosition = chicken.chickenModel.position;
+        playerLastKnownRotation = chicken.chickenModel.rotation;
         playerLastKnownDirection = playerNavAgent.velocity.normalized;
         distanceToPlayer = Vector3.Distance(transform.position, chicken.transform.position);
 
@@ -460,6 +477,30 @@ public class PiggyPatrolController : MonoBehaviour
     //    StartCoroutine(PatrolRoutine());
 
     //}
+
+    IEnumerator StuckCheck()
+    {
+        int secsStuck = 0;
+        Vector3 prevPos = transform.position;
+        do
+        {
+            yield return new WaitForSeconds(1);
+
+            if (Vector3.Distance(transform.position, prevPos) <= 1)
+            {
+                secsStuck++;
+            }
+            else
+                secsStuck = 0;
+
+            if (secsStuck >= 10)
+            {
+                RequestNewPatrol();
+            }
+            prevPos = transform.position;
+
+        } while (true);
+    }
 
     public void RequestNewPatrol()
     {
