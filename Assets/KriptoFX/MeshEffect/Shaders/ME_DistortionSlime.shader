@@ -1,3 +1,5 @@
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
 Shader "KriptoFX/ME/DistortionSlime" {
 	Properties{
 			_TintColor("Main Color", Color) = (1,1,1,1)
@@ -8,7 +10,7 @@ Shader "KriptoFX/ME/DistortionSlime" {
 	}
 		Category{
 
-			Tags { "Queue" = "Transparent" "IgnoreProjector" = "True" "RenderType" = "Transparent" }
+			Tags { "Queue" = "Transparent" "IgnoreProjector" = "True" "RenderType" = "Transparent"  "LightMode" = "CustomDistortion" }
 						Blend SrcAlpha OneMinusSrcAlpha
 						ZWrite Off
 						Offset -1,-1
@@ -16,9 +18,7 @@ Shader "KriptoFX/ME/DistortionSlime" {
 						
 
 			SubShader {
-				GrabPass {
-					"_GrabTexture"
-				}
+				
 				Pass {
 					CGPROGRAM
 					#pragma vertex vert

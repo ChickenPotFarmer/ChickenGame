@@ -1,7 +1,9 @@
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
 Shader "KriptoFX/ME/DistortionPerlin" {
 	Properties{
 			_TintColor("Main Color", Color) = (1,1,1,1)
-			_RimColor("Rim Color", Color) = (1,1,1,0.5)
+	[HDR]_RimColor("Rim Color", Color) = (1,1,1,0.5)
 			_BumpMap("Normalmap", 2D) = "bump" {}
 			_PerlinNoise("Perlin Noise Map (r)", 2D) = "white" {}
 			_DropWavesScale("Waves Scale (X) Height (YZ) Time (W)", Vector) = (1, 1, 1, 1)
@@ -13,15 +15,13 @@ Shader "KriptoFX/ME/DistortionPerlin" {
 	}
 		Category{
 
-			Tags { "Queue" = "Transparent" "IgnoreProjector" = "True" "RenderType" = "Transparent" }
+			Tags { "Queue" = "Transparent" "IgnoreProjector" = "True" "RenderType" = "Transparent"  }
 						Blend SrcAlpha OneMinusSrcAlpha
 						ZWrite Off
 						Cull Back
 
 			SubShader {
-				GrabPass {
-					"_GrabTexture"
-				}
+				
 				Pass {
 					CGPROGRAM
 					#pragma vertex vert
@@ -32,9 +32,9 @@ Shader "KriptoFX/ME/DistortionPerlin" {
 
 					sampler2D _BumpMap;
 					sampler2D _PerlinNoise;
-					sampler2D _GrabTexture;
+					sampler2D _CameraOpaqueTexture;
 
-					float4 _GrabTexture_TexelSize;
+					float4 _CameraOpaqueTexture_TexelSize;
 					float4 _TintColor;
 					float4 _RimColor;
 					float4 _Speed;
@@ -89,11 +89,8 @@ Shader "KriptoFX/ME/DistortionPerlin" {
 						#endif
 
 						oPos += o.vertex;
-						o.grab.xy = (float2(oPos.x, oPos.y*scale) + oPos.w) * 0.5;
-						o.grab.zw = oPos.w;
-		#if UNITY_SINGLE_PASS_STEREO
-						o.grab.xy = TransformStereoScreenSpaceTex(o.grab.xy, o.grab.w);
-		#endif
+
+						o.grab = ComputeGrabScreenPos(o.vertex);
 
 						o.uv_BumpMap = TRANSFORM_TEX(v.texcoord, _BumpMap) + _Time.xx * _Speed.xy * _DropWavesScale;
 						o.color = v.color;
@@ -116,9 +113,9 @@ Shader "KriptoFX/ME/DistortionPerlin" {
 						fresnelRim = saturate(_R0 + (1.0 - _R0) * fresnelRim);
 						fresnelRim = fresnelRim*fresnelRim + fresnelRim;
 
-						half2 offset = normal.rg * _BumpAmt * _GrabTexture_TexelSize.xy * i.color.a;
+						half2 offset = normal.rg * _BumpAmt * _CameraOpaqueTexture_TexelSize.xy * i.color.a;
 						i.grab.xy = offset * i.grab.z + i.grab.xy;
-						half4 col = tex2Dproj(_GrabTexture, UNITY_PROJ_COORD(i.grab));
+						half4 col = tex2Dproj(_CameraOpaqueTexture, UNITY_PROJ_COORD(i.grab));
 						half3 emission = _RimColor * i.color.rgb * 2;
 						emission = lerp(col.xyz * _TintColor.xyz, col.xyz * emission + emission / 2, saturate(fresnelRim));
 						return fixed4(emission, _TintColor.a * i.color.a);
