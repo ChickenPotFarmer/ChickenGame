@@ -17,8 +17,7 @@ public class ChickenController : MonoBehaviour
     public Transform pickupSlot;
     public Animator animator;
     public Transform chickenModel;
-    [SerializeField]
-    private GameObject tazerEffects;
+    public GameObject tazerEffects;
 
     [Header("Followers")]
     public bool hasFollower;
@@ -59,7 +58,7 @@ public class ChickenController : MonoBehaviour
     public void TazeMeBro()
     {
         isTazed = true;
-        navAgent.SetDestination(transform.position);
+        navAgent.isStopped = true;
         //disable nav agent?
         tazerEffects.SetActive(true);
 

@@ -35,6 +35,16 @@ public class ThirdPersonController : MonoBehaviour
     public CinemachineFreeLook cmCam;
     public NavMeshAgent navAgent;
 
+    public static ThirdPersonController instance;
+    [HideInInspector]
+    public GameObject thirdPerson;
+
+    private void Awake()
+    {
+        instance = this;
+        thirdPerson = gameObject;
+    }
+
     private void Start()
     {
         if (!chicken)
@@ -110,7 +120,7 @@ public class ThirdPersonController : MonoBehaviour
         {
             // lock controls?
         }
-        if (Input.GetKeyDown(KeyCode.Tab) || Input.GetMouseButtonDown(2))
+        if (Input.GetKeyDown("`") || Input.GetMouseButtonDown(2))
         {
             ToggleCursor();
         }
@@ -151,7 +161,7 @@ public class ThirdPersonController : MonoBehaviour
 
             float diff = Input.mousePosition.y - prevMouseY;
             prevMouseY = Input.mousePosition.y;
-            print(diff);
+
             float z = targetImage.localPosition.z - (diff / 2);
 
             // Confine target

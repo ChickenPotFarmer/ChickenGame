@@ -10,12 +10,16 @@ public class Trimmer : MonoBehaviour
     public bool autoTrimOn;
     public WeedPlant selectedPlant;
     public TutorialPlant selectedTutorialPlant;
+    [SerializeField]
+    private List<WeedPlant> plantList;
 
 
     [Header("Setup")]
     public GameObject trimmerModel;
     public GameObject trimmingsPrefab;
     public GameObject uiTrimmingsPrefab;
+    [SerializeField]
+    private PlantDetector plantDetector;
 
     [Header("Current Trimmer Settings")]
     public int minTrimmings;
@@ -128,6 +132,71 @@ public class Trimmer : MonoBehaviour
     {
         selectedTutorialPlant = _plant;
         StartCoroutine(CheckChickenDistanceRoutine(true));
+    }
+
+    public void TrimAndHarvestPlant()
+    {
+        GameObject newTrimmings;
+        InventoryItem trimmingsItem;
+        int trimmings = Random.Range(minTrimmings, maxTrimmings + 1);
+
+        if (GetPlant() != null)
+        {
+            selectedPlant = GetPlant();
+
+            if (!selectedPlant.trimmed)
+            {
+                if (inventoryController.CanTakeItem("00000001", trimmings) && GetPlant() != null)
+                { 
+
+                    if (!selectedPlant.trimmed)
+                    {
+                        selectedPlant.Trim();
+
+                        StartCoroutine((SpawnRoutine(trimmings, selectedPlant.transform.position)));
+                        //selectedPlant = null;
+
+                        newTrimmings = Instantiate(uiTrimmingsPrefab);
+                        trimmingsItem = newTrimmings.GetComponent<InventoryItem>();
+
+                        trimmingsItem.SetAmount(trimmings);
+                        inventoryController.ReturnToInventory(trimmingsItem);
+
+
+                        Xp.TrimPlant();
+                    }
+                }
+                else
+                {
+                    Alerts.DisplayMessage("Cannot trim plant, inventory full.");
+                }
+            }
+            else
+            {
+                if (!selectedPlant.harvested)
+                {
+                    // this is stupid
+                    selectedPlant.harvestPanel.HarvestPlant(selectedPlant, selectedPlant.currentStrain);
+
+                }
+                else
+                {
+                    selectedPlant.SetHarvestPanelActive(true);
+                }
+            }
+        }
+    }
+
+    private WeedPlant GetPlant()
+    {
+        if (plantDetector.plantList.Count > 0)
+        {
+            return plantDetector.plantList[0];
+        }
+        else
+        {
+            return null;
+        }    
     }
 
     IEnumerator CheckChickenDistanceRoutine(bool _tutorialOn)

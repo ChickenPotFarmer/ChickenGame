@@ -14,6 +14,7 @@ public class RadialMenu : MonoBehaviour
     public WateringCan waterCan;
     public SplatGun splatGun;
 
+    private ThirdPersonController thirdPersonController;
 
     public static RadialMenu instance;
     [HideInInspector]
@@ -23,6 +24,11 @@ public class RadialMenu : MonoBehaviour
     {
         instance = this;
         radialMenu = gameObject;
+    }
+    private void Start()
+    {
+        if (!thirdPersonController)
+            thirdPersonController = ThirdPersonController.instance.thirdPerson.GetComponent<ThirdPersonController>();
     }
 
     public void SetMenuActive(bool _active)
@@ -51,10 +57,12 @@ public class RadialMenu : MonoBehaviour
         {
             case "CANNON":
                 seedCannon.ToggleCannon(true);
+                thirdPersonController.UnlockCursor();
                 break;
 
             case "TRIMMER":
                 trimmer.ToggleTrimmer(true);
+                //thirdPersonController.LockCursor();
                 break;
 
             case "WATER CAN":

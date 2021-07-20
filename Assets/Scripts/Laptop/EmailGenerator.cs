@@ -73,7 +73,7 @@ public class EmailGenerator : MonoBehaviour
             if (activeOrders < maxActiveOrders)
             {
                 GenerateEmail();
-                yield return new WaitForSeconds(timeBetweenEmails);
+                yield return new WaitForSeconds(timeBetweenEmails * timeLord.timeScale);
             }
             else
             {
@@ -86,8 +86,8 @@ public class EmailGenerator : MonoBehaviour
                     }
                     else
                     {
-                        print("emails for, waiting 15 secs or until there is room.");
-                        yield return new WaitForSeconds(15);
+                        print("emails full, waiting 15 secs or until there is room.");
+                        yield return new WaitForSeconds(15 * timeLord.timeScale);
                     }
                 } while (activeOrders >= maxActiveOrders);
             }

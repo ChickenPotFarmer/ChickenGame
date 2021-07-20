@@ -23,7 +23,9 @@ public class HarvestPanel : MonoBehaviour
 
     private List<InventoryItem> newBrickList;
     private InventoryController inventoryController;
+    private ThirdPersonController thirdPersonController;
     private BreederMaster breederMaster;
+    private Trimmer trimmer;
 
 
     private void Start()
@@ -33,6 +35,12 @@ public class HarvestPanel : MonoBehaviour
 
         if (!breederMaster)
             breederMaster = BreederMaster.instance.breederMaster.GetComponent<BreederMaster>();
+
+        if (!trimmer)
+            trimmer = Trimmer.instance.trimmer.GetComponent<Trimmer>();
+
+        if (!thirdPersonController)
+            thirdPersonController = ThirdPersonController.instance.thirdPerson.GetComponent<ThirdPersonController>();
 
         slots = new Transform[slotsParent.childCount];
 
@@ -249,6 +257,8 @@ public class HarvestPanel : MonoBehaviour
         return empty;
     }
 
+    private bool trimmerWasOn;
+
     public void SetPanelActive(bool _active)
     {
         if (_active)
@@ -256,12 +266,20 @@ public class HarvestPanel : MonoBehaviour
             cg.alpha = 1;
             cg.interactable = true;
             cg.blocksRaycasts = true;
+            trimmerWasOn = trimmer.trimmerOn;
+            thirdPersonController.UnlockCursor();
+            trimmer.trimmerOn = false;
         }
         else
         {
             cg.alpha = 0;
             cg.interactable = false;
             cg.blocksRaycasts = false;
+            if (trimmerWasOn)
+            {
+                trimmer.trimmerOn = true;
+                thirdPersonController.LockCursor();
+            }
         }
     }
 }

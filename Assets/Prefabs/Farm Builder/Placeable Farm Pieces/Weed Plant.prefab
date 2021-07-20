@@ -173,7 +173,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 2273588366684613591}
   m_HandleRect: {fileID: 0}
@@ -566,7 +566,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 1259616449488266448}
   m_HandleRect: {fileID: 0}
@@ -1575,9 +1575,9 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 3.34
+  m_Height: 3.7675467
   m_Direction: 1
-  m_Center: {x: 0.00000003973643, y: -0.43001032, z: -0.00000007947286}
+  m_Center: {x: 0.000000059604645, y: 0.67338705, z: -0.000000059604645}
 --- !u!54 &2721631382532077778
 Rigidbody:
   m_ObjectHideFlags: 0

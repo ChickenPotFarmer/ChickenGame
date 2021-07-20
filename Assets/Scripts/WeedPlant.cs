@@ -67,6 +67,7 @@ public class WeedPlant : MonoBehaviour
     private InventoryController inventoryController;
     private ConfirmPlantPanel confirmPlantPanel;
     private ChickenController chickenController;
+    private TimeLord timeLord;
 
     private void Start()
     {
@@ -80,6 +81,9 @@ public class WeedPlant : MonoBehaviour
 
         if (!chickenController)
             chickenController = ChickenController.instance.chickenController.GetComponent<ChickenController>();
+
+        if (!timeLord)
+            timeLord = TimeLord.instance.timeLord.GetComponent<TimeLord>();
 
         waterParticles.Stop();
 
@@ -393,7 +397,7 @@ public class WeedPlant : MonoBehaviour
         float stageTime = growTime / 3;
         do
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(1 * timeLord.timeScale);
             secsGrowing++;
 
             if (isPlanted)
@@ -418,7 +422,7 @@ public class WeedPlant : MonoBehaviour
         for (int i = 0; i < growTime + 1; i++)
         {
             growthBar.value++;
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(1 * timeLord.timeScale);
         }
     }
 

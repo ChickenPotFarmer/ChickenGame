@@ -22,6 +22,8 @@ public class InventoryController : MonoBehaviour
     public List<Transform> slots;
 
     [Header("Settings")]
+    public float policeBaseFine; 
+    public float policeFinePerGram; 
     public Transform dragParent;
     public Canvas inventoryCanvas;
     public float gramsPerBrick;
@@ -34,6 +36,8 @@ public class InventoryController : MonoBehaviour
     public GameObject inventoryController;
 
     private Transform openSlot;
+    private ThirdPersonController thirdPersonController;
+    private Bank bank;
 
     private void Awake()
     {
@@ -43,6 +47,8 @@ public class InventoryController : MonoBehaviour
 
     private void Start()
     {
+        if (!thirdPersonController)
+            thirdPersonController = ThirdPersonController.instance.thirdPerson.GetComponent<ThirdPersonController>();
         // Intialize Slots References
         slots = CreateSlots(slotsParent);
     }
@@ -68,6 +74,7 @@ public class InventoryController : MonoBehaviour
         else
         {
             SetInventoryActive(true);
+            thirdPersonController.UnlockCursor();
         }
     }
 
@@ -90,7 +97,6 @@ public class InventoryController : MonoBehaviour
     }
 
     // TO-DO:
-    // Change this so that money is an object in the game
     // player will need to deposit money at bank or atm to buy stuff online
 
     public bool CheckIfCanAfford(float _amt)
@@ -802,5 +808,61 @@ public class InventoryController : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void PoliceWipeInventory()
+    {
+        List<InventoryItem> slotItems = new List<InventoryItem>();
+        InventoryItem foundItem;
+        float gramsFound = 0;
+        float fineTotal = 0;
+        for (int i = 0; i < slots.Count; i++)
+        {
+            if (slots[i].childCount != 0)
+            {
+                foundItem = slots[i].GetChild(0).GetComponent<InventoryItem>();
+                if (foundItem)
+                {
+                    slotItems.Add(foundItem);
+                }
+            }
+        }
+
+        for (int i = 0; i < slotItems.Count; i++)
+        {
+            if (slotItems[i].isStrain)
+            {
+                gramsFound += slotItems[i].amount;
+
+                Destroy(slotItems[i].gameObject);
+            }
+        }
+
+        fineTotal = Mathf.Round((policeBaseFine * Xp.GetPlayerLevel()) + (gramsFound * policeFinePerGram));
+
+        // If player cant pay fine out of inventory or bank account, add it to loan
+        if (!RemoveCash(fineTotal))
+        {
+            if (!bank)
+                bank = Bank.instance.bank.GetComponent<Bank>();
+
+            if (bank.bankAccount >= fineTotal)
+            {
+                bank.WireTransfer(-fineTotal);
+                Alerts.DisplayMessage(gramsFound.ToString("n0") + " grams found during search. Fined $" + fineTotal.ToString("n0") + ". Fine has been removed directly from bank account.");
+
+            }
+            else
+            {
+                bank.AddToLoan(fineTotal);
+                Alerts.DisplayMessage(gramsFound.ToString("n0") + " grams found during search. Fined $" + fineTotal.ToString("n0") + ". Fine has been added to bank loan.");
+            }
+        }
+        else
+        {
+            Alerts.DisplayMessage(gramsFound.ToString("n0") + " grams found during search. Fined $" + fineTotal.ToString("n0") + ". Fine has been paid in cash from inventory.");
+
+        }
+
     }
 }

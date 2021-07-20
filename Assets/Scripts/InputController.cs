@@ -32,6 +32,7 @@ public class InputController : MonoBehaviour
     private WeedPlant foundPlant;
     private TutorialPlant foundTutorialPlant;
     private SplatGun splatGun;
+    private string debugTag;
 
     public static InputController instance;
     [HideInInspector]
@@ -74,7 +75,7 @@ public class InputController : MonoBehaviour
         if (!farmBuilderActive)
         {
             // Keyboard Controls
-            if (Input.GetKeyDown("i"))
+            if (Input.GetKeyDown(KeyCode.Tab))
                 inventoryController.ToggleInventoryPanel();
 
             else if (Input.GetKeyDown(KeyCode.T))
@@ -122,13 +123,14 @@ public class InputController : MonoBehaviour
             {
                 radialMenuOn = true;
                 radialMenu.SetMenuActive(true);
-                thirdPersonController.OverrideUnlock();
+                thirdPersonController.OverrideUnlock(); // replace
             }
             else if (Input.GetKeyUp("r"))
             {
                 radialMenuOn = false;
                 radialMenu.SetMenuActive(false);
-                if (!splatGun.cannonOn)
+
+                if (!splatGun.cannonOn) // replace
                     thirdPersonController.OverrideLock();
                 else
                     thirdPersonController.SplatCannonLock();
@@ -139,6 +141,7 @@ public class InputController : MonoBehaviour
                 mapController.ToggleMap();
             }
 
+            // TOOLS
             if (splatGun.cannonOn)
             {
                 if (InteractWith())
@@ -149,6 +152,13 @@ public class InputController : MonoBehaviour
                     {
                         splatGun.Fire(hit.point);
                     }
+                }
+            }
+            else if (trimmer.trimmerOn)
+            {
+                if (InteractWith())
+                {
+                    trimmer.TrimAndHarvestPlant();
                 }
             }
 
@@ -167,6 +177,8 @@ public class InputController : MonoBehaviour
                             tagId = hit.collider.transform.parent.tag;
                         else
                             tagId = hit.collider.gameObject.tag;
+
+                        debugTag = tagId;
 
                         PlanterUnhover();
                         BuyerUnhover();
@@ -241,29 +253,33 @@ public class InputController : MonoBehaviour
                                 {
                                     if (foundPlant.fullyGrown)
                                     {
-                                        if (trimmer.TrimmerIsOn())
-                                        {
-                                            if (!foundPlant.trimmed)
-                                            {
-                                                trimmer.TargetForTrim(foundPlant);
-                                                chickenController.SetNewDestination(hit.point);
-                                            }
-                                            else if (!foundPlant.harvested)
-                                            {
-                                                foundPlant.TargetForHarvest();
-                                                chickenController.SetNewDestination(hit.point);
-                                            }
-                                            else if (foundPlant.harvested)
-                                            {
-                                                foundPlant.SetHarvestPanelActive(true);
-                                            }
+                                        //if (trimmer.TrimmerIsOn())
+                                        //{
+                                        //    if (!foundPlant.trimmed)
+                                        //    {
+                                        //        //trimmer.TargetForTrim(foundPlant);
+                                        //        //trimmer.TrimPlant();
+                                        //        //Debug.Log("targetted plant for trim", foundPlant);
+                                        //        //chickenController.SetNewDestination(hit.point);
+                                        //    }
+                                        //    else if (!foundPlant.harvested)
+                                        //    {
+                                        //        foundPlant.TargetForHarvest();
+                                        //        Debug.Log("targetted plant for harvest", foundPlant);
 
-                                        }
-                                        else
-                                        {
-                                            if (foundPlant.harvested)
-                                                foundPlant.SetHarvestPanelActive(true);
-                                        }
+                                        //        chickenController.SetNewDestination(hit.point);
+                                        //    }
+                                        //    else if (foundPlant.harvested)
+                                        //    {
+                                        //        foundPlant.SetHarvestPanelActive(true);
+                                        //    }
+
+                                        //}
+                                        //else
+                                        //{
+                                        //    if (foundPlant.harvested)
+                                        //        foundPlant.SetHarvestPanelActive(true);
+                                        //}
                                     }
                                     else
                                     {
@@ -440,5 +456,10 @@ public class InputController : MonoBehaviour
         trimmer.ToggleTrimmer(false);
         seedCannon.ToggleCannon(false);
         wateringCan.ToggleWaterCan(false);
+    }
+
+    private void OnGUI()
+    {
+        GUI.Label(new Rect(65, 10, 100, 50), debugTag);
     }
 }

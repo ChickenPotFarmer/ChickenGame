@@ -6,6 +6,7 @@ public class Bank : MonoBehaviour
 {
     [Header("Status")]
     public float bankAccount;
+    public float bankLoan;
     public float maxCashPerStack;
 
     [Header("Loan")]
@@ -43,6 +44,18 @@ public class Bank : MonoBehaviour
         }
         else if (Input.GetKeyDown("."))
             RequestCash(100);
+    }
+
+    public void WireTransfer(float _amt)
+    {
+        bankAccount += _amt;
+    }
+
+    public void AddToLoan(float _amt)
+    {
+        float amount = Mathf.Round(_amt);
+        bankLoan += amount;
+        //Alerts.DisplayMessage("$" + amount.ToString("n0") + " added to bank loan.");
     }
 
     public void DepositCash(float _amt)

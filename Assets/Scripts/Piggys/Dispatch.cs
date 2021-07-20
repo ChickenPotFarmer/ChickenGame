@@ -61,7 +61,7 @@ public class Dispatch : MonoBehaviour
             counter++;
             if (counter == 50)
                 print("counter limit reached");
-        } while (!assignmentOkay || counter < 50);
+        } while (!assignmentOkay && counter < 50);
 
         if (assignmentOkay)
         {

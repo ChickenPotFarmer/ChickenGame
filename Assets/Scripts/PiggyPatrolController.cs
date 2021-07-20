@@ -71,6 +71,7 @@ public class PiggyPatrolController : MonoBehaviour
     private bool isAttacking;
     private bool isSticky;
     private bool searching;
+    private Jail jail;
 
     private void Start()
     {
@@ -88,6 +89,12 @@ public class PiggyPatrolController : MonoBehaviour
 
         if (!screenAlert)
             screenAlert = ScreenAlert.instance.screenAlert.GetComponent<ScreenAlert>();
+
+        if (!jail)
+            jail = Jail.instance.jail.GetComponent<Jail>();
+
+        if (!jail.piggyList.Contains(this))
+            jail.piggyList.Add(this);
 
         if (wayPointsParent != null)
             wayPoints = new Vector3[wayPointsParent.childCount];
@@ -218,28 +225,31 @@ public class PiggyPatrolController : MonoBehaviour
 
         do
         {
-            if (coinFlip)
+            if (wayPoints.Length > 0)
             {
-                if (Vector3.Distance(transform.position, wayPoints[currentWaypoint]) < 0.8f)
+                if (coinFlip)
                 {
-                    currentWaypoint++;
+                    if (Vector3.Distance(transform.position, wayPoints[currentWaypoint]) < 0.8f)
+                    {
+                        currentWaypoint++;
 
-                    if (currentWaypoint == wayPoints.Length)
-                        currentWaypoint = 0;
+                        if (currentWaypoint == wayPoints.Length)
+                            currentWaypoint = 0;
 
-                    navAgent.SetDestination(wayPoints[currentWaypoint]);
+                        navAgent.SetDestination(wayPoints[currentWaypoint]);
+                    }
                 }
-            }
-            else
-            {
-                if (Vector3.Distance(transform.position, wayPoints[currentWaypoint]) < 0.8f)
+                else
                 {
-                    currentWaypoint--;
+                    if (Vector3.Distance(transform.position, wayPoints[currentWaypoint]) < 0.8f)
+                    {
+                        currentWaypoint--;
 
-                    if (currentWaypoint == -1)
-                        currentWaypoint = wayPoints.Length - 1;
+                        if (currentWaypoint == -1)
+                            currentWaypoint = wayPoints.Length - 1;
 
-                    navAgent.SetDestination(wayPoints[currentWaypoint]);
+                        navAgent.SetDestination(wayPoints[currentWaypoint]);
+                    }
                 }
             }
             yield return new WaitForSeconds(0.1f);
@@ -343,17 +353,42 @@ public class PiggyPatrolController : MonoBehaviour
     private IEnumerator AttackRoutine()
     {
         isAttacking = true;
-
-        do
+        if (!jail.chickenInJail)
         {
-            if (Random.value <= attackAccuracy)
-            {
-                //fire tazer
-                chicken.TazeMeBro();
-            }
-            yield return new WaitForSeconds(attackRate);
-        } while (distanceToPlayer <= attackDistance);
+            do
+            { 
+                if (!jail.chickenInJail)
+                {
+                    if (Random.value <= attackAccuracy)
+                    {
+                        //fire tazer
+                        if (!chicken.isTazed)
+                            chicken.TazeMeBro();
+                        if (!jail.chickenInJail)
+                        {
+                            jail.JailChicken();
+                            Debug.Log("piggy jailed chicken", gameObject);
+                        }
 
+                        inPursuit = false;
+                        screenAlert.SetPursuit(false);
+                        pursuitIcon.SetActive(false);
+                        susLvl = 0;
+                        pursuitCheckLvl = 0;
+                        StartCoroutine(GetRouteNoDelay());
+                    }
+                }
+                yield return new WaitForSeconds(attackRate);
+            } while (distanceToPlayer <= attackDistance && !jail.chickenInJail);
+        }
+        else
+        {
+            inPursuit = false;
+            screenAlert.SetPursuit(false);
+            pursuitIcon.SetActive(false);
+
+            RequestNewPatrol();
+        }
         isAttacking = false;
     }
 
@@ -539,6 +574,30 @@ public class PiggyPatrolController : MonoBehaviour
         }
     }
 
+    private IEnumerator GetRouteNoDelay()
+    {
+        // Get new route
+        if (currentRoute != null)
+        {
+            currentRoute.piggiesOnRoute--;
+        }
+        currentRoute = dispatch.RequestNewRoute();
+
+
+        if (currentRoute != null)
+        {
+            SetPatrol(currentRoute.waypointsParent);
+            currentRoute.piggiesOnRoute++;
+
+        }
+        else
+        {
+            print("Failed to get new patrol. Waiting 10 secs before trying again.");
+            yield return new WaitForSeconds(2);
+            RequestNewPatrol();
+        }
+    }
+
     public void SetPatrol(Transform _waypointsParent)
     {
         if (_waypointsParent != null)
@@ -571,6 +630,14 @@ public class PiggyPatrolController : MonoBehaviour
         navAgent.SetDestination(wayPoints[closestWaypoint]);
         currentWaypoint = closestWaypoint;
         onPatrol = true;
+    }
+
+    public void ResetPig()
+    {
+        inPursuit = false;
+        pursuitCheckLvl = 0;
+        susLvl = 0;
+        isAttacking = false;
     }
 
     private void OnTriggerEnter(Collider other)
