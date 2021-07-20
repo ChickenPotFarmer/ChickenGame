@@ -13,8 +13,7 @@ public class PlanterChickHub : MonoBehaviour
 
     [Header("Status")]
     public bool planterHubActive;
-    public int availableAmmo;
-    public StrainProfile currentStrain;
+    //public int availableAmmo;
 
     [Header("Settings")]
     public float networkRadius;
@@ -34,7 +33,9 @@ public class PlanterChickHub : MonoBehaviour
     public GameObject radarSphere;
     public Transform inventoryParent;
     public Transform[] slots;
-    public InventoryItem seedBagItem;
+    //public InventoryItem seedBagItem;
+
+    private List<InventoryItem> seedBags = new List<InventoryItem>();
 
     public static PlanterChickHub instance;
     [HideInInspector]
@@ -58,7 +59,18 @@ public class PlanterChickHub : MonoBehaviour
 
         UpdateRadarSphere();
 
+        StartCoroutine(InventoryUpdateRoutine());
+
         StartCoroutine(PlanterHubRoutine());
+    }
+
+    private IEnumerator InventoryUpdateRoutine()
+    {
+        do
+        {
+            UpdateSeedBagList();
+            yield return new WaitForSeconds(0.1f);
+        } while (true);
     }
 
     public IEnumerator PlanterHubRoutine()
@@ -67,8 +79,8 @@ public class PlanterChickHub : MonoBehaviour
         WeedPlant availablePlant;
         do
         {
-            if (availableAmmo > 0)
-            {
+            //if (availableAmmo > 0)
+            //{
                 availableChick = GetAvailableChick();
 
                 if (availableChick != null)
@@ -81,7 +93,7 @@ public class PlanterChickHub : MonoBehaviour
                     }
                 }
 
-            }
+            //}
 
 
             yield return new WaitForSeconds(networkSpeed);
@@ -115,6 +127,21 @@ public class PlanterChickHub : MonoBehaviour
                 }
             }
         }
+
+        if (plantsInRange.Count > 1)
+        {
+            WeedPlant tempPlant;
+            for (int i = 0; i < plantsInRange.Count - 1; i++)
+            {
+                if (Vector3.Distance(transform.position, plantsInRange[i + 1].transform.position) < Vector3.Distance(transform.position, plantsInRange[i].transform.position))
+                {
+                    tempPlant = plantsInRange[i];
+                    plantsInRange[i] = plantsInRange[i + 1];
+                    plantsInRange[i + 1] = tempPlant;
+                    i = -1;
+                }
+            }
+        }
     }
 
     public void UpdateRadarSphere()
@@ -132,15 +159,47 @@ public class PlanterChickHub : MonoBehaviour
             slots[i] = inventoryParent.GetChild(i);
         }
 
-        if (seedBagItem == null)
-            GetSeedBag();
+        //if (seedBagItem == null)
+        //    GetSeedBag();
     }
 
-    public void OnSeedItemDrop(float _amt)
+    private void UpdateSeedBagList()
     {
-        print("on seed item drop");
-        GetSeedBag();
-        availableAmmo += Mathf.RoundToInt(_amt);
+        seedBags.Clear();
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i].childCount > 0)
+            {
+                seedBags.Add(slots[i].GetChild(0).GetComponent<InventoryItem>());
+            }
+        }
+
+        //sort list by distance
+        // can use special sorts for patterns?
+        //if (seedBags.Count > 1)
+        //{
+        //    WeedPlant tempPlant;
+        //    for (int i = 0; i < plantsInRange.Count - 1; i++)
+        //    {
+        //        if (Vector3.Distance(transform.position, plantsInRange[i + 1].transform.position) < Vector3.Distance(transform.position, plantsInRange[i].transform.position))
+        //        {
+        //            tempPlant = plantsInRange[i];
+        //            plantsInRange[i] = plantsInRange[i + 1];
+        //            plantsInRange[i + 1] = tempPlant;
+        //            i = -1;
+        //        }
+        //    }
+        //}
+    }
+
+    public void OnSeedItemDrop()
+    {
+        // refresh seedbag list
+        UpdateSeedBagList();
+
+
+        //GetSeedBag();
+        //availableAmmo += Mathf.RoundToInt(_amt);
 
     }
 
@@ -160,17 +219,17 @@ public class PlanterChickHub : MonoBehaviour
             }
         }
 
-        if (foundAmmo)
-        {
-            seedBagItem = seedBag.GetComponent<InventoryItem>();
-            currentStrain.SetStrain(seedBag.GetComponent<StrainProfile>());
+        //if (foundAmmo)
+        //{
+        //    seedBagItem = seedBag.GetComponent<InventoryItem>();
+        //    currentStrain.SetStrain(seedBag.GetComponent<StrainProfile>());
 
-            seedBagItem.Lock(true);
-        }
-        else
-        {
-            seedBagItem = null;
-        }
+        //    seedBagItem.Lock(true);
+        //}
+        //else
+        //{
+        //    seedBagItem = null;
+        //}
 
         return foundAmmo;
     }
@@ -190,17 +249,17 @@ public class PlanterChickHub : MonoBehaviour
             }
         }
 
-        if (foundAmmo)
-        {
-            seedBagItem = seedBag.GetComponent<InventoryItem>();
-            currentStrain.SetStrain(seedBag.GetComponent<StrainProfile>());
+        //if (foundAmmo)
+        //{
+        //    seedBagItem = seedBag.GetComponent<InventoryItem>();
+        //    currentStrain.SetStrain(seedBag.GetComponent<StrainProfile>());
 
-            seedBagItem.Lock(true);
-        }
-        else
-        {
-            seedBagItem = null;
-        }
+        //    seedBagItem.Lock(true);
+        //}
+        //else
+        //{
+        //    seedBagItem = null;
+        //}
 
         return foundAmmo;
     }
@@ -242,16 +301,14 @@ public class PlanterChickHub : MonoBehaviour
     {
         StrainProfile ammoStrain = null;
 
-        if (currentStrain != null && seedBagItem != null)
+        if (seedBags.Count != 0)
         {
-            ammoStrain = currentStrain;
-            availableAmmo--;
-            if (seedBagItem.AddAmount(-1))
-            {
-                GetSeedBag(seedBagItem.transform);
-            }
-        }
+            ammoStrain = seedBags[0].GetComponent<StrainProfile>();
+            seedBags[0].AddAmount(-1);
 
+            if (seedBags[0].amount == 0)
+                seedBags.RemoveAt(0);
+        }
 
         return ammoStrain;
     }

@@ -141,7 +141,7 @@ public class ItemSlot : MonoBehaviour, IDropHandler
                 }
             }
             
-            TriggerOutsideOnDrops(dragInventoryItem.amount);
+            TriggerOutsideOnDrops();
 
             if (lockOnDrop)
                 dragInventoryItem.Lock(true);
@@ -260,7 +260,7 @@ public class ItemSlot : MonoBehaviour, IDropHandler
                 }
             }
 
-            TriggerOutsideOnDrops(dragInventoryItem.amount);
+            TriggerOutsideOnDrops();
 
             if (lockOnDrop)
                 dragInventoryItem.Lock(true);
@@ -378,12 +378,12 @@ public class ItemSlot : MonoBehaviour, IDropHandler
 
     //}
 
-    public void TriggerOutsideOnDrops(float _amt)
+    public void TriggerOutsideOnDrops()
     {
         if (seedCannon)
             seedCannon.OnItemDrop();
         if (planterChickHub)
-            planterChickHub.OnSeedItemDrop(_amt);
+            planterChickHub.OnSeedItemDrop();
     }
 
     public bool HasItem()

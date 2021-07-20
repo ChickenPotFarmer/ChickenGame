@@ -55,27 +55,34 @@ public class AutoPlanterChick : MonoBehaviour
 
     public IEnumerator FireCannon(Transform _target)
     {
-        yield return new WaitForSeconds(cannonFireRate);
+        do
+        {
+            yield return new WaitForSeconds(cannonFireRate);
 
-        GameObject newSeed = Instantiate(planterHub.seedProjectile);
-        newSeed.transform.position = firePoint.position;
-        Seed seedComp = newSeed.GetComponent<Seed>();
+            StrainProfile ammoStrain = planterHub.RequestAmmo();
 
-        seedComp.target = _target;
+            if (ammoStrain != null)
+            {
+                GameObject newSeed = Instantiate(planterHub.seedProjectile);
+                newSeed.transform.position = firePoint.position;
+                Seed seedComp = newSeed.GetComponent<Seed>();
 
-        WeedPlant weedPlant = _target.GetComponent<WeedPlant>();
+                seedComp.target = _target;
 
-        if (weedPlant)
-            weedPlant.hasSeed = true;
+                WeedPlant weedPlant = _target.GetComponent<WeedPlant>();
 
-        StrainProfile ammoStrain = planterHub.RequestAmmo();
+                if (weedPlant)
+                    weedPlant.hasSeed = true;
 
-        if (ammoStrain != null)
-            newSeed.GetComponent<Seed>().currentStrain.SetStrain(ammoStrain);
-        else
-            Debug.LogWarning("Error in Auto Chick's SeedCannon, ammoStrain is null.");
 
-        target = null;
-        
+                if (ammoStrain != null)
+                    newSeed.GetComponent<Seed>().currentStrain.SetStrain(ammoStrain);
+                else
+                    Debug.LogWarning("Error in Auto Chick's SeedCannon, ammoStrain is null.");
+
+                target = null;
+            }
+        } while (target != null);
+
     }
 }
