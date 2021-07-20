@@ -16,123 +16,327 @@ labels:
 - character
 - characters
 ModelImporter:
-  serializedVersion: 18
-  fileIDToRecycleName:
-    100000: Piggy_01_Model
-    100002: //RootNode
-    100004: Piggy_Chest
-    100006: Piggy_Chest_Control
-    100008: Piggy_Hair_Control
-    100010: Piggy_hatsNub
-    100012: Piggy_Head
-    100014: Piggy_Hips
-    100016: Piggy_Hips_Control
-    100018: Piggy_LEar
-    100020: Piggy_Leye
-    100022: Piggy_Leyebrow
-    100024: Piggy_LLeg1
-    100026: Piggy_LLeg1 1
-    100028: Piggy_LLeg2
-    100030: Piggy_LLeg2 1
-    100032: Piggy_LLegAnkle
-    100034: Piggy_LLegAnkle 1
-    100036: Piggy_LLegPlatform
-    100038: Piggy_LLegPlatform 1
-    100040: Piggy_Main
-    100042: Piggy_Nose
-    100044: Piggy_REar
-    100046: Piggy_Reye
-    100048: Piggy_Reyebrow
-    100050: Piggy_RLeg1
-    100052: Piggy_RLeg1 1
-    100054: Piggy_RLeg2
-    100056: Piggy_RLeg2 1
-    100058: Piggy_RLegAnkle
-    100060: Piggy_RLegAnkle 1
-    100062: Piggy_RLegPlatform
-    100064: Piggy_RLegPlatform 1
-    100066: Piggy_Spine
-    100068: Piggy_Spine1
-    100070: Piggy_Spine2
-    100072: Piggy_Tail1
-    100074: Piggy_Tail2
-    100076: Piggy_Tail3
-    400000: Piggy_01_Model
-    400002: //RootNode
-    400004: Piggy_Chest
-    400006: Piggy_Chest_Control
-    400008: Piggy_Hair_Control
-    400010: Piggy_hatsNub
-    400012: Piggy_Head
-    400014: Piggy_Hips
-    400016: Piggy_Hips_Control
-    400018: Piggy_LEar
-    400020: Piggy_Leye
-    400022: Piggy_Leyebrow
-    400024: Piggy_LLeg1
-    400026: Piggy_LLeg1 1
-    400028: Piggy_LLeg2
-    400030: Piggy_LLeg2 1
-    400032: Piggy_LLegAnkle
-    400034: Piggy_LLegAnkle 1
-    400036: Piggy_LLegPlatform
-    400038: Piggy_LLegPlatform 1
-    400040: Piggy_Main
-    400042: Piggy_Nose
-    400044: Piggy_REar
-    400046: Piggy_Reye
-    400048: Piggy_Reyebrow
-    400050: Piggy_RLeg1
-    400052: Piggy_RLeg1 1
-    400054: Piggy_RLeg2
-    400056: Piggy_RLeg2 1
-    400058: Piggy_RLegAnkle
-    400060: Piggy_RLegAnkle 1
-    400062: Piggy_RLegPlatform
-    400064: Piggy_RLegPlatform 1
-    400066: Piggy_Spine
-    400068: Piggy_Spine1
-    400070: Piggy_Spine2
-    400072: Piggy_Tail1
-    400074: Piggy_Tail2
-    400076: Piggy_Tail3
-    4300000: Piggy_01_Model
-    7400000: Take 001
-    9500000: //RootNode
-    13700000: Piggy_01_Model
+  serializedVersion: 19301
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: Piggy_01_Model
+  - first:
+      1: 100002
+    second: //RootNode
+  - first:
+      1: 100004
+    second: Piggy_Chest
+  - first:
+      1: 100006
+    second: Piggy_Chest_Control
+  - first:
+      1: 100008
+    second: Piggy_Hair_Control
+  - first:
+      1: 100010
+    second: Piggy_hatsNub
+  - first:
+      1: 100012
+    second: Piggy_Head
+  - first:
+      1: 100014
+    second: Piggy_Hips
+  - first:
+      1: 100016
+    second: Piggy_Hips_Control
+  - first:
+      1: 100018
+    second: Piggy_LEar
+  - first:
+      1: 100020
+    second: Piggy_Leye
+  - first:
+      1: 100022
+    second: Piggy_Leyebrow
+  - first:
+      1: 100024
+    second: Piggy_LLeg1
+  - first:
+      1: 100026
+    second: Piggy_LLeg1 1
+  - first:
+      1: 100028
+    second: Piggy_LLeg2
+  - first:
+      1: 100030
+    second: Piggy_LLeg2 1
+  - first:
+      1: 100032
+    second: Piggy_LLegAnkle
+  - first:
+      1: 100034
+    second: Piggy_LLegAnkle 1
+  - first:
+      1: 100036
+    second: Piggy_LLegPlatform
+  - first:
+      1: 100038
+    second: Piggy_LLegPlatform 1
+  - first:
+      1: 100040
+    second: Piggy_Main
+  - first:
+      1: 100042
+    second: Piggy_Nose
+  - first:
+      1: 100044
+    second: Piggy_REar
+  - first:
+      1: 100046
+    second: Piggy_Reye
+  - first:
+      1: 100048
+    second: Piggy_Reyebrow
+  - first:
+      1: 100050
+    second: Piggy_RLeg1
+  - first:
+      1: 100052
+    second: Piggy_RLeg1 1
+  - first:
+      1: 100054
+    second: Piggy_RLeg2
+  - first:
+      1: 100056
+    second: Piggy_RLeg2 1
+  - first:
+      1: 100058
+    second: Piggy_RLegAnkle
+  - first:
+      1: 100060
+    second: Piggy_RLegAnkle 1
+  - first:
+      1: 100062
+    second: Piggy_RLegPlatform
+  - first:
+      1: 100064
+    second: Piggy_RLegPlatform 1
+  - first:
+      1: 100066
+    second: Piggy_Spine
+  - first:
+      1: 100068
+    second: Piggy_Spine1
+  - first:
+      1: 100070
+    second: Piggy_Spine2
+  - first:
+      1: 100072
+    second: Piggy_Tail1
+  - first:
+      1: 100074
+    second: Piggy_Tail2
+  - first:
+      1: 100076
+    second: Piggy_Tail3
+  - first:
+      4: 400000
+    second: Piggy_01_Model
+  - first:
+      4: 400002
+    second: //RootNode
+  - first:
+      4: 400004
+    second: Piggy_Chest
+  - first:
+      4: 400006
+    second: Piggy_Chest_Control
+  - first:
+      4: 400008
+    second: Piggy_Hair_Control
+  - first:
+      4: 400010
+    second: Piggy_hatsNub
+  - first:
+      4: 400012
+    second: Piggy_Head
+  - first:
+      4: 400014
+    second: Piggy_Hips
+  - first:
+      4: 400016
+    second: Piggy_Hips_Control
+  - first:
+      4: 400018
+    second: Piggy_LEar
+  - first:
+      4: 400020
+    second: Piggy_Leye
+  - first:
+      4: 400022
+    second: Piggy_Leyebrow
+  - first:
+      4: 400024
+    second: Piggy_LLeg1
+  - first:
+      4: 400026
+    second: Piggy_LLeg1 1
+  - first:
+      4: 400028
+    second: Piggy_LLeg2
+  - first:
+      4: 400030
+    second: Piggy_LLeg2 1
+  - first:
+      4: 400032
+    second: Piggy_LLegAnkle
+  - first:
+      4: 400034
+    second: Piggy_LLegAnkle 1
+  - first:
+      4: 400036
+    second: Piggy_LLegPlatform
+  - first:
+      4: 400038
+    second: Piggy_LLegPlatform 1
+  - first:
+      4: 400040
+    second: Piggy_Main
+  - first:
+      4: 400042
+    second: Piggy_Nose
+  - first:
+      4: 400044
+    second: Piggy_REar
+  - first:
+      4: 400046
+    second: Piggy_Reye
+  - first:
+      4: 400048
+    second: Piggy_Reyebrow
+  - first:
+      4: 400050
+    second: Piggy_RLeg1
+  - first:
+      4: 400052
+    second: Piggy_RLeg1 1
+  - first:
+      4: 400054
+    second: Piggy_RLeg2
+  - first:
+      4: 400056
+    second: Piggy_RLeg2 1
+  - first:
+      4: 400058
+    second: Piggy_RLegAnkle
+  - first:
+      4: 400060
+    second: Piggy_RLegAnkle 1
+  - first:
+      4: 400062
+    second: Piggy_RLegPlatform
+  - first:
+      4: 400064
+    second: Piggy_RLegPlatform 1
+  - first:
+      4: 400066
+    second: Piggy_Spine
+  - first:
+      4: 400068
+    second: Piggy_Spine1
+  - first:
+      4: 400070
+    second: Piggy_Spine2
+  - first:
+      4: 400072
+    second: Piggy_Tail1
+  - first:
+      4: 400074
+    second: Piggy_Tail2
+  - first:
+      4: 400076
+    second: Piggy_Tail3
+  - first:
+      43: 4300000
+    second: Piggy_01_Model
+  - first:
+      74: 7400000
+    second: Take 001
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: Piggy_01_Model
+  - first:
+      74: 5862543501114407046
+    second: Armature|Armature|Take 001|BaseLayer
+  - first:
+      74: -5701045938790110901
+    second: Armature|Armature|Armature|Armature|Take 001|BaseLayer|Armature|Armature
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: 2226eeea130a2cb498987916299001ae, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: No Name
+    second: {fileID: 2100000, guid: 7e6cf1797486eb54da201c2a59810b16, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Piggy_MAT
+    second: {fileID: 2100000, guid: 1809ed25a4b4789459f17de5702840bd, type: 2}
   materials:
-    importMaterials: 1
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
+    resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
-    animationRotationError: .5
-    animationPositionError: .5
-    animationScaleError: .5
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
+    extraUserProperties: []
     clipAnimations: []
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: .00999999978
+    globalScale: 0.01
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 0
     importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
@@ -140,24 +344,35 @@ ModelImporter:
     useFileScale: 0
   tangentSpace:
     normalSmoothAngle: 60
-    splitTangentsAcrossUV: 1
     normalImportMode: 0
-    tangentImportMode: 1
+    tangentImportMode: 4
+    normalCalculationMode: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
-  copyAvatar: 0
   humanDescription:
+    serializedVersion: 3
     human: []
     skeleton: []
-    armTwist: .5
-    foreArmTwist: .5
-    upperLegTwist: .5
-    legTwist: .5
-    armStretch: .0500000007
-    legStretch: .0500000007
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
     feetSpacing: 0
+    globalScale: 0.01
     rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

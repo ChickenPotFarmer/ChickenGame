@@ -6,9 +6,7 @@ My English is not very good, and if there are any translation errors, you can le
 
 The package includes prefabs of mesh effects and demo scene for pc/mobiles with characters and environment.
 
-This simple tutorial only for Default Legacy rendering. 
-
-If you use URP rendering then you must import HDRP or URP patches "\Assets\KriptoFX\MeshEffect\HDRP and URP patches"
+This simple tutorial only for URP rendering. 
 
 ------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -27,8 +25,10 @@ NOTE !!!!
 ------------------------------------------------------------------------------------------------------------------------------------------
 
 For correct effects working you must:
+
 	
 1) Use included postprocessing profile "\Assets\KriptoFX\MeshEffect\PostProcess Profile.asset" (If you want effects which look like in the video example)
+2) For main camera you need set "Depth texture = ON" and "Opaque texture = ON"
 
 ------------------------------------------------------------------------------------------------------------------------------------------
 
