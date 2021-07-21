@@ -37,16 +37,6 @@ public class PlanterChickHub : MonoBehaviour
 
     private List<InventoryItem> seedBags = new List<InventoryItem>();
 
-    public static PlanterChickHub instance;
-    [HideInInspector]
-    public GameObject planterChickHub;
-
-    private void Awake()
-    {
-        instance = this;
-        planterChickHub = gameObject;
-    }
-
     private void Start()
     {
         if (autoChicks.Count == 0)

@@ -553,10 +553,11 @@ public class InventoryController : MonoBehaviour
         }
     }
 
-    public void ReturnAllItems(Transform _slotsParent)
+    public bool ReturnAllItems(Transform _slotsParent)
     {
         InventoryItem remainderItem;
         Transform[] tempSlots = new Transform[_slotsParent.childCount];
+        bool noRemainder = false;
 
         for (int i = 0; i < _slotsParent.childCount; i++)
         {
@@ -580,9 +581,16 @@ public class InventoryController : MonoBehaviour
             if (remainderItem != null && remainderItem.amount > 0)
             {
                 Debug.LogWarning("INVENTORY FULL");
+                noRemainder = false;
+            }
+            else
+            {
+                noRemainder = true;
             }
 
         }
+
+        return noRemainder;
     }
 
     public void ReturnAllItems(Transform _slotsParent, string _itemId)
@@ -666,10 +674,11 @@ public class InventoryController : MonoBehaviour
 
     }
 
-    public void InventoryToInventoryTransfer(Transform _fromInventoryParent, Transform _toInventoryParent)
+    public bool InventoryToInventoryTransfer(Transform _fromInventoryParent, Transform _toInventoryParent)
     {
         InventoryItem remainderItem;
         Transform[] tempSlots = new Transform[_fromInventoryParent.childCount];
+        bool noRemainder = true;
 
         for (int i = 0; i < _fromInventoryParent.childCount; i++)
         {
@@ -694,9 +703,16 @@ public class InventoryController : MonoBehaviour
             if (remainderItem != null && remainderItem.amount > 0)
             {
                 Debug.LogWarning("INVENTORY FULL");
+                noRemainder = false;
+            }
+            else
+            {
+                noRemainder = true; 
             }
 
         }
+
+        return noRemainder;
 
     }
 

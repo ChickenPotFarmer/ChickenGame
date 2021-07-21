@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PickUpObject : MonoBehaviour
 {
+    public GameObject targetOverride;
     public float MinDistance = 10;
     private SphereCollider col;
     public float Speed = 7;
@@ -41,11 +42,21 @@ public class PickUpObject : MonoBehaviour
         pickUpEnabled = true; 
     }
 
+    private float distance;
+    private Vector3 destination;
     void Update()
     {
         if (pickUpEnabled)
         {
-            float distance = Vector3.Distance(transform.position, chicken.transform.position);
+            if (!targetOverride)
+            {
+                distance = Vector3.Distance(transform.position, chicken.transform.position);
+            }
+            else
+            {
+                distance = Vector3.Distance(transform.position, targetOverride.transform.position);
+
+            }
             if (distance <= MinDistance)
             {
                 //if(!soundPlayed)
@@ -55,7 +66,11 @@ public class PickUpObject : MonoBehaviour
                 //    gameObject.GetComponent<AudioSource>().Play();
                 //}
 
-                Vector3 destination = chicken.pickupSlot.position;
+                if (!targetOverride)
+                    destination = chicken.pickupSlot.position;
+                else
+                    destination = targetOverride.transform.position;
+
                 this.transform.position = Vector3.MoveTowards(transform.position, destination, Speed * Time.deltaTime);
                 captured = true;
 
@@ -83,6 +98,7 @@ public class PickUpObject : MonoBehaviour
                     }
                 }
             }
+            
         }
         
     }

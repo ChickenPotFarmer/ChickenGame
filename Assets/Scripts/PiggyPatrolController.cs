@@ -220,7 +220,6 @@ public class PiggyPatrolController : MonoBehaviour
     {
         // coin flip to see which direction of route to take
         bool coinFlip = Random.value > 0.5f;
-        print("Returning to patrol");
         onPatrol = true;
 
         do
@@ -568,7 +567,6 @@ public class PiggyPatrolController : MonoBehaviour
         }
         else
         {
-            print("Failed to get new patrol. Waiting 10 secs before trying again.");
             yield return new WaitForSeconds(10);
             RequestNewPatrol();
         }
@@ -592,7 +590,6 @@ public class PiggyPatrolController : MonoBehaviour
         }
         else
         {
-            print("Failed to get new patrol. Waiting 10 secs before trying again.");
             yield return new WaitForSeconds(2);
             RequestNewPatrol();
         }

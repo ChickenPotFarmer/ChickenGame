@@ -14,17 +14,13 @@ public class AutoPlanterChick : MonoBehaviour
 
     [Header("Setup")]
     public Transform firePoint;
-
-    private NavMeshAgent navAgent;
+    [SerializeField] private NavMeshAgent navAgent;
     private PlanterChickHub planterHub;
 
     private void Start()
     {
         if (!planterHub)
             planterHub = GetComponentInParent<PlanterChickHub>();
-
-        if (!navAgent)
-            navAgent = GetComponent<NavMeshAgent>();
     }
 
     public void SetTarget(WeedPlant _target)

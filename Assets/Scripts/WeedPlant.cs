@@ -25,6 +25,7 @@ public class WeedPlant : MonoBehaviour
     public bool targettedForHarvest;
     public bool targettedForSeeding;
     public bool targettedForWatering;
+    public bool targettedForTrimming;
     public bool selected;
     public bool isPlanted;
     public bool isMale;
@@ -155,7 +156,10 @@ public class WeedPlant : MonoBehaviour
     public void Trim()
     {
         trimmed = true;
+        targettedForTrimming = false;
         SetTrimmed();
+        print("PLANT TRIM SUCCESSFUL");
+
     }
 
     public void Water()
