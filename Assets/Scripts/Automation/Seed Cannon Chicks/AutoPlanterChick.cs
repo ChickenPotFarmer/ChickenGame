@@ -21,7 +21,7 @@ public class AutoPlanterChick : MonoBehaviour
     private void Start()
     {
         if (!planterHub)
-            planterHub = PlanterChickHub.instance.planterChickHub.GetComponent<PlanterChickHub>();
+            planterHub = GetComponentInParent<PlanterChickHub>();
 
         if (!navAgent)
             navAgent = GetComponent<NavMeshAgent>();
@@ -83,6 +83,9 @@ public class AutoPlanterChick : MonoBehaviour
                 target = null;
             }
         } while (target != null);
+
+        if (planterHub)
+            navAgent.SetDestination(planterHub.transform.position);    
 
     }
 }

@@ -8,12 +8,21 @@ public class AutoWaterChick : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private float chickRange;
     [SerializeField] private float cannonFireRate;
+    [SerializeField] private float stuckTimer;
 
     [Header("Status")]
     public WeedPlant target;
 
     [Header("Setup")]
     [SerializeField] private NavMeshAgent navAgent;
+
+    private WaterHub waterHub;
+
+    private void Start()
+    {
+        if (!waterHub)
+            waterHub = GetComponentInParent<WaterHub>();
+    }
 
     public void SetTarget(WeedPlant _target)
     {
@@ -25,6 +34,7 @@ public class AutoWaterChick : MonoBehaviour
     public IEnumerator EngageTarget()
     {
         bool targetInRange = false;
+        float timer = 0;
         do
         {
             navAgent.SetDestination(target.transform.position);
@@ -45,7 +55,14 @@ public class AutoWaterChick : MonoBehaviour
                 target = null;
                 navAgent.SetDestination(transform.position);
             }
+            timer += 0.5f;
+
+            if (timer >= stuckTimer)
+                target = null;
         } while (target != null);
+
+        if (waterHub)
+            navAgent.SetDestination(waterHub.transform.position);
     }
 
     
