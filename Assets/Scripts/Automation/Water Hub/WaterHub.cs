@@ -138,22 +138,43 @@ public class WaterHub : MonoBehaviour
 
         if (plantsAvailable.Count > 0)
         {
-            float closestDist = 1000;
-            int closestPlant = -1;
+            //sort by closest plant
+
+            //float closestDist = 1000;
+            //int closestPlant = -1;
+            //int tempI;
+
+            //for (int i = 0; i < plantsAvailable.Count; i++)
+            //{
+            //    float dist = Vector3.Distance(targetChick.transform.position, plantsAvailable[i].transform.position);
+            //    if (dist < closestDist)
+            //    { 
+            //        closestDist = dist;
+            //        tempI = i;
+            //        closestPlant = tempI;
+            //    }
+            //}
+
+            //availPlant = plantsAvailable[closestPlant];
+            //availPlant.targettedForWatering = true;
+
+            // sort by lowest water lvl
+
+            float lowestWaterLevel = 1000;
+            int plantMostInNeed = -1;
             int tempI;
 
             for (int i = 0; i < plantsAvailable.Count; i++)
             {
-                float dist = Vector3.Distance(targetChick.transform.position, plantsAvailable[i].transform.position);
-                if (dist < closestDist)
-                { 
-                    closestDist = dist;
+                if (plantsAvailable[i].waterLevel < lowestWaterLevel)
+                {
+                    lowestWaterLevel = plantsAvailable[i].waterLevel;
                     tempI = i;
-                    closestPlant = tempI;
+                    plantMostInNeed = tempI;
                 }
             }
 
-            availPlant = plantsAvailable[closestPlant];
+            availPlant = plantsAvailable[plantMostInNeed];
             availPlant.targettedForWatering = true;
         }
         else
