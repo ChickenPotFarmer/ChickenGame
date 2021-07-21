@@ -489,6 +489,8 @@ public class WeedPlant : MonoBehaviour
         harvested = false;
         trimmed = false;
         targettedForDelete = false;
+        targettedForWatering = false;
+        targettedForSeeding = false;
         almostGrown.SetActive(false); //debug this
         femaleImg.SetActive(false);
         maleImg.SetActive(false);
