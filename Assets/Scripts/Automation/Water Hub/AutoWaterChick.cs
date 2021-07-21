@@ -25,24 +25,27 @@ public class AutoWaterChick : MonoBehaviour
     public IEnumerator EngageTarget()
     {
         bool targetInRange = false;
-        navAgent.SetDestination(target.transform.position);
         do
         {
-            if (Vector3.Distance(transform.position, target.transform.position) < chickRange || target == null)
-                targetInRange = true;
-            yield return new WaitForSeconds(0.5f);
+            navAgent.SetDestination(target.transform.position);
+            do
+            {
+                if (Vector3.Distance(transform.position, target.transform.position) < chickRange || target == null)
+                    targetInRange = true;
+                yield return new WaitForSeconds(0.5f);
 
-            if (target == null)
-                break;
+                if (target == null)
+                    break;
 
-        } while (!targetInRange);
+            } while (!targetInRange);
 
-        if (target != null)
-        {
-            target.Water();
-            target = null;
-            navAgent.SetDestination(transform.position);
-        }
+            if (target != null)
+            {
+                target.Water();
+                target = null;
+                navAgent.SetDestination(transform.position);
+            }
+        } while (target != null);
     }
 
     

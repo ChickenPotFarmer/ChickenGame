@@ -16,6 +16,8 @@ public class WaterHub : MonoBehaviour
     private List<WeedPlant> plantsInRange = new List<WeedPlant>();
     private List<AutoWaterChick> autoChicks = new List<AutoWaterChick>();
 
+    private AutoWaterChick targetChick;
+
     private void Start()
     {
         IntializeHub();
@@ -80,21 +82,21 @@ public class WaterHub : MonoBehaviour
 
     public IEnumerator WaterHubRoutine()
     {
-        AutoWaterChick availableChick;
+        targetChick = null;
         WeedPlant availablePlant;
         do
         {
             //if (availableAmmo > 0)
             //{
-            availableChick = GetAvailableChick();
+            targetChick = GetAvailableChick();
 
-            if (availableChick != null)
+            if (targetChick != null)
             {
                 availablePlant = GetAvailablePlant();
 
                 if (availablePlant != null)
                 {
-                    availableChick.SetTarget(availablePlant);
+                    targetChick.SetTarget(availablePlant);
                 }
             }
 
@@ -123,16 +125,40 @@ public class WaterHub : MonoBehaviour
 
     public WeedPlant GetAvailablePlant()
     {
-        WeedPlant availPlant = null;
+        WeedPlant availPlant;
+        List<WeedPlant> plantsAvailable = new List<WeedPlant>();
 
         for (int i = 0; i < plantsInRange.Count; i++)
         {
             if (plantsInRange[i].isPlanted && !plantsInRange[i].targettedForWatering && !plantsInRange[i].fullyGrown && plantsInRange[i].waterLevel < minWaterLvl)
             {
-                availPlant = plantsInRange[i];
-                plantsInRange[i].targettedForWatering = true;
-                break;
+                plantsAvailable.Add(plantsInRange[i]);
             }
+        }
+
+        if (plantsAvailable.Count > 0)
+        {
+            float closestDist = 1000;
+            int closestPlant = -1;
+            int tempI;
+
+            for (int i = 0; i < plantsAvailable.Count; i++)
+            {
+                float dist = Vector3.Distance(targetChick.transform.position, plantsAvailable[i].transform.position);
+                if (dist < closestDist)
+                { 
+                    closestDist = dist;
+                    tempI = i;
+                    closestPlant = tempI;
+                }
+            }
+
+            availPlant = plantsAvailable[closestPlant];
+            availPlant.targettedForWatering = true;
+        }
+        else
+        {
+            availPlant = null;
         }
 
         return availPlant;

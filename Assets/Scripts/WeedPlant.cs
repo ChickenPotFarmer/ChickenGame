@@ -148,7 +148,6 @@ public class WeedPlant : MonoBehaviour
     private void SetGender()
     {
         float rand = Random.value;
-        print(rand + " random num");
         isMale = rand > chanceForFemale;
 
     }
