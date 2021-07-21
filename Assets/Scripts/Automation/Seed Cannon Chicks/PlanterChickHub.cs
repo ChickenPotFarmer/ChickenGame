@@ -158,9 +158,6 @@ public class PlanterChickHub : MonoBehaviour
         {
             slots[i] = inventoryParent.GetChild(i);
         }
-
-        //if (seedBagItem == null)
-        //    GetSeedBag();
     }
 
     private void UpdateSeedBagList()
@@ -173,23 +170,6 @@ public class PlanterChickHub : MonoBehaviour
                 seedBags.Add(slots[i].GetChild(0).GetComponent<InventoryItem>());
             }
         }
-
-        //sort list by distance
-        // can use special sorts for patterns?
-        //if (seedBags.Count > 1)
-        //{
-        //    WeedPlant tempPlant;
-        //    for (int i = 0; i < plantsInRange.Count - 1; i++)
-        //    {
-        //        if (Vector3.Distance(transform.position, plantsInRange[i + 1].transform.position) < Vector3.Distance(transform.position, plantsInRange[i].transform.position))
-        //        {
-        //            tempPlant = plantsInRange[i];
-        //            plantsInRange[i] = plantsInRange[i + 1];
-        //            plantsInRange[i + 1] = tempPlant;
-        //            i = -1;
-        //        }
-        //    }
-        //}
     }
 
     public void OnSeedItemDrop()
@@ -201,67 +181,6 @@ public class PlanterChickHub : MonoBehaviour
         //GetSeedBag();
         //availableAmmo += Mathf.RoundToInt(_amt);
 
-    }
-
-    // Call when out of ammo only
-    public bool GetSeedBag()
-    {
-        GameObject seedBag = null;
-        bool foundAmmo = false;
-
-        for (int i = 0; i < slots.Length; i++)
-        {
-            if (slots[i].transform.childCount != 0)
-            {
-                seedBag = slots[i].GetChild(0).gameObject;
-                foundAmmo = true;
-                break;
-            }
-        }
-
-        //if (foundAmmo)
-        //{
-        //    seedBagItem = seedBag.GetComponent<InventoryItem>();
-        //    currentStrain.SetStrain(seedBag.GetComponent<StrainProfile>());
-
-        //    seedBagItem.Lock(true);
-        //}
-        //else
-        //{
-        //    seedBagItem = null;
-        //}
-
-        return foundAmmo;
-    }
-
-    public bool GetSeedBag(Transform _transformToIgnore)
-    {
-        GameObject seedBag = null;
-        bool foundAmmo = false;
-
-        for (int i = 0; i < slots.Length; i++)
-        {
-            if (slots[i].transform.childCount != 0 && slots[i].GetChild(0) != _transformToIgnore)
-            {
-                seedBag = slots[i].GetChild(0).gameObject;
-                foundAmmo = true;
-                break;
-            }
-        }
-
-        //if (foundAmmo)
-        //{
-        //    seedBagItem = seedBag.GetComponent<InventoryItem>();
-        //    currentStrain.SetStrain(seedBag.GetComponent<StrainProfile>());
-
-        //    seedBagItem.Lock(true);
-        //}
-        //else
-        //{
-        //    seedBagItem = null;
-        //}
-
-        return foundAmmo;
     }
 
     public AutoPlanterChick GetAvailableChick()

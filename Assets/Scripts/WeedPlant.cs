@@ -11,16 +11,20 @@ public class WeedPlant : MonoBehaviour
     public StrainProfile fatherPlantStrain;
     public string strainID;
     public string strain;
+
+    [Header("Yield Settings")]
     public float maxYield;
     public float minYield;
     public float actualYield;
     public int actualSeedYield = 10;
     public int actualTrimmingsYield = 25;
+    public float chanceForFemale;
     public float growTime;
 
     [Header("Status")]
     public bool targettedForHarvest;
     public bool targettedForSeeding;
+    public bool targettedForWatering;
     public bool selected;
     public bool isPlanted;
     public bool isMale;
@@ -143,7 +147,10 @@ public class WeedPlant : MonoBehaviour
 
     private void SetGender()
     {
-        isMale = Random.value > 0.65f;
+        float rand = Random.value;
+        print(rand + " random num");
+        isMale = rand > chanceForFemale;
+
     }
 
     public void Trim()
@@ -157,7 +164,7 @@ public class WeedPlant : MonoBehaviour
         if (waterLevel != 100)
         {
             waterLevel = 100;
-
+            targettedForWatering = false;
             Xp.WaterPlant();
 
             StartCoroutine(WaterRoutine());

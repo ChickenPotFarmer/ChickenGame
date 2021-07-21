@@ -425,7 +425,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5266717358015967047
 Transform:
   m_ObjectHideFlags: 0
@@ -2552,7 +2552,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4687058639848465566}
-  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
+  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0.00000028088027}
   m_LocalPosition: {x: 280.1369, y: 0, z: 199.581}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
@@ -2564,7 +2564,7 @@ Transform:
   - {fileID: 3439166600947972558}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -179.99998, z: 0}
 --- !u!95 &4687058639838812042
 Animator:
   serializedVersion: 3
@@ -2799,8 +2799,8 @@ MonoBehaviour:
   stickySpeed: 1
   minWaitTime: 3
   maxWaitTime: 6
-  susIcon: {fileID: 0}
-  pursuitIcon: {fileID: 0}
+  susIcon: {fileID: 8158820147604488532}
+  pursuitIcon: {fileID: 4979319820220059305}
   runThreshold: 0
   animator: {fileID: 4687058639838812042}
   navAgent: {fileID: 2617829832795098547}
@@ -2808,7 +2808,7 @@ MonoBehaviour:
   lineRenderer: {fileID: 2571147727134952631}
   canSeeColor: {fileID: 2100000, guid: 804519bc3bda21145aa835faf3a2404a, type: 2}
   cannotSeeColor: {fileID: 2100000, guid: 6cc0e28dceb63f24fab9b142d1598ca9, type: 2}
-  holoChicken: {fileID: 0}
+  holoChicken: {fileID: 2662066504988910452}
   susThreshold: 1
   susLvlIncreaseRate: 0.05
   susCooldownRate: 0.015
