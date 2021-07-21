@@ -85,6 +85,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b542b35fdfeee0d4d8c72dcefcce8d2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetOverride: {fileID: 0}
   MinDistance: 100
   Speed: 14
   chicken: {fileID: 0}
@@ -486,11 +487,6 @@ PrefabInstance:
     - target: {fileID: 5749892945899594868, guid: 797ee248261f4504f9071cdf2c4300d4,
         type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5749892945899594868, guid: 797ee248261f4504f9071cdf2c4300d4,
-        type: 3}
-      propertyPath: EmissionModule.rateOverDistance.scalar
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5749892945899594868, guid: 797ee248261f4504f9071cdf2c4300d4,
