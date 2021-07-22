@@ -6,6 +6,7 @@ public class StrainProfile : MonoBehaviour
 {
     [Header("Basic Info")]
     public string strainName;
+    public bool namedStrain;
     [Tooltip("Indica = 0,\nIndica Hybrid = 1,\nHybrid = 2,\nSativa Hybrid = 3,\nSativa = 4")]
     public int strainType;
     public float thcPercent;
@@ -52,7 +53,8 @@ public class StrainProfile : MonoBehaviour
 
     private void Awake()
     {
-        itemComp = GetComponent<InventoryItem>();
+        if (itemComp)
+            itemComp = GetComponent<InventoryItem>();
     }
 
     private void Start()
@@ -61,10 +63,10 @@ public class StrainProfile : MonoBehaviour
         if (!uniqueIdMaster)
             uniqueIdMaster = UniqueIdMaster.instance.uniqueIdMaster.GetComponent<UniqueIdMaster>();
 
-        if (!uniqueIdMaster.masterStrainProfileList.Contains(this))
+        if (!uniqueIdMaster.masterStrainProfileList.Contains(this) && itemComp != null)
             uniqueIdMaster.masterStrainProfileList.Add(this);
 
-        if (strainName.Equals(""))
+        if (!namedStrain)
             strainName = uniqueIdMaster.GetName(strainID);
 
     }
@@ -91,6 +93,8 @@ public class StrainProfile : MonoBehaviour
         primaryEffect = _strain.primaryEffect;
         secondaryEffect = _strain.secondaryEffect;
 
+        namedStrain = _strain.namedStrain;
+
         InventoryItem itemComp = GetComponent<InventoryItem>();
 
         if (itemComp != null)
@@ -106,11 +110,9 @@ public class StrainProfile : MonoBehaviour
     {
         strainName = _name;
 
-        if (itemComp != null)
-        {
             itemComp.itemName = _name;
             itemComp.SetItemName();
-        }
+        
     }
 
     public void GenerateTerpeneEffects()
@@ -704,6 +706,13 @@ public class StrainProfile : MonoBehaviour
 
     private void OnDestroy()
     {
-        uniqueIdMaster.masterStrainProfileList.Remove(this);
+        try
+        {
+            uniqueIdMaster.masterStrainProfileList.Remove(this);
+        }
+        catch
+        {
+            Debug.LogWarning("Error OnDestory in StrainProfile");
+        }
     }
 }

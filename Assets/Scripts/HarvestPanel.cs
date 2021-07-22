@@ -95,7 +95,7 @@ public class HarvestPanel : MonoBehaviour
         }
     }
 
-    public void HarvestSeeds(WeedPlant _plant, StrainProfile _strain)
+    public void HarvestSeeds(WeedPlant _plant, GameObject _bredSeedBag)
     {
         float bagsNeeded = _plant.actualSeedYield / maxPerBag;
         bagsNeeded += 0.5f; // to make sure it rounds up
@@ -113,7 +113,7 @@ public class HarvestPanel : MonoBehaviour
             }
             else
             {
-                newBag = Instantiate(seedBagPrefab, slots[i]);
+                newBag = Instantiate(_bredSeedBag, slots[i]); 
                 //newBrick.transform.position = new Vector2(0, 0);
                 newBagInventoryItem = newBag.GetComponent<InventoryItem>();
                 newBagInventoryItem.Lock(true);
@@ -130,13 +130,17 @@ public class HarvestPanel : MonoBehaviour
                 }
 
                 StrainProfile strainProf = newBag.GetComponent<StrainProfile>();
-                strainProf.SetStrain(_strain);
+                //strainProf.SetStrain(_strain);
+                strainProf.itemComp = newBagInventoryItem;
+                newBagInventoryItem.itemName = strainProf.strainName;
                 newBagInventoryItem.SetItemName();
 
                 newBag.transform.position = newBag.transform.parent.position;
             }
 
         }
+
+        Destroy(_bredSeedBag);
     }
 
     public void HarvestPlant(WeedPlant _plant, StrainProfile _strain)
@@ -175,26 +179,26 @@ public class HarvestPanel : MonoBehaviour
 
                 StrainProfile strainProf = newBrick.GetComponent<StrainProfile>();
                 strainProf.SetStrain(_strain);
-
+                newBrickInventoryItem.itemName = strainProf.strainName;
+                newBrickInventoryItem.SetItemName();
                 newBrick.transform.position = newBrick.transform.parent.position;
 
             }
         }
         else if (_plant.isPollinated && !_plant.isMale)
         {
-            StrainProfile newStrain;
+            GameObject newBredSeedBag = breederMaster.Breed(_plant, _plant.fatherPlantStrain); 
             if (_plant.currentStrain != _plant.fatherPlantStrain)
             {
-                newStrain = breederMaster.Breed(_plant, _plant.fatherPlantStrain);
                 print("New Strain Created");
             }
             else
             {
-                newStrain = _strain;
+                newBredSeedBag.GetComponent<StrainProfile>().SetStrain(_strain);
             }
             
 
-            HarvestSeeds(_plant, newStrain);
+            HarvestSeeds(_plant, newBredSeedBag);
         }
         else if (_plant.isMale)
         {

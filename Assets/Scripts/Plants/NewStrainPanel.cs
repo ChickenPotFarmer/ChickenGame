@@ -7,7 +7,6 @@ public class NewStrainPanel : MonoBehaviour
 {
     [Header("Status")]
     public List<StrainProfile> newStrainStack = new List<StrainProfile>();
-    public StrainProfile newStrain;
 
     [Header("Setup")]
     [SerializeField] private StrainProfile testStrain;
@@ -28,14 +27,15 @@ public class NewStrainPanel : MonoBehaviour
         if (newStrainStack.Count == 0)
         {
             newStrainStack.Add(_strain);
-            newStrain = newStrainStack[0];
-            strainInfoUI.SetStrainInfoActive(newStrain);
+            strainInfoUI.SetStrainInfoActive(newStrainStack[0]);
             SetStrainNamePanelActive(true);
 
         }
         else
         {
             newStrainStack.Add(_strain);
+            //newStrain.SetStrain(newStrainStack[0]);
+
 
         }
     }
@@ -58,25 +58,39 @@ public class NewStrainPanel : MonoBehaviour
 
     public void SetNewStrainName()
     {
-        uniqueIdMaster.SetNewName(newStrain.strainID, strainNameInput.text);
-        strainInfoUI.SetStrainInfoActive(newStrain);
-        SetStrainNamePanelActive(false);
-        newStrainStack.Remove(newStrain);
-
-        if (newStrainStack.Count != 0)
+        uniqueIdMaster.SetNewName(newStrainStack[0].strainID, strainNameInput.text);
+        newStrainStack[0].strainName = strainNameInput.text;
+        try
         {
-            newStrain = newStrainStack[0];
-            strainInfoUI.SetStrainInfoActive(newStrain);
-            SetStrainNamePanelActive(true);
+            newStrainStack[0].itemComp.SetItemName();
         }
+        catch
+        {
+            Debug.LogWarning("newStream.itemComp bug.");
+        }
+        SetStrainNamePanelActive(false);
+
+        strainInfoUI.UpdatePanel(newStrainStack[0]);
+
+        newStrainStack.Remove(newStrainStack[0]);
+
+        // put this in a routine
+        //if (newStrainStack.Count != 0)
+        //{
+        //    newStrain = newStrainStack[0];
+
+        //    SetStrainNamePanelActive(true);
+        //}
+
     }
 
-    //private void OnGUI()
-    //{
-    //    if (GUI.Button(new Rect(10, 10, 100, 50), "Test strain"))
-    //        OpenNewStrainPanel(testStrain);
+    private void OnGUI()
+    {
+        if (GUI.Button(new Rect(10, 10, 100, 50), "WTF"))
+            strainInfoUI.UpdatePanel(newStrainStack[0]);
 
-    //    //if (GUI.Button(new Rect(110, 10, 100, 50), "Rename strain 2"))
-    //    //    SetNewName("42042069", "IT WORKED TWICE!");
-    //}
+
+        //if (GUI.Button(new Rect(110, 10, 100, 50), "Rename strain 2"))
+        //    SetNewName("42042069", "IT WORKED TWICE!");
+    }
 }

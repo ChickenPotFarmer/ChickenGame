@@ -505,6 +505,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   strainName: Gorilla Glue
+  namedStrain: 1
   strainType: 2
   thcPercent: 0.2
   strainID: 42042069
@@ -528,6 +529,7 @@ MonoBehaviour:
   secondaryMaxRemaindar: 0.9
   lesserMinRemaindar: 0.7
   lesserMaxRemaindar: 0.9
+  itemComp: {fileID: 4515791340593937564}
 --- !u!114 &4515791340593937564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -544,6 +546,7 @@ MonoBehaviour:
   amount: 10
   maxAmount: 10
   isStrain: 1
+  isBrick: 0
   locked: 0
   inPlayerInventory: 0
   storeCost: 0

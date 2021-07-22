@@ -323,6 +323,7 @@ MonoBehaviour:
   secondaryMaxRemaindar: 0.9
   lesserMinRemaindar: 0.7
   lesserMaxRemaindar: 0.9
+  itemComp: {fileID: 6760439214409932130}
 --- !u!114 &6760439214409932130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -339,6 +340,7 @@ MonoBehaviour:
   amount: 10
   maxAmount: 10
   isStrain: 1
+  isBrick: 0
   locked: 0
   inPlayerInventory: 0
   storeCost: 0

@@ -58,6 +58,7 @@ public class StrainInfoUI : MonoBehaviour
 
     public void UpdatePanel(StrainProfile _strain)
     {
+        print("update panel fired");
         strainNameTxt.text = _strain.strainName;
 
         strainTypeTxt.text = _strain.GetStrainType();

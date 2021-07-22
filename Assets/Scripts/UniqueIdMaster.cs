@@ -42,7 +42,7 @@ public class UniqueIdMaster : MonoBehaviour
             newStrainID = GetNewID();
             _strain.SetUniqueID(newStrainID);
             breedingDictionary.Add(parentIds, newStrainID);
-            nameDictionary.Add(newStrainID, "New " + _strain.GetStrainType() + " Strain");
+            nameDictionary.Add(newStrainID, ""); //"New " + _strain.GetStrainType() + " Strain");
             print("Dictionary checked " + parentIds + ". Created a new ID:  " + newStrainID);
             newStrainPanel.OpenNewStrainPanel(_strain);
 

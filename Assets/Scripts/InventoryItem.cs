@@ -59,6 +59,7 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
         inventoryCanvas = inventoryController.inventoryCanvas;
 
         IntializeItem();
+        StartCoroutine(NameBugFixRoutine());
     }
 
     private void IntializeItem()
@@ -283,7 +284,7 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
     {
         if (uiAmount != null)
         {
-            if (itemName.Equals("Cash"))
+            if (itemName == "Cash")
                 uiAmount.text = "$" + amount.ToString();
             else
                 uiAmount.text = amount.ToString();
@@ -293,8 +294,25 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
 
     }
 
+    IEnumerator NameBugFixRoutine()
+    {
+        if (uiName != null && strainProfile != null)
+        {
+            do
+            {
+                if (itemName != strainProfile.strainName)
+                {
+                    itemName = strainProfile.strainName;
+                    SetItemName();
+                }
+                yield return new WaitForSeconds(0.2f);
+            } while (true);
+        }
+    }
+
     public void SetItemName()
     {
+        
         if (itemName == "")
         {
             StrainProfile strain = GetComponent<StrainProfile>();
@@ -310,8 +328,14 @@ public class InventoryItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandl
         }
         else
         {
-            if (!itemName.Equals("Cash"))
+            if (itemName != "Cash")
                 uiName.text = itemName;
         }
+
+        if (strainProfile != null)
+        {
+            itemName = strainProfile.strainName;
+            uiName.text = itemName;
+        }    
     }
 }

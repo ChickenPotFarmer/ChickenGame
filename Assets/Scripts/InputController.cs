@@ -191,7 +191,14 @@ public class InputController : MonoBehaviour
                             case "Trimmer Hub":
                                 if (InteractWith())
                                 {
-                                    hit.collider.gameObject.GetComponent<ObjectInventory>().SetPanelActive(true);
+                                    try
+                                    {
+                                        hit.collider.gameObject.GetComponent<ObjectInventory>().SetPanelActive(true);
+                                    }
+                                    catch
+                                    {
+                                        Debug.LogWarning("Object inventory not found");
+                                    }
                                 }
                                 break;
 

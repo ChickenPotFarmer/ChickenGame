@@ -54,13 +54,13 @@ public class BreederMaster : MonoBehaviour
             uniqueIdMaster = UniqueIdMaster.instance.uniqueIdMaster.GetComponent<UniqueIdMaster>();
     }
 
-    public StrainProfile Breed(WeedPlant _female, StrainProfile _male)
+    public GameObject Breed(WeedPlant _female, StrainProfile _male) // REPLACE WITH GAMEOBJECT <<<<<<<<<<<<<<<<<<<<<<<
     {
         if (newStrain != null)
             newStrain = null;
 
-        GameObject newStrainObj = new GameObject();
-        newStrain = newStrainObj.AddComponent<StrainProfile>();
+        GameObject newStrainObj = Instantiate(seedBagPrefab);
+        newStrain = newStrainObj.GetComponent<StrainProfile>();
 
         // If the parents are the same, return the mother as the strain.
         if (_male.strainID.Equals(_female.currentStrain.strainID))
@@ -102,8 +102,7 @@ public class BreederMaster : MonoBehaviour
             newStrain.GenerateTerpeneEffects(); // Make this more complicated. 1/3 chance for male side, 1/3 chance for female, 1/3 chance random.
         }
 
-        Destroy(newStrainObj, 2);
-        return newStrain;
+        return newStrainObj;
 
         //strainInfoUI.SetStrainInfoActive(newStrain);
     }
