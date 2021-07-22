@@ -1,5 +1,153 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1217479476510093984
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2421403029682180693}
+  - component: {fileID: 5243521976771994558}
+  m_Layer: 5
+  m_Name: Father Strain
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2421403029682180693
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1217479476510093984}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6760439214409932142}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5243521976771994558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1217479476510093984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecf034d1db44c054db4733138f8a2743, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  strainName: 
+  namedStrain: 0
+  strainType: 0
+  thcPercent: 0
+  strainID: 
+  mother: {fileID: 0}
+  father: {fileID: 0}
+  totalTerpenesPercent: 0
+  primaryTerpene: 0
+  secondaryTerpene: 0
+  lesserTerpene: 0
+  caryophyllene: 0
+  limonene: 0
+  linalool: 0
+  myrcene: 0
+  pinene: 0
+  terpinolene: 0
+  primaryEffect: 
+  secondaryEffect: 
+  primaryMin: 0
+  primaryMax: 0
+  secondaryMinRemaindar: 0
+  secondaryMaxRemaindar: 0
+  lesserMinRemaindar: 0
+  lesserMaxRemaindar: 0
+  itemComp: {fileID: 0}
+--- !u!1 &5244399042199080834
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1189309507056426560}
+  - component: {fileID: 9110545236878895119}
+  m_Layer: 5
+  m_Name: Mother Strain
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1189309507056426560
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5244399042199080834}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6760439214409932142}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &9110545236878895119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5244399042199080834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecf034d1db44c054db4733138f8a2743, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  strainName: 
+  namedStrain: 0
+  strainType: 0
+  thcPercent: 0
+  strainID: 
+  mother: {fileID: 0}
+  father: {fileID: 0}
+  totalTerpenesPercent: 0
+  primaryTerpene: 0
+  secondaryTerpene: 0
+  lesserTerpene: 0
+  caryophyllene: 0
+  limonene: 0
+  linalool: 0
+  myrcene: 0
+  pinene: 0
+  terpinolene: 0
+  primaryEffect: 
+  secondaryEffect: 
+  primaryMin: 0
+  primaryMax: 0
+  secondaryMinRemaindar: 0
+  secondaryMaxRemaindar: 0
+  lesserMinRemaindar: 0
+  lesserMaxRemaindar: 0
+  itemComp: {fileID: 0}
 --- !u!1 &6760439213677308112
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,6 +390,8 @@ RectTransform:
   m_Children:
   - {fileID: 6760439214312215975}
   - {fileID: 6760439214880580320}
+  - {fileID: 1189309507056426560}
+  - {fileID: 2421403029682180693}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -300,11 +450,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   strainName: 0
+  namedStrain: 0
   strainType: 0
   thcPercent: 0
   strainID: 
-  mother: {fileID: 0}
-  father: {fileID: 0}
+  mother: {fileID: 9110545236878895119}
+  father: {fileID: 5243521976771994558}
   totalTerpenesPercent: 0.0485
   primaryTerpene: 0
   secondaryTerpene: 0

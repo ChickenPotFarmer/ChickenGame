@@ -8,6 +8,22 @@ public class NewStrainPanel : MonoBehaviour
     [Header("Status")]
     public List<StrainProfile> newStrainStack = new List<StrainProfile>();
 
+    [Header("Panel Comps")]
+    [SerializeField] private TextMeshProUGUI motherName;
+    [SerializeField] private TextMeshProUGUI motherType;
+    [SerializeField] private TextMeshProUGUI motherThc;
+    [SerializeField] private TextMeshProUGUI motherTerpenes;
+
+    [SerializeField] private TextMeshProUGUI fatherName;
+    [SerializeField] private TextMeshProUGUI fatherType;
+    [SerializeField] private TextMeshProUGUI fatherThc;
+    [SerializeField] private TextMeshProUGUI fatherTerpenes;
+
+    [SerializeField] private TextMeshProUGUI newStrainName;
+    [SerializeField] private TextMeshProUGUI newStrainType;
+    [SerializeField] private TextMeshProUGUI newStrainThc;
+    [SerializeField] private TextMeshProUGUI newStrainTerpenes;
+
     [Header("Setup")]
     [SerializeField] private StrainProfile testStrain;
     [SerializeField] private StrainInfoUI strainInfoUI;

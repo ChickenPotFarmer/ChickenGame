@@ -72,9 +72,15 @@ public class BreederMaster : MonoBehaviour
             male = _male;
             female = _female.currentStrain;
 
+            // Strain type
             float strainTypeAvg = (male.strainType + female.strainType) / 2;
             newStrain.strainType = Mathf.RoundToInt(strainTypeAvg);
 
+            // Parents
+            newStrain.mother = _female.currentStrain;
+            newStrain.father = _male;
+
+            // ID
             uniqueIdMaster.GetID(_female.currentStrain.strainID, _male.strainID, newStrain);
 
             // THC Percent
@@ -101,6 +107,10 @@ public class BreederMaster : MonoBehaviour
 
             newStrain.GenerateTerpeneEffects(); // Make this more complicated. 1/3 chance for male side, 1/3 chance for female, 1/3 chance random.
         }
+
+        // set parents
+        newStrain.mother.SetStrain(_female.currentStrain);
+        newStrain.father.SetStrain(_male);
 
         return newStrainObj;
 

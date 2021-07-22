@@ -36,6 +36,8 @@ RectTransform:
   - {fileID: 4178686053218570000}
   - {fileID: 4178686052371458852}
   - {fileID: 4178686051796240136}
+  - {fileID: 3549832165114344387}
+  - {fileID: 7484917180448148890}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -108,11 +110,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   strainName: Test Brick
+  namedStrain: 0
   strainType: 0
   thcPercent: 0
   strainID: 
-  mother: {fileID: 0}
-  father: {fileID: 0}
+  mother: {fileID: 2947967546696732701}
+  father: {fileID: 6659383374021501216}
   totalTerpenesPercent: 0
   primaryTerpene: 0
   secondaryTerpene: 0
@@ -750,3 +753,151 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: WET
+--- !u!1 &7345935572837068578
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3549832165114344387}
+  - component: {fileID: 2947967546696732701}
+  m_Layer: 5
+  m_Name: Mother Strain
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3549832165114344387
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7345935572837068578}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4178686051518599495}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2947967546696732701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7345935572837068578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecf034d1db44c054db4733138f8a2743, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  strainName: 
+  namedStrain: 0
+  strainType: 0
+  thcPercent: 0
+  strainID: 
+  mother: {fileID: 0}
+  father: {fileID: 0}
+  totalTerpenesPercent: 0
+  primaryTerpene: 0
+  secondaryTerpene: 0
+  lesserTerpene: 0
+  caryophyllene: 0
+  limonene: 0
+  linalool: 0
+  myrcene: 0
+  pinene: 0
+  terpinolene: 0
+  primaryEffect: 
+  secondaryEffect: 
+  primaryMin: 0
+  primaryMax: 0
+  secondaryMinRemaindar: 0
+  secondaryMaxRemaindar: 0
+  lesserMinRemaindar: 0
+  lesserMaxRemaindar: 0
+  itemComp: {fileID: 0}
+--- !u!1 &8331594989290310491
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7484917180448148890}
+  - component: {fileID: 6659383374021501216}
+  m_Layer: 5
+  m_Name: Father Strain
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7484917180448148890
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8331594989290310491}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4178686051518599495}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6659383374021501216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8331594989290310491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecf034d1db44c054db4733138f8a2743, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  strainName: 
+  namedStrain: 0
+  strainType: 0
+  thcPercent: 0
+  strainID: 
+  mother: {fileID: 0}
+  father: {fileID: 0}
+  totalTerpenesPercent: 0
+  primaryTerpene: 0
+  secondaryTerpene: 0
+  lesserTerpene: 0
+  caryophyllene: 0
+  limonene: 0
+  linalool: 0
+  myrcene: 0
+  pinene: 0
+  terpinolene: 0
+  primaryEffect: 
+  secondaryEffect: 
+  primaryMin: 0
+  primaryMax: 0
+  secondaryMinRemaindar: 0
+  secondaryMaxRemaindar: 0
+  lesserMinRemaindar: 0
+  lesserMaxRemaindar: 0
+  itemComp: {fileID: 0}
