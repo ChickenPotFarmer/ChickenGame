@@ -152,6 +152,8 @@ namespace Michsky.UI.ModernUIPack
 					chartData[i].indicatorText.text = chartData[i].name;
 			}
 
+
+
 			if (indicatorParent != null)
 				StartCoroutine("UpdateIndicatorLayout");
 		}
@@ -159,7 +161,9 @@ namespace Michsky.UI.ModernUIPack
 		public void ChangeValue(int itemIndex, float itemValue)
         {
 			chartData[itemIndex].value = itemValue;
-        }
+			UpdateIndicators();
+
+		}
 
 		public void AddNewItem()
 		{
