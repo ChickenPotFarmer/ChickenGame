@@ -11,10 +11,12 @@ public class AutoPlanterChick : MonoBehaviour
     [Header("Settings")]
     public float cannonRange;
     public float cannonFireRate;
+    public float cannonVolume;
 
     [Header("Setup")]
     public Transform firePoint;
     [SerializeField] private NavMeshAgent navAgent;
+    [SerializeField] private AudioSource cannonSound;
     private PlanterChickHub planterHub;
 
     private void Start()
@@ -75,6 +77,8 @@ public class AutoPlanterChick : MonoBehaviour
                     newSeed.GetComponent<Seed>().currentStrain.SetStrain(ammoStrain);
                 else
                     Debug.LogWarning("Error in Auto Chick's SeedCannon, ammoStrain is null.");
+
+                cannonSound.PlayOneShot(cannonSound.clip);
 
                 target = null;
             }

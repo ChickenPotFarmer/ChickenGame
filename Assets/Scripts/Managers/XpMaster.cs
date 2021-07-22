@@ -80,7 +80,7 @@ public class XpMaster : MonoBehaviour
             //CalcXpToLvl();
         }
 
-        Alerts.DisplayMessage("+" + _amt + " XP!");
+        //Alerts.DisplayMessage("+" + _amt + " XP!");
 
     }
 

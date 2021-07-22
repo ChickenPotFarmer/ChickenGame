@@ -53,6 +53,7 @@ public class WeedPlant : MonoBehaviour
     public HarvestPanel harvestPanel;
 
     [Header("FX")]
+    [SerializeField] private AudioSource plantedSoundFx;
     public Transform fxParent;
     public GameObject plantedFx;
 
@@ -510,10 +511,13 @@ public class WeedPlant : MonoBehaviour
 
             if (seed.target == transform)
             {
+                plantedSoundFx.pitch = Random.Range(-2, 3);
+                plantedSoundFx.PlayOneShot(plantedSoundFx.clip);
                 SetStrainProfile(seed.currentStrain);
                 Plant();
                 Destroy(seed.gameObject);
                 Instantiate(plantedFx, fxParent);
+
             }
         }
     }
