@@ -45,7 +45,29 @@ public class StrainProfile : MonoBehaviour
     public float lesserMinRemaindar;
     public float lesserMaxRemaindar;
 
+    [Header("Setup")]
+    public InventoryItem itemComp;
+
     private UniqueIdMaster uniqueIdMaster;
+
+    private void Awake()
+    {
+        itemComp = GetComponent<InventoryItem>();
+    }
+
+    private void Start()
+    {
+
+        if (!uniqueIdMaster)
+            uniqueIdMaster = UniqueIdMaster.instance.uniqueIdMaster.GetComponent<UniqueIdMaster>();
+
+        if (!uniqueIdMaster.masterStrainProfileList.Contains(this))
+            uniqueIdMaster.masterStrainProfileList.Add(this);
+
+        if (strainName.Equals(""))
+            strainName = uniqueIdMaster.GetName(strainID);
+
+    }
 
     public void SetStrain(StrainProfile _strain)
     {
@@ -78,6 +100,17 @@ public class StrainProfile : MonoBehaviour
     public void SetUniqueID(string _id)
     {
         strainID = _id;
+    }
+
+    public void SetStrainName(string _name)
+    {
+        strainName = _name;
+
+        if (itemComp != null)
+        {
+            itemComp.itemName = _name;
+            itemComp.SetItemName();
+        }
     }
 
     public void GenerateTerpeneEffects()
@@ -667,5 +700,10 @@ public class StrainProfile : MonoBehaviour
         {
             Debug.Log("Primary Terpene Boost Failed");
         }
+    }
+
+    private void OnDestroy()
+    {
+        uniqueIdMaster.masterStrainProfileList.Remove(this);
     }
 }

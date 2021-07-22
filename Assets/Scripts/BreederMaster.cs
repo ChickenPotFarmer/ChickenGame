@@ -72,15 +72,14 @@ public class BreederMaster : MonoBehaviour
             male = _male;
             female = _female.currentStrain;
 
-            newStrain.SetUniqueID(uniqueIdMaster.GetID(_female.currentStrain.strainID, _male.strainID));
+            float strainTypeAvg = (male.strainType + female.strainType) / 2;
+            newStrain.strainType = Mathf.RoundToInt(strainTypeAvg);
+
+            uniqueIdMaster.GetID(_female.currentStrain.strainID, _male.strainID, newStrain);
 
             // THC Percent
             newStrain.thcPercent = (male.thcPercent + female.thcPercent) / 2; // add random factor to increase / decrease
             newStrain.thcPercent += newStrain.thcPercent * (Random.Range(0, maxThcBoost));
-
-            float strainTypeAvg = (male.strainType + female.strainType) / 2;
-            newStrain.strainType = Mathf.RoundToInt(strainTypeAvg);
-            newStrain.strainName = "New " + newStrain.GetStrainType() + " Strain";
 
 
             newStrain.totalTerpenesPercent = (male.totalTerpenesPercent + female.totalTerpenesPercent) / 2; // add random factor to increase / decrease

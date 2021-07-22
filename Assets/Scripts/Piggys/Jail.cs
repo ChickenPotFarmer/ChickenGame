@@ -93,9 +93,9 @@ public class Jail : MonoBehaviour
         }
     }
 
-    private void OnGUI()
-    {
-        if (GUI.Button(new Rect(10, 10, 50, 50), "Jail Chicken"))
-            JailChicken();
-    }
+    //private void OnGUI()
+    //{
+    //    if (GUI.Button(new Rect(10, 10, 50, 50), "Jail Chicken"))
+    //        JailChicken();
+    //}
 }

@@ -188,9 +188,10 @@ public class InputController : MonoBehaviour
                         switch (tagId)
                         {
                             case "Planter Hub":
+                            case "Trimmer Hub":
                                 if (InteractWith())
                                 {
-                                    hit.collider.gameObject.GetComponentInParent<PlanterChickHub>().SetPanelActive(true);
+                                    hit.collider.gameObject.GetComponent<ObjectInventory>().SetPanelActive(true);
                                 }
                                 break;
 

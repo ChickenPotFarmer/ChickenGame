@@ -26,4 +26,9 @@ public class ObjectInventory : MonoBehaviour
             inventoryActive = false;
         }
     }
+
+    public void ClosePanel()
+    {
+        SetPanelActive(false);
+    }
 }

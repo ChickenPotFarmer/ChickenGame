@@ -515,12 +515,6 @@ public class WeedPlant : MonoBehaviour
                 Destroy(seed.gameObject);
                 Instantiate(plantedFx, fxParent);
             }
-            else
-            {
-                print("ignore");
-
-
-            }
         }
     }
 }
