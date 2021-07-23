@@ -1383,7 +1383,6 @@ GameObject:
   - component: {fileID: 6532815363407048601}
   - component: {fileID: 3115848738909701189}
   - component: {fileID: 1371168982470490669}
-  - component: {fileID: 1259616449373587203}
   - component: {fileID: 1592618280438017331}
   - component: {fileID: 695129060552470159}
   - component: {fileID: 2721631382532077778}
@@ -1548,22 +1547,6 @@ MonoBehaviour:
   almostGrown: {fileID: 1514028515431291078}
   fullGrown: {fileID: 5675984098644819789}
   fullGrownClipped: {fileID: 388953409289097802}
---- !u!208 &1259616449373587203
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2567857705582666608}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 0
-  m_Extents: {x: 0.5, y: 1, z: 0.5}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
-  m_TimeToStationary: 0.5
 --- !u!114 &1592618280438017331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1613,9 +1596,9 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 3.7675467
+  m_Height: 3.000678
   m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0.67338705, z: -0.000000059604645}
+  m_Center: {x: 0.000000059604645, y: 0.28995275, z: -0.000000059604645}
 --- !u!54 &2721631382532077778
 Rigidbody:
   m_ObjectHideFlags: 0
