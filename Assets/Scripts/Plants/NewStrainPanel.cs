@@ -130,6 +130,11 @@ public class NewStrainPanel : MonoBehaviour
         SetPanelActive(false);
         newStrainStack.RemoveAt(0);
         newStrainRoutineActive = false;
+
+        if (newStrainStack.Count > 0)
+        {
+            StartCoroutine(SetNewStrainPanelActive(newStrainStack[0]));
+        }
     }
 
     private void SetStrainNamePanelActive(bool _active)

@@ -31,7 +31,7 @@ public class AutoTrimmerChick : MonoBehaviour
             inventoryController = InventoryController.instance.inventoryController.GetComponent<InventoryController>();
 
         if (!trimmerHub)
-            trimmerHub = TrimmerHub.instance.trimmerHub.GetComponent<TrimmerHub>();
+            trimmerHub = GetComponentInParent<TrimmerHub>();
     }
 
     public void SetTarget(WeedPlant _target)
@@ -63,7 +63,7 @@ public class AutoTrimmerChick : MonoBehaviour
 
                     trimmings = Random.Range(minTrimmings, maxTrimmings + 1);
 
-                    StartCoroutine(SpawnRoutine(trimmings));
+                    //StartCoroutine(SpawnRoutine(trimmings));
 
                     newTrimmings = Instantiate(uiTrimmingsPrefab);
                     trimmingsItem = newTrimmings.GetComponent<InventoryItem>();

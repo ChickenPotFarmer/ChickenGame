@@ -176,7 +176,7 @@ public class Trimmer : MonoBehaviour
                 if (!selectedPlant.harvested)
                 {
                     // this is stupid
-                    selectedPlant.harvestPanel.HarvestPlant(selectedPlant, selectedPlant.currentStrain);
+                    selectedPlant.harvestPanel.HarvestPlant(selectedPlant, selectedPlant.currentStrain, true);
 
                 }
                 else

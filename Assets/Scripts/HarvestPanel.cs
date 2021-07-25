@@ -143,9 +143,10 @@ public class HarvestPanel : MonoBehaviour
         Destroy(_bredSeedBag);
     }
 
-    public void HarvestPlant(WeedPlant _plant, StrainProfile _strain)
+    public void HarvestPlant(WeedPlant _plant, StrainProfile _strain, bool _openInventory)
     {
-        SetPanelActive(true);
+        if (_openInventory)
+            SetPanelActive(true);
 
         if (!_plant.isPollinated && !_plant.isMale)
         {
@@ -184,6 +185,8 @@ public class HarvestPanel : MonoBehaviour
                 newBrick.transform.position = newBrick.transform.parent.position;
 
             }
+            _plant.harvested = true;
+
         }
         else if (_plant.isPollinated && !_plant.isMale)
         {
@@ -199,10 +202,14 @@ public class HarvestPanel : MonoBehaviour
             
 
             HarvestSeeds(_plant, newBredSeedBag);
+            _plant.harvested = true;
+
         }
         else if (_plant.isMale)
         {
             HarvestTrimmings(_plant);
+            _plant.harvested = true;
+
         }
     }
 

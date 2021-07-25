@@ -496,7 +496,7 @@ public class PiggyPatrolController : MonoBehaviour
                 navAgent.SetDestination(transform.position + new Vector3(Random.Range(-20, 20), 0, Random.Range(-20, 20)));
             }
 
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.3f);
 
         } while (inPursuit && !chicken.isTazed);
         inPursuit = false;

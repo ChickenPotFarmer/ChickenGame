@@ -13,6 +13,7 @@ public class PlanterChickHub : MonoBehaviour
 
     [Header("Status")]
     public bool planterHubActive;
+    public bool randomlySelectSeeds;
     //public int availableAmmo;
 
     [Header("Settings")]
@@ -67,6 +68,8 @@ public class PlanterChickHub : MonoBehaviour
     {
         AutoPlanterChick availableChick;
         WeedPlant availablePlant;
+        yield return new WaitForSeconds(Random.Range(0, 5f));
+
         do
         {
             //if (availableAmmo > 0)
@@ -209,14 +212,22 @@ public class PlanterChickHub : MonoBehaviour
     public StrainProfile RequestAmmo()
     {
         StrainProfile ammoStrain = null;
-
+        int rand;
         if (seedBags.Count != 0)
         {
-            ammoStrain = seedBags[0].GetComponent<StrainProfile>();
-            seedBags[0].AddAmount(-1);
+            if (randomlySelectSeeds)
+            {
+                rand = Random.Range(0, seedBags.Count);
+            }
+            else
+            {
+                rand = 0;
+            }
+            ammoStrain = seedBags[rand].GetComponent<StrainProfile>();
+            seedBags[rand].AddAmount(-1);
 
-            if (seedBags[0].amount == 0)
-                seedBags.RemoveAt(0);
+            if (seedBags[rand].amount == 0)
+                seedBags.RemoveAt(rand);
         }
 
         return ammoStrain;

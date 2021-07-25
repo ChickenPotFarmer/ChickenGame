@@ -7,6 +7,10 @@ using Cinemachine;
 
 public class ThirdPersonController : MonoBehaviour
 {
+    [Header("Settings")]
+    [SerializeField] private int framesToStop;
+    [SerializeField] private int framesStopped;
+
     [Header("Status")]
     public bool movementActive;
     private bool cursorLocked;
@@ -112,8 +116,14 @@ public class ThirdPersonController : MonoBehaviour
                 if (movementActive)
                 {
                     navAgent.SetDestination(transform.position);
+                    navAgent.autoBraking = true;
                     movementActive = false;
                 }
+            }
+
+            if (movementActive && navAgent.autoBraking)
+            {
+                navAgent.autoBraking = false;
             }
         }
         else

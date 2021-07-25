@@ -447,6 +447,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chickRange: 5
   cannonFireRate: 1
+  stuckTimer: 0
   target: {fileID: 0}
   navAgent: {fileID: 883567913}
 --- !u!1 &1347002473
@@ -1298,7 +1299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   networkRadius: 100
-  networkSpeed: 1
+  networkSpeed: 2
   minWaterLvl: 80
   autoChicksParent: {fileID: 2344986222113189357}
   radarSphere: {fileID: 2344986221007679978}
@@ -3034,6 +3035,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chickRange: 5
   cannonFireRate: 1
+  stuckTimer: 0
   target: {fileID: 0}
   navAgent: {fileID: 8901258207903321618}
 --- !u!1 &8901299852440904755

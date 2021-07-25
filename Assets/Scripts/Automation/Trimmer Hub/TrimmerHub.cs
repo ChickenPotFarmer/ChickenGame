@@ -25,16 +25,6 @@ public class TrimmerHub : MonoBehaviour
 
     private InventoryController inventoryController;
 
-    public static TrimmerHub instance;
-    [HideInInspector]
-    public GameObject trimmerHub;
-
-    private void Awake()
-    {
-        instance = this;
-        trimmerHub = gameObject;
-    }
-
     private void Start()
     {
         if (!inventoryController)
@@ -61,6 +51,8 @@ public class TrimmerHub : MonoBehaviour
     private IEnumerator TrimmerHubRoutine()
     {
         WeedPlant availablePlant;
+        yield return new WaitForSeconds(Random.Range(0, 5f));
+
         do
         {
             targetChick = null;

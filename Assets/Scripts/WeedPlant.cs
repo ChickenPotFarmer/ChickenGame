@@ -452,7 +452,7 @@ public class WeedPlant : MonoBehaviour
             {
                 harvested = true;
                 chickenController.SetNewDestination(chickenController.transform.position);
-                harvestPanel.HarvestPlant(this, currentStrain);
+                Harvest(true);
             }
             yield return new WaitForSeconds(0.2f);
         } while (Time.time < endCheck && !harvested);
@@ -460,13 +460,13 @@ public class WeedPlant : MonoBehaviour
 
     }
 
-    public void Harvest()
+    public void Harvest(bool _activatePanel)
     {
-        if (!harvested)
+        if (!harvested && trimmed)
         {
             harvested = true;
             
-            harvestPanel.HarvestPlant(this, currentStrain);
+            harvestPanel.HarvestPlant(this, currentStrain, _activatePanel);
         }
     }
 
@@ -496,10 +496,14 @@ public class WeedPlant : MonoBehaviour
         targettedForDelete = false;
         targettedForWatering = false;
         targettedForSeeding = false;
+        targettedForHarvest = false;
+        targettedForTrimming = false;
         almostGrown.SetActive(false); //debug this
         femaleImg.SetActive(false);
         maleImg.SetActive(false);
         seedbagImg.SetActive(false);
+
+        growthBar.value = 0;
 
     }
 

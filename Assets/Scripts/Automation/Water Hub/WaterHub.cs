@@ -84,6 +84,8 @@ public class WaterHub : MonoBehaviour
     {
         targetChick = null;
         WeedPlant availablePlant;
+        yield return new WaitForSeconds(Random.Range(0, 5f));
+
         do
         {
             //if (availableAmmo > 0)
